@@ -15,10 +15,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Build
         run: cd build && ./build.sh
-      - name: just testing
-        run: ls && tree
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: result-artifact
-          path: ./foxford-tools.crx
+          path: ./build/foxford-tools.crx
