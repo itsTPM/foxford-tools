@@ -17,7 +17,7 @@ jobs:
         run: chmod +x build.sh
       - name: Zip
         run: ./zip.sh
-      - uses: cardinalby/webext-buildtools-chrome-crx-action@v2.0.3
+      - uses: cardinalby/webext-buildtools-chrome-crx-action@v2
         with:
           zipFilePath: 'foxford-tools.zip'
           crxFilePath: 'foxford-tools.crx'
