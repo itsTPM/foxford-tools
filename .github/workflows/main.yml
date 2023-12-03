@@ -23,9 +23,9 @@ jobs:
           zipFilePath: 'foxford-tools.zip'
           crxFilePath: 'foxford-tools.crx'
           privateKey: ${{ secrets.CHROME_CRX_PRIVATE_KEY }}
+          updateXmlPath: 'update.xml'
+          updateXmlCodebaseUrl: 'https://update.itstpm.tech/foxford-tools.crx'
       - uses: actions/upload-artifact@v3
         with:
           name: chrome
           path: 'foxford-tools.crx'
-          updateXmlPath: 'update.xml'
-          updateXmlCodebaseUrl: 'https://update.itstpm.tech/foxford-tools.crx'
