@@ -1,0 +1,10 @@
+{
+    "addons": {
+      "foxford-tools@foxford-tools": {
+        "updates": [
+          { "version": "1.0",
+              "update_link": "https://github.com/itsTPM/foxford-tools/releases/download/v1.0.0/foxford-tools.xpi" }
+          ]
+      }
+    }
+  }
