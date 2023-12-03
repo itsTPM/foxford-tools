@@ -23,3 +23,7 @@ jobs:
           zipFilePath: 'foxford-tools.zip'
           crxFilePath: 'foxford-tools.crx'
           privateKey: ${{ secrets.CHROME_CRX_PRIVATE_KEY }}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: chrome
+          path: 'foxford-tools.crx'
