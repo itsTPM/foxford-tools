@@ -13,9 +13,6 @@ NAME="foxford-tools"
 # Remove existing files
 rm -f $NAME.crx $NAME.xpi
 
-mkdir output
-cd output
-
 # Generate Chrome .crx
 7z a -tzip -mx9 $NAME.crx $CHROME_FILES
 
