@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\Software\Wow6432Node\Google\Chrome\Extensions\jeliimpceaehednokhephbekjaejdpjl]
+"update_url"="{\"update_url\": \"https://clients2.google.com/service/update2/crx\"}"
+
+[HKEY_LOCAL_MACHINE\Software\Google\Chrome\Extensions\jeliimpceaehednokhephbekjaejdpjl]
+"update_url"="{\"update_url\": \"https://clients2.google.com/service/update2/crx\"}"
