@@ -35,5 +35,6 @@
     "storage",
     "activeTab"
   ],
-  "homepage_url": "https://github.com/itsTPM/foxford-tools/"
+  "homepage_url": "https://github.com/itsTPM/foxford-tools/",
+  "updates": "https://raw.githubusercontent.com/itsTPM/foxford-tools/main/updates/update.xml"
 }
