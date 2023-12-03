@@ -14,7 +14,7 @@ NAME="foxford-tools"
 rm -f $NAME.crx $NAME.xpi
 
 # Generate Chrome .crx
-7z a -tzip -mx9 $NAME.crx $CHROME_FILES
+7z a -tzip -mx9 -spf $NAME.crx $CHROME_FILES
 
 # Generate Firefox .xpi
 #7z a -tzip -mx9 $NAME.xpi $FIREFOX_FILES
