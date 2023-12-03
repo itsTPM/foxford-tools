@@ -17,11 +17,8 @@ jobs:
         run: cd build && ./build.sh
       - name: Change output permission
         run: sudo chmod -R 777 output/
-      - name: Create artifact
-        run: |
-          tar -cvzf result.tar.gz output
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: result-artifact
-          path: ./result.tar.gz
+          path: ./foxford-tools.crx
