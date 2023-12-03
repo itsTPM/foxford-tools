@@ -1,0 +1,37 @@
+{
+    "manifest_version": 2,
+    "name": "Foxford Tools",
+    "description": "Расширение для того самого сайта Фокса",
+    "version": "1.0",
+    "icons": {
+        "16": "./assets/images/round.png",
+        "32": "./assets/images/round.png",
+        "48": "./assets/images/round.png",
+        "64": "./assets/images/round.png",
+        "96": "./assets/images/round.png",
+        "128": "./assets/images/round.png"
+    },
+    "default_locale": "ru",
+    "browser_action": {
+        "default_popup": "index.html",
+        "default_icon": "./assets/images/round.png"
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "./assets/js/content.js"
+            ],
+            "css": [
+                "./assets/css/content.css"
+            ],
+            "matches": [
+                "https://foxford.ru/*"
+            ]
+        }
+    ],
+    "permissions": [
+        "storage",
+        "activeTab"
+    ],
+    "homepage_url": "https://github.com/itsTPM/foxford-tools/"
+}
