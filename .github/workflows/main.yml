@@ -15,8 +15,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Build
         run: cd build && ./build.sh
-      - name: Change output permission
-        run: sudo chmod -R 777 output/
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
