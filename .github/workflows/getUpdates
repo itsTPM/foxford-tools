@@ -1,0 +1,27 @@
+name: getUpdates
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Get updates file
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Chmod
+        run: chmod +x zip.sh
+      - name: Zip
+        run: ./zip.sh
+      - uses: cardinalby/webext-buildtools-chrome-crx-action@v2
+        with:
+          zipFilePath: 'foxford-tools.zip'
+          crxFilePath: 'foxford-tools.crx'
+          privateKey: ${{ secrets.CHROME_CRX_PRIVATE_KEY }}
+          updateXmlPath: 'update.xml'
+          updateXmlCodebaseUrl: 'https://update.itstpm.tech/foxford-tools.crx'
+      - uses: actions/upload-artifact@v3
+        with:
+          name: updates
+          path: 'update.xml'
