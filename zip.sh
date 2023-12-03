@@ -10,16 +10,6 @@ FIREFOX_FILES="$EXT_FILES"
 
 NAME="foxford-tools"
 
-# Remove existing files
-rm -f $NAME.crx $NAME.xpi
+rm -f $NAME.zip $NAME.xpi
 
-# Generate Chrome .crx
-7z a -tzip -mx9 -spf $NAME.crx $CHROME_FILES
-
-# Generate Firefox .xpi
-#7z a -tzip -mx9 $NAME.xpi $FIREFOX_FILES
-#7z rn $NAME.xpi temp-ff-manifest.json manifest.json
-
-# Remove temp files
-#echo "\nDeleting temp files..."
-#rm -v temp-chrome-manifest.json temp-ff-manifest.json
+7z a -tzip -mx9 -spf $NAME.zip $CHROME_FILES
