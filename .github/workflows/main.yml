@@ -27,3 +27,5 @@ jobs:
         with:
           name: chrome
           path: 'foxford-tools.crx'
+          updateXmlPath: 'update.xml'
+          updateXmlCodebaseUrl: 'https://update.itstpm.tech/foxford-tools.crx'
