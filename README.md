@@ -14,10 +14,12 @@
 ## Установка
 Три варианта на выбор:
 ### Быстрая
-1. Нажать [вот сюда](https://github.com/itsTPM/foxford-tools/releases/download/preview-build/foxford-tools.crx)
-2. Добавить расширение в браузер
-3. Закрепить на верхней панели (важно)
-4. Открыть на сайте Фокса и включить нужные настройки
+1. Зайти [сюда](https://raw.githubusercontent.com/itsTPM/foxford-tools/main/fixChromeCheck.reg), нажать Ctrl+S и куда-нибудь сохранить (скрипт, который дает установить это расширение без публикации в магазине Chrome)
+2. Открыть reg-файл и применить изменения
+3. Нажать [вот сюда](https://github.com/itsTPM/foxford-tools/releases/download/preview-build/foxford-tools.crx)
+4. Добавить расширение в браузер
+5. Закрепить на верхней панели (важно)
+6. Открыть на сайте Фокса и включить нужные настройки
 ### Выбор версии
 1. Нажать [вот сюда](https://github.com/itsTPM/foxford-tools/releases)
 2. Выбрать нужную версию и скачать билд
