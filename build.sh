@@ -15,9 +15,9 @@ rm -f $NAME.crx $NAME.xpi
 
 # Generate Chrome .crx
 7z a -tzip -mx9 -spf $NAME.crx $CHROME_FILES
-7z rn $NAME.crx ".\index.html" "index.html"
-7z rn $NAME.crx ".\assets" "assets"
-7z rn $NAME.crx ".\manifest.json" "manifest.json"
+7z rn ./foxford-tools.crx .\index.html index.html
+7z rn ./foxford-tools.crx .\assets assets
+7z rn ./foxford-tools.crx .\manifest.json manifest.json
 # Generate Firefox .xpi
 #7z a -tzip -mx9 $NAME.xpi $FIREFOX_FILES
 #7z rn $NAME.xpi temp-ff-manifest.json manifest.json
