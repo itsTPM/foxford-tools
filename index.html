@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/popup.css">
+    <title>Foxford Tools</title>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <img id="logo">
+            <div class="text">
+                <h1 class="name">Foxford Tools</h1>
+                <span>кастомизация сайта Фокса</span>
+            </div>
+        </header>
+        <main>
+            <div class="checkboxes">
+                <div class="checkbox">
+                    <input type="checkbox" id="timeSetup" />
+                    <label for="timeSetup">Отображение времени чтения теории</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="homeworkPercentSetup" />
+                    <label for="homeworkPercentSetup">Отображение процента для ДЗ</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="webinarPercentSetup" />
+                    <label for="webinarPercentSetup">Отображение процента для вебинаров</label>
+                </div>
+            </div>
+            <div class="refreshPage hidden" id="refreshPage">
+                <span>Чтобы применить изменения, обновите страницу</span>
+                <button class="button" id="refreshButton">Обновить</button>
+            </div>
+        </main>
+
+    </div>
+    <footer class="footer">
+        <span>Версия <span id="version">???</span></span>
+        <a href="#" id="openGitHub" class="link">GitHub</a>
+    </footer>
+    <script src="./assets/js/index.js" type="module"></script>
+</body>
+
+</html>
