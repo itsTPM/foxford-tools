@@ -8,7 +8,7 @@ EXT_FILES="$JS_FILES $HTML_FILES $IMG_FILES $CSS_FILES"
 CHROME_FILES="$EXT_FILES ../manifest.json"
 FIREFOX_FILES="$EXT_FILES"
 
-NAME="foxford-tools"
+NAME="output/foxford-tools"
 
 # Remove existing files
 rm -f $NAME.crx $NAME.xpi
