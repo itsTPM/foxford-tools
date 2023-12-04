@@ -8,9 +8,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelector(`#${id}`).checked = item === null ? false : item === 'true';
     });
     // вытаскиваем данные из манифеста и мета-файла 
-    const [manifest, meta] = await Promise.all([
+    const [manifest, meta, themes] = await Promise.all([
         fetch('../../manifest.json').then(response => response.json()),
-        fetch('../../meta.json').then(response => response.json())
+        fetch('../../meta.json').then(response => response.json()),
+        fetch('../../themes.json').then(response => response.json())
     ]);
     // заполняем элементы страницы данными из манифеста и мета-файла 
     const [versionElement, logoElement, nameElement, commitElement] = 
@@ -58,4 +59,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             chrome.storage.local.set({ [id]: e.target.checked });
         });
     }
+    // темы
+    const themesIndex = await fetch('../../themes.json').then(response => response.json());
+    const themesData = await Promise.all(themesIndex.map(theme => fetch(`../../themes/${theme}`).then(response => response.json())));
+    createThemeSelector(themesData);
 });
+
+function createThemeSelector(themes) {
+    const themeSelector = document.getElementById('theme');
+
+    themes.forEach(theme => {
+        const option = document.createElement('option');
+        option.value = theme.name.toLowerCase();
+        option.textContent = theme.name;
+        themeSelector.appendChild(option);
+    });
+
+    themeSelector.addEventListener('change', function() {
+        document.body.className = this.value;
+    });
+}
