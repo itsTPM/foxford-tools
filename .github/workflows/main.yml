@@ -23,7 +23,7 @@ jobs:
       - name: Create JSON with commit info
         run: |
           echo '{
-            "sha_short": "'"$sha_short"'",
+            "sha": "'"$sha_short"'",
             "branch": "'"$branch"'"
           }' > ./src/meta.json
       - name: Fix zip script permissions
