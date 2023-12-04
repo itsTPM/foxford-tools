@@ -14,10 +14,12 @@ window.addEventListener('load', async () => {
 
     const versionElement = document.getElementById("version");
     const logoElement = document.getElementById("logo");
+    const nameElement = document.getElementById("name");
     const commitElement = document.getElementById("commit");
 
     versionElement.textContent = manifest.version_name;
     logoElement.src = manifest.action.default_icon;
+    nameElement.textContent = manifest.name;
     commitElement.textContent = meta.sha;
 
     const inputs = ['timeSetup', 'homeworkPercentSetup', 'webinarPercentSetup'];
@@ -30,7 +32,7 @@ window.addEventListener('load', async () => {
         });
     });
 
-    document.getElementById('openGitHub').addEventListener('click', () => {
+    document.getElementById('openHomePage').addEventListener('click', () => {
         chrome.tabs.create({ url: 'https://github.com/itsTPM/foxford-tools' });
     });
 
