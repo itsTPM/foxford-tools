@@ -9,8 +9,8 @@ window.addEventListener('load', async () => {
     document.querySelector('#homeworkPercentSetup').checked = homeworkPercentSetup === null ? false : homeworkPercentSetup === 'true';
     document.querySelector('#webinarPercentSetup').checked = webinarPercentSetup === null ? false : webinarPercentSetup === 'true';
 
-    const manifest = (await fetch('../../manifest.json')).json();
-    const meta = (await fetch('../../meta.json')).json();
+    const manifest = await (await fetch('../../manifest.json')).json();
+    const meta = await (await fetch('../../meta.json')).json();
 
     const versionElement = document.getElementById("version");
     const logoElement = document.getElementById("logo");
