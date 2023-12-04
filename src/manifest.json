@@ -31,6 +31,10 @@
       ]
     }
   ],
+  "background": {
+    "service_worker": "./assets/js/background.js",
+    "type": "module"
+  },
   "permissions": [
     "storage",
     "activeTab"

@@ -88,10 +88,5 @@ function createThemeSelector(themes) {
 }
 
 function injectCSS(theme) {
-    const cssCode = `let link = document.createElement('link');
-                     link.rel = 'stylesheet';
-                     link.href = '${chrome.runtime.getURL(`themes/${theme}.css`)}';
-                     document.head.appendChild(link);`;
-
-    chrome.tabs.executeScript({code: cssCode});
+    chrome.runtime.sendMessage({action: 'injectCSS', theme: theme});
 }
