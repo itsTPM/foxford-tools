@@ -27,16 +27,16 @@ jobs:
             "branch": "'"$branch"'"
           }' > ./src/meta.json
       - name: Create themes index
-      run: |
-        files=$(ls ./src/themes/*.json)
-        json="["
-        for file in $files
-        do
-          filename=$(basename "$file")
-          json="$json\"$filename\","
-        done
-        json="${json::-1}]"
-        echo $json > ./src/themes.json
+        run: |
+          files=$(ls ./src/themes/*.json)
+          json="["
+          for file in $files
+          do
+            filename=$(basename "$file")
+            json="$json\"$filename\","
+          done
+          json="${json::-1}]"
+          echo $json > ./src/themes.json
       - name: Fix zip script permissions
         run: chmod +x ./scripts/zip.sh
       - name: Run zip script
