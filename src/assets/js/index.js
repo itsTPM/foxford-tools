@@ -9,14 +9,15 @@ window.addEventListener('load', async () => {
     document.querySelector('#homeworkPercentSetup').checked = homeworkPercentSetup === null ? false : homeworkPercentSetup === 'true';
     document.querySelector('#webinarPercentSetup').checked = webinarPercentSetup === null ? false : webinarPercentSetup === 'true';
 
-    const manifest = await (await fetch('../../manifest.json')).json();
-    const meta = await (await fetch('../../meta.json')).json();
-
-    const versionElement = document.getElementById("version");
-    const logoElement = document.getElementById("logo");
-    const nameElement = document.getElementById("name");
-    const commitElement = document.getElementById("commit");
-
+    const [manifest, meta] = await Promise.all([
+        fetch('../../manifest.json').then(response => response.json()),
+        fetch('../../meta.json').then(response => response.json())
+    ]);
+    
+    const [versionElement, logoElement, nameElement, commitElement] = 
+          ['version', 'logo', 'name', 'commit']
+          .map(id => document.getElementById(id));
+    
     versionElement.textContent = manifest.version_name;
     logoElement.src = manifest.action.default_icon;
     nameElement.textContent = manifest.name;
