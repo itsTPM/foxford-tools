@@ -1,0 +1,140 @@
+/* Адовые приколы, сюда не смотреть */
+body {
+	background-color: #121212;
+    color: #e0e0e0 !important;
+}
+
+div[class^="styled__Wrapper-"] a {
+  color: #e0e0e0 !important;
+}
+
+div[class^="styled__Wrapper-"] a.active {
+  color: rgb(255, 115, 43) !important;
+}
+
+
+html > body > div:nth-of-type(2) > div > div:first-of-type > div:nth-of-type(2) > div:nth-of-type(2) > div > div:nth-of-type(2) > div:nth-of-type(2) > div:first-of-type > div > div > div {
+	color: #e0e0e0 !important
+}
+
+
+html > body > div:nth-of-type(2) > div > div:first-of-type > div:nth-of-type(2) > div:nth-of-type(2) > div > div:nth-of-type(2) > div:first-of-type > div > div:first-of-type {
+	color: #e0e0e0 !important;
+}
+
+
+html > body > div:nth-of-type(2) > div > div:first-of-type > div:nth-of-type(2) > div:first-of-type > div > div:nth-of-type(2)::before {
+	background-image: linear-gradient(90deg, transparent 0%, rgb(15, 15, 15) 100%) !important;
+}
+
+
+html > body > div:nth-of-type(2) > div > div:first-of-type > div:nth-of-type(2) > div:first-of-type > div > div:first-of-type {
+	overflow: hidden !important;
+}
+
+
+html > body > div:nth-of-type(2) > div > div:first-of-type > div:nth-of-type(2) > div:first-of-type > div {
+	border-bottom: 1px solid #333
+}
+
+
+html > body > div:nth-of-type(2) > div > div:first-of-type > div:nth-of-type(2) > div:nth-of-type(2) > div > div:first-of-type > div > div > div > div {
+	background-color: rgba(255,255,255,0.05) !important;
+  border: 1px solid #333;
+}
+
+
+html > body > div:nth-of-type(2) > div > div:first-of-type > div:nth-of-type(2) > div:nth-of-type(2) > div > div:first-of-type > div > div > div::after {
+	display: none !important;
+}
+
+
+html > body > div:nth-of-type(2) > div > div:first-of-type > div:nth-of-type(2) > div:nth-of-type(2) > div > div:nth-of-type(2) > div:first-of-type {
+	background: rgba(255,255,255,0.05) !important;
+  border: 1px solid #333;
+}
+
+.fYVvAq, 
+.styled__GoToButton-djaZKv {
+		background: rgba(255,255,255,0.05) !important;
+  border: 1px solid #333;
+}
+
+.fYVvAq * {
+	  color: #e0e0e0 !important;
+}
+
+.itnFmi {
+	background-color: rgba(0,0,0,0.1) !important;
+  border: 1px solid #333;
+}
+
+.hlGTog {
+	background: none !important;
+      
+}
+
+.jooZWV {
+  background: none !important;
+  border: 2px solid rgb(255, 115, 43, 0.1) !important;
+
+}
+
+.kVXQYh {
+ color: rgb(255, 115, 43) !important;
+  border-radius: 4px 4px 0px 0px;
+  background-color: rgb(255, 115, 43, 0.1) !important;
+}
+
+.iUzzqh *::before {
+    background: rgb(51,95,116) !important;
+}
+
+.iUzzqh *[class*="styled__Progress"]{
+    background: rgb(175 175 175) !important;
+}
+
+.kcfZtb,
+.isrHCz {
+	background: #111 !important;
+  color: #e0e0e0
+}
+
+.hXmnmG {
+	background-color: none !important;
+  box-shadow: none !important
+}
+
+.gXTAGK {
+	background-color: none !important;
+  box-shadow: none !important
+}
+
+input {
+	background: none !important;
+    border: 1px solid #333 !important;
+
+}
+
+#foxNavMenuButton {
+  background: none !important;
+  border: 1px solid #333 !important;
+}
+
+.kZYbJD {
+  color: #e0e0e0 !important;
+}
+
+.bxfZIi {
+  color: #e0e0e0 !important;
+}
+
+.fox-Button {
+  background: none !important;
+  border: 1px solid #333 !important;
+}
+
+*[class*="action__Text"],
+.fox-Anchor {
+	color: #2a9bd1 !important;
+}
