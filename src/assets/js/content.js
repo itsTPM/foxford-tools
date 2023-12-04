@@ -8,8 +8,8 @@ chrome.storage.local.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSe
     init();
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const selectedTheme = localStorage.getItem('selectedTheme');
+chrome.storage.local.get(['selectedTheme'], function(result) {
+    const selectedTheme = result.selectedTheme;
     if (selectedTheme) {
         const linkElement = document.createElement('link');
         linkElement.rel = 'stylesheet';

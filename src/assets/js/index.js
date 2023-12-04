@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const selectedTheme = localStorage.getItem('selectedTheme');
     if (selectedTheme) {
-        injectCSS(selectedTheme);
+        document.getElementById('theme').value = selectedTheme;
     }
 });
 
@@ -82,11 +82,8 @@ function createThemeSelector(themes) {
     });
 
     themeSelector.addEventListener('change', function() {
-        localStorage.setItem('selectedTheme', this.value);
-        injectCSS(this.value);
+        const theme = this.value;
+        localStorage.setItem('selectedTheme', theme);
+        chrome.storage.local.set({selectedTheme: theme});
     });
-}
-
-function injectCSS(theme) {
-    chrome.runtime.sendMessage({action: 'injectCSS', theme: theme});
 }
