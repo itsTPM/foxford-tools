@@ -31,7 +31,7 @@ async function fetchTaskJsonWithCache(url) {
     } else {
         const response = await fetch(url);
         const data = await response.json();
-        const taskSolved = data.status === "solved" || data.status === "partially" || data.status === "failed";
+        const taskSolved = data.answer_status === "solved" || data.answer_status === "partially" || data.answer_status === "failed";
         if (taskSolved) {
             // Если задача решена, кэшируем результат
             localStorage.setItem(url, JSON.stringify(data));
