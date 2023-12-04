@@ -18,7 +18,8 @@ async function fetchTasksJsonWithCache(url) {
         const allTasksSolved = Array.isArray(data) && data.every(task => task.status === "solved" || task.status === "partially" || task.status === "failed");
         if (allTasksSolved) {
             // Если все задачи решены, кэшируем результат
-            localStorage.setItem(url, JSON.stringify(data));
+            const cacheData = data.map(task => ({ status: task.status, id: task.id }));
+            localStorage.setItem(url, JSON.stringify(cacheData));
         }
         return data;
     }
@@ -34,11 +35,11 @@ async function fetchTaskJsonWithCache(url) {
         const taskSolved = data.answer_status === "solved" || data.answer_status === "partially" || data.answer_status === "failed";
         if (taskSolved) {
             // Если задача решена, кэшируем результат
-            localStorage.setItem(url, JSON.stringify(data));
+            const cacheData = { answer_status: data.answer_status, gained_xp: data.gained_xp };
+            localStorage.setItem(url, JSON.stringify(cacheData));
         }
         return data;
     }
-
 }
 
 let currentURL = location.href;
