@@ -8,23 +8,37 @@ chrome.storage.local.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSe
     init();
 });
 
-async function fetchWithCache(url) {
+async function fetchTasksJsonWithCache(url) {
     const cachedData = localStorage.getItem(url);
     if (cachedData) {
         return JSON.parse(cachedData);
+    } else {
+        const response = await fetch(url);
+        const data = await response.json();
+        const allTasksSolved = Array.isArray(data) && data.every(task => task.status === "solved" || task.status === "partially" || task.status === "failed");
+        if (allTasksSolved) {
+            // Если все задачи решены, кэшируем результат
+            localStorage.setItem(url, JSON.stringify(data));
+        }
+        return data;
+    }
+}
+
+async function fetchTaskJsonWithCache(url) {
+    const cachedData = localStorage.getItem(url);
+    if (cachedData) {
+        return JSON.parse(cachedData);
+    } else {
+        const response = await fetch(url);
+        const data = await response.json();
+        const taskSolved = data.status === "solved" || data.status === "partially" || data.status === "failed";
+        if (taskSolved) {
+            // Если задача решена, кэшируем результат
+            localStorage.setItem(url, JSON.stringify(data));
+        }
+        return data;
     }
 
-    const response = await fetch(url);
-    const data = await response.json();
-
-    const allTasksSolved = Array.isArray(data) && data.every(task => task.status === "solved" || task.status === "partially" || task.status === "failed");
-
-    if (allTasksSolved) {
-        // Если все задачи решены, кэшируем результат
-        localStorage.setItem(url, JSON.stringify(data));
-    }
-
-    return data;
 }
 
 let currentURL = location.href;
@@ -111,11 +125,11 @@ async function init() {
                 const homeworkLink = elm.parentNode.href
                 const homeworkId = homeworkLink.match(/[0-9]+/g);
                 const apiLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks`
-                const apiJson = await fetchWithCache(apiLink).catch(err => { throw err });
+                const apiJson = await fetchTasksJsonWithCache(apiLink).catch(err => { throw err });
 
                 const fetchPromises = apiJson.map(element => {
                     const taskLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks/${element.id}`
-                    return fetchWithCache(taskLink).catch(err => { throw err });
+                    return fetchTaskJsonWithCache(taskLink).catch(err => { throw err });
                 });
 
                 const taskJsons = await Promise.all(fetchPromises);
