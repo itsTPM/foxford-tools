@@ -1,6 +1,6 @@
 console.log("Script loaded");
 
-window.addEventListener('load', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const inputs = ['timeSetup', 'homeworkPercentSetup', 'webinarPercentSetup'];
     // определяем состояние чекбоксов 
     inputs.forEach(id => {
