@@ -39,13 +39,19 @@ window.addEventListener('load', async () => {
         window.close();
     });
 
-    document.getElementById('tab1-button').addEventListener('click', function() {
-        document.getElementById('tab1-content').classList.add('active');
-        document.getElementById('tab2-content').classList.remove('active');
+    document.querySelector('.tabs').addEventListener('click', function(event) {
+        if (event.target.classList.contains('tab-button')) {
+            const tabNumber = event.target.id.split('tab')[1].split('-')[0];
+            switchTab(tabNumber);
+        }
     });
     
-    document.getElementById('tab2-button').addEventListener('click', function() {
-        document.getElementById('tab2-content').classList.add('active');
-        document.getElementById('tab1-content').classList.remove('active');
-    });
+    function switchTab(tabNumber) {
+        document.querySelectorAll('.tab-content, .tab-button').forEach(element => {
+            element.classList.remove('active');
+        });
+    
+        document.getElementById(`tab${tabNumber}-content`).classList.add('active');
+        document.getElementById(`tab${tabNumber}-button`).classList.add('active');
+    }
 });
