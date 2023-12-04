@@ -21,8 +21,8 @@ jobs:
         run: ./scripts/zip.sh
       - uses: cardinalby/webext-buildtools-chrome-crx-action@v2
         with:
-          zipFilePath: 'foxford-tools.zip'
-          crxFilePath: 'foxford-tools.crx'
+          zipFilePath: '../foxford-tools.zip'
+          crxFilePath: '../foxford-tools.crx'
           privateKey: ${{ secrets.CHROME_CRX_PRIVATE_KEY }}
       - uses: actions/upload-artifact@v3
         with:
