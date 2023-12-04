@@ -75,11 +75,11 @@ main {
 .link {
     color: #7C93C3;
     text-decoration: none;
-    transition: color 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: color 0.33s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .link:hover {
-    font-size: 20px;
+    color: #422aad;
 }
 
 .refreshPage {
