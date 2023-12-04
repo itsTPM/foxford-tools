@@ -1,1 +1,9 @@
-{}
+{
+    "name": "Dark",
+    "author": "itsTPM",
+    "version": "dev",
+    "active": true,
+    "haveCSS": true,
+    "haveSASS": false,
+    "haveJS": false
+}
