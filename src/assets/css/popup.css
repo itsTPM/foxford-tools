@@ -45,7 +45,7 @@ main {
     display: flex;
     flex-direction: column;
     text-align: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .checkbox {
@@ -186,4 +186,9 @@ main {
 
 .tab-button.active:hover {
     background-color: #9ba8c4;
+}
+
+.extInfo {
+    display: flex;
+    gap: 15px;
 }
