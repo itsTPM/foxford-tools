@@ -8,6 +8,16 @@ chrome.storage.local.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSe
     init();
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const selectedTheme = localStorage.getItem('selectedTheme');
+    if (selectedTheme) {
+        const linkElement = document.createElement('link');
+        linkElement.rel = 'stylesheet';
+        linkElement.href = chrome.runtime.getURL(`themes/${selectedTheme}.css`);
+        document.head.appendChild(linkElement);
+    }
+});
+
 async function fetchTasksJsonWithCache(url) {
     const cachedData = localStorage.getItem(url);
     if (cachedData) {

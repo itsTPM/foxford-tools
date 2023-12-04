@@ -62,7 +62,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // темы
     const themesIndex = await fetch('../../themes.json').then(response => response.json());
     const themesData = await Promise.all(themesIndex.map(theme => fetch(`../../themes/${theme}`).then(response => response.json())));
+
     createThemeSelector(themesData);
+
+    const selectedTheme = localStorage.getItem('selectedTheme');
+    if (selectedTheme) {
+        chrome.tabs.insertCSS({file: `themes/${selectedTheme}.css`});
+    }
 });
 
 function createThemeSelector(themes) {
@@ -76,6 +82,7 @@ function createThemeSelector(themes) {
     });
 
     themeSelector.addEventListener('change', function() {
-        document.body.className = this.value;
+        localStorage.setItem('selectedTheme', this.value);
+        chrome.tabs.insertCSS({file: `themes/${this.value}.css`});
     });
 }
