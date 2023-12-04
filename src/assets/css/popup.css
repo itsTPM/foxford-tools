@@ -76,6 +76,7 @@ main {
     color: #7C93C3;
     text-decoration: none;
     transition: color 0.33s cubic-bezier(0.075, 0.82, 0.165, 1);
+    margin-top: auto;
 }
 
 .link:hover {
