@@ -17,7 +17,7 @@ async function fetchWithCache(url) {
     const response = await fetch(url);
     const data = await response.json();
 
-    const allTasksSolved = Array.isArray(data) && data.every(task => task.answer_status === "solved" || task.answer_status === "partially" || task.answer_status === "failed");
+    const allTasksSolved = Array.isArray(data) && data.every(task => task.status === "solved" || task.status === "partially" || task.status === "failed");
 
     if (allTasksSolved) {
         // Если все задачи решены, кэшируем результат
