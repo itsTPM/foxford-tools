@@ -8,6 +8,25 @@ chrome.storage.local.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSe
     init();
 });
 
+async function fetchWithCache(url) {
+    const cachedData = localStorage.getItem(url);
+    if (cachedData) {
+        return JSON.parse(cachedData);
+    }
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const allTasksSolved = data.every(task => task.answer_status === "solved" || task.answer_status === "partially" || task.answer_status === "failed");
+
+    if (allTasksSolved) {
+        // Если все задачи решены, кэшируем результат
+        localStorage.setItem(url, JSON.stringify(data));
+    }
+
+    return data;
+}
+
 let currentURL = location.href;
 const doc = document;
 
@@ -92,7 +111,7 @@ async function init() {
                 const homeworkLink = elm.parentNode.href
                 const homeworkId = homeworkLink.match(/[0-9]+/g);
                 const apiLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks`
-                const apiJson = await fetch(apiLink).then(res => res.json()).catch(err => { throw err });
+                const apiJson = await fetchWithCache(apiLink).then(res => res.json()).catch(err => { throw err });
 
                 const fetchPromises = apiJson.map(element => {
                     const taskLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks/${element.id}`
