@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const selectedTheme = localStorage.getItem('selectedTheme');
     if (selectedTheme) {
-        chrome.tabs.insertCSS({file: `themes/${selectedTheme}.css`});
+        injectCSS(selectedTheme);
     }
 });
 
@@ -83,6 +83,15 @@ function createThemeSelector(themes) {
 
     themeSelector.addEventListener('change', function() {
         localStorage.setItem('selectedTheme', this.value);
-        chrome.tabs.insertCSS({file: `themes/${this.value}.css`});
+        injectCSS(this.value);
     });
+}
+
+function injectCSS(theme) {
+    const cssCode = `let link = document.createElement('link');
+                     link.rel = 'stylesheet';
+                     link.href = '${chrome.runtime.getURL(`themes/${theme}.css`)}';
+                     document.head.appendChild(link);`;
+
+    chrome.tabs.executeScript({code: cssCode});
 }
