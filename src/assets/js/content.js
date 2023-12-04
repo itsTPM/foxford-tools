@@ -9,7 +9,8 @@ chrome.storage.local.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSe
 });
 
 async function fetchTasksJsonWithCache(url) {
-    const cacheKey = `f-tools/tasks/${url.split('/').pop()}`;
+    const id = url.match(/\d+/g).join('');
+    const cacheKey = `f-tools/tasks/${id}`;
     const cachedData = localStorage.getItem(cacheKey);
     if (cachedData) {
         return JSON.parse(cachedData);
@@ -27,7 +28,8 @@ async function fetchTasksJsonWithCache(url) {
 }
 
 async function fetchTaskJsonWithCache(url) {
-    const cacheKey = `f-tools/tasks/${url.split('/').pop()}`;
+    const id = url.match(/\d+/g).join('');
+    const cacheKey = `f-tools/task/${id}`;
     const cachedData = localStorage.getItem(cacheKey);
     if (cachedData) {
         return JSON.parse(cachedData);
