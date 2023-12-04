@@ -111,11 +111,11 @@ async function init() {
                 const homeworkLink = elm.parentNode.href
                 const homeworkId = homeworkLink.match(/[0-9]+/g);
                 const apiLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks`
-                const apiJson = await fetchWithCache(apiLink).then(res => res.json()).catch(err => { throw err });
+                const apiJson = await fetchWithCache(apiLink).catch(err => { throw err });
 
                 const fetchPromises = apiJson.map(element => {
                     const taskLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks/${element.id}`
-                    return fetch(taskLink).then(res => res.json()).catch(err => { throw err });
+                    return fetchWithCache(taskLink).catch(err => { throw err });
                 });
 
                 const taskJsons = await Promise.all(fetchPromises);
