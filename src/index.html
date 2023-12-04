@@ -18,23 +18,32 @@
             </div>
         </header>
         <main>
-            <div class="checkboxes">
-                <div class="checkbox">
-                    <input type="checkbox" id="timeSetup" />
-                    <label for="timeSetup">Отображение времени чтения теории</label>
+            <div class="tabs">
+                <button class="tab-button active" id="tab1-button">Вкладка 1</button>
+                <button class="tab-button" id="tab2-button">Вкладка 2</button>
+            </div>
+            <div class="tab-content active" id="tab1-content">
+                <div class="checkboxes">
+                    <div class="checkbox">
+                        <input type="checkbox" id="timeSetup" />
+                        <label for="timeSetup">Отображение времени чтения теории</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="homeworkPercentSetup" />
+                        <label for="homeworkPercentSetup">Отображение процента для ДЗ</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="webinarPercentSetup" />
+                        <label for="webinarPercentSetup">Отображение процента для вебинаров</label>
+                    </div>
                 </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="homeworkPercentSetup" />
-                    <label for="homeworkPercentSetup">Отображение процента для ДЗ</label>
-                </div>
-                <div class="checkbox">
-                    <input type="checkbox" id="webinarPercentSetup" />
-                    <label for="webinarPercentSetup">Отображение процента для вебинаров</label>
+                <div class="refreshPage hidden" id="refreshPage">
+                    <span>Чтобы применить изменения, обновите страницу</span>
+                    <button class="button" id="refreshButton">Обновить</button>
                 </div>
             </div>
-            <div class="refreshPage hidden" id="refreshPage">
-                <span>Чтобы применить изменения, обновите страницу</span>
-                <button class="button" id="refreshButton">Обновить</button>
+            <div class="tab-content" id="tab2-content">
+                <!-- содержимое второй вкладки -->
             </div>
         </main>
 

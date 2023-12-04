@@ -157,3 +157,11 @@ main {
         background-position: 0px 0;
     }
 }
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}

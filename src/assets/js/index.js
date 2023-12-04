@@ -38,4 +38,14 @@ window.addEventListener('load', async () => {
         chrome.tabs.reload();
         window.close();
     });
+
+    document.getElementById('tab1-button').addEventListener('click', function() {
+        document.getElementById('tab1-content').classList.add('active');
+        document.getElementById('tab2-content').classList.remove('active');
+    });
+    
+    document.getElementById('tab2-button').addEventListener('click', function() {
+        document.getElementById('tab2-content').classList.add('active');
+        document.getElementById('tab1-content').classList.remove('active');
+    });
 });
