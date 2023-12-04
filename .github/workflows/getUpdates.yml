@@ -11,9 +11,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Chmod
-        run: chmod +x zip.sh
+        run: chmod +x ./scripts/zip.shzip.sh
       - name: Zip
-        run: ./zip.sh
+        run: ./scripts/zip.sh
       - uses: cardinalby/webext-buildtools-chrome-crx-action@v2
         with:
           zipFilePath: 'foxford-tools.zip'
