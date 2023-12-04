@@ -43,6 +43,7 @@ main {
 
 .header {
     display: flex;
+    flex-direction: column;
     text-align: center;
     gap: 15px;
 }
@@ -164,4 +165,25 @@ main {
 
 .tab-content.active {
     display: block;
+}
+
+.tab-button {
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s linear;
+}
+
+.tab-button:hover {
+    background-color: #e0e0e0;
+}
+
+.tab-button.active {
+    border: 1px solid #9ba8c4;
+}
+
+.tab-button.active:hover {
+    background-color: #9ba8c4;
 }
