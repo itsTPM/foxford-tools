@@ -27,7 +27,6 @@ img {
 main {
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
 #logo {
@@ -96,6 +95,7 @@ main {
     transition: 2s ease;
     height: auto;
     opacity: 1;
+    margin-top: 10px;
 }
 
 .hidden,
@@ -104,6 +104,7 @@ main {
     opacity: 0 !important;
     padding: 0px !important;
     cursor: default !important;
+    margin: 0px !important;
 }
 
 .button {
