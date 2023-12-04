@@ -9,7 +9,8 @@ chrome.storage.local.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSe
 });
 
 async function fetchTasksJsonWithCache(url) {
-    const cachedData = localStorage.getItem(url);
+    const cacheKey = `f-tools/tasks/${url.split('/').pop()}`;
+    const cachedData = localStorage.getItem(cacheKey);
     if (cachedData) {
         return JSON.parse(cachedData);
     } else {
@@ -19,14 +20,15 @@ async function fetchTasksJsonWithCache(url) {
         if (allTasksSolved) {
             // Если все задачи решены, кэшируем результат
             const cacheData = data.map(task => ({ status: task.status, id: task.id }));
-            localStorage.setItem(url, JSON.stringify(cacheData));
+            localStorage.setItem(cacheKey, JSON.stringify(cacheData));
         }
         return data;
     }
 }
 
 async function fetchTaskJsonWithCache(url) {
-    const cachedData = localStorage.getItem(url);
+    const cacheKey = `f-tools/tasks/${url.split('/').pop()}`;
+    const cachedData = localStorage.getItem(cacheKey);
     if (cachedData) {
         return JSON.parse(cachedData);
     } else {
@@ -36,7 +38,7 @@ async function fetchTaskJsonWithCache(url) {
         if (taskSolved) {
             // Если задача решена, кэшируем результат
             const cacheData = { answer_status: data.answer_status, gained_xp: data.gained_xp };
-            localStorage.setItem(url, JSON.stringify(cacheData));
+            localStorage.setItem(cacheKey, JSON.stringify(cacheData));
         }
         return data;
     }
