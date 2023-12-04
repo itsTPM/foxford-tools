@@ -15,16 +15,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Chmod
+      - name: Fix zip script permissions
         run: chmod +x ./scripts/zip.sh
-      - name: Zip
+      - name: Go up
+        run: cd ../../
+      - name: Run zip script
         run: ./scripts/zip.sh
       - uses: cardinalby/webext-buildtools-chrome-crx-action@v2
         with:
-          zipFilePath: '../foxford-tools.zip'
-          crxFilePath: '../foxford-tools.crx'
+          zipFilePath: 'foxford-tools.zip'
+          crxFilePath: 'foxford-tools.crx'
           privateKey: ${{ secrets.CHROME_CRX_PRIVATE_KEY }}
       - uses: actions/upload-artifact@v3
         with:
           name: chrome
-          path: '../foxford-tools.crx'
+          path: 'foxford-tools.crx'
