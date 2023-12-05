@@ -140,7 +140,7 @@ async function init() {
     
             if (Array.isArray(tasksJson)) {
                 tasksJson.forEach(task => {
-                    if (task.status !== "started") {
+                    if (task.status !== "started" && task.status !== "not_started") {
                         tasksCount += 1;
                         if (task.status === "solved") {
                             tasksPercent += 1;
@@ -154,7 +154,7 @@ async function init() {
                     }
                 });
             }
-            
+
             waitForElm('#joyrideHomeworkBtn').then((elm) => {
                 const homeworkPercent = Math.round((tasksPercent / tasksCount) * 100)
                 createPercentElement(homeworkPercent, elm, 'after');
