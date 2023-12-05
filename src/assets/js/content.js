@@ -67,14 +67,16 @@ observerURL.observe(doc.body, { childList: true, subtree: true });
 // прикольный фокус https://stackoverflow.com/questions/5525071/how-to-wait-until-an-element-exists
 function waitForElm(selector) {
     return new Promise(resolve => {
-        if (doc.querySelector(selector)) {
-            return resolve(doc.querySelector(selector));
+        const element = doc.querySelector(selector);
+        if (element) {
+            return resolve(element);
         }
 
-        const observer = new MutationObserver(mutations => {
-            if (doc.querySelector(selector)) {
+        const observer = new MutationObserver(() => {
+            const element = doc.querySelector(selector);
+            if (element) {
                 observer.disconnect();
-                resolve(doc.querySelector(selector));
+                resolve(element);
             }
         });
 
