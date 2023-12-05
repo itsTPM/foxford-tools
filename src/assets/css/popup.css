@@ -221,8 +221,11 @@ main {
 .theme-info {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     padding: 15px;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: 2s ease;
 }
