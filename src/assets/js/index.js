@@ -95,5 +95,20 @@ function createThemeSelector(themes) {
         localStorage.setItem('selectedTheme', theme);
         chrome.storage.local.set({selectedTheme: theme});
         document.getElementById('refreshPage').classList.remove('hidden');
+    
+        const themeInfo = document.querySelector('.theme-info');
+        const themeName = document.getElementById('themeName');
+        const themeAuthor = document.getElementById('themeAuthor');
+        const themeVersion = document.getElementById('themeVersion');
+    
+        if (theme) {
+            const selectedTheme = themes.find(t => t.name.toLowerCase() === theme);
+            themeName.textContent = selectedTheme.name;
+            themeAuthor.textContent = selectedTheme.author;
+            themeVersion.textContent = selectedTheme.version;
+            themeInfo.classList.remove('hidden');
+        } else {
+            themeInfo.classList.add('hidden');
+        }
     });
 }
