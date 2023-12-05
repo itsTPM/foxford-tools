@@ -85,5 +85,6 @@ function createThemeSelector(themes) {
         const theme = this.value;
         localStorage.setItem('selectedTheme', theme);
         chrome.storage.local.set({selectedTheme: theme});
+        document.getElementById('refreshPage').classList.remove('hidden');
     });
 }
