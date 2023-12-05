@@ -48,6 +48,7 @@ const observerURL = new MutationObserver(() => {
 
 observerURL.observe(doc.body, { childList: true, subtree: true });
 
+
 // прикольный фокус https://stackoverflow.com/questions/5525071/how-to-wait-until-an-element-exists
 // события
 function waitForElm(selector) {
