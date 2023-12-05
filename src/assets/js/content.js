@@ -139,18 +139,22 @@ async function init() {
             const tasksJson = await fetchWithCache(apiLink).catch(err => { throw err });
     
             if (Array.isArray(tasksJson)) {
-                tasksCount = tasksJson.length;
-                tasksPercent = tasksJson.reduce((acc, task) => {
-                    if (task.status === "solved") {
-                        return acc + 1;
-                    } else if (task.status === "partially") {
-                        return acc + 0.5;
-                    } else {
-                        return acc;
+                tasksJson.forEach(task => {
+                    if (task.status !== "started") {
+                        tasksCount += 1;
+                        if (task.status === "solved") {
+                            tasksPercent += 1;
+                        } else if (task.status === "partially") {
+                            tasksPercent += 0.5;
+                        } else if (task.status === "failed") {
+                            tasksPercent += 0;
+                        } else {
+                            alert(`Check now: task.status = ${task.status}`)
+                        }
                     }
-                }, 0);
+                });
             }
-
+            
             waitForElm('#joyrideHomeworkBtn').then((elm) => {
                 const homeworkPercent = Math.round((tasksPercent / tasksCount) * 100)
                 createPercentElement(homeworkPercent, elm, 'after');
