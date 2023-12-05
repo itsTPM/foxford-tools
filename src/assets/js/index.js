@@ -68,6 +68,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     const selectedTheme = localStorage.getItem('selectedTheme');
     if (selectedTheme) {
         document.getElementById('theme').value = selectedTheme;
+        const themeInfo = document.querySelector('.theme-info');
+        themeInfo.classList.remove('hidden');
+        const themeName = document.getElementById('themeName');
+        const themeAuthor = document.getElementById('themeAuthor');
+        const themeVersion = document.getElementById('themeVersion');
+        const theme = themesData.find(theme => theme.name.toLowerCase() === selectedTheme);
+        themeName.textContent = theme.name;
+        themeAuthor.textContent = theme.author;
+        themeVersion.textContent = theme.version;
     }
 });
 
