@@ -94,6 +94,29 @@ function createElement(tag, properties, parent, insertMethod) {
     return element;
 }
 
+function createPercentElement(percent, parent, insertMethod) {
+    let percentClass;
+    let textContent;
+
+    if (isNaN(percent) || percent === 0 || percent === undefined || percent === null) {
+        textContent = 'не начато';
+        percentClass = 'percent-gray';
+    } else {
+        textContent = `${percent}%`;
+        if (percent <= 40) {
+            percentClass = 'percent-red';
+        } else if (percent <= 70) {
+            percentClass = 'percent-yellow';
+        } else {
+            percentClass = 'percent-green';
+        }
+    }
+
+    const percentElement = createElement("span", { textContent, classList: 'percent' }, parent, insertMethod);
+    percentElement.classList.add(percentClass);
+    return percentElement;
+}
+
 async function init() {
     if (timeSetup) {
         if (currentURL.includes('conspects')) {
@@ -114,17 +137,7 @@ async function init() {
                 if (!webinarPercent) {
                     console.log('webinarPercent - NaN')
                 }
-                const webinarPercentEl = createElement("span", { textContent: webinarPercent + '%', classList: 'webinarPercent percent' }, elm, 'before');
-                if (webinarPercent === 0) {
-                    webinarPercentEl.textContent = 'не начато';
-                    webinarPercentEl.classList.add('percent-gray');
-                } else if (webinarPercent <= 40) {
-                    webinarPercentEl.classList.add('percent-red');
-                } else if (webinarPercent <= 70) {
-                    webinarPercentEl.classList.add('percent-yellow');
-                } else {
-                    webinarPercentEl.classList.add('percent-green');
-                }
+                createPercentElement(webinarPercent, elm, 'before');
             });
         }
         if (homeworkPercentSetup) {
@@ -139,14 +152,14 @@ async function init() {
                 const homeworkId = homeworkLink.match(/[0-9]+/g);
                 const apiLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks`
                 const apiJson = await fetchTasksJsonWithCache(apiLink).catch(err => { throw err });
-
+        
                 const fetchPromises = apiJson.map(element => {
                     const taskLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks/${element.id}`
                     return fetchTaskJsonWithCache(taskLink).catch(err => { throw err });
                 });
-
+        
                 const taskJsons = await Promise.all(fetchPromises);
-
+        
                 taskJsons.forEach(taskJson => {
                     if (taskJson.gained_xp != undefined && taskJson.gained_xp != null && taskJson.gained_xp != 0 && taskJson.gained_xp != "0") {
                         if (taskJson.answer_status === "failed") {
@@ -163,24 +176,7 @@ async function init() {
                 });
                 waitForElm('#joyrideHomeworkBtn').then((elm) => {
                     const homeworkPercent = Math.round((tasksPercent / tasksCount) * 100)
-                    const homeworkPercentEl = doc.createElement("span");
-                    let percentClass;
-
-                    if (isNaN(homeworkPercent) || homeworkPercent === 0 || homeworkPercent === undefined || homeworkPercent === null) {
-                        homeworkPercentEl.textContent = 'не начато';
-                        percentClass = 'percent-gray';
-                    } else {
-                        if (homeworkPercent <= 40) {
-                            percentClass = 'percent-red';
-                        } else if (homeworkPercent <= 70) {
-                            percentClass = 'percent-yellow';
-                        } else {
-                            percentClass = 'percent-green';
-                        }
-                        homeworkPercentEl.textContent = homeworkPercent + '%';
-                    }
-                    homeworkPercentEl.classList.add('percent', percentClass);
-                    elm.after(homeworkPercentEl);
+                    createPercentElement(homeworkPercent, elm, 'after');
                     loadIndicator.remove();
                 });
             })
