@@ -11,7 +11,7 @@
 body {
     display: flex;
     flex-direction: column;
-    min-width: 300px;
+    min-width: 325px;
     min-height: 300px;
 }
 
@@ -191,6 +191,7 @@ main {
 .extInfo {
     display: flex;
     gap: 15px;
+    justify-content: center;
 }
 
 .theme-selector {
