@@ -8,6 +8,7 @@ chrome.storage.local.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSe
     init();
 });
 
+// получаем тему из localStorage и инжектим ее в head
 chrome.storage.local.get(['selectedTheme'], function(result) {
     const selectedTheme = result.selectedTheme;
     if (selectedTheme) {
@@ -17,7 +18,7 @@ chrome.storage.local.get(['selectedTheme'], function(result) {
         document.head.appendChild(linkElement);
     }
 });
-
+// кэширование запросов для списка задач
 async function fetchTasksJsonWithCache(url) {
     const cachedData = localStorage.getItem(url);
     if (cachedData) {
@@ -34,7 +35,7 @@ async function fetchTasksJsonWithCache(url) {
         return data;
     }
 }
-
+// кэширование запросов для одной задачи
 async function fetchTaskJsonWithCache(url) {
     const cachedData = localStorage.getItem(url);
     if (cachedData) {
