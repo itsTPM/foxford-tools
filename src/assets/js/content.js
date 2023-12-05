@@ -19,7 +19,7 @@ chrome.storage.local.get(['selectedTheme'], function(result) {
     }
 });
 // кэширование запросов для списка задач
-async function fetchTasksJsonWithCache(url) {
+async function fetchWithCache(url) {
     const cachedData = localStorage.getItem(url);
     if (cachedData) {
         return JSON.parse(cachedData);
@@ -30,23 +30,6 @@ async function fetchTasksJsonWithCache(url) {
         if (allTasksSolved) {
             // Если все задачи решены, кэшируем результат
             const cacheData = data.map(task => ({ status: task.status, id: task.id }));
-            localStorage.setItem(url, JSON.stringify(cacheData));
-        }
-        return data;
-    }
-}
-// кэширование запросов для одной задачи
-async function fetchTaskJsonWithCache(url) {
-    const cachedData = localStorage.getItem(url);
-    if (cachedData) {
-        return JSON.parse(cachedData);
-    } else {
-        const response = await fetch(url);
-        const data = await response.json();
-        const taskSolved = data.answer_status === "solved" || data.answer_status === "partially" || data.answer_status === "failed";
-        if (taskSolved) {
-            // Если задача решена, кэшируем результат
-            const cacheData = { answer_status: data.answer_status, gained_xp: data.gained_xp };
             localStorage.setItem(url, JSON.stringify(cacheData));
         }
         return data;
@@ -66,6 +49,7 @@ const observerURL = new MutationObserver(() => {
 observerURL.observe(doc.body, { childList: true, subtree: true });
 
 // прикольный фокус https://stackoverflow.com/questions/5525071/how-to-wait-until-an-element-exists
+// события
 function waitForElm(selector) {
     return new Promise(resolve => {
         const element = doc.querySelector(selector);
@@ -142,45 +126,36 @@ async function init() {
             });
         }
         if (homeworkPercentSetup) {
-            waitForElm('#WebinarCourseHomeworkBlock').then(async (elm) => {
-                const loadIndicator = doc.createElement("div")
-                loadIndicator.textContent = 'Ждем ответа от API..'
-                loadIndicator.classList.add('loadIndicator')
-                elm.append(loadIndicator)
-                let tasksPercent = 0;
-                let tasksCount = 0;
-                const homeworkLink = elm.parentNode.href
-                const homeworkId = homeworkLink.match(/[0-9]+/g);
-                const apiLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks`
-                const apiJson = await fetchTasksJsonWithCache(apiLink).catch(err => { throw err });
-        
-                const fetchPromises = apiJson.map(element => {
-                    const taskLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks/${element.id}`
-                    return fetchTaskJsonWithCache(taskLink).catch(err => { throw err });
-                });
-        
-                const taskJsons = await Promise.all(fetchPromises);
-        
-                taskJsons.forEach(taskJson => {
-                    if (taskJson.gained_xp != undefined && taskJson.gained_xp != null && taskJson.gained_xp != 0 && taskJson.gained_xp != "0") {
-                        if (taskJson.answer_status === "failed") {
-                            tasksPercent += 0;
-                        }
-                        if (taskJson.answer_status === "partially") {
-                            tasksPercent += 0.5;
-                        }
-                        if (taskJson.answer_status === "solved") {
-                            tasksPercent += 1;
-                        }
-                        tasksCount += 1;
+            const homeworkButton = await waitForElm('#WebinarCourseHomeworkBlock');
+            const loadIndicator = doc.createElement("div")
+            loadIndicator.textContent = 'Ждем ответа от API..'
+            loadIndicator.classList.add('loadIndicator')
+            homeworkButton.append(loadIndicator)
+            let tasksPercent = 0;
+            let tasksCount = 0;
+            const homeworkLink = homeworkButton.parentNode.href
+            const homeworkId = homeworkLink.match(/[0-9]+/g);
+            const apiLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks`
+            const tasksJson = await fetchWithCache(apiLink).catch(err => { throw err });
+    
+            if (Array.isArray(tasksJson)) {
+                tasksCount = tasksJson.length;
+                tasksPercent = tasksJson.reduce((acc, task) => {
+                    if (task.status === "solved") {
+                        return acc + 1;
+                    } else if (task.status === "partially") {
+                        return acc + 0.5;
+                    } else {
+                        return acc;
                     }
-                });
-                waitForElm('#joyrideHomeworkBtn').then((elm) => {
-                    const homeworkPercent = Math.round((tasksPercent / tasksCount) * 100)
-                    createPercentElement(homeworkPercent, elm, 'after');
-                    loadIndicator.remove();
-                });
-            })
+                }, 0);
+            }
+
+            waitForElm('#joyrideHomeworkBtn').then((elm) => {
+                const homeworkPercent = Math.round((tasksPercent / tasksCount) * 100)
+                createPercentElement(homeworkPercent, elm, 'after');
+                loadIndicator.remove();
+            });
         }
     }
 
