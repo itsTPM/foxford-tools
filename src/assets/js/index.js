@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const latestCommit = latestCommitFull.substring(0, 7);
 
     if (meta.sha !== latestCommit) {
-        alert('Update')
+        console.log('New version available');
     }
 });
 
