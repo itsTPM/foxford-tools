@@ -219,6 +219,11 @@ main {
     border: 1px solid #e0e0e0;
 }
 
+#theme:focus {
+    outline: none;
+    border: 1px solid #9ba8c4;
+}
+
 .theme-info {
     display: flex;
     flex-direction: column;
