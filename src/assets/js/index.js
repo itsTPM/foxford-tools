@@ -78,6 +78,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         themeAuthor.textContent = theme.author;
         themeVersion.textContent = theme.version;
     }
+
+    const latestCommitFull = await fetch('https://api.github.com/repos/itsTPM/foxford-tools/git/refs/heads/dev')
+    .then(response => response.json())
+    .then(data => data.object.sha);
+
+    const latestCommit = latestCommitFull.substring(0, 7);
+
+    if (meta.sha !== latestCommit) {
+        alert('Update')
+    }
 });
 
 function createThemeSelector(themes) {
