@@ -132,33 +132,6 @@ main {
     gap: 5px;
 }
 
-.name {
-    background: -webkit-gradient(linear, left top, right top, color-stop(0, #4d4d4d), color-stop(0.4, #4d4d4d), color-stop(0.5, white), color-stop(0.6, #4d4d4d), color-stop(1, #4d4d4d));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-animation: slide 10s infinite;
-    width: 300%;
-    text-align: left;
-}
-
-@keyframes slide {
-    0% {
-        background-position: 480px 0;
-    }
-
-    50% {
-        background-position: 200px 0;
-    }
-
-    80% {
-        background-position: 100px 0;
-    }
-
-    100% {
-        background-position: 0px 0;
-    }
-}
-
 .tab-content {
     display: none;
 }
