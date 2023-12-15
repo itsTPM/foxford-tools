@@ -36,5 +36,8 @@
       "resources": ["themes/*.css", "assets/js/inject.js"],
       "matches": ["https://foxford.ru/*"]
     }
-  ]
+  ],
+  "externally_connectable": {
+    "matches": ["https://foxford.ru/*"]
+  }
 }
