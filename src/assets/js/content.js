@@ -1,7 +1,9 @@
+const doc = document;
+const storage = chrome.storage.local;
 let timeSetup = false;
 let homeworkPercentSetup = false;
 let webinarPercentSetup = false;
-chrome.storage.local.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSetup'], function (result) {
+storage.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSetup'], function (result) {
     timeSetup = result.timeSetup;
     homeworkPercentSetup = result.homeworkPercentSetup;
     webinarPercentSetup = result.webinarPercentSetup;
@@ -10,22 +12,22 @@ chrome.storage.local.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSe
 
 // Инъекция JS
 function injectScript (src) {
-    const script = document.createElement('script');
+    const script = doc.createElement('script');
     script.src = chrome.runtime.getURL(src);
     script.onload = () => script.remove();
-    (document.head || document.documentElement).append(script);
+    (doc.head || doc.documentElement).append(script);
 }
 
 injectScript('assets/js/inject.js')
 
 // получаем тему из localStorage и инжектим ее в head
-chrome.storage.local.get(['selectedTheme'], function(result) {
+storage.get(['selectedTheme'], function(result) {
     const selectedTheme = result.selectedTheme;
     if (selectedTheme) {
-        const linkElement = document.createElement('link');
+        const linkElement = doc.createElement('link');
         linkElement.rel = 'stylesheet';
         linkElement.href = chrome.runtime.getURL(`themes/${selectedTheme}.css`);
-        document.head.appendChild(linkElement);
+        doc.head.appendChild(linkElement);
     }
 });
 // кэширование запросов для списка задач
@@ -47,7 +49,6 @@ async function fetchWithCache(url) {
 }
 
 let currentURL = location.href;
-const doc = document;
 
 const observerURL = new MutationObserver(() => {
     if (currentURL != location.href) {
@@ -58,9 +59,6 @@ const observerURL = new MutationObserver(() => {
 
 observerURL.observe(doc.body, { childList: true, subtree: true });
 
-
-// прикольный фокус https://stackoverflow.com/questions/5525071/how-to-wait-until-an-element-exists
-// события
 function waitForElm(selector) {
     return new Promise(resolve => {
         const element = doc.querySelector(selector);
@@ -176,8 +174,8 @@ async function init() {
 
 }
 
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+if (doc.readyState === "loading") {
+    doc.addEventListener("DOMContentLoaded", init);
 } else {
     init();
 }
