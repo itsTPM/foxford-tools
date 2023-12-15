@@ -8,6 +8,16 @@ chrome.storage.local.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSe
     init();
 });
 
+// Инъекция JS
+function injectScript (src) {
+    const script = document.createElement('script');
+    script.src = chrome.runtime.getURL(src);
+    script.onload = () => script.remove();
+    (document.head || document.documentElement).append(script);
+}
+
+injectScript('asssets/js/inject.js')
+
 // получаем тему из localStorage и инжектим ее в head
 chrome.storage.local.get(['selectedTheme'], function(result) {
     const selectedTheme = result.selectedTheme;
