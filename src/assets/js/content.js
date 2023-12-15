@@ -137,7 +137,7 @@ async function init() {
         if (!webinarPercent) {
           console.log('webinarPercent - NaN');
         }
-        createPercentElement(webinarPercent, elm, 'before');
+        createPercentElement(webinarPercent, elm, 'before').classList.add('webinarPercent');
       });
     }
     if (homeworkPercentSetup) {
@@ -158,12 +158,16 @@ async function init() {
       if (Array.isArray(tasksJson)) {
         tasksJson.forEach((task) => {
           if (task.status !== 'started' && task.status !== 'not_started') {
-            tasksCount += 1;
             if (task.status === 'solved') {
               tasksPercent += 1;
+              tasksCount += 1;
             } else if (task.status === 'partially') {
               tasksPercent += 0.5;
+              tasksCount += 1;
             } else if (task.status === 'failed') {
+              tasksPercent += 0;
+              tasksCount += 1;
+            } else if (task.status === 'hinted') {
               tasksPercent += 0;
             } else {
               alert(`Check now: task.status = ${task.status}`);
