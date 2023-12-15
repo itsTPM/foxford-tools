@@ -8,11 +8,32 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelector(`#${id}`).checked = item === null ? false : item === 'true';
     });
     // вытаскиваем данные из манифеста и мета-файла 
-    const [manifest, meta, themes] = await Promise.all([
-        fetch('../../manifest.json').then(response => response.json()) || {'version_name': 'Failed to fetch','name': 'Failed to fetch','action':{'default_icon': 'Failed to fetch'}}, 
-        fetch('../../meta.json').then(response => response.json()) || {'sha': 'Failed to fetch'},
-        fetch('../../themes.json').then(response => response.json()) || {'themes': 'Failed to fetch'},
-    ]);
+        const [manifest, meta, themes] = await Promise.all([
+            (async () => {
+                try {
+                    return fetch('../../manifest.json').then(response => response.json());
+                } catch (e) {
+                    console.error(e);
+                    return {'version_name': '0.0.0', 'action': {'default_icon': 'assets/img/icon.png'}, 'name': 'Foxford Tools'};
+                }
+            }),
+            (async () => {
+                try {
+                    return fetch('../../meta.json').then(response => response.json());
+                } catch (e) {
+                    console.error(e);
+                    return {'sha': '0000000'};
+                }
+            }),
+            (async () => {
+                try {
+                    return fetch('../../themes.json').then(response => response.json());
+                } catch (e) {
+                    console.error(e);
+                    return [];
+                }
+            })
+        ]);
     // заполняем элементы страницы данными из манифеста и мета-файла 
     const [versionElement, logoElement, nameElement, commitElement] = 
           ['version', 'logo', 'name', 'commit']
@@ -60,7 +81,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
     // темы
-    const themesIndex = await fetch('../../themes.json').then(response => response.json()) || {'themes': 'Failed to fetch'};
+    const themesIndex = await fetch('../../themes.json').then(response => response.json());
     const themesData = await Promise.all(themesIndex.map(theme => fetch(`../../themes/${theme}`).then(response => response.json())));
 
     createThemeSelector(themesData);
