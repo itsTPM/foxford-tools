@@ -16,7 +16,7 @@ function injectScript (src) {
     (document.head || document.documentElement).append(script);
 }
 
-injectScript('asssets/js/inject.js')
+injectScript('assets/js/inject.js')
 
 // получаем тему из localStorage и инжектим ее в head
 chrome.storage.local.get(['selectedTheme'], function(result) {
