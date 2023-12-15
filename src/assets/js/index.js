@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     // вытаскиваем данные из манифеста и мета-файла 
     const [manifest, meta, themes] = await Promise.all([
-        fetch('../../manifest.json').then(response => response.json()),
-        fetch('../../meta.json').then(response => response.json()),
-        fetch('../../themes.json').then(response => response.json())
+        fetch('../../manifest.json').then(response => response.json()) || {'version_name': 'Failed to fetch','name': 'Failed to fetch','action':{'default_icon': 'Failed to fetch'}}, 
+        fetch('../../meta.json').then(response => response.json()) || {'sha': 'Failed to fetch'},
+        fetch('../../themes.json').then(response => response.json()) || {'themes': 'Failed to fetch'},
     ]);
     // заполняем элементы страницы данными из манифеста и мета-файла 
     const [versionElement, logoElement, nameElement, commitElement] = 
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
     // темы
-    const themesIndex = await fetch('../../themes.json').then(response => response.json());
+    const themesIndex = await fetch('../../themes.json').then(response => response.json()) || {'themes': 'Failed to fetch'};
     const themesData = await Promise.all(themesIndex.map(theme => fetch(`../../themes/${theme}`).then(response => response.json())));
 
     createThemeSelector(themesData);
