@@ -87,7 +87,7 @@ async function handleThemes() {
   try {
     themesIndex = await fetch('../../themes.json').then((response) => response.json());
   } catch (e) {
-    console.error(`Ошибка при подгрузке themes.json: ${e}`);
+    console.log(`Ошибка при подгрузке themes.json: ${e}`);
     themesIndex = [];
   }
 

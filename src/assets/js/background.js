@@ -25,6 +25,6 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 });
 
 function functionToInject(title) {
-  console.log('Script loaded');
+  console.log('Title changed');
   document.title = title;
 }
