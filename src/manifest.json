@@ -4,6 +4,8 @@
   "description": "Расширение для того самого сайта Фокса",
   "version": "1.0",
   "version_name": "1.0-preview",
+  "homepage_url": "https://github.com/itsTPM/foxford-tools/",
+  "permissions": ["storage", "activeTab", "scripting"],
   "icons": {
     "16": "./assets/images/round_result16.png",
     "32": "./assets/images/round_result32.png",
@@ -20,26 +22,19 @@
   },
   "content_scripts": [
     {
-      "js": [
-        "./assets/js/content.js"
-      ],
-      "css": [
-        "./assets/css/content.css"
-      ],
-      "matches": [
-        "https://foxford.ru/*"
-      ]
+      "js": ["./assets/js/content.js"],
+      "css": ["./assets/css/content.css"],
+      "matches": ["https://foxford.ru/*"]
     }
   ],
-  "permissions": [
-    "storage",
-    "activeTab"
-  ],
+  "host_permissions": ["https://foxford.ru/*"], 
+  "background": {
+    "service_worker": "./assets/js/background.js"
+  },
   "web_accessible_resources": [
     {
-        "resources": ["themes/*.css", "assets/js/inject.js"],
-        "matches": ["https://foxford.ru/*"]
+      "resources": ["themes/*.css", "assets/js/inject.js"],
+      "matches": ["https://foxford.ru/*"]
     }
-] ,
-  "homepage_url": "https://github.com/itsTPM/foxford-tools/"
+  ]
 }
