@@ -27,7 +27,7 @@
       "matches": ["https://foxford.ru/*"]
     }
   ],
-  "host_permissions": ["https://foxford.ru/*"], 
+  "host_permissions": ["https://foxford.ru/*"],
   "background": {
     "service_worker": "./assets/js/background.js"
   },

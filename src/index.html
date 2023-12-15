@@ -1,75 +1,87 @@
 <!DOCTYPE html>
 <html lang="ru">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/css/popup.css">
+    <link rel="stylesheet" href="./assets/css/popup.css" />
     <title>Foxford Tools</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <header class="header">
-            <div class="extInfo">
-                <img id="logo">
-                <div class="text">
-                    <h1 class="name" id="name">Enable JS!</h1>
-                    <span>кастомизация сайта Фокса</span>
-                </div>
+      <header class="header">
+        <div class="extInfo">
+          <img id="logo" />
+          <div class="text">
+            <h1 class="name" id="name">Enable JS!</h1>
+            <span>кастомизация сайта Фокса</span>
+          </div>
+        </div>
+        <div class="tabs">
+          <button class="tab-button active" id="tab1-button">Основное</button>
+          <button class="tab-button" id="tab2-button">Темы</button>
+        </div>
+      </header>
+      <main>
+        <div class="tab-content active" id="tab1-content">
+          <div class="checkboxes">
+            <div class="checkbox">
+              <input type="checkbox" id="timeSetup" />
+              <label for="timeSetup">Отображение времени чтения теории</label>
             </div>
-            <div class="tabs">
-                <button class="tab-button active" id="tab1-button">Основное</button>
-                <button class="tab-button" id="tab2-button">Темы</button>
+            <div class="checkbox">
+              <input type="checkbox" id="homeworkPercentSetup" />
+              <label for="homeworkPercentSetup">Отображение процента для ДЗ</label>
             </div>
-        </header>
-        <main>
-            <div class="tab-content active" id="tab1-content">
-                <div class="checkboxes">
-                    <div class="checkbox">
-                        <input type="checkbox" id="timeSetup" />
-                        <label for="timeSetup">Отображение времени чтения теории</label>
-                    </div>
-                    <div class="checkbox">
-                        <input type="checkbox" id="homeworkPercentSetup" />
-                        <label for="homeworkPercentSetup">Отображение процента для ДЗ</label>
-                    </div>
-                    <div class="checkbox">
-                        <input type="checkbox" id="webinarPercentSetup" />
-                        <label for="webinarPercentSetup">Отображение процента для вебинаров</label>
-                    </div>
-                </div>
+            <div class="checkbox">
+              <input type="checkbox" id="webinarPercentSetup" />
+              <label for="webinarPercentSetup">Отображение процента для вебинаров</label>
             </div>
-            <div class="tab-content" id="tab2-content">
-                <div class="theme-selector">
-                    <label for="theme">Выберите тему</label>
-                    <select id="theme">
-                        <option value="">Не использовать</option>
-                    </select>
-                </div>
-                <div class="theme-info hidden">
-                    <span>Название: <span id="themeName"></span></span>
-                    <span>Автор: <span id="themeAuthor"></span></span>
-                    <span>Версия: <span id="themeVersion"></span></span>
-                </div>
-            </div>
-            <div class="refreshPage hidden" id="refreshPage">
-                <span>Чтобы применить изменения, обновите страницу</span>
-                <button class="button" id="refreshButton">Обновить</button>
-            </div>
-        </main>
-
+          </div>
+        </div>
+        <div class="tab-content" id="tab2-content">
+          <div class="theme-selector">
+            <label for="theme">Выберите тему</label>
+            <select id="theme">
+              <option value="">Не использовать</option>
+            </select>
+          </div>
+          <div class="theme-info hidden">
+            <span>
+              Название:
+              <span id="themeName"></span>
+            </span>
+            <span>
+              Автор:
+              <span id="themeAuthor"></span>
+            </span>
+            <span>
+              Версия:
+              <span id="themeVersion"></span>
+            </span>
+          </div>
+        </div>
+        <div class="refreshPage hidden" id="refreshPage">
+          <span>Чтобы применить изменения, обновите страницу</span>
+          <button class="button" id="refreshButton">Обновить</button>
+        </div>
+      </main>
     </div>
     <footer class="footer">
-        <div class="meta-info">
-            <span>Версия <span id="version">Enable JS!</span></span>
-            <span>Коммит <span id="commit">Enable JS!</span></span>
-        </div>
-        <div class="links">
-            <a href="#" id="openHomePage" class="link">GitHub</a>
-        </div>
+      <div class="meta-info">
+        <span>
+          Версия
+          <span id="version">Enable JS!</span>
+        </span>
+        <span>
+          Коммит
+          <span id="commit">Enable JS!</span>
+        </span>
+      </div>
+      <div class="links">
+        <a href="#" id="openHomePage" class="link">GitHub</a>
+      </div>
     </footer>
     <script src="./assets/js/index.js" type="module"></script>
-</body>
-
+  </body>
 </html>

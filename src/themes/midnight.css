@@ -1,90 +1,106 @@
 /* Меняем цвет всей страницы */
 body {
-	background-color: #121212;
-    color: #e0e0e0 !important;
+  background-color: #121212;
+  color: #e0e0e0 !important;
 }
 
 /* Цвет ссылок на навбаре (там где план на сегодня, календарь и т.д.) */
-div[class^="styled__Wrapper-"] a {
+div[class^='styled__Wrapper-'] a {
   color: #e0e0e0 !important;
 }
 
 /* Цвет активной ссылки все на том же навбаре  */
-div[class^="styled__Wrapper-"] a.active {
+div[class^='styled__Wrapper-'] a.active {
   color: rgb(255, 115, 43) !important;
 }
 
 /* Затемнение на навбаре справа */
-html > body > div:nth-of-type(2) > div > div:first-of-type > div:nth-of-type(2) > div:first-of-type > div > div:nth-of-type(2)::before {
-	background-image: linear-gradient(90deg, transparent 0%, rgb(15, 15, 15) 100%) !important;
+html
+  > body
+  > div:nth-of-type(2)
+  > div
+  > div:first-of-type
+  > div:nth-of-type(2)
+  > div:first-of-type
+  > div
+  > div:nth-of-type(2)::before {
+  background-image: linear-gradient(90deg, transparent 0%, rgb(15, 15, 15) 100%) !important;
 }
 
 /* Убираем прокрутку на навбаре */
-html > body > div:nth-of-type(2) > div > div:first-of-type > div:nth-of-type(2) > div:first-of-type > div > div:first-of-type {
-	overflow: hidden !important;
+html
+  > body
+  > div:nth-of-type(2)
+  > div
+  > div:first-of-type
+  > div:nth-of-type(2)
+  > div:first-of-type
+  > div
+  > div:first-of-type {
+  overflow: hidden !important;
 }
 
 /* Цвет полоски под навбаром */
 html > body > div:nth-of-type(2) > div > div:first-of-type > div:nth-of-type(2) > div:first-of-type > div {
-	border-bottom: 1px solid #333
+  border-bottom: 1px solid #333;
 }
 
 /* Блок ближайшие события - его фон и обводка */
-.joueCh  {
-	background: rgba(255,255,255,0.05) !important;
+.joueCh {
+  background: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid #333;
 }
 
 /* Каждый элемент в "Задания на сегодня" */
-.fYVvAq, 
+.fYVvAq,
 .styled__GoToButton-djaZKv {
-		background: rgba(255,255,255,0.05) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid #333;
 }
 
 /* Цвет текста в каждом элементе из блока "Задания на сегодня" */
 .fYVvAq * {
-	  color: #e0e0e0 !important;
+  color: #e0e0e0 !important;
 }
 
 /* Каждый элемент урока в "Ближайшие события" */
 .itnFmi {
-	background-color: rgba(0,0,0,0.1) !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
   border: 1px solid #333;
 }
 
 /* Каждый элемент в "Непросмотренные записи" */
 .hlGTog {
-	background: none !important;      
+  background: none !important;
 }
 
 /* Цвет заполненного участка прогресс-бара в каждом элементе в блоке "Задания на сегодня"  */
 .iUzzqh *::before {
-    background: rgb(51,95,116) !important;
+  background: rgb(51, 95, 116) !important;
 }
 
 /* Цвет незаполненного участка прогресс-бара в каждом элементе в блоке "Задания на сегодня" */
-.iUzzqh *[class*="styled__Progress"]{
-    background: rgb(175 175 175) !important;
+.iUzzqh *[class*='styled__Progress'] {
+  background: rgb(175 175 175) !important;
 }
 
 /* Две выемки в блоке уровня: набранное кол-во XP и требуемое до следующего уровня */
 .kcfZtb,
 .isrHCz {
-	background: #111 !important;
-  color: #e0e0e0
+  background: #111 !important;
+  color: #e0e0e0;
 }
 
 /* Контейнер для элементов в шапке */
 .gXTAGK {
-  box-shadow: none !important
+  box-shadow: none !important;
 }
 
 /* Все инпуты и все блоки выбора опций */
 input,
 .Select-control {
-	background: none !important;
-    border: 1px solid #333 !important;
+  background: none !important;
+  border: 1px solid #333 !important;
   color: #e0e0e0 !important;
 }
 
@@ -116,15 +132,15 @@ input,
 }
 
 /* Больше количество ссылок на сайте, я не помню для чего это делалось */
-*[class*="action__Text"],
+*[class*='action__Text'],
 .fox-Anchor {
-	color: #2a9bd1 !important;
+  color: #2a9bd1 !important;
   text-decoration: none !important;
 }
 
 /* Блок уровня */
 .cERwFy {
-  background-color: rgba(255,255,255,0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid #333;
 }
 
@@ -134,13 +150,13 @@ input,
 }
 
 /* Уведомления, делалось для сообщений сверху под навбаром в дашборде*/
-*[class*="styled__Notice"] {
-  background-color: rgba(255,255,255,0.01)   !important;
+*[class*='styled__Notice'] {
+  background-color: rgba(255, 255, 255, 0.01) !important;
 }
 
 /* Текст уведомления */
 .hnMwGJ {
-    color: #e0e0e0 !important;
+  color: #e0e0e0 !important;
 }
 
 /* Шапка */
@@ -154,12 +170,10 @@ input,
   color: #e0e0e0;
 }
 
-
 /* Блок "Задания на сегодня" */
 .eCxDla {
-  color: #e0e0e0
+  color: #e0e0e0;
 }
-
 
 /* Блок "Учитесь со скидкой" 
 1- Дашборд
@@ -171,16 +185,14 @@ input,
   border: 1px solid #333;
 }
 
-
 /* Полноэкранное меню */
 .styled__Root-jexYux,
 .styled__Root-jexYux * {
-    background-color: #121212 !important;
-    color: #e0e0e0 !important;
+  background-color: #121212 !important;
+  color: #e0e0e0 !important;
 }
 
 /* КАЛЕНДАРЬ */
-
 
 /* Каждый урок текущего дня */
 .iRCzUB {
@@ -208,22 +220,22 @@ input,
 }
 
 /* Строка с датой сверху */
-.styled__DatesItem-a-DQrU  {
+.styled__DatesItem-a-DQrU {
   border: none !important;
 }
 
 /* Строка с временем слева */
 .ESMEe {
   border: none !important;
-  color: #e0e0e0
+  color: #e0e0e0;
 }
 
 /* ПРОГРАММЫ ОБУЧЕНИЯ */
 
 /* Каждый курс */
 .CourseItem_root__kooKq {
-  background: rgba(255,255,255,0.05) !important;
-  border: 1px solid #333
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid #333;
 }
 /* Все элементы блока каждого курса */
 .CourseItem_root__kooKq * {
@@ -235,15 +247,14 @@ input,
   color: #e0e0e0 !important;
 }
 
-[class*="Filter_checkboxCont"] {
-  border: 1px solid #333 !important
+[class*='Filter_checkboxCont'] {
+  border: 1px solid #333 !important;
 }
-
 
 /* УСПЕВАЕМОСТЬ */
 
 .iYUsCs {
-  background: rgba(255,255,255,0.05) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid #333;
 }
 
@@ -253,6 +264,6 @@ input,
 
 /* Оцените новый раздел успеваемости */
 .bgYEZ,
-.dnBeOg{
-  display: none !important;  
+.dnBeOg {
+  display: none !important;
 }

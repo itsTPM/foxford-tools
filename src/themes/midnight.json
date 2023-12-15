@@ -1,9 +1,9 @@
 {
-    "name": "Midnight",
-    "author": "itsTPM",
-    "version": "dev",
-    "active": true,
-    "haveCSS": true,
-    "haveSASS": false,
-    "haveJS": false
+  "name": "Midnight",
+  "author": "itsTPM",
+  "version": "dev",
+  "active": true,
+  "haveCSS": true,
+  "haveSASS": false,
+  "haveJS": false
 }
