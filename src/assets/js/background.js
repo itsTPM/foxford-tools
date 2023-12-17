@@ -25,20 +25,24 @@ const urlTitleMap = {
 };
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  await new Promise((r) => setTimeout(r, 100));
-  if (changeInfo.status === 'complete') {
-    console.log(`Tab updated: ${tab.url}`);
-    for (const [urlPart, title] of Object.entries(urlTitleMap)) {
-      if (tab.url.includes(urlPart)) {
-        chrome.scripting.executeScript({
-          target: { tabId: tabId },
-          function: functionToInject,
-          args: [title],
-        });
-        break;
+  chrome.storage.local.get(['changeTitles'], async function (result) {
+    if (result.changeTitles == true) {
+      await new Promise((r) => setTimeout(r, 100));
+      if (changeInfo.status === 'complete') {
+        console.log(`Tab updated: ${tab.url}`);
+        for (const [urlPart, title] of Object.entries(urlTitleMap)) {
+          if (tab.url.includes(urlPart)) {
+            chrome.scripting.executeScript({
+              target: { tabId: tabId },
+              function: functionToInject,
+              args: [title],
+            });
+            break;
+          }
+        }
       }
     }
-  }
+  });
 });
 
 function functionToInject(title) {

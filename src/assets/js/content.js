@@ -30,7 +30,8 @@ storage.get(['selectedTheme'], function (result) {
     doc.head.appendChild(linkElement);
   }
 });
-// кэширование запросов для списка задач
+
+// Кэширование tasks.json, в которых все задачи решены
 async function fetchWithCache(url) {
   const cachedData = localStorage.getItem(url);
   if (cachedData) {
@@ -49,6 +50,10 @@ async function fetchWithCache(url) {
     return data;
   }
 }
+
+// Дальше идет индусский код, который я уже несколько дней пытаюсь переписать, но он перестает работать. Вообще не работает.
+// Вот с одной стороны кажется: зачем observer на url, если можно слушать события из background.js? Зачем вообще нужен waitForElm? Но если я убираю observer и waitForElm, то код перестает работать
+// Если вы знаете как это все решить - откройте пулл реквест, пожалуйста
 
 let currentURL = location.href;
 

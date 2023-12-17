@@ -1,4 +1,4 @@
-const inputs = ['timeSetup', 'homeworkPercentSetup', 'webinarPercentSetup'];
+const inputs = ['timeSetup', 'homeworkPercentSetup', 'webinarPercentSetup', 'changeTitles'];
 const elements = ['version', 'logo', 'name', 'commit'];
 
 document.addEventListener('DOMContentLoaded', async () => {
