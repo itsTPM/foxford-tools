@@ -1,8 +1,11 @@
 #!/bin/sh
-
-NAME="foxford-tools"
 SRC_DIR="./src"
 
-rm -f ${NAME}.zip
+# [Chrome] Delete previous zip file & create new one
+rm -f chrome-src.zip
+7z a -tzip -mx9 chrome-src.zip ${SRC_DIR}/* -x!${SRC_DIR}/manifest-ff.json
 
-7z a -tzip -mx9 ${NAME}.zip ${SRC_DIR}/* -x!${SRC_DIR}/manifest-ff.json
+# [Firefox] Delete previous zip file & create new one with deleted manifest.json & renamed manifest-ff.json to manifest.json
+rm -f firefox-src.zip
+7z a -tzip -mx9 firefox-src.zip ${SRC_DIR}/* -x!${SRC_DIR}/manifest.json
+7z rn firefox-src.zip ${SRC_DIR}/manifest-ff.json ${SRC_DIR}/manifest.json
