@@ -44,7 +44,7 @@ jobs:
       - name: Create .crx from zip
         uses: cardinalby/webext-buildtools-chrome-crx-action@v2
         with:
-          zipFilePath: 'foxford-tools.zip'
+          zipFilePath: 'chrome-src.zip'
           crxFilePath: 'foxford-tools.crx'
           privateKey: ${{ secrets.CHROME_CRX_PRIVATE_KEY }}
       - name: Upload extension as crx
@@ -57,4 +57,8 @@ jobs:
         with:
           name: src
           path: 'src/'
-  
+      - name: Upload extension as zip for firefox
+        uses: actions/upload-artifact@v3
+        with:
+          name: firefox-src
+          path: 'firefox-src.zip'
