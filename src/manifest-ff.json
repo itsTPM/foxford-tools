@@ -29,15 +29,12 @@
   ],
   "host_permissions": ["https://foxford.ru/*"],
   "background": {
-    "scripts": "./assets/js/background.js"
+    "scripts": ["./assets/js/background.js"]
   },
   "web_accessible_resources": [
     {
       "resources": ["themes/*.css", "assets/js/inject.js"],
       "matches": ["https://foxford.ru/*"]
     }
-  ],
-  "externally_connectable": {
-    "matches": ["https://foxford.ru/*"]
-  }
+  ]
 }
