@@ -1,14 +1,9 @@
 const doc = document;
 const storage = chrome.storage.local;
-let timeSetup = false;
-let homeworkPercentSetup = false;
-let webinarPercentSetup = false;
-storage.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSetup'], function (result) {
-  timeSetup = result.timeSetup;
-  homeworkPercentSetup = result.homeworkPercentSetup;
-  webinarPercentSetup = result.webinarPercentSetup;
-  init();
-});
+
+let timeSetup,
+  homeworkPercentSetup,
+  webinarPercentSetup = false;
 
 // Инъекция JS
 function injectScript(src) {
@@ -31,62 +26,89 @@ storage.get(['selectedTheme'], function (result) {
   }
 });
 
-// Кэширование tasks.json, в которых все задачи решены
-async function fetchWithCache(url) {
-  const cachedData = localStorage.getItem(url);
-  if (cachedData) {
-    return JSON.parse(cachedData);
-  } else {
-    const response = await fetch(url);
-    const data = await response.json();
-    const allTasksSolved =
-      Array.isArray(data) &&
-      data.every((task) => task.status === 'solved' || task.status === 'partially' || task.status === 'failed');
-    if (allTasksSolved) {
-      // Если все задачи решены, кэшируем результат
-      const cacheData = data.map((task) => ({ status: task.status, id: task.id }));
-      localStorage.setItem(url, JSON.stringify(cacheData));
-    }
-    return data;
-  }
-}
-
-// Дальше идет индусский код, который я уже несколько дней пытаюсь переписать, но он перестает работать. Вообще не работает.
-// Вот с одной стороны кажется: зачем observer на url, если можно слушать события из background.js? Зачем вообще нужен waitForElm? Но если я убираю observer и waitForElm, то код перестает работать
-// Если вы знаете как это все решить - откройте пулл реквест, пожалуйста
-
-let currentURL = location.href;
-
-const observerURL = new MutationObserver(() => {
-  if (currentURL != location.href) {
-    currentURL = location.href;
-    init();
+const conspectsObserver = new MutationObserver(() => {
+  const element = doc.querySelector('#wikiThemeContent');
+  if (element) {
+    setTimeout(() => {
+      if (location.href.includes('conspects')) {
+        if (!doc.querySelector('.badgeWrapper')) {
+          const text = element.textContent;
+          const wordCount = [...text.matchAll(/[^\s]+/g)].length;
+          const readingTime = Math.round(wordCount / 150);
+          const badgeWrapper = createElement('div', { className: 'badgeWrapper' }, element.parentNode, 'prepend');
+          createElement(
+            'span',
+            { textContent: readingTime > 0 ? `~${readingTime} мин. чтения` : `меньше минуты чтения` },
+            badgeWrapper
+          );
+        }
+      }
+    }, 100);
   }
 });
 
-observerURL.observe(doc.body, { childList: true, subtree: true });
-
-function waitForElm(selector) {
-  return new Promise((resolve) => {
-    const element = doc.querySelector(selector);
-    if (element) {
-      return resolve(element);
-    }
-
-    const observer = new MutationObserver(() => {
-      const element = doc.querySelector(selector);
-      if (element) {
-        observer.disconnect();
-        resolve(element);
+const webinarObserver = new MutationObserver(() => {
+  const element = doc.querySelector('.fyhomc');
+  setTimeout(() => {
+    if (location.href.includes('courses')) {
+      if (!doc.querySelector('.webinarPercent')) {
+        const majors = doc.getElementsByClassName('major');
+        const webinarPercent = +Math.round((majors[2].textContent / majors[3].textContent) * 100);
+        if (!webinarPercent) {
+          console.log('webinarPercent - NaN');
+        }
+        createPercentElement(webinarPercent, element, 'before').classList.add('webinarPercent');
       }
-    });
+    }
+  }, 100);
+});
 
-    observer.observe(doc.body, {
-      childList: true,
-      subtree: true,
-    });
-  });
-}
+const homeworkObserver = new MutationObserver(() => {
+  const element = doc.querySelector('#joyrideHomeworkBtn');
+  setTimeout(async () => {
+    if (location.href.includes('courses')) {
+      if (!doc.querySelector('.homeworkPercent')) {
+        const loadIndicator = doc.createElement('div');
+        loadIndicator.textContent = 'Ждем ответа от API..';
+        loadIndicator.classList.add('loadIndicator');
+        element.append(loadIndicator);
+        let tasksPercent = 0;
+        let tasksCount = 0;
+        const homeworkLink = element.parentNode.parentNode.parentNode.parentNode.parentNode.href;
+        const homeworkId = homeworkLink.match(/[0-9]+/g);
+        const apiLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks`;
+        const tasksJson = await fetchWithCache(apiLink).catch((err) => {
+          throw err;
+        });
+
+        if (Array.isArray(tasksJson)) {
+          tasksJson.forEach((task) => {
+            if (task.status !== 'started' && task.status !== 'not_started') {
+              if (task.status === 'solved') {
+                tasksPercent += 1;
+                tasksCount += 1;
+              } else if (task.status === 'partially') {
+                tasksPercent += 0.5;
+                tasksCount += 1;
+              } else if (task.status === 'failed') {
+                tasksPercent += 0;
+                tasksCount += 1;
+              } else if (task.status === 'hinted') {
+                tasksPercent += 0;
+              } else {
+                alert(`Check now: task.status = ${task.status}`);
+              }
+            }
+          });
+        }
+
+        const homeworkPercent = Math.round((tasksPercent / tasksCount) * 100);
+        createPercentElement(homeworkPercent, element, 'after').classList.add('homeworkPercent');
+        loadIndicator.remove();
+      }
+    }
+  }, 100);
+});
 
 function createElement(tag, properties, parent, insertMethod) {
   const element = doc.createElement(tag);
@@ -118,80 +140,46 @@ function createPercentElement(percent, parent, insertMethod) {
   return percentElement;
 }
 
-async function init() {
+// Кэширование tasks.json, в которых все задачи решены
+async function fetchWithCache(url) {
+  const cachedData = localStorage.getItem(url);
+  if (cachedData) {
+    return JSON.parse(cachedData);
+  } else {
+    const response = await fetch(url);
+    const data = await response.json();
+    const allTasksSolved =
+      Array.isArray(data) &&
+      data.every((task) => task.status === 'solved' || task.status === 'partially' || task.status === 'failed');
+    if (allTasksSolved) {
+      // Если все задачи решены, кэшируем результат
+      const cacheData = data.map((task) => ({ status: task.status, id: task.id }));
+      localStorage.setItem(url, JSON.stringify(cacheData));
+    }
+    return data;
+  }
+}
+
+storage.get(['timeSetup', 'homeworkPercentSetup', 'webinarPercentSetup'], function (result) {
+  timeSetup = result.timeSetup;
+  homeworkPercentSetup = result.homeworkPercentSetup;
+  webinarPercentSetup = result.webinarPercentSetup;
   if (timeSetup) {
-    if (currentURL.includes('conspects')) {
-      waitForElm('#wikiThemeContent').then((elm) => {
-        const text = elm.textContent;
-        const wordCount = [...text.matchAll(/[^\s]+/g)].length;
-        const readingTime = Math.round(wordCount / 150);
-        const badgeWrapper = createElement('div', { className: 'badgeWrapper' }, elm.parentNode, 'prepend');
-        createElement(
-          'span',
-          { textContent: readingTime > 0 ? `~${readingTime} мин. чтения` : `меньше минуты чтения` },
-          badgeWrapper
-        );
-      });
-    }
+    conspectsObserver.observe(doc.body, {
+      childList: true,
+      subtree: true,
+    });
   }
-  if (currentURL.includes('courses')) {
-    if (webinarPercentSetup) {
-      waitForElm('.fyhomc').then((elm) => {
-        const majors = doc.getElementsByClassName('major');
-        const webinarPercent = +Math.round((majors[2].textContent / majors[3].textContent) * 100);
-        if (!webinarPercent) {
-          console.log('webinarPercent - NaN');
-        }
-        createPercentElement(webinarPercent, elm, 'before').classList.add('webinarPercent');
-      });
-    }
-    if (homeworkPercentSetup) {
-      const homeworkButton = await waitForElm('#WebinarCourseHomeworkBlock');
-      const loadIndicator = doc.createElement('div');
-      loadIndicator.textContent = 'Ждем ответа от API..';
-      loadIndicator.classList.add('loadIndicator');
-      homeworkButton.append(loadIndicator);
-      let tasksPercent = 0;
-      let tasksCount = 0;
-      const homeworkLink = homeworkButton.parentNode.href;
-      const homeworkId = homeworkLink.match(/[0-9]+/g);
-      const apiLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks`;
-      const tasksJson = await fetchWithCache(apiLink).catch((err) => {
-        throw err;
-      });
-
-      if (Array.isArray(tasksJson)) {
-        tasksJson.forEach((task) => {
-          if (task.status !== 'started' && task.status !== 'not_started') {
-            if (task.status === 'solved') {
-              tasksPercent += 1;
-              tasksCount += 1;
-            } else if (task.status === 'partially') {
-              tasksPercent += 0.5;
-              tasksCount += 1;
-            } else if (task.status === 'failed') {
-              tasksPercent += 0;
-              tasksCount += 1;
-            } else if (task.status === 'hinted') {
-              tasksPercent += 0;
-            } else {
-              alert(`Check now: task.status = ${task.status}`);
-            }
-          }
-        });
-      }
-
-      waitForElm('#joyrideHomeworkBtn').then((elm) => {
-        const homeworkPercent = Math.round((tasksPercent / tasksCount) * 100);
-        createPercentElement(homeworkPercent, elm, 'after');
-        loadIndicator.remove();
-      });
-    }
+  if (homeworkPercentSetup) {
+    homeworkObserver.observe(doc.body, {
+      childList: true,
+      subtree: true,
+    });
   }
-}
-
-if (doc.readyState === 'loading') {
-  doc.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
+  if (webinarPercentSetup) {
+    webinarObserver.observe(doc.body, {
+      childList: true,
+      subtree: true,
+    });
+  }
+});
