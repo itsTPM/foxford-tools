@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Foxford Tools</title>
-    </head>
-    <body>
-        <h1>Foxford Tools</h1>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <meta name="description" content="Браузерное расширение для сайта Фокса" />
+    <title>Foxford Tools</title>
+  </head>
+  <body>
+    <main class="main">
+      <div class="card">
+        <section class="card__info">
+          <div class="info__logo">
+            <img src="./assets/images/logo.svg" class="logo" alt="Logo" />
+          </div>
+          <div class="info__text">
+            <h1 class="text__title">Foxford Tools</h1>
+            <h2 class="text__subtitle">кастомизация сайта Фокса</h2>
+          </div>
+        </section>
+        <section class="card__actions">
+          <div class="actions__browser">
+            <!-- тут блоки создает JS -->
+          </div>
+          <div class="actions__element-wrapper">
+            <a href="https://github.com/itsTPM/foxford-tools" target="_blank" class="actions__element action-github">
+              <span class="action-subtitle">код на</span>
+              <span class="action-name">GitHub</span>
+            </a>
+          </div>
+          <div class="change-mode">
+            <span id="changeModeTitle">другой браузер? нажмите</span>
+            <a href="#" id="changeModeBtn">сюда</a>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="./assets/js/app.js"></script>
+  </body>
 </html>

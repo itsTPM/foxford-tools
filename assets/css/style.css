@@ -1,0 +1,161 @@
+@import url('fonts.css');
+
+:root {
+  --main-bg-color: #121212;
+  --main-text-color: #e0e0e0;
+  --main-font: 'Open Sans', 'Segoe UI', sans-serif;
+  --secondary-font: 'Ubuntu';
+  --main-border-color: #222;
+  --hover-bg-color: #1b1b1b;
+  --link-color: #6b81be;
+  --hover-link-color: #4467c5;
+}
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+  font-family: var(--main-font);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--main-border-color);
+  padding: 2.5rem;
+  border-radius: 4px;
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.5);
+  gap: 20px;
+}
+
+.card__info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info__logo {
+  width: 12.5rem;
+}
+
+.logo {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.info__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.text__title {
+  font-weight: 400;
+  font-size: 2em;
+}
+
+.text__subtitle {
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+.card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.actions__browser {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.action-chrome {
+  background: url('../images/chromium.svg');
+}
+
+.action-firefox {
+  background: url('../images/firefox.svg');
+}
+
+.action-edge {
+  background: url('../images/edge.svg');
+}
+
+.action-opera {
+  background: url('../images/opera.svg');
+}
+
+.action-yandex {
+  background: url('../images/yandex.svg');
+}
+
+.action-safari {
+  background: url('../images/safari.svg');
+}
+
+.action-github {
+  background: url('../images/github-mark-white.svg');
+}
+
+.actions__element {
+  border: 1px solid var(--main-border-color);
+  color: var(--main-text-color);
+  padding: 15px 105px 15px 15px;
+  font-size: 14px;
+  transition: background-color 0.33s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  background-position: 110% -150%;
+  background-size: 90px;
+  background-repeat: no-repeat;
+}
+
+.actions__element:hover {
+  background-color: var(--hover-bg-color);
+}
+
+.action-name {
+  font-family: var(--secondary-font);
+  font-size: 2em;
+}
+
+.change-mode {
+  color: #999;
+  font-size: 13px;
+  text-align: center;
+}
+
+.change-mode a {
+  color: var(--link-color);
+  transition: color 0.33s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.change-mode a:hover {
+  color: var(--hover-link-color);
+}
