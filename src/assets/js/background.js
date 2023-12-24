@@ -29,7 +29,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     if (result.changeTitles == true) {
       await new Promise((r) => setTimeout(r, 100));
       if (changeInfo.status === 'complete') {
-        console.log(`Tab updated: ${tab.url}`);
+        console.log(`[Foxford Tools] Вкладка обновлена: ${tab.url}`);
         for (const [urlPart, title] of Object.entries(urlTitleMap)) {
           if (tab.url.includes(urlPart)) {
             chrome.scripting.executeScript({
@@ -46,7 +46,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 });
 
 function functionToInject(title) {
-  console.log('Title changed');
+  console.log('[Foxford Tools] Заголовок изменен');
   document.title = title;
 }
 

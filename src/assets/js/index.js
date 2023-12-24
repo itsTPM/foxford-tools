@@ -19,7 +19,7 @@ async function fetchExtensionData() {
   try {
     meta = await fetch('../../meta.json').then((response) => response.json());
   } catch (e) {
-    console.log(`Ошибка при подгрузке meta.json: ${e}`);
+    console.log(`[Foxford Tools] Ошибка при подгрузке meta.json: ${e}`);
     meta = { sha: '0000000' };
   }
   return [manifest, meta];
@@ -87,7 +87,7 @@ async function handleThemes() {
   try {
     themesIndex = await fetch('../../themes.json').then((response) => response.json());
   } catch (e) {
-    console.log(`Ошибка при подгрузке themes.json: ${e}`);
+    console.log(`[Foxford Tools] Ошибка при подгрузке themes.json: ${e}`);
     themesIndex = [];
   }
 
@@ -167,6 +167,6 @@ async function checkForUpdates(meta) {
   const latestCommit = latestCommitFull.substring(0, 7);
 
   if (meta.sha !== latestCommit) {
-    console.log(`Обнаружено обновление: ${meta.sha} -> ${latestCommit}`);
+    console.log(`[Foxford Tools] Обнаружено обновление: ${meta.sha} -> ${latestCommit}`);
   }
 }
