@@ -34,7 +34,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
           if (tab.url.includes(urlPart)) {
             chrome.scripting.executeScript({
               target: { tabId: tabId },
-              function: functionToInject,
+              func: functionToInject,
               args: [title],
             });
             break;
