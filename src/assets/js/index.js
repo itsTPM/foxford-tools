@@ -116,6 +116,7 @@ function createThemeSelector(themes) {
   const themeSelector = document.getElementById('theme');
 
   themes.forEach((theme) => {
+    if (theme.active === false) return;
     const option = document.createElement('option');
     option.value = theme.name.toLowerCase();
     option.textContent = theme.name;
