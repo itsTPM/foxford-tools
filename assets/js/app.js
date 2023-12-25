@@ -28,7 +28,7 @@ const browsers = {
   yandex: {
     displayName: 'Yandex',
     actionClass: 'action-yandex',
-    link: 'https://update.itstpm.tech/?browser=firefox',
+    link: 'https://update.itstpm.tech/?browser=yandex',
   },
 };
 
