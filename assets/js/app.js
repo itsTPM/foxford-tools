@@ -115,7 +115,7 @@ function createNotSupportedElement() {
 
   const newSpanName = document.createElement('span');
   newSpanName.className = 'action-name';
-  newSpanName.textContent = 'другой';
+  newSpanName.textContent = 'ваш браузер';
 
   newLink.appendChild(newSpanSubtitle);
   newLink.appendChild(newSpanName);
