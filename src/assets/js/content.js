@@ -37,6 +37,7 @@ function debounce(func, wait) {
 
 // Объединенная функция для создания MutationObserver
 function createObserver(querySelector, delay, urlPart, badgeClass, callback) {
+  console.log(badgeClass);
   const debouncedCallback = debounce(callback, delay);
   return new MutationObserver(() => {
     try {
@@ -67,10 +68,10 @@ const calculateReadingTime = (element) => {
 };
 
 const calculateWebinarProgress = (element) => {
+  console.log('Observer changed');
   const majors = doc.getElementsByClassName('major');
-  if (majors.length < 4) return;
   const webinarPercent = +Math.round((majors[2].textContent / majors[3].textContent) * 100);
-  createPercentElement(webinarPercent, element, 'before').classList.add('webinarPercent');
+  createPercentElement(webinarPercent, element.lastChild.lastChild, 'before').classList.add('webinarPercent');
 };
 
 const calculateHomeworkProgress = async (element) => {
@@ -117,7 +118,7 @@ const calculateHomeworkProgress = async (element) => {
 };
 
 const conspectsObserver = createObserver('#wikiThemeContent', 50, 'conspects', '.badgeWrapper', calculateReadingTime);
-const webinarObserver = createObserver('.fyhomc', 50, 'courses', '.webinarPercent', calculateWebinarProgress);
+const webinarObserver = createObserver('.bKdhIU', 50, 'courses', '.webinarPercent', calculateWebinarProgress);
 const homeworkObserver = createObserver(
   '#joyrideHomeworkBtn',
   50,
@@ -126,7 +127,7 @@ const homeworkObserver = createObserver(
   calculateHomeworkProgress
 );
 
-// Функция создания элемента (не процента)
+// Функция создания элемента
 function createElement(tag, properties, parent, insertMethod) {
   const element = doc.createElement(tag);
   Object.assign(element, properties);
