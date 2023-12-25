@@ -50,10 +50,10 @@ function functionToInject(title) {
   document.title = title;
 }
 
-chrome.runtime.onInstalled.addListener(function () {
-  chrome.contextMenus.create({
-    title: 'Сохранить презентацию',
-    contexts: ['link'],
-    id: 'link',
-  });
-});
+// chrome.runtime.onInstalled.addListener(function () {
+//   chrome.contextMenus.create({
+//     title: 'Сохранить презентацию',
+//     contexts: ['link'],
+//     id: 'link',
+//   });
+// });

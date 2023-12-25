@@ -3,7 +3,7 @@
   "name": "Foxford Tools",
   "description": "Расширение для того самого сайта Фокса",
   "version": "1.0",
-  "version_name": "1.0-preview",
+  "version_name": "1.0-release",
   "homepage_url": "https://github.com/itsTPM/foxford-tools/",
   "permissions": ["storage", "activeTab", "scripting", "contextMenus"],
   "icons": {
