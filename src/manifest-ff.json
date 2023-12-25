@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Foxford Tools",
+  "description": "Расширение для того самого сайта Фокса",
+  "version": "1.0",
+  "version_name": "1.0-preview",
+  "homepage_url": "https://github.com/itsTPM/foxford-tools/",
+  "permissions": ["storage", "activeTab", "scripting", "contextMenus"],
+  "icons": {
+    "16": "./assets/images/round_result16.png",
+    "32": "./assets/images/round_result32.png",
+    "48": "./assets/images/round_result48.png",
+    "64": "./assets/images/round_result64.png",
+    "96": "./assets/images/round_result96.png",
+    "128": "./assets/images/round_result128.png",
+    "192": "./assets/images/round_result192.png",
+    "256": "./assets/images/round_result256.png"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "./assets/images/round.png"
+  },
+  "content_scripts": [
+    {
+      "js": ["./assets/js/content.js"],
+      "css": ["./assets/css/content.css"],
+      "matches": ["https://foxford.ru/*"]
+    }
+  ],
+  "host_permissions": ["https://foxford.ru/*"],
+  "background": {
+    "scripts": ["./assets/js/background.js"]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["themes/*.css", "assets/js/inject.js"],
+      "matches": ["https://foxford.ru/*"]
+    }
+  ]
+}
