@@ -10,11 +10,6 @@ const browsers = {
     actionClass: 'action-chrome',
     link: 'https://update.itstpm.tech/?browser=chrome',
   },
-  firefox: {
-    displayName: 'Firefox',
-    actionClass: 'action-firefox',
-    link: 'https://update.itstpm.tech/?browser=firefox',
-  },
   edge: {
     displayName: 'Edge',
     actionClass: 'action-edge',
