@@ -8,7 +8,7 @@ const browsers = {
   chrome: {
     displayName: 'Chrome',
     actionClass: 'action-chrome',
-    link: 'https://update.itstpm.tech/?browser=chrome,
+    link: 'https://update.itstpm.tech/?browser=chrome',
   },
   firefox: {
     displayName: 'Firefox',
