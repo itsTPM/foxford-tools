@@ -8,27 +8,27 @@ const browsers = {
   chrome: {
     displayName: 'Chrome',
     actionClass: 'action-chrome',
-    link: 'https://update.itstpm.tech/chrome',
+    link: 'https://update.itstpm.tech/?browser=chrome,
   },
   firefox: {
     displayName: 'Firefox',
     actionClass: 'action-firefox',
-    link: 'https://update.itstpm.tech/firefox',
+    link: 'https://update.itstpm.tech/?browser=firefox',
   },
   edge: {
     displayName: 'Edge',
     actionClass: 'action-edge',
-    link: 'https://update.itstpm.tech/edge',
+    link: 'https://update.itstpm.tech/?browser=edge',
   },
   opera: {
     displayName: 'Opera',
     actionClass: 'action-opera',
-    link: 'https://update.itstpm.tech/opera',
+    link: 'https://update.itstpm.tech/?browser=opera',
   },
   yandex: {
     displayName: 'Yandex',
     actionClass: 'action-yandex',
-    link: 'https://update.itstpm.tech/yandex',
+    link: 'https://update.itstpm.tech/?browser=firefox',
   },
 };
 
