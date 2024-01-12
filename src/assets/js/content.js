@@ -167,8 +167,7 @@ const showRatingPosition = async (element) => {
     ratingWrapper = createElement('div', { className: 'ratingWrapper' }, element, 'before');
   }
 
-  const fragment = document.createDocumentFragment();
-  const ratingText = createElement('span', { textContent: 'Место в рейтинге', classLis: 'ratingText' });
+  const ratingText = createElement('span', { textContent: 'Место в рейтинге ', classList: 'ratingText' });
   const ratingTime = createElement(
     'span',
     {
@@ -179,15 +178,12 @@ const showRatingPosition = async (element) => {
   );
   const ratingElement = createElement('span', { textContent: `#${ratingPosition}`, classList: 'ratingPosition' });
 
-  fragment.appendChild(ratingText);
-  fragment.appendChild(ratingTime);
-  fragment.appendChild(ratingElement);
-
-  ratingWrapper.textContent = '';
-  ratingWrapper.appendChild(fragment);
+  ratingText.appendChild(ratingTime);
+  ratingWrapper.appendChild(ratingText);
+  ratingWrapper.appendChild(ratingElement);
 };
 
-const ratingObserver = createObserver('.gXSvvj', 50, 'courses', '.ratingWrapper', showRatingPosition);
+const ratingObserver = createObserver('.gXSvvj', 200, 'courses', '.ratingWrapper', showRatingPosition);
 const conspectsObserver = createObserver('#wikiThemeContent', 50, 'conspects', '.badgeWrapper', calculateReadingTime);
 const webinarObserver = createObserver('.bKdhIU', 50, 'courses', '.webinarPercent', calculateWebinarProgress);
 const homeworkObserver = createObserver(
