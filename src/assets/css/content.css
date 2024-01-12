@@ -1,3 +1,4 @@
+/* Время чтения теории */
 .badgeWrapper {
   padding: 15px;
   border-radius: 5px;
@@ -8,6 +9,7 @@
   font-weight: 600;
 }
 
+/* Проценты дз & вебинара */
 .percent {
   display: flex;
   align-items: center;
@@ -34,11 +36,4 @@
 
 .webinarPercent {
   margin-left: auto;
-}
-
-.loadIndicator {
-  font-size: 18px;
-  font-weight: 700;
-  text-align: center;
-  padding: 15px;
 }
