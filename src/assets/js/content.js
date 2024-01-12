@@ -86,6 +86,7 @@ const calculateReadingTime = (element) => {
 const calculateWebinarProgress = (element) => {
   console.log('Observer changed');
   const majors = doc.getElementsByClassName('major');
+  if (majors.length < 2) return;
   const webinarPercent = +Math.round((majors[2].textContent / majors[3].textContent) * 100);
   createPercentElement(webinarPercent, element.lastChild.lastChild, 'before').classList.add('webinarPercent');
 };
