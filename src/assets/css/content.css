@@ -37,3 +37,35 @@
 .webinarPercent {
   margin-left: auto;
 }
+
+/* Блок рейтинга */
+.ratingWrapper {
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 5px;
+  margin-bottom: 32px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: initial;
+  align-items: center;
+}
+
+.ratingPosition {
+  margin: 0px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1.3;
+  font-size: 24px;
+  display: inline;
+  color: rgb(51, 51, 51);
+}
+
+.ratingTime {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  display: inline;
+  color: rgb(51, 51, 51);
+}
