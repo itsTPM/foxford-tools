@@ -143,7 +143,7 @@ const showRatingPosition = async (element) => {
   const lastFetchTime = localStorage.getItem(lastFetchTimeKey);
   const oneHour = 60 * 60 * 1000;
 
-  let ratingPosition = localStorage.getItem(ratingPositionKey) || 0;
+  let ratingPosition = localStorage.getItem(ratingPositionKey);
   let minutesUntilUpdate = 60;
 
   if (!lastFetchTime || new Date() - new Date(lastFetchTime) >= oneHour) {
@@ -162,11 +162,13 @@ const showRatingPosition = async (element) => {
   }
 
   let ratingWrapper = document.querySelector('.ratingWrapper');
+
   if (!ratingWrapper) {
     ratingWrapper = createElement('div', { className: 'ratingWrapper' }, element, 'before');
   }
-  ratingWrapper.innerHTML = '';
-  const ratingText = createElement('span', { textContent: 'Место в рейтинге ', classLis: 'ratingText' }, ratingWrapper);
+
+  const fragment = document.createDocumentFragment();
+  const ratingText = createElement('span', { textContent: 'Место в рейтинге', classLis: 'ratingText' });
   const ratingTime = createElement(
     'span',
     {
@@ -175,11 +177,14 @@ const showRatingPosition = async (element) => {
     },
     ratingText
   );
-  const ratingElement = createElement(
-    'span',
-    { textContent: `#${ratingPosition}`, classList: 'ratingPosition' },
-    ratingWrapper
-  );
+  const ratingElement = createElement('span', { textContent: `#${ratingPosition}`, classList: 'ratingPosition' });
+
+  fragment.appendChild(ratingText);
+  fragment.appendChild(ratingTime);
+  fragment.appendChild(ratingElement);
+
+  ratingWrapper.textContent = '';
+  ratingWrapper.appendChild(fragment);
 };
 
 const ratingObserver = createObserver('.gXSvvj', 50, 'courses', '.ratingWrapper', showRatingPosition);
@@ -251,24 +256,29 @@ function createPercentElement(percent, parent, insertMethod) {
  * @returns {Promise<any>} - Промис, который разрешается с полученными данными.
  */
 async function fetchWithCache(url) {
-  const cachedData = localStorage.getItem(url);
+  try {
+    const cachedData = localStorage.getItem(url);
 
-  if (cachedData) {
-    return JSON.parse(cachedData);
-  } else {
-    const response = await fetch(url);
-    const data = await response.json();
-    const allTasksSolved =
-      Array.isArray(data) &&
-      data.every((task) => task.status === 'solved' || task.status === 'partially' || task.status === 'failed');
+    if (cachedData) {
+      return JSON.parse(cachedData);
+    } else {
+      const response = await fetch(url);
+      const data = await response.json();
+      const allTasksSolved =
+        Array.isArray(data) &&
+        data.every(({ status }) => status === 'solved' || status === 'partially' || status === 'failed');
 
-    if (allTasksSolved) {
-      // Если все задачи решены, кэшируем результат
-      const cacheData = data.map((task) => ({ status: task.status, id: task.id }));
-      localStorage.setItem(url, JSON.stringify(cacheData));
+      if (allTasksSolved) {
+        // Если все задачи решены, кэшируем результат
+        const cacheData = data.map(({ status, id }) => ({ status, id }));
+        localStorage.setItem(url, JSON.stringify(cacheData));
+      }
+
+      return data;
     }
-
-    return data;
+  } catch (error) {
+    console.error(`Failed to fetch or parse data: ${error}`);
+    return null;
   }
 }
 
@@ -282,11 +292,13 @@ const settings = {
 
 storage.get(Object.keys(settings), function (result) {
   for (const [setting, observer] of Object.entries(settings)) {
-    if (result[setting]) {
-      observer.observe(doc.body, {
-        childList: true,
-        subtree: true,
-      });
+    if (!result[setting]) {
+      continue;
     }
+
+    observer.observe(doc.body, {
+      childList: true,
+      subtree: true,
+    });
   }
 });
