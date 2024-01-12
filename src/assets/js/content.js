@@ -22,7 +22,13 @@ storage.get(['selectedTheme'], function (result) {
   }
 });
 
-// Задержка для MutationObserver, чтобы избежать создания лишних элементов
+/**
+ * Создает функцию с задержкой, которая откладывает вызов предоставленной функции до тех пор, пока не пройдет указанное количество миллисекунд после последнего вызова.
+ *
+ * @param {Function} func - Функция для задержки.
+ * @param {number} wait - Количество миллисекунд для задержки.
+ * @returns {Function} - Функция с задержкой.
+ */
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -35,7 +41,17 @@ function debounce(func, wait) {
   };
 }
 
-// Объединенная функция для создания MutationObserver
+/**
+ * Создает MutationObserver, который отслеживает изменения в DOM и вызывает функцию обратного вызова, когда выполняются указанные условия.
+ *
+ * @param {string} querySelector - CSS-селектор для элемента, который нужно наблюдать.
+ * @param {number} delay - Задержка в миллисекундах перед вызовом функции обратного вызова.
+ * @param {string} urlPart - Часть URL, которая должна присутствовать в текущем URL, чтобы вызвать функцию обратного вызова.
+ * @param {string} badgeClass - CSS-селектор класса для элемента значка.
+ * @param {Function} callback - Функция обратного вызова, которая будет выполнена, когда выполняются указанные условия.
+ * @returns {MutationObserver} - Созданный экземпляр MutationObserver.
+ */
+
 function createObserver(querySelector, delay, urlPart, badgeClass, callback) {
   console.log(badgeClass);
   const debouncedCallback = debounce(callback, delay);
@@ -117,6 +133,56 @@ const calculateHomeworkProgress = async (element) => {
   createPercentElement(homeworkPercent, element, 'after').classList.add('homeworkPercent');
 };
 
+const showRatingPosition = async (element) => {
+  const courseId = location.href.match(/[0-9]+/g)[0];
+  const apiLink = `https://foxford.ru/api/courses/${courseId}/rating`;
+
+  const lastFetchTimeKey = `lastFetchTime_${courseId}`;
+  const ratingPositionKey = `ratingPosition_${courseId}`;
+
+  const lastFetchTime = localStorage.getItem(lastFetchTimeKey);
+  const oneHour = 60 * 60 * 1000;
+
+  let ratingPosition = localStorage.getItem(ratingPositionKey) || 0;
+  let minutesUntilUpdate = 60;
+
+  if (!lastFetchTime || new Date() - new Date(lastFetchTime) >= oneHour) {
+    try {
+      const ratingJson = await (await fetch(apiLink)).json();
+      if (Array.isArray(ratingJson)) {
+        ratingPosition = ratingJson[0].position;
+        localStorage.setItem(ratingPositionKey, ratingPosition);
+        localStorage.setItem(lastFetchTimeKey, new Date().toISOString());
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  } else {
+    minutesUntilUpdate = Math.round((oneHour - (new Date() - new Date(lastFetchTime))) / 60000);
+  }
+
+  let ratingWrapper = document.querySelector('.ratingWrapper');
+  if (!ratingWrapper) {
+    ratingWrapper = createElement('div', { className: 'ratingWrapper' }, element, 'before');
+  }
+  ratingWrapper.innerHTML = '';
+  const ratingText = createElement('span', { textContent: 'Место в рейтинге ', classLis: 'ratingText' }, ratingWrapper);
+  const ratingTime = createElement(
+    'span',
+    {
+      textContent: `обновится через ${minutesUntilUpdate} мин`,
+      classList: 'ratingTime',
+    },
+    ratingText
+  );
+  const ratingElement = createElement(
+    'span',
+    { textContent: `#${ratingPosition}`, classList: 'ratingPosition' },
+    ratingWrapper
+  );
+};
+
+const ratingObserver = createObserver('.gXSvvj', 50, 'courses', '.ratingWrapper', showRatingPosition);
 const conspectsObserver = createObserver('#wikiThemeContent', 50, 'conspects', '.badgeWrapper', calculateReadingTime);
 const webinarObserver = createObserver('.bKdhIU', 50, 'courses', '.webinarPercent', calculateWebinarProgress);
 const homeworkObserver = createObserver(
@@ -127,7 +193,14 @@ const homeworkObserver = createObserver(
   calculateHomeworkProgress
 );
 
-// Функция создания элемента
+/**
+ * Создает и возвращает новый HTML-элемент с указанным тегом, свойствами и родительским элементом.
+ * @param {string} tag - Имя HTML-тега создаваемого элемента.
+ * @param {Object} properties - Объект, содержащий свойства, которые нужно присвоить элементу.
+ * @param {HTMLElement} parent - Родительский элемент, к которому будет добавлен новый элемент.
+ * @param {string} [insertMethod='appendChild'] - Метод, используемый для вставки нового элемента в родительский элемент.
+ * @returns {HTMLElement} - Созданный HTML-элемент.
+ */
 function createElement(tag, properties, parent, insertMethod) {
   const element = doc.createElement(tag);
   Object.assign(element, properties);
@@ -135,7 +208,18 @@ function createElement(tag, properties, parent, insertMethod) {
   return element;
 }
 
-// Функция создания элемента процента (процент дз, процент вебинара)
+/**
+ * Создает элемент процента на основе заданного значения процента.
+ * Если значение процента является NaN, 0, undefined или null, элемент будет отображать 'не начато'.
+ * Если значение процента меньше или равно 40, элемент будет иметь класс 'percent-red'.
+ * Если значение процента меньше или равно 70, элемент будет иметь класс 'percent-yellow'.
+ * Если значение процента больше 70, элемент будет иметь класс 'percent-green'.
+ *
+ * @param {number} percent - Значение процента, которое будет отображаться
+ * @param {HTMLElement} parent - Родительский элемент, к которому будет добавлен элемент процента
+ * @param {string} insertMethod - Метод вставки элемента процента в родительский элемент ('append', 'prepend', 'before', 'after')
+ * @returns {HTMLElement} - Созданный элемент процента
+ */
 function createPercentElement(percent, parent, insertMethod) {
   let percentClass;
   let textContent;
@@ -159,7 +243,13 @@ function createPercentElement(percent, parent, insertMethod) {
   return percentElement;
 }
 
-// Кэширование tasks.json, в которых все задачи решены
+/**
+ * Получает данные из указанного URL с поддержкой кэширования.
+ * Если данные уже находятся в кэше, возвращает кэшированные данные.
+ * Если все задачи в полученных данных решены, кэширует результат.
+ * @param {string} url - URL для получения данных.
+ * @returns {Promise<any>} - Промис, который разрешается с полученными данными.
+ */
 async function fetchWithCache(url) {
   const cachedData = localStorage.getItem(url);
 
@@ -187,6 +277,7 @@ const settings = {
   timeSetup: conspectsObserver,
   homeworkPercentSetup: homeworkObserver,
   webinarPercentSetup: webinarObserver,
+  ratingPositionSetup: ratingObserver,
 };
 
 storage.get(Object.keys(settings), function (result) {
