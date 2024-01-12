@@ -4,7 +4,7 @@
   "description": "Расширение для того самого сайта Фокса",
   "version": "1.1",
   "version_name": "1.1-dev",
-  "homepage_url": "https://github.com/itsTPM/foxford-tools/",
+  "homepage_url": "https://fox.itstpm.tech/",
   "permissions": ["storage", "activeTab", "scripting", "contextMenus"],
   "icons": {
     "16": "./assets/images/round_result16.png",
