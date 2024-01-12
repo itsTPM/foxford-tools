@@ -28,7 +28,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   chrome.storage.local.get(['changeTitles'], async function (result) {
     if (result.changeTitles == true) {
       await new Promise((r) => setTimeout(r, 100));
-      if (changeInfo.status === 'complete') {
+      if (changeInfo.status === 'complete' && tab.url) {
         console.log(`[Foxford Tools] Вкладка обновлена: ${tab.url}`);
         for (const [urlPart, title] of Object.entries(urlTitleMap)) {
           if (tab.url.includes(urlPart)) {
