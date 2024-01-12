@@ -9,8 +9,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   handleTabs();
   handleThemes();
   addHomePageListener();
+  addGitHubListener();
   addRefreshButtonListener();
-  checkForUpdates(meta);
+  // checkForUpdates(meta);
 });
 
 async function fetchExtensionData() {
@@ -148,6 +149,12 @@ function createThemeSelector(themes) {
 
 function addHomePageListener() {
   document.getElementById('openHomePage').addEventListener('click', () => {
+    chrome.tabs.create({ url: 'https://fox.itstpm.tech/' });
+  });
+}
+
+function addGitHubListener() {
+  document.getElementById('openGitHub').addEventListener('click', () => {
     chrome.tabs.create({ url: 'https://github.com/itsTPM/foxford-tools' });
   });
 }

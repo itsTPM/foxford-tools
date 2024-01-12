@@ -91,10 +91,20 @@ main {
   width: 22px;
   height: 22px;
   border-radius: 4px;
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .link img {
   filter: invert(41%) sepia(12%) saturate(11%) hue-rotate(6deg) brightness(94%) contrast(88%);
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.link:hover {
+  background-color: #eeeeee;
+}
+
+.link:hover img {
+  filter: unset;
 }
 
 .refreshPage {
