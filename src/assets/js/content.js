@@ -54,20 +54,26 @@ function debounce(func, wait) {
 
 function createObserver(querySelector, delay, urlPart, badgeClass, callback) {
   console.log(badgeClass);
+  let isAdded = false;
   const debouncedCallback = debounce(callback, delay);
   return new MutationObserver(() => {
-    try {
-      const element = doc.querySelector(querySelector);
-      if (element) {
-        if (location.href.includes(urlPart)) {
-          if (!doc.querySelector(badgeClass)) {
-            debouncedCallback(element);
+    requestAnimationFrame(() => {
+      try {
+        const element = doc.querySelector(querySelector);
+        if (element) {
+          if (!isAdded && location.href.includes(urlPart)) {
+            if (!doc.querySelector(badgeClass)) {
+              debouncedCallback(element);
+              isAdded = true;
+            }
           }
+        } else {
+          isAdded = false;
         }
+      } catch (error) {
+        console.error(`[Foxford Tools] Ошибка при создании MutationObserver: ${error}`);
       }
-    } catch (error) {
-      console.error(`[Foxford Tools] Ошибка при создании MutationObserver: ${error}`);
-    }
+    });
   });
 }
 
@@ -184,12 +190,12 @@ const showRatingPosition = async (element) => {
   ratingWrapper.appendChild(ratingElement);
 };
 
-const ratingObserver = createObserver('.gXSvvj', 200, 'courses', '.ratingWrapper', showRatingPosition);
-const conspectsObserver = createObserver('#wikiThemeContent', 50, 'conspects', '.badgeWrapper', calculateReadingTime);
-const webinarObserver = createObserver('.bKdhIU', 50, 'courses', '.webinarPercent', calculateWebinarProgress);
+const ratingObserver = createObserver('.gXSvvj', 1, 'courses', '.ratingWrapper', showRatingPosition);
+const conspectsObserver = createObserver('#wikiThemeContent', 1, 'conspects', '.badgeWrapper', calculateReadingTime);
+const webinarObserver = createObserver('.bKdhIU', 1, 'courses', '.webinarPercent', calculateWebinarProgress);
 const homeworkObserver = createObserver(
   '#joyrideHomeworkBtn',
-  50,
+  1,
   'courses',
   '.homeworkPercent',
   calculateHomeworkProgress
