@@ -100,6 +100,7 @@ const calculateWebinarProgress = (element) => {
 const calculateHomeworkProgress = async (element) => {
   let tasksPercent = 0;
   let tasksCount = 0;
+  let totalTasksCount = 0;
   // следующие 3 строчки - выцепляем id домашки из href кнопки, потом добавляем его в ссылку на api
   const homeworkLink = element.parentNode.parentNode.parentNode.parentNode.parentNode.href; // это надо будет заменить
   const homeworkId = homeworkLink.match(/[0-9]+/g);
@@ -111,6 +112,7 @@ const calculateHomeworkProgress = async (element) => {
 
   if (Array.isArray(tasksJson)) {
     tasksJson.forEach((task) => {
+      totalTasksCount += 1;
       switch (task.status) {
         case 'solved':
           tasksPercent += 1;
@@ -140,7 +142,7 @@ const calculateHomeworkProgress = async (element) => {
   const percentElement = createPercentElement(homeworkPercent, element, 'after');
   percentElement.classList.add('homeworkPercent');
 
-  if (homeworkPercent === 100) {
+  if (homeworkPercent === 100 && totalTasksCount == tasksCount) {
     percentElement.classList.add('percent-legendary');
   }
 };
