@@ -34,6 +34,17 @@
   color: rgb(127, 201, 46);
 }
 
+.percent-legendary {
+  background: linear-gradient(90deg, rgb(245, 102, 83) 20%, rgba(254, 177, 57, 1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.percent-legendary::after {
+  content: '🔥';
+  margin-left: 5px;
+}
+
 .webinarPercent {
   margin-left: auto;
 }

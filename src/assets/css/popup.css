@@ -60,6 +60,9 @@ main {
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .checkboxes {

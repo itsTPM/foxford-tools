@@ -137,7 +137,12 @@ const calculateHomeworkProgress = async (element) => {
   }
 
   const homeworkPercent = Math.round((tasksPercent / tasksCount) * 100);
-  createPercentElement(homeworkPercent, element, 'after').classList.add('homeworkPercent');
+  const percentElement = createPercentElement(homeworkPercent, element, 'after');
+  percentElement.classList.add('homeworkPercent');
+
+  if (homeworkPercent === 100) {
+    percentElement.classList.add('percent-legendary');
+  }
 };
 
 const showRatingPosition = async (element) => {
