@@ -49,6 +49,19 @@ main {
   flex-direction: column;
 }
 
+.hidden,
+.hidden * {
+  opacity: 0 !important;
+  height: 0px !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  cursor: default !important;
+}
+
+.small {
+  font-size: var(--small-font-size);
+}
+
 #logo {
   width: 15vw;
 }
@@ -124,8 +137,6 @@ main {
 
 .refreshPage {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   opacity: 1;
   height: auto;
   margin-top: 10px;
@@ -135,20 +146,10 @@ main {
   border: 1px solid var(--main-border-color);
   border-radius: 4px;
   font-size: var(--main-font-size);
-  text-align: center;
-}
-
-.hidden,
-.hidden * {
-  opacity: 0 !important;
-  height: 0px !important;
-  margin: 0px !important;
-  padding: 0px !important;
-  cursor: default !important;
 }
 
 .button {
-  padding: 10px 15px;
+  padding: 10px 5px;
   transition: var(--main-transition);
   cursor: pointer;
   border: 1px solid var(--main-border-color);
@@ -270,8 +271,4 @@ main {
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   font-size: var(--main-font-size);
-}
-
-.small {
-  font-size: var(--small-font-size);
 }
