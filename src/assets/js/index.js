@@ -70,6 +70,9 @@ function handleTabs() {
     if (event.target.classList.contains('tab-button')) {
       const tabNumber = event.target.id.split('tab')[1].split('-')[0];
       switchTab(tabNumber);
+    } else if (event.target.parentNode.classList.contains('tab-button')) {
+      const tabNumber = event.target.parentNode.id.split('tab')[1].split('-')[0];
+      switchTab(tabNumber);
     }
   });
 }
