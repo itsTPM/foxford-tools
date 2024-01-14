@@ -1,3 +1,17 @@
+:root {
+  --large-font-size: 24px;
+  --main-font-size: 14px;
+  --small-font-size: 12px;
+
+  --main-border-color: #cccccc;
+
+  --main-transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  --aditional-block-bg: #f5f5f5;
+
+  --hover-bg: #e0e0e0;
+}
+
 /* CSS reset */
 *,
 *::after,
@@ -5,7 +19,7 @@
   padding: 0;
   margin: 0;
   font-family: 'Open Sans', 'Segoe UI', sans-serif;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   font-weight: 400 !important;
   user-select: none;
 }
@@ -18,12 +32,11 @@ body {
 }
 
 h1 {
-  font-size: 24px;
-  font-weight: 400;
+  font-size: var(--large-font-size);
 }
 
 label {
-  font-size: 14px;
+  font-size: var(--main-font-size);
 }
 
 img {
@@ -57,7 +70,7 @@ main {
 }
 
 .checkbox {
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
   border-radius: 4px;
   padding: 15px;
   display: flex;
@@ -74,7 +87,7 @@ main {
 .footer {
   display: flex;
   justify-content: space-around;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   padding: 7.5px 15px 15px 15px;
   margin-top: auto;
   align-items: center;
@@ -90,20 +103,20 @@ main {
   align-items: center;
   justify-content: center;
   padding: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-border-color);
   width: 22px;
   height: 22px;
   border-radius: 4px;
-  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: var(--main-transition);
 }
 
 .link img {
   filter: invert(41%) sepia(12%) saturate(11%) hue-rotate(6deg) brightness(94%) contrast(88%);
-  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: var(--main-transition);
 }
 
 .link:hover {
-  background-color: #eeeeee;
+  background-color: var(--hover-bg);
 }
 
 .link:hover img {
@@ -117,9 +130,9 @@ main {
   text-align: center;
   padding: 5px;
   border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  background-color: #f5f5f5;
+  border: 1px solid var(--main-border-color);
+  font-size: var(--main-font-size);
+  background-color: var(--aditional-block-bg);
   transition: 2s ease;
   height: auto;
   opacity: 1;
@@ -137,17 +150,15 @@ main {
 
 .button {
   padding: 10px 15px;
-  border: none;
+  border: 1px solid var(--main-border-color);
   border-radius: 4px;
-  background-color: #4c6cb1;
-  color: #fff;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   cursor: pointer;
-  transition: 0.2s linear;
+  transition: var(--main-transition);
 }
 
 .button:hover {
-  background-color: #7c93c3;
+  background-color: var(--hover-bg);
 }
 
 .meta-info {
@@ -188,43 +199,30 @@ main {
 }
 
 .tab-button {
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--main-border-color);
   border-radius: 4px;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   cursor: pointer;
-  transition: 0.2s linear;
   width: 40px;
   height: 40px;
   padding: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: var(--main-transition);
 }
 
 .tab-button img {
   filter: invert(41%) sepia(12%) saturate(11%) hue-rotate(6deg) brightness(94%) contrast(88%);
-  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: var(--main-transition);
 }
 
 .tab-button:hover {
-  background-color: #eeeeee;
+  background-color: var(--hover-bg);
 }
 
 .tab-button:hover img {
   filter: unset;
-}
-
-.tab-button:hover {
-  background-color: #e0e0e0;
-}
-
-.tab-button.active {
-  border: 1px solid #9ba8c4;
-}
-
-.tab-button.active:hover {
-  background-color: #9ba8c4;
 }
 
 .extInfo {
@@ -242,7 +240,7 @@ main {
 }
 
 .theme-selector label {
-  font-size: 14px;
+  font-size: var(--main-font-size);
 }
 
 #theme {
@@ -250,12 +248,12 @@ main {
   width: 100%;
   height: 100%;
   border-radius: 4px;
-  background-color: #f5f5f5;
+  background-color: var(--aditional-block-bg);
   color: #666;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   cursor: pointer;
   transition: 0.2s linear;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--main-border-color);
 }
 
 #theme:focus {
@@ -270,11 +268,11 @@ main {
   padding: 15px;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: var(--main-font-size);
   margin-top: 10px;
   transition: 2s ease;
 }
 
 .small {
-  font-size: 12px;
+  font-size: var(--small-font-size);
 }
