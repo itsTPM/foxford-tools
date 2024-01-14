@@ -1,4 +1,3 @@
-const inputs = ['timeSetup', 'homeworkPercentSetup', 'webinarPercentSetup', 'changeTitles', 'ratingPositionSetup'];
 const elements = ['version', 'logo', 'name', 'commit'];
 const links = [
   {
@@ -12,16 +11,49 @@ const links = [
     icon: 'tabler-icons/github.svg',
   },
 ];
+const settingGroups = [
+  {
+    id: 'percents',
+    title: 'Проценты',
+    settings: [
+      {
+        id: 'homeworkPercentSetup',
+        title: 'Отображать процент успеха ДЗ',
+      },
+      {
+        id: 'webinarPercentSetup',
+        title: 'Отображать процент успеха вебинаров',
+      },
+    ],
+  },
+  {
+    id: 'other',
+    title: 'Остальное',
+    settings: [
+      {
+        id: 'timeSetup',
+        title: 'Отображать время чтения теории',
+      },
+      {
+        id: 'changeTitles',
+        title: 'Понятный заголовок страницы',
+      },
+      {
+        id: 'ratingPositionSetup',
+        title: 'Отображать место в рейтинге на странице курса',
+      },
+    ],
+  },
+];
 
 document.addEventListener('DOMContentLoaded', async () => {
   const [manifest, meta] = await fetchExtensionData();
-  setCheckboxStates();
   populatePageElements(manifest, meta);
-  addEventListeners();
-  handleTabs();
-  handleThemes();
+  createSettingsGroups(settingGroups);
   createLinks(links);
   addRefreshButtonListener();
+  handleTabs();
+  handleThemes();
   // checkForUpdates(meta);
 });
 
@@ -35,13 +67,6 @@ async function fetchExtensionData() {
     meta = { sha: '0000000' };
   }
   return [manifest, meta];
-}
-
-function setCheckboxStates() {
-  inputs.forEach((id) => {
-    const item = localStorage.getItem(id);
-    document.querySelector(`#${id}`).checked = item === null ? false : item === 'true';
-  });
 }
 
 function populatePageElements(manifest, meta) {
@@ -62,17 +87,56 @@ function populatePageElements(manifest, meta) {
   });
 }
 
-function addEventListeners() {
-  inputs.forEach((id) => {
-    addInputListener(id);
+function createSettingsGroups(settingGroups) {
+  const checkboxesContainer = document.querySelector('.checkboxes');
+
+  settingGroups.forEach((group) => {
+    const checkboxGroup = document.createElement('div');
+    checkboxGroup.classList.add('checkbox-group');
+    group.settings.forEach((setting) => {
+      const checkbox = document.createElement('div');
+      checkbox.classList.add('checkbox');
+      checkbox.innerHTML = `
+        <input type="checkbox" id="${setting.id}" />
+        <label for="${setting.id}">${setting.title}</label>
+      `;
+      checkbox.addEventListener('click', () => {
+        const input = checkbox.querySelector('input');
+        input.checked = !input.checked;
+        localStorage.setItem(setting.id, input.checked);
+        chrome.storage.local.set({ [setting.id]: input.checked });
+
+        document.getElementById('refreshPage').classList.remove('hidden');
+      });
+
+      const item = localStorage.getItem(setting.id);
+      checkbox.querySelector('input').checked = item === null ? false : item === 'true';
+
+      checkboxGroup.appendChild(checkbox);
+    });
+    checkboxesContainer.appendChild(checkboxGroup);
   });
 }
 
-function addInputListener(id) {
-  document.querySelector(`#${id}`).addEventListener('input', function (e) {
-    document.getElementById('refreshPage').classList.remove('hidden');
-    localStorage.setItem(id, e.target.checked);
-    chrome.storage.local.set({ [id]: e.target.checked });
+function createLinks(links) {
+  const linksContainer = document.getElementById('links');
+  links.forEach((link) => {
+    const linkElement = document.createElement('a');
+    linkElement.classList.add('link');
+    linkElement.href = '#';
+    linkElement.id = link.id;
+    linkElement.innerHTML = `<img src="./assets/images/${link.icon}">`;
+    linksContainer.appendChild(linkElement);
+    linkElement.addEventListener('click', () => {
+      chrome.tabs.create({ url: link.url });
+    });
+  });
+}
+
+function addRefreshButtonListener() {
+  document.getElementById('refreshButton').addEventListener('click', () => {
+    chrome.tabs.reload();
+    window.close();
   });
 }
 
@@ -158,28 +222,6 @@ function createThemeSelector(themes) {
     } else {
       themeInfo.classList.add('hidden');
     }
-  });
-}
-
-function createLinks(links) {
-  const linksContainer = document.getElementById('links');
-  links.forEach((link) => {
-    const linkElement = document.createElement('a');
-    linkElement.classList.add('link');
-    linkElement.href = '#';
-    linkElement.id = link.id;
-    linkElement.innerHTML = `<img src="./assets/images/${link.icon}">`;
-    linksContainer.appendChild(linkElement);
-    linkElement.addEventListener('click', () => {
-      chrome.tabs.create({ url: link.url });
-    });
-  });
-}
-
-function addRefreshButtonListener() {
-  document.getElementById('refreshButton').addEventListener('click', () => {
-    chrome.tabs.reload();
-    window.close();
   });
 }
 

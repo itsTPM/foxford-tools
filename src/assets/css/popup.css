@@ -81,7 +81,7 @@ main {
   text-align: center;
 }
 
-.checkbox {
+.checkbox-group {
   display: flex;
   flex-direction: column;
   gap: 15px;
