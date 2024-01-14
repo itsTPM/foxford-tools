@@ -1,5 +1,17 @@
 const inputs = ['timeSetup', 'homeworkPercentSetup', 'webinarPercentSetup', 'changeTitles', 'ratingPositionSetup'];
 const elements = ['version', 'logo', 'name', 'commit'];
+const links = [
+  {
+    id: 'openHomePage',
+    url: 'https://fox.itstpm.tech/',
+    icon: 'tabler-icons/web.svg',
+  },
+  {
+    id: 'openGitHub',
+    url: 'https://github.com/itsTPM/foxford-tools',
+    icon: 'tabler-icons/github.svg',
+  },
+];
 
 document.addEventListener('DOMContentLoaded', async () => {
   const [manifest, meta] = await fetchExtensionData();
@@ -8,8 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   addEventListeners();
   handleTabs();
   handleThemes();
-  addHomePageListener();
-  addGitHubListener();
+  createLinks(links);
   addRefreshButtonListener();
   // checkForUpdates(meta);
 });
@@ -150,15 +161,18 @@ function createThemeSelector(themes) {
   });
 }
 
-function addHomePageListener() {
-  document.getElementById('openHomePage').addEventListener('click', () => {
-    chrome.tabs.create({ url: 'https://fox.itstpm.tech/' });
-  });
-}
-
-function addGitHubListener() {
-  document.getElementById('openGitHub').addEventListener('click', () => {
-    chrome.tabs.create({ url: 'https://github.com/itsTPM/foxford-tools' });
+function createLinks(links) {
+  const linksContainer = document.getElementById('links');
+  links.forEach((link) => {
+    const linkElement = document.createElement('a');
+    linkElement.classList.add('link');
+    linkElement.href = '#';
+    linkElement.id = link.id;
+    linkElement.innerHTML = `<img src="./assets/images/${link.icon}">`;
+    linksContainer.appendChild(linkElement);
+    linkElement.addEventListener('click', () => {
+      chrome.tabs.create({ url: link.url });
+    });
   });
 }
 
