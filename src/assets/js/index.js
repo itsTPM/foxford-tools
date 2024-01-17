@@ -1,52 +1,8 @@
 const elements = ['version', 'logo', 'name', 'commit'];
-const links = [
-  {
-    id: 'openHomePage',
-    url: 'https://fox.itstpm.tech/',
-    icon: 'tabler-icons/web.svg',
-  },
-  {
-    id: 'openGitHub',
-    url: 'https://github.com/itsTPM/foxford-tools',
-    icon: 'tabler-icons/github.svg',
-  },
-];
-const settingGroups = [
-  {
-    id: 'percents',
-    title: 'Проценты',
-    settings: [
-      {
-        id: 'homeworkPercentSetup',
-        title: 'Отображать процент успеха ДЗ',
-      },
-      {
-        id: 'webinarPercentSetup',
-        title: 'Отображать процент успеха вебинаров',
-      },
-    ],
-  },
-  {
-    id: 'other',
-    title: 'Остальное',
-    settings: [
-      {
-        id: 'timeSetup',
-        title: 'Отображать время чтения теории',
-      },
-      {
-        id: 'changeTitles',
-        title: 'Понятный заголовок страницы',
-      },
-      {
-        id: 'ratingPositionSetup',
-        title: 'Отображать место в рейтинге на странице курса',
-      },
-    ],
-  },
-];
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const settingGroups = await fetch('assets/json/settingGroups.json').then((response) => response.json());
+  const links = await fetch('assets/json/links.json').then((response) => response.json());
   const [manifest, meta] = await fetchExtensionData();
   populatePageElements(manifest, meta);
   createSettingsGroups(settingGroups);
@@ -54,7 +10,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   addRefreshButtonListener();
   handleTabs();
   handleThemes();
-  // checkForUpdates(meta);
 });
 
 async function fetchExtensionData() {

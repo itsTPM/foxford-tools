@@ -1,0 +1,34 @@
+[
+  {
+    "id": "percents",
+    "title": "Проценты",
+    "settings": [
+      {
+        "id": "homeworkPercentSetup",
+        "title": "Отображать процент успеха ДЗ"
+      },
+      {
+        "id": "webinarPercentSetup",
+        "title": "Отображать процент успеха вебинаров"
+      }
+    ]
+  },
+  {
+    "id": "other",
+    "title": "Остальное",
+    "settings": [
+      {
+        "id": "timeSetup",
+        "title": "Отображать время чтения теории"
+      },
+      {
+        "id": "changeTitles",
+        "title": "Понятный заголовок страницы"
+      },
+      {
+        "id": "ratingPositionSetup",
+        "title": "Отображать место в рейтинге на странице курса"
+      }
+    ]
+  }
+]
