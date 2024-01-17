@@ -9,6 +9,8 @@
 
   --aditional-block-bg: #f5f5f5;
   --hover-bg: #e0e0e0;
+
+  --active-tab-bg: #e7e6e6;
 }
 
 /* CSS reset */
@@ -223,6 +225,10 @@ main {
 
 .tab-button:hover img {
   filter: unset;
+}
+
+.tab-button.active {
+  background-color: var(--active-tab-bg);
 }
 
 .extInfo {
