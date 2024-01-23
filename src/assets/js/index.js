@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   addRefreshButtonListener();
   handleTabs();
   handleThemes();
+  checkForUpdates(manifest);
 });
 
 async function fetchExtensionData() {
@@ -180,14 +181,12 @@ function createThemeSelector(themes) {
   });
 }
 
-async function checkForUpdates(meta) {
-  const latestCommitFull = await fetch('https://api.github.com/repos/itsTPM/foxford-tools/git/refs/heads/dev')
-    .then((response) => response.json())
-    .then((data) => data.object.sha);
+async function checkForUpdates(manifest) {
+  const servingData = await fetch('https://update.itstpm.tech/status').then((response) => response.json());
 
-  const latestCommit = latestCommitFull.substring(0, 7);
-
-  if (meta.sha !== latestCommit) {
-    console.log(`[Foxford Tools] Обнаружено обновление: ${meta.sha} -> ${latestCommit}`);
+  if (servingData.version > manifest.version) {
+    console.log(`Latest version: ${latestVersion}, current version: ${manifest.version}`);
+  } else {
+    console.log(`You have the latest version: ${manifest.version}`);
   }
 }
