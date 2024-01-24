@@ -245,6 +245,18 @@ main {
   text-align: center;
 }
 
+.report-bug {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.report-bug .button {
+  padding: 10px 15px;
+}
+
 .theme-selector label {
   font-size: var(--main-font-size);
 }

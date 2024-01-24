@@ -7,10 +7,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   populatePageElements(manifest, meta);
   createSettingsGroups(settingGroups);
   createLinks(links);
+  checkForUpdates(manifest);
   addRefreshButtonListener();
   handleTabs();
   handleThemes();
-  checkForUpdates(manifest);
+  handleBugPage();
 });
 
 async function fetchExtensionData() {
@@ -147,6 +148,14 @@ async function handleThemes() {
   }
 }
 
+async function handleBugPage() {
+  const reportButton = document.getElementById('reportBug');
+
+  reportButton.addEventListener('click', () => {
+    chrome.tabs.create({ url: 'https://github.com/itsTPM/foxford-tools/issues' });
+  });
+}
+
 function createThemeSelector(themes) {
   const themeSelector = document.getElementById('theme');
 
@@ -182,11 +191,15 @@ function createThemeSelector(themes) {
 }
 
 async function checkForUpdates(manifest) {
+  const versionElement = document.getElementById('version');
   const servingData = await fetch('https://update.itstpm.tech/status').then((response) => response.json());
 
-  if (servingData.version > manifest.version) {
-    console.log(`Latest version: ${latestVersion}, current version: ${manifest.version}`);
+  if (servingData.version == manifest.version) {
+    versionElement.classList.add('version-actual');
+  } else if (servingData.version > manifest.version) {
+    versionElement.classList.add('version-outdated');
+    versionElement.style.cursor = 'pointer';
   } else {
-    console.log(`You have the latest version: ${manifest.version}`);
+    versionElement.classList.add('version-beta');
   }
 }
