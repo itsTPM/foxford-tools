@@ -157,6 +157,7 @@ main {
   border: 1px solid var(--main-border-color);
   border-radius: 4px;
   font-size: var(--main-font-size);
+  display: block;
 }
 
 .button:hover {
