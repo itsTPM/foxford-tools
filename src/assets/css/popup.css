@@ -291,3 +291,12 @@ main {
   border-radius: 4px;
   font-size: var(--main-font-size);
 }
+
+.version-outdated {
+  color: #b92222;
+  text-decoration: underline;
+}
+
+.version-outdated::after {
+  content: ' - устарела';
+}
