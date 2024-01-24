@@ -147,57 +147,6 @@ const calculateHomeworkProgress = async (element) => {
   }
 };
 
-const showRatingPosition = async (element) => {
-  const courseId = location.href.match(/[0-9]+/g)[0];
-  const apiLink = `https://foxford.ru/api/courses/${courseId}/rating`;
-
-  const lastFetchTimeKey = `lastFetchTime_${courseId}`;
-  const ratingPositionKey = `ratingPosition_${courseId}`;
-
-  const lastFetchTime = localStorage.getItem(lastFetchTimeKey);
-  const oneHour = 60 * 60 * 1000;
-
-  let ratingPosition = localStorage.getItem(ratingPositionKey);
-  let minutesUntilUpdate = 60;
-
-  if (!lastFetchTime || new Date() - new Date(lastFetchTime) >= oneHour) {
-    try {
-      const ratingJson = await (await fetch(apiLink)).json();
-      if (Array.isArray(ratingJson)) {
-        ratingPosition = ratingJson[0].position;
-        localStorage.setItem(ratingPositionKey, ratingPosition);
-        localStorage.setItem(lastFetchTimeKey, new Date().toISOString());
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  } else {
-    minutesUntilUpdate = Math.round((oneHour - (new Date() - new Date(lastFetchTime))) / 60000);
-  }
-
-  let ratingWrapper = document.querySelector('.ratingWrapper');
-
-  if (!ratingWrapper) {
-    ratingWrapper = createElement('div', { className: 'ratingWrapper' }, element, 'before');
-  }
-
-  const ratingText = createElement('span', { textContent: 'Место в рейтинге ', classList: 'ratingText' });
-  const ratingTime = createElement(
-    'span',
-    {
-      textContent: `обновится через ${minutesUntilUpdate} мин`,
-      classList: 'ratingTime',
-    },
-    ratingText
-  );
-  const ratingElement = createElement('span', { textContent: `#${ratingPosition}`, classList: 'ratingPosition' });
-
-  ratingText.appendChild(ratingTime);
-  ratingWrapper.appendChild(ratingText);
-  ratingWrapper.appendChild(ratingElement);
-};
-
-const ratingObserver = createObserver('.gXSvvj', 1, 'courses', '.ratingWrapper', showRatingPosition);
 const conspectsObserver = createObserver('#wikiThemeContent', 1, 'conspects', '.badgeWrapper', calculateReadingTime);
 const webinarObserver = createObserver('.bKdhIU', 1, 'courses', '.webinarPercent', calculateWebinarProgress);
 const homeworkObserver = createObserver(
@@ -297,7 +246,6 @@ const settings = {
   timeSetup: conspectsObserver,
   homeworkPercentSetup: homeworkObserver,
   webinarPercentSetup: webinarObserver,
-  ratingPositionSetup: ratingObserver,
 };
 
 storage.get(Object.keys(settings), function (result) {
