@@ -199,6 +199,9 @@ async function checkForUpdates(manifest) {
   } else if (servingData.version > manifest.version) {
     versionElement.classList.add('version-outdated');
     versionElement.style.cursor = 'pointer';
+    versionElement.addEventListener('click', () => {
+      chrome.tabs.create({ url: 'https://fox.itstpm.tech' });
+    });
   } else {
     versionElement.classList.add('version-beta');
   }
