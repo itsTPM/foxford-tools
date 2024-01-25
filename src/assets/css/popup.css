@@ -23,6 +23,7 @@
   font-size: var(--main-font-size);
   font-family: 'Open Sans', 'Segoe UI', sans-serif;
   font-weight: 400 !important;
+  overflow-y: hidden !important;
 }
 
 body {
@@ -49,6 +50,7 @@ img {
 main {
   display: flex;
   flex-direction: column;
+  width: 295px;
 }
 
 .hidden,
@@ -195,6 +197,7 @@ main {
 
 .tab-content {
   display: none;
+  width: 295px;
 }
 
 .tab-content.active {
@@ -299,4 +302,36 @@ main {
 
 .version-outdated::after {
   content: ' - устарела';
+}
+
+.reading-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid var(--main-border-color);
+  border-radius: 4px;
+  word-break: break-all;
+  position: relative;
+}
+
+#readingList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+body::-webkit-scrollbar {
+  display: none !important;
+}
+
+.reading-list-item__close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.reading-list-item__close:after {
+  content: '✖';
+  font-size: 16px;
 }
