@@ -147,35 +147,69 @@ const calculateHomeworkProgress = async (element) => {
   }
 };
 
-const addReadingListButton = (element) => {
-  const readingListButton = createElement('button', { className: 'readingListButton' }, element, 'before');
-
-  createElement('span', { textContent: '+' }, readingListButton);
-
-  readingListButton.addEventListener('click', async () => {
-    const lessonId = location.href.match(/[0-9]+/g)[0];
-    const conspectId = location.href.match(/[0-9]+/g)[1];
-    const apiLink = `https://foxford.ru/api/lessons/${lessonId}/conspects/${conspectId}`;
-
-    const conspectJson = await fetch(apiLink).then((response) => response.json());
-
-    const url = location.href;
-    const title = conspectJson.name;
-    const courseId = conspectJson.course.id;
-    const courseName = conspectJson.course.name;
-    const courseColor = conspectJson.discipline.color;
-    const courseImage = conspectJson.discipline.image;
-
-    const readingListItem = { url, title, courseId, courseName, courseColor, courseImage };
-
-    chrome.storage.sync.get(['readingList'], function (result) {
-      const readingList = result.readingList || [];
-      readingList.push(readingListItem);
-      chrome.storage.sync.set({ readingList }, () => {
-        console.log('Reading list updated');
-      });
+const getReadingList = async () => {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get(['readingList'], (result) => {
+      resolve(result.readingList || []);
     });
   });
+};
+
+const setReadingList = async (readingList) => {
+  return new Promise((resolve) => {
+    chrome.storage.sync.set({ readingList }, () => {
+      console.log('Reading list updated');
+      resolve();
+    });
+  });
+};
+
+const fetchConspectJson = async (lessonId, conspectId) => {
+  const apiLink = `https://foxford.ru/api/lessons/${lessonId}/conspects/${conspectId}`;
+  const response = await fetch(apiLink);
+  return response.json();
+};
+
+const addReadingListButton = async (element) => {
+  const readingListButton = createElement('div', { className: 'readingListButton' }, element.parentNode, 'prepend');
+
+  const readingList = await getReadingList();
+
+  const currentUrl = location.href;
+  const isAdded = readingList.some((item) => item.url === currentUrl);
+
+  const span = createElement('span', { textContent: isAdded ? '-' : '+' }, readingListButton);
+
+  const addToList = async () => {
+    const [lessonId, conspectId] = location.href.match(/[0-9]+/g);
+    const conspectJson = await fetchConspectJson(lessonId, conspectId);
+
+    const {
+      name: title,
+      course: { id: courseId, name: courseName },
+      discipline: { color: courseColor, image_url: courseImage },
+    } = conspectJson;
+
+    const readingListItem = { url: currentUrl, title, courseId, courseName, courseColor, courseImage };
+
+    const currentReadingList = await getReadingList();
+    currentReadingList.push(readingListItem);
+    await setReadingList(currentReadingList);
+    span.textContent = '-';
+    readingListButton.removeEventListener('click', addToList);
+    readingListButton.addEventListener('click', removeFromList);
+  };
+
+  const removeFromList = async () => {
+    const currentReadingList = await getReadingList();
+    const updatedReadingList = currentReadingList.filter((item) => item.url !== currentUrl);
+    await setReadingList(updatedReadingList);
+    span.textContent = '+';
+    readingListButton.removeEventListener('click', removeFromList);
+    readingListButton.addEventListener('click', addToList);
+  };
+
+  readingListButton.addEventListener('click', isAdded ? removeFromList : addToList);
 };
 
 const conspectsObserver = createObserver('#wikiThemeContent', 1, 'conspects', '.badgeWrapper', calculateReadingTime);

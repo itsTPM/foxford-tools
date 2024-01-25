@@ -163,11 +163,24 @@ async function handleReadingList() {
 
     const readingListContainer = document.getElementById('readingList');
 
+    if (!list || list.length === 0) {
+      const emptyList = document.createElement('div');
+      emptyList.classList.add('empty-list');
+      emptyList.textContent = 'Список пуст :(';
+      readingListContainer.appendChild(emptyList);
+      return;
+    }
+
     list.forEach((item) => {
       const readingListItem = document.createElement('div');
       readingListItem.classList.add('reading-list-item');
+      readingListItem.style = `border: 1px solid #${item.courseColor}`;
       readingListItem.innerHTML = `
-        <span class="reading-list-item__title">${item.title}</span>
+        <div class="reading-list-item__text">
+          <span class="reading-list-item__title">${item.title}</span>
+          <span class="reading-list-item__course">${item.courseName}</span>
+        </div>
+        <img src="${item.courseImage}">
       `;
       const closeButton = document.createElement('span');
       closeButton.classList.add('reading-list-item__close');
@@ -176,6 +189,12 @@ async function handleReadingList() {
         const readingList = list.filter((i) => i.url !== item.url);
         chrome.storage.sync.set({ readingList });
         readingListItem.remove();
+        if (readingList.length === 0) {
+          const emptyList = document.createElement('div');
+          emptyList.classList.add('empty-list');
+          emptyList.textContent = 'Список пуст :(';
+          readingListContainer.appendChild(emptyList);
+        }
       });
       readingListItem.appendChild(closeButton);
       readingListItem.addEventListener('click', () => {
