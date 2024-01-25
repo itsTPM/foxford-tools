@@ -171,6 +171,7 @@ const fetchConspectJson = async (lessonId, conspectId) => {
 };
 
 const updateReadingList = async (list, url, action) => {
+  list = await getReadingList();
   const updatedList = action === 'add' ? [...list, url] : list.filter((item) => item.url !== url);
   await setReadingList(updatedList);
   return updatedList;

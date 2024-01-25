@@ -196,15 +196,10 @@ function createReadingListItem(item, list, readingListContainer) {
   closeButton.classList.add('reading-list-item__close');
   closeButton.addEventListener('click', async (event) => {
     event.stopPropagation();
+    list = await getReadingList();
     const updatedList = list.filter((i) => i.url !== item.url);
     await setReadingList(updatedList);
     readingListItem.remove();
-    if (updatedList.length === 0) {
-      const emptyList = document.createElement('div');
-      emptyList.classList.add('empty-list');
-      emptyList.textContent = 'Список пуст :(';
-      readingListContainer.appendChild(emptyList);
-    }
   });
 
   readingListItem.append(textDiv, img, closeButton);
