@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   handleTabs();
   handleThemes();
   handleBugPage();
+  handleReadingList();
 });
 
 async function fetchExtensionData() {
@@ -153,6 +154,35 @@ async function handleBugPage() {
 
   reportButton.addEventListener('click', () => {
     chrome.tabs.create({ url: 'https://github.com/itsTPM/foxford-tools/issues' });
+  });
+}
+
+async function handleReadingList() {
+  chrome.storage.sync.get(['readingList'], (result) => {
+    const list = result['readingList'];
+
+    const readingListContainer = document.getElementById('readingList');
+
+    list.forEach((item) => {
+      const readingListItem = document.createElement('div');
+      readingListItem.classList.add('reading-list-item');
+      readingListItem.innerHTML = `
+        <span class="reading-list-item__title">${item.title}</span>
+      `;
+      const closeButton = document.createElement('span');
+      closeButton.classList.add('reading-list-item__close');
+      closeButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const readingList = list.filter((i) => i.url !== item.url);
+        chrome.storage.sync.set({ readingList });
+        readingListItem.remove();
+      });
+      readingListItem.appendChild(closeButton);
+      readingListItem.addEventListener('click', () => {
+        chrome.tabs.create({ url: item.url });
+      });
+      readingListContainer.appendChild(readingListItem);
+    });
   });
 }
 
