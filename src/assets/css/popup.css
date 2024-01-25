@@ -2,14 +2,10 @@
   --large-font-size: 24px;
   --main-font-size: 14px;
   --small-font-size: 12px;
-
   --main-border-color: #cccccc;
-
   --main-transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-
   --aditional-block-bg: #f5f5f5;
   --hover-bg: #e0e0e0;
-
   --active-tab-bg: #e7e6e6;
 }
 
@@ -144,21 +140,21 @@ main {
   height: auto;
   margin-top: 10px;
   padding: 5px;
+  transition: cubic-bezier(0.215, 0.61, 0.355, 1) 2s;
   background-color: var(--aditional-block-bg);
   border: 1px solid var(--main-border-color);
   border-radius: 4px;
   font-size: var(--main-font-size);
-  transition: cubic-bezier(0.215, 0.61, 0.355, 1) 2s;
 }
 
 .button {
+  display: block;
   padding: 10px 5px;
   transition: var(--main-transition);
   cursor: pointer;
   border: 1px solid var(--main-border-color);
   border-radius: 4px;
   font-size: var(--main-font-size);
-  display: block;
 }
 
 .button:hover {
@@ -305,21 +301,21 @@ main {
 
 .reading-list-item {
   display: flex;
+  justify-content: space-between;
   gap: 15px;
+  position: relative;
   padding: 15px;
+  transition: var(--main-transition);
+  cursor: pointer;
   border: 1px solid var(--main-border-color);
   border-radius: 4px;
   word-break: break-word;
-  position: relative;
-  cursor: pointer;
-  transition: var(--main-transition);
-  justify-content: space-between;
 }
 
 .reading-list-item img {
+  flex-shrink: 0;
   width: 48px;
   height: 48px;
-  flex-shrink: 0;
 }
 
 .reading-list-item:hover {
@@ -329,8 +325,8 @@ main {
 .reading-list-item__text {
   display: flex;
   flex-direction: column;
-  gap: 5px;
   justify-content: center;
+  gap: 5px;
 }
 
 .reading-list-item__course {
@@ -350,8 +346,8 @@ body::-webkit-scrollbar {
 
 .reading-list-item__close {
   position: absolute;
-  right: 5px;
   top: 5px;
+  right: 5px;
 }
 
 .reading-list-item__close:after {
