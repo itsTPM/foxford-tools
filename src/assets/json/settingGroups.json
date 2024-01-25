@@ -14,20 +14,26 @@
     ]
   },
   {
-    "id": "other",
-    "title": "Остальное",
+    "id": "conspects",
+    "title": "Теория",
     "settings": [
       {
         "id": "timeSetup",
         "title": "Отображать время чтения теории"
       },
       {
-        "id": "changeTitles",
-        "title": "Понятный заголовок страницы"
-      },
-      {
         "id": "enableReadingList",
         "title": "Включить список чтения"
+      }
+    ]
+  },
+  {
+    "id": "other",
+    "title": "Другое",
+    "settings": [
+      {
+        "id": "changeTitles",
+        "title": "Понятный заголовок страницы"
       }
     ]
   }
