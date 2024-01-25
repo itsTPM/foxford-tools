@@ -2,11 +2,34 @@
 .badgeWrapper {
   padding: 15px;
   border-radius: 5px;
-  background-color: #919191;
+  border: 1px solid #c0c0c0;
   display: block;
   float: right;
-  color: #fff;
+  color: #505050;
   font-weight: 600;
+  background-color: #e7e7e7;
+}
+
+/* Список чтения */
+.readingListButton {
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #c0c0c0;
+  display: block;
+  float: right;
+  color: #505050;
+  background-color: #e7e7e7;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 10px;
+  user-select: none;
+  width: 48px;
+  height: 48px;
+  text-align: center;
+}
+
+#wikiThemeContent {
+  margin-top: 15px;
 }
 
 /* Проценты дз & вебинара */
