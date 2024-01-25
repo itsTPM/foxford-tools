@@ -33,7 +33,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["themes/*.css", "assets/js/inject.js"],
+      "resources": ["themes/*.css", "assets/js/inject.js", "assets/images/tabler-icons/*.svg"],
       "matches": ["https://foxford.ru/*"]
     }
   ],

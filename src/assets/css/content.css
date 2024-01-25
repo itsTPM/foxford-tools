@@ -12,20 +12,28 @@
 
 /* Список чтения */
 .readingListButton {
-  padding: 15px;
   border-radius: 5px;
   border: 1px solid #c0c0c0;
-  display: block;
   float: right;
-  color: #505050;
   background-color: #e7e7e7;
   font-weight: 600;
   cursor: pointer;
   margin-left: 10px;
-  user-select: none;
   width: 48px;
   height: 48px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.readingListButton:hover {
+  background-color: #d7d7d7;
+}
+
+.readingListButton img {
+  filter: invert(41%) sepia(12%) saturate(11%) hue-rotate(6deg) brightness(94%) contrast(88%);
+  width: 24px;
+  height: 24px;
 }
 
 /* Мелкий фикс, чтобы блоки времени чтения и списка не наезжали на текст */

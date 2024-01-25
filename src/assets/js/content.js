@@ -184,7 +184,15 @@ const addReadingListButton = async (element) => {
   const currentUrl = location.href;
   const isAdded = readingList.some((item) => item.url === currentUrl);
 
-  const span = createElement('span', { textContent: isAdded ? '-' : '+' }, readingListButton);
+  const img = createElement(
+    'img',
+    {
+      src: isAdded
+        ? chrome.runtime.getURL('assets/images/tabler-icons/bookmark-minus.svg')
+        : chrome.runtime.getURL('assets/images/tabler-icons/bookmark-plus.svg'),
+    },
+    readingListButton
+  );
 
   const toggleList = async () => {
     const [lessonId, conspectId] = location.href.match(/[0-9]+/g);
@@ -198,10 +206,12 @@ const addReadingListButton = async (element) => {
 
     const readingListItem = { url: currentUrl, title, courseId, courseName, courseColor, courseImage };
 
-    const action = span.textContent === '+' ? 'add' : 'remove';
+    const action = img.src.endsWith('bookmark-plus.svg') ? 'add' : 'remove';
     readingList = await updateReadingList(readingList, action === 'add' ? readingListItem : currentUrl, action);
 
-    span.textContent = span.textContent === '+' ? '-' : '+';
+    img.src = img.src.endsWith('bookmark-plus.svg')
+      ? chrome.runtime.getURL('assets/images/tabler-icons/bookmark-minus.svg')
+      : chrome.runtime.getURL('assets/images/tabler-icons/bookmark-plus.svg');
   };
 
   readingListButton.addEventListener('click', toggleList);
