@@ -1,0 +1,12 @@
+[
+  {
+    "id": "openHomePage",
+    "url": "https://fox.itstpm.tech/",
+    "icon": "tabler-icons/web.svg"
+  },
+  {
+    "id": "openGitHub",
+    "url": "https://github.com/itsTPM/foxford-tools",
+    "icon": "tabler-icons/github.svg"
+  }
+]

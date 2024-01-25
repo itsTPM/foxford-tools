@@ -1,16 +1,18 @@
-const inputs = ['timeSetup', 'homeworkPercentSetup', 'webinarPercentSetup', 'changeTitles'];
 const elements = ['version', 'logo', 'name', 'commit'];
 
 document.addEventListener('DOMContentLoaded', async () => {
+  const settingGroups = await fetch('assets/json/settingGroups.json').then((response) => response.json());
+  const links = await fetch('assets/json/links.json').then((response) => response.json());
   const [manifest, meta] = await fetchExtensionData();
-  setCheckboxStates();
   populatePageElements(manifest, meta);
-  addEventListeners();
+  createSettingsGroups(settingGroups);
+  createLinks(links);
+  checkForUpdates(manifest);
+  addRefreshButtonListener();
   handleTabs();
   handleThemes();
-  addHomePageListener();
-  addRefreshButtonListener();
-  checkForUpdates(meta);
+  handleBugPage();
+  handleReadingList();
 });
 
 async function fetchExtensionData() {
@@ -23,13 +25,6 @@ async function fetchExtensionData() {
     meta = { sha: '0000000' };
   }
   return [manifest, meta];
-}
-
-function setCheckboxStates() {
-  inputs.forEach((id) => {
-    const item = localStorage.getItem(id);
-    document.querySelector(`#${id}`).checked = item === null ? false : item === 'true';
-  });
 }
 
 function populatePageElements(manifest, meta) {
@@ -50,17 +45,56 @@ function populatePageElements(manifest, meta) {
   });
 }
 
-function addEventListeners() {
-  inputs.forEach((id) => {
-    addInputListener(id);
+function createSettingsGroups(settingGroups) {
+  const checkboxesContainer = document.querySelector('.checkboxes');
+
+  settingGroups.forEach((group) => {
+    const checkboxGroup = document.createElement('div');
+    checkboxGroup.classList.add('checkbox-group');
+    group.settings.forEach((setting) => {
+      const checkbox = document.createElement('div');
+      checkbox.classList.add('checkbox');
+      checkbox.innerHTML = `
+        <input type="checkbox" id="${setting.id}" />
+        <label for="${setting.id}">${setting.title}</label>
+      `;
+      checkbox.addEventListener('click', () => {
+        const input = checkbox.querySelector('input');
+        input.checked = !input.checked;
+        localStorage.setItem(setting.id, input.checked);
+        chrome.storage.local.set({ [setting.id]: input.checked });
+
+        document.getElementById('refreshPage').classList.remove('hidden');
+      });
+
+      const item = localStorage.getItem(setting.id);
+      checkbox.querySelector('input').checked = item === null ? false : item === 'true';
+
+      checkboxGroup.appendChild(checkbox);
+    });
+    checkboxesContainer.appendChild(checkboxGroup);
   });
 }
 
-function addInputListener(id) {
-  document.querySelector(`#${id}`).addEventListener('input', function (e) {
-    document.getElementById('refreshPage').classList.remove('hidden');
-    localStorage.setItem(id, e.target.checked);
-    chrome.storage.local.set({ [id]: e.target.checked });
+function createLinks(links) {
+  const linksContainer = document.getElementById('links');
+  links.forEach((link) => {
+    const linkElement = document.createElement('a');
+    linkElement.classList.add('link');
+    linkElement.href = '#';
+    linkElement.id = link.id;
+    linkElement.innerHTML = `<img src="./assets/images/${link.icon}">`;
+    linksContainer.appendChild(linkElement);
+    linkElement.addEventListener('click', () => {
+      chrome.tabs.create({ url: link.url });
+    });
+  });
+}
+
+function addRefreshButtonListener() {
+  document.getElementById('refreshButton').addEventListener('click', () => {
+    chrome.tabs.reload();
+    window.close();
   });
 }
 
@@ -68,6 +102,9 @@ function handleTabs() {
   document.querySelector('.tabs').addEventListener('click', function (event) {
     if (event.target.classList.contains('tab-button')) {
       const tabNumber = event.target.id.split('tab')[1].split('-')[0];
+      switchTab(tabNumber);
+    } else if (event.target.parentNode.classList.contains('tab-button')) {
+      const tabNumber = event.target.parentNode.id.split('tab')[1].split('-')[0];
       switchTab(tabNumber);
     }
   });
@@ -112,6 +149,85 @@ async function handleThemes() {
   }
 }
 
+async function handleBugPage() {
+  const reportButton = document.getElementById('reportBug');
+
+  reportButton.addEventListener('click', () => {
+    chrome.tabs.create({ url: 'https://github.com/itsTPM/foxford-tools/issues' });
+  });
+}
+
+async function getReadingList() {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get(['readingList'], (result) => {
+      resolve(result['readingList']);
+    });
+  });
+}
+
+async function setReadingList(list) {
+  return new Promise((resolve) => {
+    chrome.storage.sync.set({ readingList: list }, resolve);
+  });
+}
+
+function createReadingListItem(item, list, readingListContainer) {
+  const readingListItem = document.createElement('div');
+  readingListItem.classList.add('reading-list-item');
+  readingListItem.style = `border: 1px solid #${item.courseColor}`;
+
+  const textDiv = document.createElement('div');
+  textDiv.classList.add('reading-list-item__text');
+
+  const titleSpan = document.createElement('span');
+  titleSpan.classList.add('reading-list-item__title');
+  titleSpan.textContent = item.title;
+
+  const courseSpan = document.createElement('span');
+  courseSpan.classList.add('reading-list-item__course');
+  courseSpan.textContent = item.courseName;
+
+  textDiv.append(titleSpan, courseSpan);
+
+  const img = document.createElement('img');
+  img.src = item.courseImage;
+
+  const closeButton = document.createElement('span');
+  closeButton.classList.add('reading-list-item__close');
+  closeButton.addEventListener('click', async (event) => {
+    event.stopPropagation();
+    list = await getReadingList();
+    const updatedList = list.filter((i) => i.url !== item.url);
+    await setReadingList(updatedList);
+    readingListItem.remove();
+  });
+
+  readingListItem.append(textDiv, img, closeButton);
+  readingListItem.addEventListener('click', () => {
+    chrome.tabs.create({ url: item.url });
+  });
+
+  return readingListItem;
+}
+
+async function handleReadingList() {
+  const list = await getReadingList();
+  const readingListContainer = document.getElementById('readingList');
+
+  if (!list || list.length === 0) {
+    const emptyList = document.createElement('div');
+    emptyList.classList.add('empty-list');
+    emptyList.textContent = 'Список пуст :(';
+    readingListContainer.appendChild(emptyList);
+    return;
+  }
+
+  list.forEach((item) => {
+    const readingListItem = createReadingListItem(item, list, readingListContainer);
+    readingListContainer.appendChild(readingListItem);
+  });
+}
+
 function createThemeSelector(themes) {
   const themeSelector = document.getElementById('theme');
 
@@ -146,27 +262,19 @@ function createThemeSelector(themes) {
   });
 }
 
-function addHomePageListener() {
-  document.getElementById('openHomePage').addEventListener('click', () => {
-    chrome.tabs.create({ url: 'https://github.com/itsTPM/foxford-tools' });
-  });
-}
+async function checkForUpdates(manifest) {
+  const versionElement = document.getElementById('version');
+  const servingData = await fetch('https://update.itstpm.tech/status').then((response) => response.json());
 
-function addRefreshButtonListener() {
-  document.getElementById('refreshButton').addEventListener('click', () => {
-    chrome.tabs.reload();
-    window.close();
-  });
-}
-
-async function checkForUpdates(meta) {
-  const latestCommitFull = await fetch('https://api.github.com/repos/itsTPM/foxford-tools/git/refs/heads/dev')
-    .then((response) => response.json())
-    .then((data) => data.object.sha);
-
-  const latestCommit = latestCommitFull.substring(0, 7);
-
-  if (meta.sha !== latestCommit) {
-    console.log(`[Foxford Tools] Обнаружено обновление: ${meta.sha} -> ${latestCommit}`);
+  if (servingData.version == manifest.version) {
+    versionElement.classList.add('version-actual');
+  } else if (servingData.version > manifest.version) {
+    versionElement.classList.add('version-outdated');
+    versionElement.style.cursor = 'pointer';
+    versionElement.addEventListener('click', () => {
+      chrome.tabs.create({ url: 'https://fox.itstpm.tech' });
+    });
+  } else {
+    versionElement.classList.add('version-beta');
   }
 }

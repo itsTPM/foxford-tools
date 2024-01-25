@@ -22,7 +22,13 @@ storage.get(['selectedTheme'], function (result) {
   }
 });
 
-// Задержка для MutationObserver, чтобы избежать создания лишних элементов
+/**
+ * Создает функцию с задержкой, которая откладывает вызов предоставленной функции до тех пор, пока не пройдет указанное количество миллисекунд после последнего вызова.
+ *
+ * @param {Function} func - Функция для задержки.
+ * @param {number} wait - Количество миллисекунд для задержки.
+ * @returns {Function} - Функция с задержкой.
+ */
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -35,23 +41,39 @@ function debounce(func, wait) {
   };
 }
 
-// Объединенная функция для создания MutationObserver
+/**
+ * Создает MutationObserver, который отслеживает изменения в DOM и вызывает функцию обратного вызова, когда выполняются указанные условия.
+ *
+ * @param {string} querySelector - CSS-селектор для элемента, который нужно наблюдать.
+ * @param {number} delay - Задержка в миллисекундах перед вызовом функции обратного вызова.
+ * @param {string} urlPart - Часть URL, которая должна присутствовать в текущем URL, чтобы вызвать функцию обратного вызова.
+ * @param {string} badgeClass - CSS-селектор класса для элемента значка.
+ * @param {Function} callback - Функция обратного вызова, которая будет выполнена, когда выполняются указанные условия.
+ * @returns {MutationObserver} - Созданный экземпляр MutationObserver.
+ */
+
 function createObserver(querySelector, delay, urlPart, badgeClass, callback) {
   console.log(badgeClass);
+  let isAdded = false;
   const debouncedCallback = debounce(callback, delay);
   return new MutationObserver(() => {
-    try {
-      const element = doc.querySelector(querySelector);
-      if (element) {
-        if (location.href.includes(urlPart)) {
-          if (!doc.querySelector(badgeClass)) {
-            debouncedCallback(element);
+    requestAnimationFrame(() => {
+      try {
+        const element = doc.querySelector(querySelector);
+        if (element) {
+          if (!isAdded && location.href.includes(urlPart)) {
+            if (!doc.querySelector(badgeClass)) {
+              debouncedCallback(element);
+              isAdded = true;
+            }
           }
+        } else {
+          isAdded = false;
         }
+      } catch (error) {
+        console.error(`[Foxford Tools] Ошибка при создании MutationObserver: ${error}`);
       }
-    } catch (error) {
-      console.error(`[Foxford Tools] Ошибка при создании MutationObserver: ${error}`);
-    }
+    });
   });
 }
 
@@ -70,6 +92,7 @@ const calculateReadingTime = (element) => {
 const calculateWebinarProgress = (element) => {
   console.log('Observer changed');
   const majors = doc.getElementsByClassName('major');
+  if (majors.length < 2) return;
   const webinarPercent = +Math.round((majors[2].textContent / majors[3].textContent) * 100);
   createPercentElement(webinarPercent, element.lastChild.lastChild, 'before').classList.add('webinarPercent');
 };
@@ -77,6 +100,7 @@ const calculateWebinarProgress = (element) => {
 const calculateHomeworkProgress = async (element) => {
   let tasksPercent = 0;
   let tasksCount = 0;
+  let totalTasksCount = 0;
   // следующие 3 строчки - выцепляем id домашки из href кнопки, потом добавляем его в ссылку на api
   const homeworkLink = element.parentNode.parentNode.parentNode.parentNode.parentNode.href; // это надо будет заменить
   const homeworkId = homeworkLink.match(/[0-9]+/g);
@@ -88,6 +112,7 @@ const calculateHomeworkProgress = async (element) => {
 
   if (Array.isArray(tasksJson)) {
     tasksJson.forEach((task) => {
+      totalTasksCount += 1;
       switch (task.status) {
         case 'solved':
           tasksPercent += 1;
@@ -114,20 +139,110 @@ const calculateHomeworkProgress = async (element) => {
   }
 
   const homeworkPercent = Math.round((tasksPercent / tasksCount) * 100);
-  createPercentElement(homeworkPercent, element, 'after').classList.add('homeworkPercent');
+  const percentElement = createPercentElement(homeworkPercent, element, 'after');
+  percentElement.classList.add('homeworkPercent');
+
+  if (homeworkPercent === 100 && totalTasksCount == tasksCount) {
+    percentElement.classList.add('percent-legendary');
+  }
 };
 
-const conspectsObserver = createObserver('#wikiThemeContent', 50, 'conspects', '.badgeWrapper', calculateReadingTime);
-const webinarObserver = createObserver('.bKdhIU', 50, 'courses', '.webinarPercent', calculateWebinarProgress);
+const getReadingList = async () => {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get(['readingList'], (result) => {
+      resolve(result.readingList || []);
+    });
+  });
+};
+
+const setReadingList = async (readingList) => {
+  return new Promise((resolve) => {
+    chrome.storage.sync.set({ readingList }, () => {
+      console.log('Reading list updated');
+      resolve();
+    });
+  });
+};
+
+const fetchConspectJson = async (lessonId, conspectId) => {
+  const apiLink = `https://foxford.ru/api/lessons/${lessonId}/conspects/${conspectId}`;
+  const response = await fetch(apiLink);
+  return response.json();
+};
+
+const updateReadingList = async (list, url, action) => {
+  list = await getReadingList();
+  const updatedList = action === 'add' ? [...list, url] : list.filter((item) => item.url !== url);
+  await setReadingList(updatedList);
+  return updatedList;
+};
+
+const addReadingListButton = async (element) => {
+  const readingListButton = createElement('div', { className: 'readingListButton' }, element.parentNode, 'prepend');
+
+  let readingList = await getReadingList();
+
+  const currentUrl = location.href;
+  const isAdded = readingList.some((item) => item.url === currentUrl);
+
+  const img = createElement(
+    'img',
+    {
+      src: isAdded
+        ? chrome.runtime.getURL('assets/images/tabler-icons/bookmark-minus.svg')
+        : chrome.runtime.getURL('assets/images/tabler-icons/bookmark-plus.svg'),
+    },
+    readingListButton
+  );
+
+  const toggleList = async () => {
+    const [lessonId, conspectId] = location.href.match(/[0-9]+/g);
+    const conspectJson = await fetchConspectJson(lessonId, conspectId);
+
+    const {
+      name: title,
+      course: { id: courseId, name: courseName },
+      discipline: { color: courseColor, image_url: courseImage },
+    } = conspectJson;
+
+    const readingListItem = { url: currentUrl, title, courseId, courseName, courseColor, courseImage };
+
+    const action = img.src.endsWith('bookmark-plus.svg') ? 'add' : 'remove';
+    readingList = await updateReadingList(readingList, action === 'add' ? readingListItem : currentUrl, action);
+
+    img.src = img.src.endsWith('bookmark-plus.svg')
+      ? chrome.runtime.getURL('assets/images/tabler-icons/bookmark-minus.svg')
+      : chrome.runtime.getURL('assets/images/tabler-icons/bookmark-plus.svg');
+  };
+
+  readingListButton.addEventListener('click', toggleList);
+};
+
+const conspectsObserver = createObserver('#wikiThemeContent', 1, 'conspects', '.badgeWrapper', calculateReadingTime);
+const webinarObserver = createObserver('.bKdhIU', 1, 'courses', '.webinarPercent', calculateWebinarProgress);
 const homeworkObserver = createObserver(
   '#joyrideHomeworkBtn',
-  50,
+  1,
   'courses',
   '.homeworkPercent',
   calculateHomeworkProgress
 );
+const readingListObserver = createObserver(
+  '#wikiThemeContent',
+  1,
+  'conspects',
+  '.readingListButton',
+  addReadingListButton
+);
 
-// Функция создания элемента
+/**
+ * Создает и возвращает новый HTML-элемент с указанным тегом, свойствами и родительским элементом.
+ * @param {string} tag - Имя HTML-тега создаваемого элемента.
+ * @param {Object} properties - Объект, содержащий свойства, которые нужно присвоить элементу.
+ * @param {HTMLElement} parent - Родительский элемент, к которому будет добавлен новый элемент.
+ * @param {string} [insertMethod='appendChild'] - Метод, используемый для вставки нового элемента в родительский элемент.
+ * @returns {HTMLElement} - Созданный HTML-элемент.
+ */
 function createElement(tag, properties, parent, insertMethod) {
   const element = doc.createElement(tag);
   Object.assign(element, properties);
@@ -135,7 +250,18 @@ function createElement(tag, properties, parent, insertMethod) {
   return element;
 }
 
-// Функция создания элемента процента (процент дз, процент вебинара)
+/**
+ * Создает элемент процента на основе заданного значения процента.
+ * Если значение процента является NaN, 0, undefined или null, элемент будет отображать 'не начато'.
+ * Если значение процента меньше или равно 40, элемент будет иметь класс 'percent-red'.
+ * Если значение процента меньше или равно 70, элемент будет иметь класс 'percent-yellow'.
+ * Если значение процента больше 70, элемент будет иметь класс 'percent-green'.
+ *
+ * @param {number} percent - Значение процента, которое будет отображаться
+ * @param {HTMLElement} parent - Родительский элемент, к которому будет добавлен элемент процента
+ * @param {string} insertMethod - Метод вставки элемента процента в родительский элемент ('append', 'prepend', 'before', 'after')
+ * @returns {HTMLElement} - Созданный элемент процента
+ */
 function createPercentElement(percent, parent, insertMethod) {
   let percentClass;
   let textContent;
@@ -159,26 +285,37 @@ function createPercentElement(percent, parent, insertMethod) {
   return percentElement;
 }
 
-// Кэширование tasks.json, в которых все задачи решены
+/**
+ * Получает данные из указанного URL с поддержкой кэширования.
+ * Если данные уже находятся в кэше, возвращает кэшированные данные.
+ * Если все задачи в полученных данных решены, кэширует результат.
+ * @param {string} url - URL для получения данных.
+ * @returns {Promise<any>} - Промис, который разрешается с полученными данными.
+ */
 async function fetchWithCache(url) {
-  const cachedData = localStorage.getItem(url);
+  try {
+    const cachedData = localStorage.getItem(url);
 
-  if (cachedData) {
-    return JSON.parse(cachedData);
-  } else {
-    const response = await fetch(url);
-    const data = await response.json();
-    const allTasksSolved =
-      Array.isArray(data) &&
-      data.every((task) => task.status === 'solved' || task.status === 'partially' || task.status === 'failed');
+    if (cachedData) {
+      return JSON.parse(cachedData);
+    } else {
+      const response = await fetch(url);
+      const data = await response.json();
+      const allTasksSolved =
+        Array.isArray(data) &&
+        data.every(({ status }) => status === 'solved' || status === 'partially' || status === 'failed');
 
-    if (allTasksSolved) {
-      // Если все задачи решены, кэшируем результат
-      const cacheData = data.map((task) => ({ status: task.status, id: task.id }));
-      localStorage.setItem(url, JSON.stringify(cacheData));
+      if (allTasksSolved) {
+        // Если все задачи решены, кэшируем результат
+        const cacheData = data.map(({ status, id }) => ({ status, id }));
+        localStorage.setItem(url, JSON.stringify(cacheData));
+      }
+
+      return data;
     }
-
-    return data;
+  } catch (error) {
+    console.error(`Failed to fetch or parse data: ${error}`);
+    return null;
   }
 }
 
@@ -187,15 +324,18 @@ const settings = {
   timeSetup: conspectsObserver,
   homeworkPercentSetup: homeworkObserver,
   webinarPercentSetup: webinarObserver,
+  enableReadingList: readingListObserver,
 };
 
 storage.get(Object.keys(settings), function (result) {
   for (const [setting, observer] of Object.entries(settings)) {
-    if (result[setting]) {
-      observer.observe(doc.body, {
-        childList: true,
-        subtree: true,
-      });
+    if (!result[setting]) {
+      continue;
     }
+
+    observer.observe(doc.body, {
+      childList: true,
+      subtree: true,
+    });
   }
 });
