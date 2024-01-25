@@ -144,11 +144,11 @@ main {
   height: auto;
   margin-top: 10px;
   padding: 5px;
-  transition: 2s ease;
   background-color: var(--aditional-block-bg);
   border: 1px solid var(--main-border-color);
   border-radius: 4px;
   font-size: var(--main-font-size);
+  transition: cubic-bezier(0.215, 0.61, 0.355, 1) 2s;
 }
 
 .button {
