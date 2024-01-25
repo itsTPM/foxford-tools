@@ -23,7 +23,6 @@
   font-size: var(--main-font-size);
   font-family: 'Open Sans', 'Segoe UI', sans-serif;
   font-weight: 400 !important;
-  overflow-y: hidden !important;
 }
 
 body {
@@ -359,6 +358,11 @@ body::-webkit-scrollbar {
   content: '✖';
   font-size: 16px;
 }
+
+#refreshButton {
+  flex-shrink: 0;
+}
+
 .empty-list {
   display: flex;
   justify-content: center;
