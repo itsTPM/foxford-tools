@@ -147,6 +147,37 @@ const calculateHomeworkProgress = async (element) => {
   }
 };
 
+const addReadingListButton = (element) => {
+  const readingListButton = createElement('button', { className: 'readingListButton' }, element, 'before');
+
+  createElement('span', { textContent: '+' }, readingListButton);
+
+  readingListButton.addEventListener('click', async () => {
+    const lessonId = location.href.match(/[0-9]+/g)[0];
+    const conspectId = location.href.match(/[0-9]+/g)[1];
+    const apiLink = `https://foxford.ru/api/lessons/${lessonId}/conspects/${conspectId}`;
+
+    const conspectJson = await fetch(apiLink).then((response) => response.json());
+
+    const url = location.href;
+    const title = conspectJson.name;
+    const courseId = conspectJson.course.id;
+    const courseName = conspectJson.course.name;
+    const courseColor = conspectJson.discipline.color;
+    const courseImage = conspectJson.discipline.image;
+
+    const readingListItem = { url, title, courseId, courseName, courseColor, courseImage };
+
+    chrome.storage.sync.get(['readingList'], function (result) {
+      const readingList = result.readingList || [];
+      readingList.push(readingListItem);
+      chrome.storage.sync.set({ readingList }, () => {
+        console.log('Reading list updated');
+      });
+    });
+  });
+};
+
 const conspectsObserver = createObserver('#wikiThemeContent', 1, 'conspects', '.badgeWrapper', calculateReadingTime);
 const webinarObserver = createObserver('.bKdhIU', 1, 'courses', '.webinarPercent', calculateWebinarProgress);
 const homeworkObserver = createObserver(
@@ -155,6 +186,13 @@ const homeworkObserver = createObserver(
   'courses',
   '.homeworkPercent',
   calculateHomeworkProgress
+);
+const readingListObserver = createObserver(
+  '#wikiThemeContent',
+  1,
+  'conspects',
+  '.readingListButton',
+  addReadingListButton
 );
 
 /**
@@ -246,6 +284,7 @@ const settings = {
   timeSetup: conspectsObserver,
   homeworkPercentSetup: homeworkObserver,
   webinarPercentSetup: webinarObserver,
+  enableReadingList: readingListObserver,
 };
 
 storage.get(Object.keys(settings), function (result) {
