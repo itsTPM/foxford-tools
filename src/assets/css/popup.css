@@ -306,13 +306,37 @@ main {
 
 .reading-list-item {
   display: flex;
-  flex-direction: column;
   gap: 15px;
   padding: 15px;
   border: 1px solid var(--main-border-color);
   border-radius: 4px;
-  word-break: break-all;
+  word-break: break-word;
   position: relative;
+  cursor: pointer;
+  transition: var(--main-transition);
+  justify-content: space-between;
+}
+
+.reading-list-item img {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.reading-list-item:hover {
+  background-color: var(--hover-bg);
+}
+
+.reading-list-item__text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+}
+
+.reading-list-item__course {
+  font-style: italic;
+  color: #6b6b6b;
 }
 
 #readingList {
@@ -334,4 +358,12 @@ body::-webkit-scrollbar {
 .reading-list-item__close:after {
   content: '✖';
   font-size: 16px;
+}
+.empty-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: var(--main-font-size);
+  color: #686868;
 }
