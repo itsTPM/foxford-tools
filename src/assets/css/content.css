@@ -28,6 +28,7 @@
   text-align: center;
 }
 
+/* Мелкий фикс, чтобы блоки времени чтения и списка не наезжали на текст */
 #wikiThemeContent {
   margin-top: 15px;
 }

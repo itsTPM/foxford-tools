@@ -170,17 +170,23 @@ const fetchConspectJson = async (lessonId, conspectId) => {
   return response.json();
 };
 
+const updateReadingList = async (list, url, action) => {
+  const updatedList = action === 'add' ? [...list, url] : list.filter((item) => item.url !== url);
+  await setReadingList(updatedList);
+  return updatedList;
+};
+
 const addReadingListButton = async (element) => {
   const readingListButton = createElement('div', { className: 'readingListButton' }, element.parentNode, 'prepend');
 
-  const readingList = await getReadingList();
+  let readingList = await getReadingList();
 
   const currentUrl = location.href;
   const isAdded = readingList.some((item) => item.url === currentUrl);
 
   const span = createElement('span', { textContent: isAdded ? '-' : '+' }, readingListButton);
 
-  const addToList = async () => {
+  const toggleList = async () => {
     const [lessonId, conspectId] = location.href.match(/[0-9]+/g);
     const conspectJson = await fetchConspectJson(lessonId, conspectId);
 
@@ -192,24 +198,13 @@ const addReadingListButton = async (element) => {
 
     const readingListItem = { url: currentUrl, title, courseId, courseName, courseColor, courseImage };
 
-    const currentReadingList = await getReadingList();
-    currentReadingList.push(readingListItem);
-    await setReadingList(currentReadingList);
-    span.textContent = '-';
-    readingListButton.removeEventListener('click', addToList);
-    readingListButton.addEventListener('click', removeFromList);
+    const action = span.textContent === '+' ? 'add' : 'remove';
+    readingList = await updateReadingList(readingList, action === 'add' ? readingListItem : currentUrl, action);
+
+    span.textContent = span.textContent === '+' ? '-' : '+';
   };
 
-  const removeFromList = async () => {
-    const currentReadingList = await getReadingList();
-    const updatedReadingList = currentReadingList.filter((item) => item.url !== currentUrl);
-    await setReadingList(updatedReadingList);
-    span.textContent = '+';
-    readingListButton.removeEventListener('click', removeFromList);
-    readingListButton.addEventListener('click', addToList);
-  };
-
-  readingListButton.addEventListener('click', isAdded ? removeFromList : addToList);
+  readingListButton.addEventListener('click', toggleList);
 };
 
 const conspectsObserver = createObserver('#wikiThemeContent', 1, 'conspects', '.badgeWrapper', calculateReadingTime);

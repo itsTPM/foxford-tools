@@ -157,51 +157,79 @@ async function handleBugPage() {
   });
 }
 
-async function handleReadingList() {
-  chrome.storage.sync.get(['readingList'], (result) => {
-    const list = result['readingList'];
+async function getReadingList() {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get(['readingList'], (result) => {
+      resolve(result['readingList']);
+    });
+  });
+}
 
-    const readingListContainer = document.getElementById('readingList');
+async function setReadingList(list) {
+  return new Promise((resolve) => {
+    chrome.storage.sync.set({ readingList: list }, resolve);
+  });
+}
 
-    if (!list || list.length === 0) {
+function createReadingListItem(item, list, readingListContainer) {
+  const readingListItem = document.createElement('div');
+  readingListItem.classList.add('reading-list-item');
+  readingListItem.style = `border: 1px solid #${item.courseColor}`;
+
+  const textDiv = document.createElement('div');
+  textDiv.classList.add('reading-list-item__text');
+
+  const titleSpan = document.createElement('span');
+  titleSpan.classList.add('reading-list-item__title');
+  titleSpan.textContent = item.title;
+
+  const courseSpan = document.createElement('span');
+  courseSpan.classList.add('reading-list-item__course');
+  courseSpan.textContent = item.courseName;
+
+  textDiv.append(titleSpan, courseSpan);
+
+  const img = document.createElement('img');
+  img.src = item.courseImage;
+
+  const closeButton = document.createElement('span');
+  closeButton.classList.add('reading-list-item__close');
+  closeButton.addEventListener('click', async (event) => {
+    event.stopPropagation();
+    const updatedList = list.filter((i) => i.url !== item.url);
+    await setReadingList(updatedList);
+    readingListItem.remove();
+    if (updatedList.length === 0) {
       const emptyList = document.createElement('div');
       emptyList.classList.add('empty-list');
       emptyList.textContent = 'Список пуст :(';
       readingListContainer.appendChild(emptyList);
-      return;
     }
+  });
 
-    list.forEach((item) => {
-      const readingListItem = document.createElement('div');
-      readingListItem.classList.add('reading-list-item');
-      readingListItem.style = `border: 1px solid #${item.courseColor}`;
-      readingListItem.innerHTML = `
-        <div class="reading-list-item__text">
-          <span class="reading-list-item__title">${item.title}</span>
-          <span class="reading-list-item__course">${item.courseName}</span>
-        </div>
-        <img src="${item.courseImage}">
-      `;
-      const closeButton = document.createElement('span');
-      closeButton.classList.add('reading-list-item__close');
-      closeButton.addEventListener('click', (event) => {
-        event.stopPropagation();
-        const readingList = list.filter((i) => i.url !== item.url);
-        chrome.storage.sync.set({ readingList });
-        readingListItem.remove();
-        if (readingList.length === 0) {
-          const emptyList = document.createElement('div');
-          emptyList.classList.add('empty-list');
-          emptyList.textContent = 'Список пуст :(';
-          readingListContainer.appendChild(emptyList);
-        }
-      });
-      readingListItem.appendChild(closeButton);
-      readingListItem.addEventListener('click', () => {
-        chrome.tabs.create({ url: item.url });
-      });
-      readingListContainer.appendChild(readingListItem);
-    });
+  readingListItem.append(textDiv, img, closeButton);
+  readingListItem.addEventListener('click', () => {
+    chrome.tabs.create({ url: item.url });
+  });
+
+  return readingListItem;
+}
+
+async function handleReadingList() {
+  const list = await getReadingList();
+  const readingListContainer = document.getElementById('readingList');
+
+  if (!list || list.length === 0) {
+    const emptyList = document.createElement('div');
+    emptyList.classList.add('empty-list');
+    emptyList.textContent = 'Список пуст :(';
+    readingListContainer.appendChild(emptyList);
+    return;
+  }
+
+  list.forEach((item) => {
+    const readingListItem = createReadingListItem(item, list, readingListContainer);
+    readingListContainer.appendChild(readingListItem);
   });
 }
 
