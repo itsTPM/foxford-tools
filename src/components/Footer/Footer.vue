@@ -4,8 +4,8 @@ import FooterMeta from './FooterMeta.vue';
 </script>
 
 <template>
-  <footer>
-    <FooterLinks></FooterLinks>
+  <footer class="flex justify-between items-center">
     <FooterMeta></FooterMeta>
+    <FooterLinks></FooterLinks>
   </footer>
 </template>
