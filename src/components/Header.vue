@@ -1,8 +1,9 @@
 <template>
   <header>
     <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
+      <RouterLink v-for="route in $router.options.routes" :key="route.path" :to="route.path">
+        {{ route.meta.title }}
+      </RouterLink>
     </nav>
   </header>
 </template>
