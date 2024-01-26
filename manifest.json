@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Foxford Tools",
   "description": "Расширение для того самого сайта Фокса",
-  "version": "1.0",
-  "version_name": "1.0-release",
+  "version": "1.2",
+  "version_name": "1.2-vue",
   "homepage_url": "https://github.com/itsTPM/foxford-tools/",
   "permissions": ["storage", "activeTab", "scripting", "contextMenus"],
   "action": {
