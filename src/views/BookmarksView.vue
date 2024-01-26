@@ -1,5 +1,7 @@
 <script setup></script>
 
-<template></template>
-
-<style scoped></style>
+<template>
+  <main>
+    <h1>Bookmarks</h1>
+  </main>
+</template>
