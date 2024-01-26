@@ -74,6 +74,11 @@
   }
 }
 
+*, *::after, *::before {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+}
+
 html {
   scrollbar-gutter: stable both-edges !important;
   width: 325px;
