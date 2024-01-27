@@ -67,7 +67,8 @@
 }
 
 .percent-legendary {
-  -webkit-background-clip: text;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent;
   background: linear-gradient(90deg, rgb(245, 102, 83) 20%, rgba(254, 177, 57, 1) 100%);
 }
