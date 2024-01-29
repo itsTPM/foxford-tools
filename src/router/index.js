@@ -9,7 +9,7 @@ const router = createRouter({
       name: 'settings',
       component: HomeView,
       meta: {
-        title: 'Settings',
+        title: 'Настройки',
       },
     },
     {
@@ -17,7 +17,7 @@ const router = createRouter({
       name: 'bookmarks',
       component: () => import('../views/BookmarksView.vue'),
       meta: {
-        title: 'Bookmarks',
+        title: 'Закладки',
       },
     },
     {
@@ -25,7 +25,7 @@ const router = createRouter({
       name: 'about',
       component: () => import('../views/AboutView.vue'),
       meta: {
-        title: 'About',
+        title: 'О расширении',
       },
     },
   ],
