@@ -1,7 +1,5 @@
 <script setup></script>
 
 <template>
-  <main>
-    <h1>Bookmarks</h1>
-  </main>
+  <h1>Bookmarks</h1>
 </template>
