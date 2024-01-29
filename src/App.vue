@@ -2,11 +2,13 @@
 import { RouterView } from 'vue-router';
 import Header from './components/Header/Header.vue';
 import Footer from './components/Footer/Footer.vue';
+import RouterTitle from '@/components/RouterTitle.vue';
 </script>
 
 <template>
   <Header></Header>
-  <main>
+  <main class="py-4">
+    <RouterTitle />
     <RouterView />
   </main>
   <Footer></Footer>
