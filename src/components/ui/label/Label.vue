@@ -1,6 +1,6 @@
 <script setup>
-import { Label } from "radix-vue";
-import { cn } from "@/lib/utils";
+import { Label } from 'radix-vue';
+import { cn } from '@/lib/utils';
 
 const props = defineProps({
   for: { type: String, required: false },
@@ -11,15 +11,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <Label
-    v-bind="props"
-    :class="
-      cn(
-        'block text-sm tracking-tight font-medium text-foreground text-left',
-        props.class
-      )
-    "
-  >
+  <Label :class="cn('block text-sm tracking-tight text-foreground text-left', props.class)" v-bind="props">
     <slot />
   </Label>
 </template>

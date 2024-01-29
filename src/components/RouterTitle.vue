@@ -2,6 +2,6 @@
 
 <template>
   <div class="flex justify-center items-center">
-    <span class="text-sm">{{ this.$route.meta.title }}</span>
+    <span class="text-[16px] font-medium">{{ this.$route.meta.title }}</span>
   </div>
 </template>
