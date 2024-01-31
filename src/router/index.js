@@ -13,6 +13,14 @@ const router = createRouter({
       },
     },
     {
+      path: '/themes',
+      name: 'themes',
+      component: () => import('../views/ThemesView.vue'),
+      meta: {
+        title: 'Темы',
+      },
+    },
+    {
       path: '/bookmarks',
       name: 'bookmarks',
       component: () => import('../views/BookmarksView.vue'),
