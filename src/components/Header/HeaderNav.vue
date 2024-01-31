@@ -1,5 +1,5 @@
 <script setup>
-import { IconBookmarks, IconFlask, IconSettings } from '@tabler/icons-vue';
+import { IconBookmarks, IconSettings } from '@tabler/icons-vue';
 import { Button } from '@/components/ui/button';
 
 // Маршруты для отображения на панели навигации
@@ -11,10 +11,6 @@ const routes = [
   {
     name: 'bookmarks',
     icon: IconBookmarks,
-  },
-  {
-    name: 'about',
-    icon: IconFlask,
   },
 ];
 </script>

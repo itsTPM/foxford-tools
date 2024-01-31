@@ -20,14 +20,6 @@ const router = createRouter({
         title: 'Закладки',
       },
     },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
-      meta: {
-        title: 'О расширении',
-      },
-    },
   ],
 });
 
