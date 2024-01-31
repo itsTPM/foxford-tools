@@ -13,7 +13,7 @@ const bookmarks = ref([
 </script>
 
 <template>
-  <span v-if="!bookmarks.length" class="text-center text-gray-500 text-sm">Список пуст :(</span>
+  <span v-if="!bookmarks.length" class="text-center text-muted-foreground text-sm">Список пуст :(</span>
 
   <div v-for="bookmark in bookmarks" v-else class="flex flex-col gap-3">
     <Bookmark :bookmark />
