@@ -1,8 +1,10 @@
 <script setup>
+import { defineAsyncComponent } from 'vue';
 import { RouterView } from 'vue-router';
-import Header from './components/Header/Header.vue';
-import Footer from './components/Footer/Footer.vue';
 import RouterTitle from '@/components/RouterTitle.vue';
+
+const Header = defineAsyncComponent(() => import('./components/Header/Header.vue'));
+const Footer = defineAsyncComponent(() => import('./components/Footer/Footer.vue'));
 </script>
 
 <template>
