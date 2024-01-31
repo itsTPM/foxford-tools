@@ -74,7 +74,9 @@
   }
 }
 
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   -webkit-user-drag: none;
   -webkit-user-select: none;
 }
@@ -82,6 +84,11 @@
 html {
   scrollbar-gutter: stable both-edges !important;
   width: 325px;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
