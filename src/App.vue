@@ -7,7 +7,7 @@ import RouterTitle from '@/components/RouterTitle.vue';
 
 <template>
   <Header></Header>
-  <main class="py-4 gap-4 flex flex-col">
+  <main class="pt-3 pb-6 gap-3 flex flex-col">
     <RouterTitle />
     <RouterView />
   </main>
