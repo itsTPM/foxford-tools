@@ -3,8 +3,8 @@ import { Switch } from '@/components/ui/switch/index.js';
 import { Label } from '@/components/ui/label/index.js';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button/index.js';
-import { ref } from 'vue';
-import { IconBook2, IconPacman, IconPercentage } from '@tabler/icons-vue';
+import { onMounted, ref } from 'vue';
+import { IconBook2, IconPercentage, IconWand } from '@tabler/icons-vue';
 
 const settingGroups = ref([
   {
@@ -44,10 +44,10 @@ const settingGroups = ref([
   {
     title: 'Другое',
     id: 'other',
-    icon: IconPacman,
+    icon: IconWand,
     settings: [
       {
-        title: 'Заголовок',
+        title: 'Понятный заголовок страницы',
         id: 'dynamicTitle',
         enabled: true,
       },
@@ -58,7 +58,21 @@ const settingGroups = ref([
 const toggleSetting = (setting) => {
   setting.enabled = !setting.enabled;
   console.log(`${setting.title} now ${setting.enabled ? 'enabled' : 'disabled'} `);
+  localStorage.setItem(setting.id, setting.enabled);
 };
+
+onMounted(() => {
+  settingGroups.value.forEach((settingGroup) => {
+    settingGroup.settings.forEach((setting) => {
+      const settingValue = localStorage.getItem(setting.id);
+      if (settingValue) {
+        setting.enabled = settingValue === 'true';
+      } else {
+        localStorage.setItem(setting.id, true);
+      }
+    });
+  });
+});
 </script>
 
 <template>
