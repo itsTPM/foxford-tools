@@ -17,7 +17,7 @@ watchEffect(() => {
 });
 
 const selectOption = (option) => {
-  emit('optionSelected', option);
+  emit('optionSelected', option.name || option);
   selectedOption.value = option;
 };
 </script>
@@ -27,8 +27,8 @@ const selectOption = (option) => {
     <span class="text-base">{{ title }}</span>
     <div class="flex flex-wrap gap-1">
       <div v-for="option in options" class="flex items-center">
-        <Button v-model="selectedOption" :value="option" variant="outline" @click="selectOption(option)">
-          {{ option }}
+        <Button v-model="selectedOption" :value="option.name" variant="outline" @click="selectOption(option)">
+          {{ option.displayName || option }}
         </Button>
       </div>
     </div>
