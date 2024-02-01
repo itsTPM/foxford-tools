@@ -15,9 +15,9 @@ const router = createRouter({
     {
       path: '/themes',
       name: 'themes',
-      component: () => import('../views/ThemesView.vue'),
+      component: () => import('../views/CustomizeView.vue'),
       meta: {
-        title: 'Темы',
+        title: 'Кастомизация',
       },
     },
     {
