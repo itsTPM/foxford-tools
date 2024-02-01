@@ -9,7 +9,7 @@ const Footer = defineAsyncComponent(() => import('./components/Footer/Footer.vue
 
 <template>
   <Header />
-  <main class="pt-3 pb-6 gap-3 flex flex-col">
+  <main class="flex flex-col gap-3 pb-6 pt-3">
     <RouterTitle />
     <RouterView />
   </main>

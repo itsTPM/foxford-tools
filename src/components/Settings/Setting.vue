@@ -17,7 +17,7 @@ const toggleSetting = (setting) => {
 </script>
 
 <template>
-  <div class="flex gap-3 items-center">
+  <div class="flex items-center gap-3">
     <Switch v-model:checked="setting.enabled" @click="toggleSetting(setting)" />
     <Label>
       {{ setting.title }}
