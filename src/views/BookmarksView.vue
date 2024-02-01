@@ -5,6 +5,7 @@ import Bookmark from '@/components/Bookmarks/Bookmark.vue';
 const bookmarks = ref([
   {
     title: 'Пушкин А. С. «Пиковая дама»',
+    url: 'https://google.com',
     courseName: 'Литература',
     courseImage: 'https://u.foxford.ngcdn.ru/uploads/discipline/svg_image/27/1a8bf269c80f38a1.svg',
     courseColor: '#6fbb5c',
