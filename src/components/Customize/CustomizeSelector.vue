@@ -1,15 +1,14 @@
-<!-- src/components/Customize/CustomizeSelector.vue -->
 <script setup>
 import { ref, watchEffect } from 'vue';
 import { Button } from '@/components/ui/button';
-
-const emit = defineEmits(['optionSelected']);
 
 const props = defineProps({
   title: String,
   options: Array,
   modelValue: String,
 });
+
+const emit = defineEmits(['optionSelected']);
 
 const selectedOption = ref(props.modelValue);
 

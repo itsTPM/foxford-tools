@@ -49,35 +49,4 @@ const setTheme = (t) => {
     @optionSelected="setRadius" />
   <CustomizeSelector v-model="color" :options="colorOptions" title="Цвет" @optionSelected="setColor" />
   <CustomizeSelector v-model="theme" :options="themeOptions" title="Тема" @optionSelected="setTheme" />
-
-  <!--  <div class="flex flex-col gap-2">-->
-  <!--    <span class="text-base">Уровень закругления</span>-->
-  <!--    <div class="flex flex-wrap gap-1">-->
-  <!--      <div v-for="radiusOption in radiusOptions" class="flex items-center">-->
-  <!--        <Button v-model="radius" :value="radiusOption" variant="outline" @click="setRadius(radiusOption)">-->
-  <!--          {{ radiusOption }}-->
-  <!--        </Button>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--  <div class="flex flex-col gap-2">-->
-  <!--    <span class="text-base">Цвет</span>-->
-  <!--    <div class="flex flex-wrap gap-1">-->
-  <!--      <div v-for="colorOption in colorOptions" class="flex items-center">-->
-  <!--        <Button v-model="color" :value="colorOption" variant="outline" @click="setColor(colorOption)">-->
-  <!--          {{ colorOption }}-->
-  <!--        </Button>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--  <div class="flex flex-col gap-2">-->
-  <!--    <span class="text-base">Тема</span>-->
-  <!--    <div class="flex flex-wrap gap-1">-->
-  <!--      <div v-for="themeOption in themeOptions" class="flex items-center">-->
-  <!--        <Button v-model="theme" :value="themeOption" variant="outline" @click="setTheme(themeOption)">-->
-  <!--          {{ themeOption }}-->
-  <!--        </Button>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </div>-->
 </template>
