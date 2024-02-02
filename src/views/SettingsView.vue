@@ -60,6 +60,7 @@ onMounted(() => {
         setting.enabled = settingValue === 'true';
       } else {
         localStorage.setItem(setting.id, true);
+        chrome.storage.local.set({ [setting.id]: true });
       }
     });
   });

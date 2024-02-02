@@ -1,0 +1,114 @@
+/* Время чтения теории */
+.badgeWrapper {
+    font-weight: 600;
+    display: block;
+    float: right;
+    padding: 15px;
+    color: #505050;
+    border: 1px solid #c0c0c0;
+    border-radius: 5px;
+    background-color: #e7e7e7;
+}
+
+/* Список чтения */
+.readingListButton {
+    font-weight: 600;
+    display: flex;
+    float: right;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-left: 10px;
+    cursor: pointer;
+    border: 1px solid #c0c0c0;
+    border-radius: 5px;
+    background-color: #e7e7e7;
+}
+
+.readingListButton:hover {
+    background-color: #d7d7d7;
+}
+
+.readingListButton img {
+    width: 24px;
+    height: 24px;
+    filter: invert(41%) sepia(12%) saturate(11%) hue-rotate(6deg) brightness(94%) contrast(88%);
+}
+
+/* Мелкий фикс, чтобы блоки времени чтения и списка не наезжали на текст */
+#wikiThemeContent {
+    margin-top: 15px;
+}
+
+/* Проценты дз & вебинара */
+.percent {
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+
+.percent-gray {
+    color: #ccc;
+}
+
+.percent-red {
+    color: #b34b4b;
+}
+
+.percent-yellow {
+    color: #c1bd0d;
+}
+
+.percent-green {
+    color: rgb(127, 201, 46);
+}
+
+.percent-legendary {
+    background: linear-gradient(90deg, rgb(245, 102, 83) 20%, rgba(254, 177, 57, 1) 100%);
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+}
+
+.percent-legendary::after {
+    margin-left: 5px;
+    content: '🔥';
+}
+
+.webinarPercent {
+    margin-left: auto;
+}
+
+/* Блок рейтинга */
+.ratingWrapper {
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+    box-sizing: border-box;
+    margin-bottom: 32px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    gap: initial;
+}
+
+.ratingPosition {
+    font-size: 24px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 1.3;
+    display: inline;
+    margin: 0px;
+    color: rgb(51, 51, 51);
+}
+
+.ratingTime {
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    display: inline;
+    color: rgb(51, 51, 51);
+}

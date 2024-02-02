@@ -13,6 +13,7 @@ const toggleSetting = (setting) => {
   setting.enabled = !setting.enabled;
   console.log(`${setting.title} now ${setting.enabled ? 'enabled' : 'disabled'} `);
   localStorage.setItem(setting.id, setting.enabled);
+  chrome.storage.local.set({ [setting.id]: setting.enabled });
 };
 </script>
 
