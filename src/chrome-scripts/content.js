@@ -9,7 +9,9 @@ const conspectsObserver = createObserver(
   '.badgeWrapper',
   observers.calculateReadingTime
 );
+
 const webinarObserver = createObserver('.bKdhIU', 1, 'courses', '.webinarPercent', observers.calculateWebinarProgress);
+
 const homeworkObserver = createObserver(
   '#joyrideHomeworkBtn',
   1,
@@ -17,6 +19,7 @@ const homeworkObserver = createObserver(
   '.homeworkPercent',
   observers.calculateHomeworkProgress
 );
+
 const readingListObserver = createObserver(
   '#wikiThemeContent',
   1,
@@ -25,12 +28,21 @@ const readingListObserver = createObserver(
   observers.addReadingListButton
 );
 
+const searchButtonObserver = createObserver(
+  'div[class*="theory__Root"]',
+  1,
+  'courses',
+  '.searchButton',
+  observers.addSearchButton
+);
+
 // Получение настроек из localStorage и запуск MutationObserver, если пользователь включил соответствующий пункт в настройках
 const settings = {
   readingTime: conspectsObserver,
   homeworkPercent: homeworkObserver,
   webinarPercent: webinarObserver,
   readingList: readingListObserver,
+  searchButton: searchButtonObserver,
 };
 
 function getSettings(keys) {

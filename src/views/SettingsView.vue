@@ -36,6 +36,11 @@ const settingGroups = ref([
         id: 'readingList',
         enabled: true,
       },
+      {
+        title: 'Быстрый поиск теории в Google',
+        id: 'searchButton',
+        enabled: true,
+      },
     ],
   },
   {
