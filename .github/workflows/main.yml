@@ -5,53 +5,15 @@ on:
   push:
     branches:
       - main
-      - dev
   pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build extension & upload artifacts
+    name: Upload extension as zip
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set variables
-        shell: bash
-        run: |
-          echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
-          echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> "$GITHUB_ENV"
-      - name: Create JSON with commit info
-        run: |
-          echo '{
-            "sha": "'"$sha_short"'",
-            "branch": "'"$branch"'"
-          }' > ./src/meta.json
-      - name: Create themes index
-        run: |
-          files=$(ls ./src/themes/*.json)
-          json="["
-          for file in $files
-          do
-            filename=$(basename "$file")
-            json="$json\"$filename\","
-          done
-          json="${json::-1}]"
-          echo $json > ./src/themes.json
-      - name: Fix zip script permissions
-        run: chmod +x ./scripts/zip.sh
-      - name: Run zip script
-        run: ./scripts/zip.sh
-      - name: Create .crx from zip
-        uses: cardinalby/webext-buildtools-chrome-crx-action@v2
-        with:
-          zipFilePath: 'chrome-src.zip'
-          crxFilePath: 'foxford-tools.crx'
-          privateKey: ${{ secrets.CHROME_CRX_PRIVATE_KEY }}
-      - name: Upload extension as crx
-        uses: actions/upload-artifact@v3
-        with:
-          name: crx
-          path: 'foxford-tools.crx'
       - name: Upload extension as zip
         uses: actions/upload-artifact@v3
         with:
