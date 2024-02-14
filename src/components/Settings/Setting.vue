@@ -7,13 +7,22 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  setNeedRefresh: {
+    type: Function,
+    required: true,
+  },
 });
 
 const toggleSetting = (setting) => {
   setting.enabled = !setting.enabled;
   console.log(`${setting.title} now ${setting.enabled ? 'enabled' : 'disabled'} `);
   localStorage.setItem(setting.id, setting.enabled);
-  chrome.storage.local.set({ [setting.id]: setting.enabled });
+  try {
+    chrome.storage.local.set({ [setting.id]: setting.enabled });
+  } catch (e) {
+    console.error(e);
+  }
+  props.setNeedRefresh();
 };
 </script>
 
