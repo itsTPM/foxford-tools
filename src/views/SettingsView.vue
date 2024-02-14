@@ -2,9 +2,6 @@
 import { onMounted, ref } from 'vue';
 import { IconBook2, IconPercentage, IconWand } from '@tabler/icons-vue';
 import SettingGroup from '@/components/Settings/SettingGroup.vue';
-import { Button } from '@/components/ui/button/index.js';
-
-const needRefresh = ref(false);
 
 const settingGroups = ref([
   {
@@ -77,31 +74,10 @@ onMounted(() => {
     });
   });
 });
-
-const setNeedRefresh = () => {
-  needRefresh.value = true;
-};
-
-const refreshPage = () => {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.tabs.reload(tabs[0].id);
-  });
-  needRefresh.value = false;
-};
 </script>
 
 <template>
   <div class="flex flex-wrap gap-2">
-    <SettingGroup
-      v-for="settingGroup in settingGroups"
-      :key="settingGroup.id"
-      :setNeedRefresh="setNeedRefresh"
-      :settingGroup="settingGroup" />
-  </div>
-  <div v-if="needRefresh">
-    <Button class="flex w-full flex-col p-6" variant="outline" @click="refreshPage">
-      <span>Обновить страницу</span>
-      <span class="text-xs font-normal">чтобы применить изменения</span>
-    </Button>
+    <SettingGroup v-for="settingGroup in settingGroups" :key="settingGroup.id" :settingGroup="settingGroup" />
   </div>
 </template>

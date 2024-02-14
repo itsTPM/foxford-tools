@@ -8,10 +8,6 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  setNeedRefresh: {
-    type: Function,
-    required: true,
-  },
 });
 </script>
 
@@ -25,11 +21,7 @@ const props = defineProps({
     </PopoverTrigger>
     <PopoverContent>
       <div class="flex flex-col gap-5">
-        <Setting
-          v-for="setting in settingGroup.settings"
-          :key="setting.id"
-          :setNeedRefresh="setNeedRefresh"
-          :setting="setting" />
+        <Setting v-for="setting in settingGroup.settings" :key="setting.id" :setting="setting" />
       </div>
     </PopoverContent>
   </Popover>

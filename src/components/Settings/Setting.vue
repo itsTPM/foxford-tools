@@ -2,13 +2,13 @@
 import { Switch } from '@/components/ui/switch/index.js';
 import { Label } from '@/components/ui/label/index.js';
 
+import { useNeedRefreshStore } from '@/stores/needRefresh';
+
+const needRefreshState = useNeedRefreshStore();
+
 const props = defineProps({
   setting: {
     type: Object,
-    required: true,
-  },
-  setNeedRefresh: {
-    type: Function,
     required: true,
   },
 });
@@ -22,7 +22,7 @@ const toggleSetting = (setting) => {
   } catch (e) {
     console.error(e);
   }
-  props.setNeedRefresh();
+  needRefreshState.setNeedRefresh(true);
 };
 </script>
 
