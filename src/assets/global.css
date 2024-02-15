@@ -66,36 +66,44 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply w-[325px] bg-background p-4 text-foreground;
+  }
+
+  html {
+    @apply scrollbar-gutter scheme-light;
+  }
+
+  html.dark {
+    @apply scheme-dark;
   }
 }
 
+@layer utilities {
+  .scheme-light {
+    color-scheme: light;
+  }
+
+  .scheme-dark {
+    color-scheme: dark;
+  }
+
+  .scrollbar-gutter {
+    scrollbar-gutter: stable both-edges;
+  }
+}
+
+/* Scrollbar */
 *,
 *::after,
 *::before {
   -webkit-user-select: none;
   -webkit-user-drag: none;
-}
-
-html {
-  width: 325px;
-  color-scheme: light;
-  scrollbar-gutter: stable both-edges !important;
-}
-
-html.dark {
-  color-scheme: dark;
-}
-
-body {
-  padding: 1rem;
 }
 
 ::-webkit-scrollbar {
