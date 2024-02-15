@@ -33,7 +33,6 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
-    --radius: 0rem;
   }
 
   .dark {
@@ -81,14 +80,14 @@
 *,
 *::after,
 *::before {
-  -webkit-user-drag: none;
   -webkit-user-select: none;
+  -webkit-user-drag: none;
 }
 
 html {
+  width: 325px;
   color-scheme: light;
   scrollbar-gutter: stable both-edges !important;
-  width: 325px;
 }
 
 html.dark {
