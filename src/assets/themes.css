@@ -92,7 +92,7 @@
 }
 
 .theme-red.dark {
-  --background: 0 0% 3.9%;
+  --background: 240 10% 3.9%;
   --foreground: 0 0% 98%;
 
   --muted: 0 0% 14.9%;
@@ -154,8 +154,8 @@
 }
 
 .theme-green.dark {
-  --background: 20 14.3% 4.1%;
-  --foreground: 0 0% 95%;
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
 
   --muted: 0 0% 15%;
   --muted-foreground: 240 5% 64.9%;
