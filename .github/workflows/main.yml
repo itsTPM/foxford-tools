@@ -10,17 +10,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Upload extension as zip
+    name: Build and upload extension
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Upload extension as zip
-        uses: actions/upload-artifact@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          name: src
-          path: 'src/'
-      - name: Upload extension as zip for firefox
-        uses: actions/upload-artifact@v3
+          node-version: 'latest'
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: firefox-src
-          path: 'firefox-src.zip'
+          name: build
+          path: 'dist/'
