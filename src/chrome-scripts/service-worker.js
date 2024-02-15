@@ -27,8 +27,8 @@ const urlTitleMap = {
 console.log('[Foxford Tools] Фоновый скрипт запущен');
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  chrome.storage.local.get(['changeTitles'], async function (result) {
-    if (result.changeTitles === true) {
+  chrome.storage.local.get(['dynamicTitle'], async function (result) {
+    if (result.dynamicTitle === true) {
       await new Promise((r) => setTimeout(r, 100));
       if (changeInfo.status === 'complete' && tab.url) {
         console.log(`[Foxford Tools] Вкладка обновлена: ${tab.url}`);
