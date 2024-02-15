@@ -11,7 +11,7 @@ export default async function addReadingListButton(element) {
   let readingList = await getReadingList();
 
   const currentUrl = location.href;
-  const isAdded = readingList.some((item) => item.url === currentUrl);
+  let isAdded = readingList.some((item) => item.url === currentUrl);
 
   const img = createElement(
     'img',
@@ -22,6 +22,8 @@ export default async function addReadingListButton(element) {
   );
 
   const toggleList = async () => {
+    isAdded = !isAdded;
+
     const [lessonId, conspectId] = location.href.match(/[0-9]+/g);
     const conspectJson = await fetchConspectJson(lessonId, conspectId);
 
@@ -33,10 +35,10 @@ export default async function addReadingListButton(element) {
 
     const readingListItem = { url: currentUrl, title, courseId, courseName, courseColor, courseImage };
 
-    const action = img.src.endsWith('bookmark-plus.svg') ? 'add' : 'remove';
+    const action = isAdded ? 'add' : 'remove';
     readingList = await updateReadingList(readingList, action === 'add' ? readingListItem : currentUrl, action);
 
-    img.src = img.src.endsWith('bookmark-plus.svg') ? bookmarkMinus : bookmarkPlus;
+    img.src = isAdded ? bookmarkMinus : bookmarkPlus;
   };
 
   readingListButton.addEventListener('click', toggleList);
