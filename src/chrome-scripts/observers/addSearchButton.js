@@ -6,7 +6,7 @@ export default function addSearchButton(element) {
   const img = createElement(
     'img',
     {
-      src: chrome.runtime.getURL(googleIcon),
+      src: googleIcon,
     },
     searchElement
   );

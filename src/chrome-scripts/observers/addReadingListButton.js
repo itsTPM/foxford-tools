@@ -16,7 +16,7 @@ export default async function addReadingListButton(element) {
   const img = createElement(
     'img',
     {
-      src: isAdded ? chrome.runtime.getURL(bookmarkMinus) : chrome.runtime.getURL(bookmarkPlus),
+      src: isAdded ? bookmarkMinus : bookmarkPlus,
     },
     readingListButton
   );
@@ -36,9 +36,7 @@ export default async function addReadingListButton(element) {
     const action = img.src.endsWith('bookmark-plus.svg') ? 'add' : 'remove';
     readingList = await updateReadingList(readingList, action === 'add' ? readingListItem : currentUrl, action);
 
-    img.src = img.src.endsWith('bookmark-plus.svg')
-      ? chrome.runtime.getURL(bookmarkMinus)
-      : chrome.runtime.getURL(bookmarkPlus);
+    img.src = img.src.endsWith('bookmark-plus.svg') ? bookmarkMinus : bookmarkPlus;
   };
 
   readingListButton.addEventListener('click', toggleList);
