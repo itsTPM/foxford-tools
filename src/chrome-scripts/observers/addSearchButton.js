@@ -1,5 +1,5 @@
 import createElement from '../modules/createElement.js';
-import googleIcon from '../assets/google-logo.svg';
+import googleIcon from '@/chrome-scripts/assets/google-logo.svg';
 
 export default function addSearchButton(element) {
   const searchElement = createElement('div', { className: 'searchButton' }, element, 'append');
