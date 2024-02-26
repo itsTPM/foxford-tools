@@ -30,7 +30,9 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   chrome.storage.local.get(['dynamicTitle'], async function (result) {
     if (result.dynamicTitle === true) {
       await new Promise((r) => setTimeout(r, 100));
+
       if (changeInfo.status === 'complete' && tab.url) {
+        if (!tab.url.includes('foxford.ru')) return;
         console.log(`[Foxford Tools] Вкладка обновлена: ${tab.url}`);
         for (const [urlPart, title] of Object.entries(urlTitleMap)) {
           if (tab.url.includes(urlPart)) {
