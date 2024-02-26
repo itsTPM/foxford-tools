@@ -25,7 +25,7 @@ const removeBookmark = (bookmark) => {
 
 <template>
   <div
-    class="relative flex cursor-pointer justify-between rounded-md border p-3 hover:bg-muted"
+    class="relative flex cursor-pointer justify-between rounded-md border p-3 transition hover:bg-muted"
     @click="openBookmark(bookmark)">
     <div class="flex flex-col justify-center">
       <span class="text-base">{{ bookmark.title }}</span>
@@ -36,7 +36,7 @@ const removeBookmark = (bookmark) => {
     </div>
     <div class="absolute right-1 top-1">
       <div
-        class="text-muted-foreground transition hover:text-primary focus:outline-none"
+        class="text-muted-foreground transition hover:text-secondary-foreground focus:outline-none"
         @click.stop="
           removeBookmark(bookmark);
           $emit('bookmarkRemoved', bookmark);
