@@ -13,7 +13,7 @@ const props = defineProps({
 
 <template>
   <Popover>
-    <PopoverTrigger class="flex-grow basis-[calc(50%-4px)]">
+    <PopoverTrigger class="flex-grow basis-[calc(50%-0.25rem)]">
       <Button class="w-full gap-2" variant="outline">
         <component :is="settingGroup.icon" strokeWidth="1.5" />
         {{ settingGroup.title }}

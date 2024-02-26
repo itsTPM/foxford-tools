@@ -10,7 +10,7 @@ const links = [
     icon: IconBrandGithub,
   },
   {
-    name: 'Website',
+    name: 'Сайт',
     url: 'https://fox.itstpm.tech',
     icon: IconWorld,
   },
@@ -19,7 +19,7 @@ const links = [
 
 <template>
   <div class="flex gap-3">
-    <a v-for="link in links" :key="link.name" :href="link.url" target="_blank">
+    <a v-for="link in links" :key="link.name" :href="link.url" :title="link.name" target="_blank">
       <Button size="icon" variant="outline">
         <component :is="link.icon" class="text-foreground" strokeWidth="1.5" />
       </Button>
