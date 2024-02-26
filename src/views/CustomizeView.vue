@@ -1,15 +1,18 @@
 <script setup>
 import { ref } from 'vue';
 import CustomizeSelector from '@/components/Customize/CustomizeSelector.vue';
+import { IconMoon, IconSun } from '@tabler/icons-vue';
 
 const themeOptions = [
   {
     name: 'light',
     displayName: 'Светлая',
+    icon: IconSun,
   },
   {
     name: 'dark',
     displayName: 'Темная',
+    icon: IconMoon,
   },
 ];
 const radiusOptions = ['0', '0.25', '0.5', '0.75', '1'];

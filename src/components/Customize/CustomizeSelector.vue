@@ -27,7 +27,13 @@ const selectOption = (option) => {
     <span class="text-base">{{ title }}</span>
     <div class="flex flex-wrap gap-1">
       <div v-for="option in options" class="flex items-center">
-        <Button v-model="selectedOption" :value="option.name" variant="outline" @click="selectOption(option)">
+        <Button
+          v-model="selectedOption"
+          :value="option.name"
+          class="gap-2"
+          variant="outline"
+          @click="selectOption(option)">
+          <component :is="option.icon" v-if="option.icon" class="h-4 w-4" />
           {{ option.displayName || option }}
         </Button>
       </div>
