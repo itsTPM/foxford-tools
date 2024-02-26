@@ -26,30 +26,42 @@ const urlTitleMap = {
 
 console.log('[Foxford Tools] Фоновый скрипт запущен');
 
-chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  chrome.storage.local.get(['dynamicTitle'], async function (result) {
-    if (result.dynamicTitle === true) {
-      await new Promise((r) => setTimeout(r, 100));
+chrome.storage.local.get(['dynamicTitle'], async function (result) {
+  if (!result.dynamicTitle) return;
 
-      if (changeInfo.status === 'complete' && tab.url) {
-        if (!tab.url.includes('foxford.ru')) return;
-        console.log(`[Foxford Tools] Вкладка обновлена: ${tab.url}`);
-        for (const [urlPart, title] of Object.entries(urlTitleMap)) {
-          if (tab.url.includes(urlPart)) {
-            chrome.scripting.executeScript({
-              target: { tabId: tabId },
-              func: functionToInject,
-              args: [title],
-            });
-            break;
-          }
-        }
-      }
-    }
+  chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+    changeTitle(tabId, changeInfo, tab);
+  });
+
+  chrome.tabs.onActivated.addListener(async (activeInfo) => {
+    const tab = await new Promise((resolve) => {
+      chrome.tabs.get(activeInfo.tabId, resolve);
+    });
+
+    changeTitle(tab.id, { status: 'complete' }, tab);
   });
 });
 
+async function changeTitle(tabId, changeInfo, tab) {
+  await new Promise((r) => setTimeout(r, 150));
+
+  if (changeInfo.status === 'complete' && tab.url) {
+    if (!tab.url.includes('foxford.ru')) return;
+
+    for (const [urlPart, title] of Object.entries(urlTitleMap)) {
+      if (tab.url.includes(urlPart)) {
+        chrome.scripting.executeScript({
+          target: { tabId: tabId },
+          func: functionToInject,
+          args: [title],
+        });
+
+        break;
+      }
+    }
+  }
+}
+
 function functionToInject(title) {
-  console.log('[Foxford Tools] Заголовок изменен');
   document.title = title;
 }
