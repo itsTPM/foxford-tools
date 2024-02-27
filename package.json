@@ -11,7 +11,6 @@
     "@tabler/icons-vue": "^2.47.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "lucide-vue-next": "^0.341.0",
     "pinia": "^2.1.7",
     "radix-vue": "^1.4.9",
     "tailwind-merge": "^2.2.1",
