@@ -12,7 +12,7 @@ const versionName = manifest.version_name;
       <span>версия {{ versionName }}</span>
       <a
         class="text-xs text-muted-foreground/50 transition hover:text-secondary-foreground/75"
-        href="https://fox.itstpm.tech/changelog"
+        href="https://github.com/itsTPM/foxford-tools/releases"
         target="_blank">
         что нового?
       </a>
