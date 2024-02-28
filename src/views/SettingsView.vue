@@ -2,6 +2,8 @@
 import { onMounted, ref } from 'vue';
 import { IconBook2, IconPercentage, IconWand } from '@tabler/icons-vue';
 import SettingGroup from '@/components/Settings/SettingGroup.vue';
+import { IconBook } from '@tabler/icons-vue';
+import { IconNotebook } from '@tabler/icons-vue';
 
 const settingGroups = ref([
   {
@@ -51,6 +53,18 @@ const settingGroups = ref([
       {
         title: 'Понятный заголовок страницы',
         id: 'dynamicTitle',
+        enabled: true,
+      },
+    ],
+  },
+  {
+    title: 'Домашка',
+    id: 'homework',
+    icon: IconNotebook,
+    settings: [
+      {
+        title: 'Заменить цвет желтых блоков на светло-серый',
+        id: 'fixYellowBlocks',
         enabled: true,
       },
     ],

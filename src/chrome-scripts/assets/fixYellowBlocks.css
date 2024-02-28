@@ -1,0 +1,25 @@
+/* Поля для ручного ввода */
+div[class*='AnswerField_answerComponent'] {
+  background: #f5f5f5 !important;
+}
+
+span[class*='AnswerField_root'] > span[class*='Select_root'] {
+  background: #f5f5f5 !important;
+}
+
+/* Выпадающие списки */
+div[class*='__floater__container'] > span[class*='Select_dropdown'] label[for*='Select'] {
+  background: #fff !important;
+  color: #474747 !important;
+  transition: 0.1s ease !important;
+}
+
+div[class*='__floater__container'] > span[class*='Select_dropdown'] label[for*='Select']:hover {
+  background: #ddd !important;
+  color: #2f2f2f !important;
+}
+
+div[class*='__floater__container'] > span[class*='Select_dropdown'] label[class*='Select_valueChecked'] {
+  background: #ddd !important;
+  color: #2f2f2f !important;
+}
