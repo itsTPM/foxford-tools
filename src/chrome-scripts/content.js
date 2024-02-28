@@ -1,5 +1,6 @@
 import './assets/content.css';
 import * as observers from './observers/index.js';
+import getSettings from './modules/getSettings';
 
 // Получение настроек из localStorage и запуск MutationObserver, если пользователь включил соответствующий пункт в настройках
 const settings = {
@@ -10,25 +11,10 @@ const settings = {
   searchButton: observers.searchButton(),
 };
 
-function getSettings(keys) {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(keys, function (result) {
-      if (chrome.runtime.lastError) {
-        reject(chrome.runtime.lastError);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-}
-
 getSettings(Object.keys(settings))
   .then((result) => {
     for (const [setting, observer] of Object.entries(settings)) {
-      console.log(setting, observer);
-      if (!result[setting]) {
-        continue;
-      }
+      if (!result[setting]) continue;
 
       observer.observe(document.body, {
         childList: true,
