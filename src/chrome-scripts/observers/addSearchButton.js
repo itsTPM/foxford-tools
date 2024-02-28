@@ -1,7 +1,8 @@
 import createElement from '../modules/createElement.js';
 import googleIcon from '@/chrome-scripts/assets/google-logo.svg';
+import createObserver from '../modules/createObserver.js';
 
-export default function addSearchButton(element) {
+function addSearchButton(element) {
   const searchElement = createElement('div', { className: 'searchButton' }, element, 'append');
   const img = createElement(
     'img',
@@ -24,4 +25,10 @@ export default function addSearchButton(element) {
   };
 
   searchElement.addEventListener('click', searchGoogle);
+}
+
+export default function createSearchButtonObserver() {
+  const observer = createObserver(['div[class*="theory__Root"]', 1, 'courses', '.searchButton', addSearchButton]);
+
+  return observer;
 }

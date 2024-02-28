@@ -4,8 +4,9 @@ import fetchConspectJson from '../modules/fetchConspectJson.js';
 import updateReadingList from '../modules/updateReadingList.js';
 import bookmarkPlus from '../assets/bookmark-plus.svg';
 import bookmarkMinus from '../assets/bookmark-minus.svg';
+import createObserver from '../modules/createObserver.js';
 
-export default async function addReadingListButton(element) {
+async function addReadingListButton(element) {
   const readingListButton = createElement('div', { className: 'readingListButton' }, element.parentNode, 'prepend');
 
   let readingList = await getReadingList();
@@ -42,4 +43,10 @@ export default async function addReadingListButton(element) {
   };
 
   readingListButton.addEventListener('click', toggleList);
+}
+
+export default function createReadingListObserver() {
+  const observer = createObserver(['#wikiThemeContent', 1, 'conspects', '.readingListButton', addReadingListButton]);
+
+  return observer;
 }

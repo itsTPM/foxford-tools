@@ -1,7 +1,8 @@
 import fetchWithCache from '../modules/fetchWithCache.js';
 import createPercentElement from '../modules/createPercentElement.js';
+import createObserver from '../modules/createObserver.js';
 
-export default async function calculateHomeworkProgress(element) {
+async function calculateHomeworkProgress(element) {
   let tasksPercent = 0;
   let tasksCount = 0;
   let totalTasksCount = 0;
@@ -44,4 +45,16 @@ export default async function calculateHomeworkProgress(element) {
   if (homeworkPercent === 100 && totalTasksCount === tasksCount) {
     percentElement.classList.add('percent-legendary');
   }
+}
+
+export default function createHomeworkObserver() {
+  const observer = createObserver([
+    '#joyrideHomeworkBtn',
+    1,
+    'courses',
+    '.homeworkPercent',
+    calculateHomeworkProgress,
+  ]);
+
+  return observer;
 }

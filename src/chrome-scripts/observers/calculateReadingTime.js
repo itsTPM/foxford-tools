@@ -1,6 +1,7 @@
 import createElement from '../modules/createElement.js';
+import createObserver from '../modules/createObserver.js';
 
-export default function calculateReadingTime(element) {
+function calculateReadingTime(element) {
   const conspectContent = element.textContent;
   const wordCount = [...conspectContent.matchAll(/[^\s]+/g)].length;
   const readingTime = Math.round(wordCount / 150);
@@ -10,4 +11,10 @@ export default function calculateReadingTime(element) {
     { textContent: readingTime > 0 ? `~${readingTime} мин. чтения` : `меньше минуты чтения` },
     badgeWrapper
   );
+}
+
+export default function createReadingTimeObserver() {
+  const observer = createObserver(['#wikiThemeContent', 1, 'conspects', '.badgeWrapper', calculateReadingTime]);
+
+  return observer;
 }
