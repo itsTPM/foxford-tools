@@ -1,5 +1,5 @@
-export { default as addReadingListButton } from './addReadingListButton.js';
-export { default as calculateHomeworkProgress } from './calculateHomeworkProgress.js';
-export { default as calculateReadingTime } from './calculateReadingTime.js';
-export { default as calculateWebinarProgress } from './calculateWebinarProgress.js';
-export { default as addSearchButton } from './addSearchButton.js';
+export { default as homeworkPercent } from './homeworkPercent.js';
+export { default as webinarPercent } from './webinarPercent.js';
+export { default as readingTime } from './readingTime.js';
+export { default as readingList } from './readingList.js';
+export { default as searchButton } from './searchButton.js';

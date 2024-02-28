@@ -3,11 +3,11 @@ import * as observers from './observers/index.js';
 
 // Получение настроек из localStorage и запуск MutationObserver, если пользователь включил соответствующий пункт в настройках
 const settings = {
-  readingTime: observers.calculateReadingTime(),
-  homeworkPercent: observers.calculateHomeworkProgress(),
-  webinarPercent: observers.calculateWebinarProgress(),
-  readingList: observers.addReadingListButton(),
-  searchButton: observers.addSearchButton(),
+  readingTime: observers.readingTime(),
+  homeworkPercent: observers.homeworkPercent(),
+  webinarPercent: observers.webinarPercent(),
+  readingList: observers.readingList(),
+  searchButton: observers.searchButton(),
 };
 
 function getSettings(keys) {
