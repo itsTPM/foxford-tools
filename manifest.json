@@ -25,10 +25,17 @@
     }
   ],
   "background": {
-    "service_worker": "src/chrome-scripts/service-worker.js"
+    "service_worker": "src/chrome-scripts/service-worker.js",
+    "scripts": ["src/chrome-scripts/service-worker.js"]
   },
   "host_permissions": ["https://foxford.ru/*"],
   "externally_connectable": {
     "matches": ["https://foxford.ru/*"]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "strict_min_version": "112.0",
+      "id": "foxford-tools@itstpm.tech"
+    }
   }
 }

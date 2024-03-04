@@ -4,8 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "preview": "vite preview",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:chrome": "vite build --config vite.config.chrome.js",
+    "build:firefox": "vite build --config vite.config.firefox.js"
   },
   "dependencies": {
     "@tabler/icons-vue": "^2.47.0",
