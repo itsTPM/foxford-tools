@@ -1,9 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { IconBook2, IconPercentage, IconWand } from '@tabler/icons-vue';
+import { IconBook2, IconPercentage, IconWand, IconNotebook } from '@tabler/icons-vue';
 import SettingGroup from '@/components/Settings/SettingGroup.vue';
-import { IconBook } from '@tabler/icons-vue';
-import { IconNotebook } from '@tabler/icons-vue';
 
 const settingGroups = ref([
   {
