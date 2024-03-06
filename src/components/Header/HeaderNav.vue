@@ -1,5 +1,5 @@
 <script setup>
-import { IconBookmarks, IconBrush, IconSettings } from '@tabler/icons-vue';
+import { IconBookmarks, IconBrush, IconSettings, IconCalendarShare } from '@tabler/icons-vue';
 import { Button } from '@/components/ui/button';
 
 // Маршруты для отображения на панели навигации
@@ -15,6 +15,10 @@ const routes = [
   {
     name: 'bookmarks',
     icon: IconBookmarks,
+  },
+  {
+    name: 'calendar',
+    icon: IconCalendarShare,
   },
 ];
 </script>

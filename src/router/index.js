@@ -28,6 +28,14 @@ const router = createRouter({
         title: 'Закладки',
       },
     },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: () => import('../views/CalendarView.vue'),
+      meta: {
+        title: 'Календарь',
+      },
+    },
   ],
 });
 
