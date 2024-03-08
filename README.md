@@ -1,6 +1,6 @@
-<img align="left" width="120" src="https://fox.itstpm.tech/logo.svg">
+<img width="60" align="right" src="https://fox.itstpm.tech/logo.svg">
 
-# ⠀Foxford Tools
+# Foxford Tools
 
 ### Что это
 
