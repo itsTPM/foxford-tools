@@ -1,15 +1,19 @@
 <script setup>
-import { defineAsyncComponent, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
-import RouterTitle from '@/components/RouterTitle.vue';
 
-const Header = defineAsyncComponent(() => import('./components/Header/Header.vue'));
-const Footer = defineAsyncComponent(() => import('./components/Footer/Footer.vue'));
+// Import components that are visible on all pages of app
+import RouterTitle from '@/components/RouterTitle.vue';
+import Header from './components/Header/Header.vue';
+import Footer from './components/Footer/Footer.vue';
 
 onMounted(() => {
+  // Get customization settings from local storage
   const theme = localStorage.getItem('theme');
   const color = localStorage.getItem('color');
   const radius = localStorage.getItem('radius');
+
+  // Apply customization settings to root element
   document.documentElement.classList.add(`${theme || 'light'}`);
   document.documentElement.classList.add(`theme-${color || 'zinc'}`);
   document.documentElement.style.setProperty('--radius', `${radius || 0.5}rem`);
