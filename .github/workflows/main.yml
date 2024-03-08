@@ -18,10 +18,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 'latest'
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
       - name: Build for Chrome
-        run: npm run build:chrome
+        run: pnpm run build:chrome
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -30,7 +34,7 @@ jobs:
       - name: Clean up
         run: rm -rf dist
       - name: Build for Firefox
-        run: npm run build:firefox
+        run: pnpm run build:firefox
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:

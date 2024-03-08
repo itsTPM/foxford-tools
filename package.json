@@ -3,6 +3,7 @@
   "version": "1.2.3",
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "vite",
     "preview": "vite preview",
     "build": "vite build",
