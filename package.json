@@ -11,7 +11,7 @@
     "build:firefox": "vite build --config vite.config.firefox.js"
   },
   "dependencies": {
-    "@tabler/icons-vue": "^3.0.0",
+    "@tabler/icons-vue": "^3.1.0",
     "@vueuse/core": "^10.9.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
