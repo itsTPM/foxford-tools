@@ -2,9 +2,15 @@ import createPercentElement from '../modules/createPercentElement.js';
 import createObserver from '../modules/createObserver.js';
 
 function calculateWebinarProgress(element) {
-  const xpCounters = document.getElementsByClassName('major');
-  if (xpCounters.length < 2) return;
-  const webinarPercent = +Math.round((xpCounters[2].textContent / xpCounters[3].textContent) * 100);
+  // У элемента текст че-то типа "60 из 120 XP", достаем 60 и 120
+  const xpElementText = element.lastChild.lastChild.firstChild.lastChild.textContent;
+
+  const xpNumbers = xpElementText.match(/[0-9]+/g);
+
+  const gainedXp = +xpNumbers[0];
+  const maxXp = +xpNumbers[1];
+
+  const webinarPercent = +Math.round((gainedXp / maxXp) * 100);
   createPercentElement(webinarPercent, element.lastChild.lastChild, 'before').classList.add('webinarPercent');
 }
 
