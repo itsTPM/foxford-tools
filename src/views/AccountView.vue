@@ -41,16 +41,16 @@ const levelData = {
       <IconCoins :size="48" strokeWidth="1.75" />
     </div>
   </div>
-
-  <div class="flex justify-between rounded-md border p-3">
-    <div class="flex flex-col justify-center">
-      <span class="text-base">{{ levelData.gained_xp }} из {{ levelData.available_xp }} XP</span>
-      <span class="text-sm text-muted-foreground">до следующего уровня</span>
+  <div class="flex flex-col">
+    <div class="flex justify-between rounded-md rounded-b-none border p-3">
+      <div class="flex flex-col justify-center">
+        <span class="text-base">{{ levelData.gained_xp }} из {{ levelData.available_xp }} XP</span>
+        <span class="text-sm text-muted-foreground">до следующего уровня</span>
+      </div>
+      <div class="flex items-center text-muted">
+        <IconArrowBadgeUp :size="48" strokeWidth="1.75" />
+      </div>
     </div>
-    <div class="flex items-center text-muted">
-      <IconArrowBadgeUp :size="48" strokeWidth="1.75" />
-    </div>
+    <Progress :max="levelData.available_xp" v-model="levelData.gained_xp" class="h-1 rounded-t-none" />
   </div>
-
-  <Progress :max="levelData.available_xp" v-model="levelData.gained_xp" />
 </template>
