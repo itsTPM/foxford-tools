@@ -1,28 +1,53 @@
 <script setup>
 import { IconCoins, IconArrowBadgeUp } from '@tabler/icons-vue';
 import { Progress } from '@/components/ui/progress';
+import { onMounted, ref } from 'vue';
 
-const profileData = {
-  full_name: 'Firstname Lastname',
-  avatar_url: 'https://a.foxford.ngcdn.ru/assets/fallback/avatars/faceholders/120x120/14.png',
+const profileData = ref({
+  full_name: '',
+  avatar_url: '',
   created_at: null,
-  bonus_amount: 1000,
-};
+  bonus_amount: 0,
+});
 
-const levelData = {
-  gained_xp: 3000,
-  available_xp: 12000,
-  total_xp: 130000,
-  progress: 25,
-};
+const levelData = ref({
+  gained_xp: 0,
+  available_xp: 0,
+  total_xp: 0,
+});
+
+onMounted(async () => {
+  if (localStorage.getItem('profileData')) {
+    profileData.value = JSON.parse(localStorage.getItem('profileData'));
+  }
+  if (localStorage.getItem('levelData')) {
+    levelData.value = JSON.parse(localStorage.getItem('levelData'));
+  }
+
+  await fetch('https://foxford.ru/api/user/me')
+    .then((response) => response.json())
+    .then((data) => {
+      profileData.value.full_name = data.full_name;
+      profileData.value.avatar_url = data.avatar_url;
+      profileData.value.created_at = data.created_at;
+      profileData.value.bonus_amount = data.bonus_amount;
+    });
+  localStorage.setItem('profileData', JSON.stringify(profileData.value));
+
+  await fetch('https://foxford.ru/api/user/level')
+    .then((response) => response.json())
+    .then((data) => {
+      levelData.value.gained_xp = data.gained_xp;
+      levelData.value.available_xp = data.available_xp;
+      levelData.value.total_xp = data.total_xp;
+    });
+  localStorage.setItem('levelData', JSON.stringify(levelData.value));
+});
 </script>
 
 <template>
   <div class="flex items-center gap-5 rounded-md border p-3">
-    <img
-      src="https://a.foxford.ngcdn.ru/assets/fallback/avatars/faceholders/120x120/14.png"
-      alt="Аватар пользователя"
-      class="h-16 w-16 object-contain" />
+    <img :src="profileData.avatar_url" alt="Аватар пользователя" class="h-16 w-16 rounded-lg object-contain" />
     <div class="flex flex-col">
       <h1 class="text-lg font-medium">{{ profileData.full_name }}</h1>
       <p class="text-muted-foreground">
@@ -41,6 +66,7 @@ const levelData = {
       <IconCoins :size="48" strokeWidth="1.75" />
     </div>
   </div>
+
   <div class="flex flex-col">
     <div class="flex justify-between rounded-md rounded-b-none border p-3">
       <div class="flex flex-col justify-center">
