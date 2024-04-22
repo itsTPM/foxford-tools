@@ -19,7 +19,7 @@
     "radix-vue": "^1.6.2",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
-    "vue": "^3.4.21",
+    "vue": "^3.4.23",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
