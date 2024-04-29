@@ -21,8 +21,8 @@ dependencies:
     specifier: ^2.1.7
     version: 2.1.7(vue@3.4.21)
   radix-vue:
-    specifier: ^1.6.2
-    version: 1.6.2(vue@3.4.21)
+    specifier: ^1.7.2
+    version: 1.7.2(vue@3.4.21)
   tailwind-merge:
     specifier: ^2.2.2
     version: 2.2.2
@@ -559,6 +559,19 @@ packages:
 
   /@tabler/icons@3.1.0:
     resolution: {integrity: sha512-CpZGyS1IVJKFcv88yZ2sYZIpWWhQ6oy76BQKQ5SF0fGgOqgyqKdBGG/YGyyMW632on37MX7VqQIMTzN/uQqmFg==}
+    dev: false
+
+  /@tanstack/virtual-core@3.4.0:
+    resolution: {integrity: sha512-75jXqXxqq5M5Veb9KP1STi8kA5u408uOOAefk2ftHDGCpUk3RP6zX++QqfbmHJTBiU72NQ+ghgCZVts/Wocz8Q==}
+    dev: false
+
+  /@tanstack/vue-virtual@3.4.1(vue@3.4.21):
+    resolution: {integrity: sha512-BrNIH1Pqp63C6NYOdkKwMtq7PoPJWINa77bdn8gTTHkvqoNB7jTzKmHoCf7jUWSDVUsMrGO5lIVyc6eounmxlA==}
+    peerDependencies:
+      vue: ^2.7.0 || ^3.0.0
+    dependencies:
+      '@tanstack/virtual-core': 3.4.0
+      vue: 3.4.21
     dev: false
 
   /@types/estree@1.0.5:
@@ -1465,14 +1478,15 @@ packages:
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  /radix-vue@1.6.2(vue@3.4.21):
-    resolution: {integrity: sha512-uHyj8YaA+O2ZF1Ouxl2EJUzXXEFLzN/CtOE1HVFG3h60aFD7E9HNZ5RxODnXSD7j0vZLFS/dHU9Z2+Yjljj2Lg==}
+  /radix-vue@1.7.2(vue@3.4.21):
+    resolution: {integrity: sha512-KczYzzflm8todIk3flaQIWQ6P1wqtUh0cwMBRhp8Pr2JXs8FMG2qfL4lJly2mhMFXc199bG0U4bNLLsrhn5xoA==}
     peerDependencies:
       vue: '>= 3.2.0'
     dependencies:
       '@floating-ui/dom': 1.6.3
       '@floating-ui/vue': 1.0.6(vue@3.4.21)
       '@internationalized/date': 3.5.2
+      '@tanstack/vue-virtual': 3.4.1(vue@3.4.21)
       '@vueuse/core': 10.9.0(vue@3.4.21)
       '@vueuse/shared': 10.9.0(vue@3.4.21)
       aria-hidden: 1.2.4
