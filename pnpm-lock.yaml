@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@tabler/icons-vue':
-    specifier: ^3.1.0
-    version: 3.1.0(vue@3.4.21)
+    specifier: ^3.3.0
+    version: 3.3.0(vue@3.4.21)
   '@vueuse/core':
     specifier: ^10.9.0
     version: 10.9.0(vue@3.4.21)
@@ -548,17 +548,17 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@tabler/icons-vue@3.1.0(vue@3.4.21):
-    resolution: {integrity: sha512-o4+uKniOgF52v5+BSdcmSmHMMFQ9KGqrv4/sihBBcrUoZHXqjLq9fPTp4ThnJOQchrI5jUIu2ht0BMZZd4Wbog==}
+  /@tabler/icons-vue@3.3.0(vue@3.4.21):
+    resolution: {integrity: sha512-V/1ikOZABhtmtqBJ54wnPfPB5xVDALNnWN8832tX6bjVqKMPTauDb5YxwB2pMcFnjemYfYvtv8pUAwcjCgqt+A==}
     peerDependencies:
       vue: '>=3.0.1'
     dependencies:
-      '@tabler/icons': 3.1.0
+      '@tabler/icons': 3.3.0
       vue: 3.4.21
     dev: false
 
-  /@tabler/icons@3.1.0:
-    resolution: {integrity: sha512-CpZGyS1IVJKFcv88yZ2sYZIpWWhQ6oy76BQKQ5SF0fGgOqgyqKdBGG/YGyyMW632on37MX7VqQIMTzN/uQqmFg==}
+  /@tabler/icons@3.3.0:
+    resolution: {integrity: sha512-PLVe9d7b59sKytbx00KgeGhQG3N176Ezv8YMmsnSz4s0ifDzMWlp/h2wEfQZ0ZNe8e377GY2OW6kovUe3Rnd0g==}
     dev: false
 
   /@types/estree@1.0.5:
