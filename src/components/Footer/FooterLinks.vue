@@ -1,5 +1,5 @@
 <script setup>
-import { IconBrandGithub, IconWorld } from '@tabler/icons-vue';
+import { IconBrandGithub, IconWorld, IconBrandTelegram } from '@tabler/icons-vue';
 import { Button } from '@/components/ui/button';
 
 // Ссылки для отображения в подвале
@@ -8,6 +8,11 @@ const links = [
     name: 'GitHub',
     url: 'https://github.com/itsTPM/foxford-tools',
     icon: IconBrandGithub,
+  },
+  {
+    name: 'Telegram',
+    url: 'https://t.me/foxfordclips',
+    icon: IconBrandTelegram,
   },
   {
     name: 'Сайт',
