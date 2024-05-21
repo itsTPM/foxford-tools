@@ -33,7 +33,7 @@ const selectOption = (option) => {
           class="gap-2"
           variant="outline"
           @click="selectOption(option)">
-          <component :is="option.icon" v-if="option.icon" class="h-4 w-4" />
+          <component :is="option.icon" v-if="option.icon" class="h-4 w-4" stroke-width="1.5" />
           {{ option.displayName || option }}
         </Button>
       </div>

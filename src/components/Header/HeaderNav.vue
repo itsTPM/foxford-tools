@@ -27,7 +27,7 @@ const routes = [
   <nav class="flex justify-center gap-3">
     <RouterLink v-for="route in routes" :key="route.name" :to="{ name: route.name }">
       <Button :class="$route.name === route.name ? 'bg-active' : ''" size="icon" variant="outline">
-        <component :is="route.icon" class="text-foreground" strokeWidth="1.5" />
+        <component :is="route.icon" class="w-6 text-foreground" stroke-width="1.5" />
       </Button>
     </RouterLink>
   </nav>

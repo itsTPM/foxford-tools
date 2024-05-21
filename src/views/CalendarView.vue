@@ -41,11 +41,11 @@ function copyToClipboard() {
 
     <Button variant="outline" @click="copyToClipboard" :class="isCopied ? 'bg-active' : ''" class="transition">
       <div v-if="!isCopied" class="flex items-center justify-center gap-3">
-        <IconCopy strokeWidth="1.5" />
+        <IconCopy stroke-width="1.5" class="w-6" />
         Скопировать
       </div>
       <div v-else class="flex items-center justify-center gap-3">
-        <IconCheck strokeWidth="1.5" />
+        <IconCheck stroke-width="1.5" class="w-6" />
         Ссылка в буфере обмена
       </div>
     </Button>

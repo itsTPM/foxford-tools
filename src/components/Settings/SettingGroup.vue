@@ -15,7 +15,7 @@ const props = defineProps({
   <Popover>
     <PopoverTrigger class="flex-grow basis-[calc(50%-0.25rem)]">
       <Button class="w-full gap-2" variant="outline">
-        <component :is="settingGroup.icon" strokeWidth="1.5" />
+        <component :is="settingGroup.icon" stroke-width="1.5" class="w-6" />
         {{ settingGroup.title }}
       </Button>
     </PopoverTrigger>

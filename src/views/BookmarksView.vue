@@ -34,7 +34,7 @@ const onBookmarkRemoved = (bookmark) => {
         <span class="text-sm text-muted-foreground">закладок пока нет</span>
       </div>
       <div class="relative flex items-center text-muted">
-        <IconMoodPuzzled size="48" strokeWidth="1.75" />
+        <IconMoodPuzzled size="48" stroke-width="1.75" />
       </div>
     </div>
   </div>
