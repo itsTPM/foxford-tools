@@ -36,6 +36,14 @@ const router = createRouter({
         title: 'Календарь',
       },
     },
+    {
+      path: '/account',
+      name: 'account',
+      component: () => import('../views/AccountView.vue'),
+      meta: {
+        title: 'Аккаунт',
+      },
+    },
   ],
 });
 
