@@ -14,7 +14,7 @@
     "@tabler/icons-vue": "^3.4.0",
     "@vueuse/core": "^10.9.0",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.0",
+    "clsx": "^2.1.1",
     "pinia": "^2.1.7",
     "radix-vue": "^1.8.1",
     "tailwind-merge": "^2.3.0",
