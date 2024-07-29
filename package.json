@@ -25,7 +25,7 @@
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.23",
     "@types/node": "^20.11.30",
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue": "^5.1.1",
     "autoprefixer": "^10.4.19",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.14",
