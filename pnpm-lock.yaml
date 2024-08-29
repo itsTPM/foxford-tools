@@ -34,7 +34,7 @@ dependencies:
     version: 3.4.38
   vue-router:
     specifier: ^4.3.2
-    version: 4.3.2(vue@3.4.38)
+    version: 4.4.3(vue@3.4.38)
 
 devDependencies:
   '@crxjs/vite-plugin':
@@ -1901,12 +1901,12 @@ packages:
       vue: 3.4.38
     dev: false
 
-  /vue-router@4.3.2(vue@3.4.38):
-    resolution: {integrity: sha512-hKQJ1vDAZ5LVkKEnHhmm1f9pMiWIBNGF5AwU67PdH7TyXCj/a4hTccuUuYCAMgJK6rO/NVYtQIEN3yL8CECa7Q==}
+  /vue-router@4.4.3(vue@3.4.38):
+    resolution: {integrity: sha512-sv6wmNKx2j3aqJQDMxLFzs/u/mjA9Z5LCgy6BE0f7yFWMjrPLnS/sPNn8ARY/FXw6byV18EFutn5lTO6+UsV5A==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
-      '@vue/devtools-api': 6.6.1
+      '@vue/devtools-api': 6.6.3
       vue: 3.4.38
     dev: false
 
