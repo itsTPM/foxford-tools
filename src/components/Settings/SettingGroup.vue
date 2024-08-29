@@ -13,12 +13,12 @@ const props = defineProps({
 
 <template>
   <Popover>
-    <PopoverTrigger class="flex-grow basis-[calc(50%-0.25rem)]">
-      <Button class="w-full gap-2" variant="outline">
+    <Button class="w-full gap-2" variant="outline" as-child>
+      <PopoverTrigger class="flex-grow basis-[calc(50%-0.25rem)]">
         <component :is="settingGroup.icon" stroke-width="1.5" class="w-6" />
         {{ settingGroup.title }}
-      </Button>
-    </PopoverTrigger>
+      </PopoverTrigger>
+    </Button>
     <PopoverContent>
       <div class="flex flex-col gap-5">
         <Setting v-for="setting in settingGroup.settings" :key="setting.id" :setting="setting" />
