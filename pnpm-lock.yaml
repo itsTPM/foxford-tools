@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@tabler/icons-vue':
     specifier: ^3.5.0
-    version: 3.5.0(vue@3.4.38)
+    version: 3.14.0(vue@3.4.38)
   '@vueuse/core':
     specifier: ^10.9.0
     version: 10.9.0(vue@3.4.38)
@@ -570,17 +570,17 @@ packages:
       tslib: 2.7.0
     dev: false
 
-  /@tabler/icons-vue@3.5.0(vue@3.4.38):
-    resolution: {integrity: sha512-55gxPKpT8rk2SoYh82tHfTAuMah4W2cseMabKY1WchRHe4Hqd2JgKFxlvI4na2YVeByaG1KgMiIrmkDz5NRyqQ==}
+  /@tabler/icons-vue@3.14.0(vue@3.4.38):
+    resolution: {integrity: sha512-nN9HpobBj4Tb3piBgUZW10HqyKoniMR3jzbF90wQ7FTfBXi4HqYeOIzJIiSh2izCn1/i5yUuCQrh4FmVzzXYCg==}
     peerDependencies:
       vue: '>=3.0.1'
     dependencies:
-      '@tabler/icons': 3.5.0
+      '@tabler/icons': 3.14.0
       vue: 3.4.38
     dev: false
 
-  /@tabler/icons@3.5.0:
-    resolution: {integrity: sha512-I53dC3ZSHQ2MZFGvDYJelfXm91L2bTTixS4w5jTAulLhHbCZso5Bih4Rk/NYZxlngLQMKHvEYwZQ+6w/WluKiA==}
+  /@tabler/icons@3.14.0:
+    resolution: {integrity: sha512-OakKjK1kuDWKoNwdnHHVMt11kTZAC10iZpN/8o/CSYdeBH7S3v5n8IyqAYynFxLI8yBGTyBvljtvWdmWh57zSg==}
     dev: false
 
   /@tanstack/virtual-core@3.5.0:
