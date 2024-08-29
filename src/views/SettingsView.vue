@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { IconBook2, IconPercentage, IconWand, IconNotebook } from '@tabler/icons-vue';
 import SettingGroup from '@/components/Settings/SettingGroup.vue';
+import Setting from '@/components/Settings/Setting.vue';
 
 const settingGroups = ref([
   {
@@ -69,6 +70,12 @@ const settingGroups = ref([
   },
 ]);
 
+const selectedSettingGroup = ref(settingGroups.value[0]);
+
+const selectSettingGroup = (settingGroup) => {
+  selectedSettingGroup.value = settingGroup;
+};
+
 onMounted(() => {
   settingGroups.value.forEach((settingGroup) => {
     settingGroup.settings.forEach((setting) => {
@@ -89,7 +96,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-2">
-    <SettingGroup v-for="settingGroup in settingGroups" :key="settingGroup.id" :settingGroup="settingGroup" />
+  <div class="grid grid-cols-[min-content,1fr] grid-rows-4 gap-2">
+    <SettingGroup
+      v-for="settingGroup in settingGroups"
+      :key="settingGroup.id"
+      :selectedSettingGroup
+      :settingGroup
+      @selectSettingGroup="selectSettingGroup" />
+    <div
+      class="col-start-2 row-span-4 row-start-1 flex h-full w-full flex-col justify-center gap-5 overflow-y-auto rounded-lg border bg-card px-2 py-4 transition-all">
+      <Setting v-for="setting in selectedSettingGroup.settings" :key="setting.id" :setting="setting" />
+    </div>
   </div>
 </template>
