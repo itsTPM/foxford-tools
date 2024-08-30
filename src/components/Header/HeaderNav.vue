@@ -6,39 +6,48 @@ import { Button } from '@/components/ui/button';
 const routes = [
   {
     name: 'settings',
+    friendlyName: 'Настройки',
     icon: IconSettings,
   },
   {
     name: 'themes',
+    friendlyName: 'Кастомизация',
     icon: IconBrush,
   },
   {
     name: 'bookmarks',
+    friendlyName: 'Закладки',
     icon: IconBookmarks,
   },
   {
     name: 'calendar',
+    friendlyName: 'Календарь',
     icon: IconCalendarShare,
   },
   {
     name: 'account',
+    friendlyName: 'Аккаунт',
     icon: IconUserCircle,
   },
 ];
 </script>
 
 <template>
-  <nav class="flex justify-center gap-3">
-    <Button
-      :class="$route.name === route.name ? 'bg-active' : ''"
-      size="icon"
-      variant="outline"
-      v-for="route in routes"
-      :key="route.name"
-      as-child>
-      <RouterLink :to="{ name: route.name }">
-        <component :is="route.icon" class="w-6 text-foreground" stroke-width="1.5" />
-      </RouterLink>
-    </Button>
+  <nav>
+    <ul class="flex justify-center gap-3">
+      <li v-for="route in routes">
+        <Button
+          :aria-label="`Перейти на вкладку ${route.friendlyName}`"
+          :class="$route.name === route.name ? 'bg-active' : ''"
+          size="icon"
+          variant="outline"
+          :key="route.name"
+          as-child>
+          <RouterLink :to="{ name: route.name }">
+            <component :is="route.icon" class="w-6 text-foreground" stroke-width="1.5" aria-hidden="true" />
+          </RouterLink>
+        </Button>
+      </li>
+    </ul>
   </nav>
 </template>

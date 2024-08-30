@@ -27,8 +27,8 @@ const refreshPage = () => {
     </div>
     <div v-else>
       <Button class="flex w-full flex-col p-6" variant="outline" @click="refreshPage">
-        <span>Обновить страницу</span>
-        <span class="text-xs font-normal">чтобы применить изменения</span>
+        <p>Обновить страницу</p>
+        <p class="text-xs font-normal">чтобы применить изменения</p>
       </Button>
     </div>
   </footer>

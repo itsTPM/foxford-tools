@@ -33,21 +33,22 @@ function copyToClipboard() {
 
 <template>
   <Button class="flex w-full flex-col p-6" variant="outline" @click="getCalendarLink" v-if="!calendarLink">
-    <span>Получить ссылку на свой календарь</span>
-    <span class="text-xs font-normal">она откроется и у других</span>
+    <p>Получить ссылку на свой календарь</p>
+    <p class="text-xs font-normal">она откроется и у других</p>
   </Button>
+
   <div v-else class="flex flex-col gap-3">
     <Input disabled :modelValue="calendarLink" />
 
-    <Button variant="outline" @click="copyToClipboard" :class="isCopied ? 'bg-active' : ''" class="transition">
-      <div v-if="!isCopied" class="flex items-center justify-center gap-3">
-        <IconCopy stroke-width="1.5" class="w-6" />
+    <Button variant="outline" @click="copyToClipboard" :class="isCopied ? 'bg-active' : ''" class="gap-3 transition">
+      <template v-if="!isCopied">
+        <IconCopy stroke-width="1.5" class="w-6" aria-hidden="true" />
         Скопировать
-      </div>
-      <div v-else class="flex items-center justify-center gap-3">
-        <IconCheck stroke-width="1.5" class="w-6" />
+      </template>
+      <template v-else>
+        <IconCheck stroke-width="1.5" class="w-6" aria-hidden="true" />
         Ссылка в буфере обмена
-      </div>
+      </template>
     </Button>
   </div>
 </template>

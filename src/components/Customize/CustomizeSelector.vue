@@ -24,19 +24,19 @@ const selectOption = (option) => {
 
 <template>
   <div class="flex flex-col gap-2">
-    <span class="text-base">{{ title }}</span>
-    <div class="flex flex-wrap gap-1">
-      <div v-for="option in options" class="flex items-center">
+    <p class="text-base">{{ title }}</p>
+    <ul class="flex flex-wrap gap-1">
+      <li v-for="option in options" class="flex items-center">
         <Button
           v-model="selectedOption"
           :value="option.name"
           class="gap-2"
           variant="outline"
           @click="selectOption(option)">
-          <component :is="option.icon" v-if="option.icon" class="h-4 w-4" stroke-width="1.5" />
+          <component :is="option.icon" v-if="option.icon" class="h-4 w-4" stroke-width="1.5" aria-hidden="true" />
           {{ option.displayName || option }}
         </Button>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>

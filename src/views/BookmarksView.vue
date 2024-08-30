@@ -23,18 +23,20 @@ const onBookmarkRemoved = (bookmark) => {
 </script>
 
 <template>
-  <div v-for="bookmark in bookmarks" v-if="bookmarks.length" class="flex flex-col gap-3">
-    <Bookmark :bookmark @bookmarkRemoved="onBookmarkRemoved" />
-  </div>
+  <ul v-if="bookmarks.length">
+    <li v-for="bookmark in bookmarks">
+      <Bookmark :bookmark @bookmarkRemoved="onBookmarkRemoved" />
+    </li>
+  </ul>
 
   <div v-else>
     <div class="flex justify-between rounded-md border p-3">
       <div class="flex flex-col justify-center">
-        <span class="text-base">А где?</span>
-        <span class="text-sm text-muted-foreground">закладок пока нет</span>
+        <p class="text-base">А где?</p>
+        <p class="text-sm text-muted-foreground">закладок пока нет</p>
       </div>
       <div class="relative flex items-center text-muted">
-        <IconMoodPuzzled size="48" stroke-width="1.75" />
+        <IconMoodPuzzled size="48" stroke-width="1.75" aria-hidden="true" />
       </div>
     </div>
   </div>

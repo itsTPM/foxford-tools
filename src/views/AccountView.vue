@@ -2,6 +2,7 @@
 import { IconCoins, IconArrowBadgeUp } from '@tabler/icons-vue';
 import { Progress } from '@/components/ui/progress';
 import { onMounted, ref } from 'vue';
+import loadingSpinner from '@/assets/loading-spinner.svg';
 
 const profileData = ref({
   full_name: '',
@@ -15,6 +16,9 @@ const levelData = ref({
   available_xp: 0,
   total_xp: 0,
 });
+
+const isDataLoading = ref(true);
+const isDataError = ref(false);
 
 onMounted(async () => {
   if (localStorage.getItem('profileData')) {
@@ -31,7 +35,8 @@ onMounted(async () => {
       profileData.value.avatar_url = data.avatar_url;
       profileData.value.created_at = data.created_at;
       profileData.value.bonus_amount = data.bonus_amount;
-    });
+    })
+    .catch(() => (isDataError.value = true));
   localStorage.setItem('profileData', JSON.stringify(profileData.value));
 
   await fetch('https://foxford.ru/api/user/level')
@@ -40,8 +45,11 @@ onMounted(async () => {
       levelData.value.gained_xp = data.gained_xp;
       levelData.value.available_xp = data.available_xp;
       levelData.value.total_xp = data.total_xp;
-    });
+    })
+    .catch(() => (isDataError.value = true));
   localStorage.setItem('levelData', JSON.stringify(levelData.value));
+
+  isDataLoading.value = false;
 });
 </script>
 
@@ -60,26 +68,34 @@ onMounted(async () => {
 
     <div class="flex justify-between rounded-md border p-3">
       <div class="flex flex-col justify-center">
-        <span class="text-base">{{ profileData.bonus_amount }} фоксиков</span>
-        <span class="text-sm text-muted-foreground">у вас на счету</span>
+        <p class="text-base">{{ profileData.bonus_amount }} фоксиков</p>
+        <p class="text-sm text-muted-foreground">у вас на счету</p>
       </div>
       <div class="flex items-center text-muted">
-        <IconCoins :size="48" strokeWidth="1.75" />
+        <IconCoins :size="48" strokeWidth="1.75" aria-hidden="true" />
       </div>
     </div>
 
     <div class="flex flex-col">
       <div class="flex justify-between rounded-md rounded-b-none border p-3">
         <div class="flex flex-col justify-center">
-          <span class="text-base">{{ levelData.gained_xp }} из {{ levelData.available_xp }} XP</span>
-          <span class="text-sm text-muted-foreground">до следующего уровня</span>
+          <p class="text-base">{{ levelData.gained_xp }} из {{ levelData.available_xp }} XP</p>
+          <p class="text-sm text-muted-foreground">до следующего уровня</p>
         </div>
         <div class="flex items-center text-muted">
-          <IconArrowBadgeUp :size="48" strokeWidth="1.75" />
+          <IconArrowBadgeUp :size="48" strokeWidth="1.75" aria-hidden="true" />
         </div>
       </div>
       <Progress :max="levelData.available_xp" v-model="levelData.gained_xp" class="h-1 rounded-t-none" />
     </div>
   </template>
-  <template v-else>Данные не успели загрузиться, или возникла ошибка при их получении..</template>
+
+  <template v-else-if="isDataLoading">
+    <div class="flex flex-col items-center justify-center gap-2">
+      <loadingSpinner class="aspect-square h-auto w-8 stroke-foreground"></loadingSpinner>
+      <p>Загрузка данных..</p>
+    </div>
+  </template>
+
+  <template v-else> Что-то пошло не так.. </template>
 </template>
