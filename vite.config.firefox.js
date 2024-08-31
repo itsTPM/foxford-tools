@@ -12,7 +12,7 @@ import autoprefixer from 'autoprefixer';
 export default defineConfig({
   plugins: [
     vue(),
-    svgLoarder(),
+    svgLoader(),
     crx({
       manifest,
       ...{
