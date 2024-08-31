@@ -20,12 +20,17 @@ const refreshPage = () => {
 </script>
 
 <template>
-  <footer>
+  <footer class="relative min-h-[50px]">
     <div v-if="!needRefreshState.needRefresh" class="flex h-[50px] items-center justify-between">
       <FooterMeta></FooterMeta>
       <FooterLinks></FooterLinks>
     </div>
-    <div v-else>
+    <div
+      class="absolute left-0 top-0 h-[50px] w-full -translate-x-full opacity-0 transition-all duration-500"
+      :class="{
+        'translate-x-0': needRefreshState.needRefresh,
+        'opacity-100': needRefreshState.needRefresh,
+      }">
       <Button class="flex w-full flex-col p-6" variant="outline" @click="refreshPage">
         <p>Обновить страницу</p>
         <p class="text-xs font-normal">чтобы применить изменения</p>

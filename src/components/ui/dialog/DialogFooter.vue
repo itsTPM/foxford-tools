@@ -2,10 +2,7 @@
 import { cn } from "@/lib/utils";
 
 const props = defineProps({
-  class: {
-    type: String,
-    default: "",
-  },
+  class: { type: null, required: false },
 });
 </script>
 
@@ -13,8 +10,8 @@ const props = defineProps({
   <div
     :class="
       cn(
-        'rounded-lg border bg-card text-card-foreground shadow-sm',
-        props.class
+        'flex flex-col-reverse sm:flex-row sm:justify-end sm:gap-x-2',
+        props.class,
       )
     "
   >

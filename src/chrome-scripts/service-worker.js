@@ -65,3 +65,30 @@ async function changeTitle(tabId, changeInfo, tab) {
 function functionToInject(title) {
   document.title = title;
 }
+
+chrome.runtime.onInstalled.addListener((details) => {
+  const previousVersion = details.previousVersion;
+  const currentVersion = chrome.runtime.getManifest().version;
+  const reason = details.reason;
+
+  if (previousVersion === currentVersion) return;
+
+  const updateData = {
+    previousVersion,
+    currentVersion,
+    reason,
+  };
+
+  console.log(updateData);
+  chrome.storage.local.set({ updateData });
+
+  chrome.action.setBadgeBackgroundColor({ color: '#C63C51' });
+  chrome.action.setBadgeTextColor({ color: '#FFFFFF' });
+  chrome.action.setBadgeText({ text: '1' });
+});
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message === 'clearBadge') {
+    chrome.action.setBadgeText({ text: '' });
+  }
+});
