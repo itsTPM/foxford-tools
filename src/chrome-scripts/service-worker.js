@@ -71,12 +71,13 @@ chrome.runtime.onInstalled.addListener((details) => {
   const currentVersion = chrome.runtime.getManifest().version;
   const reason = details.reason;
 
+  if (reason === 'install') return;
+
   if (previousVersion === currentVersion) return;
 
   const updateData = {
     previousVersion,
     currentVersion,
-    reason,
   };
 
   console.log(updateData);
