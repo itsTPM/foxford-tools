@@ -8,10 +8,10 @@ async function calculateHomeworkProgress(element) {
   let totalTasksCount = 0;
   // следующие 3 строчки - выцепляем id домашки из href кнопки, потом добавляем его в ссылку на api
   const homeworkLink = element.parentNode.parentNode.parentNode.parentNode.parentNode.href; // это надо будет заменить
-  const homeworkId = homeworkLink.match(/[0-9]+/g);
+  const homeworkId = homeworkLink?.match(/[0-9]+/g);
   const apiLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks`;
 
-  if (homeworkLink.includes('trainings')) {
+  if (!homeworkId || homeworkLink.includes('trainings')) {
     return;
   }
 
@@ -48,13 +48,7 @@ async function calculateHomeworkProgress(element) {
 }
 
 export default function createHomeworkObserver() {
-  const observer = createObserver([
-    '#joyrideHomeworkBtn',
-    1,
-    'courses',
-    '.homeworkPercent',
-    calculateHomeworkProgress,
-  ]);
+  const observer = createObserver(['#joyrideHomeworkBtn', 1, 'courses', '.homeworkPercent', calculateHomeworkProgress]);
 
   return observer;
 }
