@@ -24,13 +24,14 @@ async function calculateHomeworkProgress(element) {
     hinted: 0,
     started: 0,
     not_started: 0,
+    in_queue: 0,
   };
 
   if (Array.isArray(tasksJson)) {
     tasksJson.forEach((task) => {
       totalTasksCount += 1;
       tasksPercent += statusValues[task.status] || 0;
-      if (task.status !== 'started' && task.status !== 'not_started' && task.status !== 'hinted') {
+      if (task.status !== 'started' && task.status !== 'not_started' && (task.status !== 'hinted') !== 'in_queue') {
         tasksCount += 1;
       }
     });
