@@ -34,7 +34,8 @@
   "browser_specific_settings": {
     "gecko": {
       "strict_min_version": "112.0",
-      "id": "foxford-tools@itstpm.tech"
+      "id": "foxford-tools@itstpm.tech",
+      "update_url": "https://update.itstpm.tech/firefox/updates.json"
     }
   }
 }
