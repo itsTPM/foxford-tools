@@ -1,3 +1,5 @@
+import { logger } from './modules';
+
 const urlTitleMap = {
   'daily-plan': 'План на сегодня',
   'interactive-training': 'Интерактивные задачи',
@@ -24,7 +26,7 @@ const urlTitleMap = {
   groups: 'Вебинарка',
 };
 
-console.log('[Foxford Tools] Фоновый скрипт запущен');
+logger('Service worker is running');
 
 chrome.storage.local.get(['dynamicTitle'], async function (result) {
   if (!result.dynamicTitle) return;
@@ -71,16 +73,13 @@ chrome.runtime.onInstalled.addListener((details) => {
   const currentVersion = chrome.runtime.getManifest().version;
   const reason = details.reason;
 
-  if (reason === 'install') return;
-
-  if (previousVersion === currentVersion) return;
+  if (reason === 'install' || previousVersion === currentVersion) return;
 
   const updateData = {
     previousVersion,
     currentVersion,
   };
 
-  console.log(updateData);
   chrome.storage.local.set({ updateData });
 
   chrome.action.setBadgeBackgroundColor({ color: '#C63C51' });

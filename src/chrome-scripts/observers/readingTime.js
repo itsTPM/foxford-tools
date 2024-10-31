@@ -1,5 +1,4 @@
-import createElement from '../modules/createElement.js';
-import createObserver from '../modules/createObserver.js';
+import { createElement, createObserver } from '../modules';
 
 function calculateReadingTime(element) {
   const conspectContent = element.textContent;

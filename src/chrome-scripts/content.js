@@ -1,8 +1,7 @@
 import './assets/content.css';
-import * as observers from './observers/index.js';
-import getSettings from './modules/getSettings';
+import * as observers from './observers';
+import { getSettings, injectCss, logger } from './modules';
 import fixYellowBlocksCss from './assets/fixYellowBlocks.css?inline';
-import injectCss from './modules/injectCss';
 
 // Получение настроек из localStorage и запуск MutationObserver, если пользователь включил соответствующий пункт в настройках
 const settings = {
@@ -28,10 +27,10 @@ getSettings(Object.keys(settings))
           subtree: true,
         });
 
-        console.log(`[Foxford Tools] MutationObserver started for ${setting}`);
+        logger(`MutationObserver started for ${setting}`);
       } else {
         func();
       }
     }
   })
-  .catch((error) => console.error(`Error getting settings: ${error}`));
+  .catch((error) => logger(error, 'error'));

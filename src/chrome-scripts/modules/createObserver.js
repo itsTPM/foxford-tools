@@ -1,4 +1,5 @@
 import debounce from './debounce';
+import logger from './logger';
 
 /**
  * Создает MutationObserver, который отслеживает изменения в DOM и вызывает функцию обратного вызова.
@@ -28,7 +29,7 @@ export default function createObserver([querySelector, delay, urlPart, badgeClas
           isAdded = false;
         }
       } catch (error) {
-        console.error(`[Foxford Tools] Ошибка при создании MutationObserver: ${error}`);
+        logger(`Failed to create MutationObserver: ${error}`, 'error');
       }
     });
   });

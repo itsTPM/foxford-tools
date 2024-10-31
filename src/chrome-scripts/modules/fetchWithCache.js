@@ -1,3 +1,5 @@
+import logger from './logger';
+
 /**
  * Получает данные из указанного URL с поддержкой кэширования.
  * Если данные уже находятся в кэше, возвращает кэшированные данные.
@@ -27,7 +29,7 @@ export default async function fetchWithCache(url) {
       return data;
     }
   } catch (error) {
-    console.error(`Failed to fetch or parse data: ${error}`);
+    logger(`Failed to fetch or parse data: ${error}`, 'error');
     return null;
   }
 }

@@ -1,6 +1,4 @@
-import fetchWithCache from '../modules/fetchWithCache.js';
-import createPercentElement from '../modules/createPercentElement.js';
-import createObserver from '../modules/createObserver.js';
+import { fetchWithCache, createPercentElement, createObserver } from '../modules';
 
 async function calculateHomeworkProgress(element) {
   let tasksPercent = 0;

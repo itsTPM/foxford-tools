@@ -1,10 +1,6 @@
-import createElement from '../modules/createElement.js';
-import getReadingList from '../modules/getReadingList.js';
-import fetchConspectJson from '../modules/fetchConspectJson.js';
-import updateReadingList from '../modules/updateReadingList.js';
+import { createElement, getReadingList, fetchConspectJson, updateReadingList, createObserver } from '../modules';
 import bookmarkPlus from '../assets/bookmark-plus.svg';
 import bookmarkMinus from '../assets/bookmark-minus.svg';
-import createObserver from '../modules/createObserver.js';
 
 async function addReadingListButton(element) {
   const readingListButton = createElement('div', { className: 'readingListButton' }, element.parentNode, 'prepend');
