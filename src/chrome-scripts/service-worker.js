@@ -87,7 +87,7 @@ chrome.runtime.onInstalled.addListener((details) => {
   chrome.action.setBadgeText({ text: '1' });
 });
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message) => {
   if (message === 'clearBadge') {
     chrome.action.setBadgeText({ text: '' });
   }
