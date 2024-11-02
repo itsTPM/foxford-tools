@@ -6,12 +6,12 @@ import setReadingList from './setReadingList.js';
  *
  * @param {Array} list - Список чтения.
  * @param {string} url - URL для добавления или удаления из списка.
- * @param {string} action - Действие, которое нужно выполнить ('add' или 'remove').
+ * @param {boolean} isAdded - Был ли добавлен или удален элемент из списка.
  * @returns {Promise<Array>} - Обновленный список чтения.
  */
-export default async function updateReadingList(list, url, action) {
+export default async function updateReadingList(list, url, isAdded) {
   list = await getReadingList();
-  const updatedList = action === 'add' ? [...list, url] : list.filter((item) => item.url !== url);
+  const updatedList = isAdded ? [...list, url] : list.filter((item) => item.url !== url);
   await setReadingList(updatedList);
   return updatedList;
 }

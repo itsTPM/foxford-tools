@@ -5,9 +5,7 @@ function calculateWebinarProgress(element) {
   const xpElementText = element.lastChild.lastChild.lastChild.lastChild.firstChild.lastChild.textContent;
 
   const xpNumbers = xpElementText.match(/[0-9]+/g);
-
-  const gainedXp = +xpNumbers[0];
-  const maxXp = +xpNumbers[1];
+  const [gainedXp, maxXp] = xpNumbers.map((number) => parseInt(number));
 
   const webinarPercent = +Math.round((gainedXp / maxXp) * 100);
   createPercentElement(webinarPercent, element.lastChild.lastChild.lastChild.lastChild, 'before').classList.add(

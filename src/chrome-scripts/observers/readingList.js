@@ -32,8 +32,7 @@ async function addReadingListButton(element) {
 
     const readingListItem = { url: currentUrl, title, courseId, courseName, courseColor, courseImage };
 
-    const action = isAdded ? 'add' : 'remove';
-    readingList = await updateReadingList(readingList, action === 'add' ? readingListItem : currentUrl, action);
+    readingList = await updateReadingList(readingList, isAdded ? readingListItem : currentUrl, isAdded);
 
     img.src = isAdded ? bookmarkMinus : bookmarkPlus;
   };
