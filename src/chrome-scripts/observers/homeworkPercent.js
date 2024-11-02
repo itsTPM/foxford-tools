@@ -31,7 +31,7 @@ async function calculateHomeworkProgress(element) {
     tasksJson.forEach((task) => {
       totalTasksCount += 1;
       tasksPercent += statusValues[task.status] || 0;
-      if (task.status !== 'started' && task.status !== 'not_started' && (task.status !== 'hinted') !== 'in_queue') {
+      if (!['started', 'not_started', 'hinted', 'in_queue'].includes(task.status)) {
         tasksCount += 1;
       }
     });
