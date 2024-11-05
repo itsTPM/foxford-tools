@@ -54,7 +54,9 @@ async function changeTitle(tabId, changeInfo, tab) {
       if (tab.url.includes(urlPart)) {
         chrome.scripting.executeScript({
           target: { tabId: tabId },
-          func: functionToInject,
+          func: (title) => {
+            document.title = title;
+          },
           args: [title],
         });
 
@@ -62,10 +64,6 @@ async function changeTitle(tabId, changeInfo, tab) {
       }
     }
   }
-}
-
-function functionToInject(title) {
-  document.title = title;
 }
 
 chrome.runtime.onInstalled.addListener((details) => {
