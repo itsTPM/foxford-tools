@@ -15,14 +15,15 @@ const settings = {
   },
 };
 
-getSettings(Object.keys(settings))
-  .then((result) => {
+async function initializeSettings() {
+  try {
+    const result = await getSettings(Object.keys(settings));
     for (const [setting, func] of Object.entries(settings)) {
       if (!result[setting]) continue;
 
       // Check if "func" is a MutationObserver
       if (func?.observe) {
-        func?.observe(document.body, {
+        func.observe(document.body, {
           childList: true,
           subtree: true,
         });
@@ -32,5 +33,9 @@ getSettings(Object.keys(settings))
         func();
       }
     }
-  })
-  .catch((error) => logger(error, 'error'));
+  } catch (error) {
+    logger(error, 'error');
+  }
+}
+
+initializeSettings();
