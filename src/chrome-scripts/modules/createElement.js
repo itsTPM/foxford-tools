@@ -6,11 +6,9 @@
  * @param {string} [insertMethod='appendChild'] - Метод, используемый для вставки нового элемента в родительский элемент.
  * @returns {HTMLElement} - Созданный HTML-элемент.
  */
-export default function createElement(tag, properties, parent, insertMethod) {
+export default function createElement(tag, properties = {}, parent = null, insertMethod = 'appendChild') {
   const element = document.createElement(tag);
-  for (const [key, value] of Object.entries(properties)) {
-    element[key] = value;
-  }
-  parent && parent[insertMethod || 'appendChild'](element);
+  Object.assign(element, properties);
+  parent && parent[insertMethod](element);
   return element;
 }
