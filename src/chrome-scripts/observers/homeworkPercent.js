@@ -21,18 +21,17 @@ async function calculateHomeworkProgress(element) {
     solved: 1,
     partially: 0.5,
     failed: 0,
-    hinted: 0,
-    started: 0,
-    not_started: 0,
-    in_queue: 0,
   };
 
+  const ignoredStatuses = ['started', 'not_started', 'hinted', 'in_queue'];
+
   if (Array.isArray(tasksJson)) {
-    tasksJson.forEach((task) => {
-      totalTasksCount += 1;
-      tasksPercent += statusValues[task.status] || 0;
-      if (!['started', 'not_started', 'hinted', 'in_queue'].includes(task.status)) {
-        tasksCount += 1;
+    tasksJson.forEach(({ status }) => {
+      totalTasksCount++;
+
+      if (!ignoredStatuses.includes(status)) {
+        tasksPercent += statusValues[status];
+        tasksCount++;
       }
     });
   }
