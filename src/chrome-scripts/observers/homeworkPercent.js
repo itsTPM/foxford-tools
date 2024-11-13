@@ -23,7 +23,7 @@ async function calculateHomeworkProgress(element) {
     failed: 0,
   };
 
-  const ignoredStatuses = ['started', 'not_started', 'hinted', 'in_queue'];
+  const ignoredStatuses = ['started', 'not_started', 'hinted', 'in_queue', 'unavailable'];
 
   if (Array.isArray(tasksJson)) {
     tasksJson.forEach(({ status }) => {
