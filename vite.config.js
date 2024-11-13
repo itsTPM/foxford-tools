@@ -26,4 +26,7 @@ export default defineConfig({
       plugins: [tailwind(), autoprefixer()],
     },
   },
+  test: {
+    environment: 'happy-dom',
+  },
 });
