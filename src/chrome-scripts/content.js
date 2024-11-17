@@ -28,13 +28,13 @@ async function initializeSettings() {
           subtree: true,
         });
 
-        logger(`MutationObserver started for ${setting}`);
+        logger.info(`MutationObserver started for ${setting}`);
       } else {
         func();
       }
     }
   } catch (error) {
-    logger(error, 'error');
+    logger.error(error);
   }
 }
 

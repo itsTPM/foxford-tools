@@ -29,7 +29,7 @@ export default async function fetchWithCache(url) {
       return data;
     }
   } catch (error) {
-    logger(`Failed to fetch or parse data: ${error}`, 'error');
+    logger.error(`Failed to fetch or parse data: ${error}`);
     return null;
   }
 }

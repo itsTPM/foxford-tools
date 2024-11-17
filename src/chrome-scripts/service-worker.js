@@ -26,7 +26,7 @@ const urlTitleMap = {
   groups: 'Вебинарка',
 };
 
-logger('Service worker is running');
+logger.info('Service worker is running');
 
 chrome.storage.local.get(['dynamicTitle'], async function (result) {
   if (!result.dynamicTitle) return;
