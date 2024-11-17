@@ -1,22 +1,32 @@
+const prefix = '[Foxford Tools] ';
+
 /**
- * Выводит сообщение в консоль с определенным типом.
- *
- * @param {string} message - Сообщение для вывода.
- * @param {string} [type='message'] - Тип сообщения. Может быть 'message', 'warn' или 'error'.
+ * Логгер для вывода сообщений в консоль с различными уровнями важности.
  */
+const logger = {
+  /**
+   * Выводит информационное сообщение в консоль.
+   * @param {string} message - Сообщение для вывода.
+   */
+  info: (message) => {
+    console.log(prefix + message);
+  },
 
-export default function logger(message, type = 'message') {
-  const prefix = '[Foxford Tools] ';
-
-  if (type === 'error') {
-    console.error(prefix + message);
-    return;
-  }
-
-  if (type === 'warn') {
+  /**
+   * Выводит предупреждающее сообщение в консоль.
+   * @param {string} message - Сообщение для вывода.
+   */
+  warn: (message) => {
     console.warn(prefix + message);
-    return;
-  }
+  },
 
-  console.log(prefix + message);
-}
+  /**
+   * Выводит сообщение об ошибке в консоль.
+   * @param {string} message - Сообщение для вывода.
+   */
+  error: (message) => {
+    console.error(prefix + message);
+  },
+};
+
+export default logger;

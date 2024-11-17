@@ -29,7 +29,7 @@ export default function createObserver([querySelector, delay, urlPart, badgeClas
           isAdded = false;
         }
       } catch (error) {
-        logger(`Failed to create MutationObserver: ${error}`, 'error');
+        logger.error(`Failed to create MutationObserver: ${error}`);
       }
     });
   });
