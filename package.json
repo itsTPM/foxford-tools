@@ -28,6 +28,7 @@
     "@crxjs/vite-plugin": "^2.0.0-beta.23",
     "@types/node": "^22.0.0",
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vitest/coverage-v8": "2.1.4",
     "@vitest/ui": "2.1.4",
     "autoprefixer": "^10.4.19",
     "happy-dom": "^15.11.0",
