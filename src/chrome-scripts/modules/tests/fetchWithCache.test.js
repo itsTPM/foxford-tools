@@ -3,7 +3,11 @@ import fetchWithCache from '../fetchWithCache';
 import logger from '../logger';
 
 vi.mock('../logger', () => ({
-  default: vi.fn(),
+  default: {
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+  },
 }));
 
 global.fetch = vi.fn();
@@ -19,7 +23,7 @@ describe('fetchWithCache', () => {
   beforeEach(() => {
     localStorage.clear();
     fetch.mockClear();
-    logger.mockClear();
+    Object.values(logger).forEach((fn) => fn.mockClear());
   });
 
   afterEach(() => {
