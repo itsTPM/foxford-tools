@@ -32,8 +32,8 @@ onMounted(() => {
 
   // Apply customization settings to root element
   document.documentElement.classList.add(`${theme || 'light'}`);
-  document.documentElement.classList.add(`theme-${color || 'zinc'}`);
-  document.documentElement.style.setProperty('--radius', `${radius || 0.5}rem`);
+  document.documentElement.classList.add(`theme-${color || 'red'}`);
+  document.documentElement.style.setProperty('--radius', `${radius || 0}rem`);
 });
 </script>
 
