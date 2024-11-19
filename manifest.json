@@ -3,7 +3,7 @@
   "name": "Foxford Tools",
   "description": "Расширение для того самого сайта Фокса",
   "version": "1.3",
-  "homepage_url": "https://fox.itstpm.tech/",
+  "homepage_url": "https://fox.itstpm.rocks/",
   "permissions": ["storage", "activeTab", "scripting"],
   "action": {
     "default_popup": "index.html",
@@ -35,7 +35,7 @@
     "gecko": {
       "strict_min_version": "112.0",
       "id": "foxford-tools@itstpm.tech",
-      "update_url": "https://update.itstpm.tech/firefox/updates.json"
+      "update_url": "https://update.itstpm.rocks/firefox/updates.json"
     }
   }
 }

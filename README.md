@@ -1,4 +1,4 @@
-<img width="60" align="right" src="https://fox.itstpm.tech/logo.svg">
+<img width="60" align="right" src="https://fox.itstpm.rocks/logo.svg">
 
 # Foxford Tools
 
@@ -21,7 +21,7 @@
 
 ### Установка
 
-Установка производится на [сайте расширения](https://fox.itstpm.tech/). Расширение доступно как для браузеров на основе Chromium (Chrome, Edge, Яндекс и подобные), так и для Firefox
+Установка производится на [сайте расширения](https://fox.itstpm.rocks/). Расширение доступно как для браузеров на основе Chromium (Chrome, Edge, Яндекс и подобные), так и для Firefox
 
 После установки расширения с сайта оно будет (ну, как минимум должно) обновляться автоматически
 
