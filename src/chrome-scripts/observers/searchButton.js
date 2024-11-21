@@ -1,5 +1,5 @@
 import { createElement, createObserver } from '../modules';
-import googleIcon from '@/chrome-scripts/assets/google-logo.svg';
+import googleIcon from '@/chrome-scripts/assets/google-logo.svg?url';
 
 function addSearchButton(element) {
   const searchElement = createElement('div', { className: 'searchButton' }, element, 'append');
