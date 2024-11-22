@@ -3,7 +3,9 @@ import { logger } from './modules';
 const urlTitleMap = {
   'daily-plan': 'План на сегодня',
   'interactive-training': 'Интерактивные задачи',
-  'socialization-landing': 'Социализация',
+  'digital-portfolio': 'Цифровое портфолио',
+  'trial-exams': 'Пробники',
+  socialization: 'Социализация',
   referrals: 'Реферальная программа',
   attestation_works: 'Аттестация',
   calendar: 'Календарь',
