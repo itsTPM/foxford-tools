@@ -32,7 +32,7 @@ const colorOptions = [
 ];
 
 const radius = ref('0');
-const color = ref('zinc');
+const color = ref('red');
 const theme = ref('light');
 
 const setRadius = (r) => {

@@ -1,4 +1,4 @@
-<img width="60" align="right" src="https://fox.itstpm.tech/logo.svg">
+<img width="60" align="right" src="https://fox.itstpm.rocks/logo.svg">
 
 # Foxford Tools
 
@@ -21,7 +21,7 @@ Adds useful features to the site, including:
 
 ### Install
 
-Installation can be done at [extension's website](https://fox.itstpm.tech/). The extension is available for both Chromium-based browsers (Chrome, Edge, Yandex and the like) and for Firefox
+Installation can be done at [extension's website](https://fox.itstpm.rocks/). The extension is available for both Chromium-based browsers (Chrome, Edge, Yandex and the like) and for Firefox
 
 After installing the extension from the site, it will (well, at least should) update automatically
 

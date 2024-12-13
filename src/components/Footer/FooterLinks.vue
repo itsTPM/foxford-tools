@@ -16,7 +16,7 @@ const links = [
   },
   {
     name: 'Сайт',
-    url: 'https://fox.itstpm.tech',
+    url: 'https://fox.itstpm.rocks',
     icon: IconWorld,
   },
 ];

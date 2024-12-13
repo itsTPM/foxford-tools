@@ -1,6 +1,6 @@
 import { createElement, getReadingList, fetchConspectJson, updateReadingList, createObserver } from '../modules';
-import bookmarkPlus from '../assets/bookmark-plus.svg';
-import bookmarkMinus from '../assets/bookmark-minus.svg';
+import bookmarkPlus from '../assets/bookmark-plus.svg?url';
+import bookmarkMinus from '../assets/bookmark-minus.svg?url';
 
 async function addReadingListButton(element) {
   const readingListButton = createElement('div', { className: 'readingListButton' }, element.parentNode, 'prepend');
