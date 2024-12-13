@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { IconBook2, IconPercentage, IconWand, IconNotebook } from '@tabler/icons-vue';
 import SettingGroup from '@/components/Settings/SettingGroup.vue';
 import Setting from '@/components/Settings/Setting.vue';
+import { Button } from '@/components/ui/button';
 
 const settingGroups = ref([
   {
@@ -112,5 +113,13 @@ onMounted(() => {
         <Setting :key="setting.id" :setting="setting" />
       </li>
     </ul>
+  </div>
+
+  <div class="relative flex h-fit w-full flex-col gap-2 rounded-md border bg-black/25 p-2 leading-none">
+    <p class="text-[1rem]">Пройдите короткий опрос</p>
+    <p class="text-balance text-[0.8rem] text-foreground/50">помогите улучшить расширение и сайт Фоксфорда</p>
+    <Button as="a" variant="outline" size="sm" href="https://forms.gle/85KzFFxmn57JewqQ6" target="_blank">
+      Пройти
+    </Button>
   </div>
 </template>
