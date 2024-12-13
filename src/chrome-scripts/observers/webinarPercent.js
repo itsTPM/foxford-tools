@@ -7,7 +7,9 @@ function calculateWebinarProgress(element) {
   const xpNumbers = xpElementText.match(/[0-9]+/g);
   const [gainedXp, maxXp] = xpNumbers.map((number) => parseInt(number));
 
-  const webinarPercent = +Math.round((gainedXp / maxXp) * 100);
+  // null ставится чтобы createPercentElement использовал текст "не начато" заместо 0%
+  // так как из-за подсчета по числам xp а не по api тут даже проваленная задача даст 10xp и 0% быть не может
+  const webinarPercent = +Math.round((gainedXp / maxXp) * 100) || null;
   createPercentElement(webinarPercent, element.lastChild.lastChild.lastChild.lastChild, 'before').classList.add(
     'webinarPercent'
   );
