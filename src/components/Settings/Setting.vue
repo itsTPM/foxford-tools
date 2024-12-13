@@ -14,7 +14,6 @@ const props = defineProps({
 });
 
 const toggleSetting = (setting) => {
-  setting.enabled = !setting.enabled;
   console.log(`${setting.title} now ${setting.enabled ? 'enabled' : 'disabled'} `);
   localStorage.setItem(setting.id, setting.enabled);
   try {
@@ -28,8 +27,8 @@ const toggleSetting = (setting) => {
 
 <template>
   <div class="flex items-center gap-3">
-    <Switch v-model:checked="setting.enabled" @click="toggleSetting(setting)" />
-    <Label>
+    <Switch v-model:checked="setting.enabled" @update:checked="toggleSetting(setting)" :id="setting.id" />
+    <Label :for="setting.id">
       {{ setting.title }}
     </Label>
   </div>

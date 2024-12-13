@@ -25,7 +25,8 @@ const emits = defineEmits(['selectSettingGroup']);
     @click="() => $emit('selectSettingGroup', settingGroup)"
     :key="settingGroup.id"
     :data-title="settingGroup.title"
-    :aria-label="settingGroup.title">
+    :aria-label="settingGroup.title"
+    :aria-current="selectedSettingGroup === settingGroup ? 'page' : null">
     <component :is="settingGroup.icon" stroke-width="1.5" class="w-6" aria-hidden="true" />
   </Button>
 </template>

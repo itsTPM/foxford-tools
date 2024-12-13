@@ -34,10 +34,10 @@ const routes = [
 
 <template>
   <nav>
-    <ul class="flex justify-center gap-3">
+    <ul class="flex justify-center gap-3" aria-label="Вкладки">
       <li v-for="route in routes">
         <Button
-          :aria-label="`Перейти на вкладку ${route.friendlyName}`"
+          :aria-label="route.friendlyName"
           :class="$route.name === route.name ? 'bg-active' : ''"
           size="icon"
           variant="outline"

@@ -31,7 +31,12 @@ const refreshPage = () => {
         'translate-x-0': needRefreshState.needRefresh,
         'opacity-100': needRefreshState.needRefresh,
       }">
-      <Button class="flex w-full flex-col p-6" variant="outline" @click="refreshPage">
+      <Button
+        class="flex w-full flex-col p-6"
+        variant="outline"
+        @click="refreshPage"
+        :tabindex="needRefreshState.needRefresh ? 0 : -1"
+        :aria-hidden="!needRefreshState.needRefresh">
         <p>Обновить страницу</p>
         <p class="text-xs font-normal">чтобы применить изменения</p>
       </Button>

@@ -97,7 +97,7 @@ onMounted(() => {
 
 <template>
   <div class="flex gap-2">
-    <ul class="flex flex-col gap-2">
+    <ul class="flex flex-col gap-2" aria-label="Вкладки настроек">
       <li v-for="settingGroup in settingGroups">
         <SettingGroup
           :key="settingGroup.id"
