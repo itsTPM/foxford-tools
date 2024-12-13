@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build and upload extension
+    name: Test, build and upload extension
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,6 +24,8 @@ jobs:
           version: latest
       - name: Install dependencies
         run: pnpm install
+      - name: Run tests
+        run: pnpm run test
       - name: Build for Chrome
         run: pnpm run build:chrome
       - name: Upload build artifact
