@@ -115,7 +115,7 @@ onMounted(() => {
     </ul>
   </div>
 
-  <div class="relative flex h-fit w-full flex-col gap-2 rounded-md border bg-black/25 p-2 leading-none">
+  <div class="relative flex h-fit w-full flex-col gap-2 rounded-md border dark:bg-black/25 p-2 leading-none">
     <p class="text-[1rem]">Пройдите короткий опрос</p>
     <p class="text-balance text-[0.8rem] text-foreground/50">помогите улучшить расширение и сайт Фоксфорда</p>
     <Button as="a" variant="outline" size="sm" href="https://forms.gle/85KzFFxmn57JewqQ6" target="_blank">
