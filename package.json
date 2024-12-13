@@ -5,6 +5,8 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "vite",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
     "preview": "vite preview",
     "build": "vite build",
     "build:chrome": "vite build --config vite.config.chrome.js",
@@ -26,11 +28,15 @@
     "@crxjs/vite-plugin": "^2.0.0-beta.23",
     "@types/node": "^22.0.0",
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vitest/coverage-v8": "2.1.4",
+    "@vitest/ui": "2.1.4",
     "autoprefixer": "^10.4.19",
+    "happy-dom": "^15.11.0",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.6.0",
     "tailwindcss": "^3.4.3",
     "vite": "^5.2.11",
-    "vite-svg-loader": "^5.1.0"
+    "vite-svg-loader": "^5.1.0",
+    "vitest": "^2.1.4"
   }
 }
