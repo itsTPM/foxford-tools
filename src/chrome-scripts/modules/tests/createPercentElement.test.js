@@ -18,8 +18,8 @@ describe('createPercentElement', () => {
     parent = document.createElement('div');
   });
 
-  it('should create an element with "не начато" text and "percent-gray" class for NaN, 0, undefined, or null percent', () => {
-    const testCases = [NaN, 0, undefined, null];
+  it('should create an element with "не начато" text and "percent-gray" class for NaN, undefined, or null percent', () => {
+    const testCases = [NaN, undefined, null];
 
     testCases.forEach((percent) => {
       const element = createPercentElement(percent, parent, 'append');
@@ -27,6 +27,12 @@ describe('createPercentElement', () => {
       expect(element.classList.contains('percent-gray')).toBe(true);
     });
   });
+
+  it('should create an element with "0%" text and "percent-red" class for == 0', () => {
+    const element = createPercentElement(0, parent, 'append');
+    expect(element.textContent).toBe('0%');
+    expect(element.classList.contains('percent-red')).toBe(true);
+  }) 
 
   it('should create an element with "percent-red" class for percent <= 40', () => {
     const element = createPercentElement(40, parent, 'append');
