@@ -13,24 +13,32 @@ import createElement from './createElement.js';
  * @returns {HTMLElement} - Созданный элемент процента
  */
 export default function createPercentElement(percent, parent, insertMethod) {
-  let percentClass;
-  let textContent;
-
-  if (isNaN(percent) || percent === 0 || percent === undefined || percent === null) {
-    textContent = 'не начато';
-    percentClass = 'percent-gray';
-  } else {
-    textContent = `${percent}%`;
-    if (percent <= 40) {
-      percentClass = 'percent-red';
-    } else if (percent <= 70) {
-      percentClass = 'percent-yellow';
-    } else {
-      percentClass = 'percent-green';
-    }
-  }
+  const { textContent, percentClass } = computePercentAttributes(percent);
 
   const percentElement = createElement('span', { textContent, classList: 'percent' }, parent, insertMethod);
   percentElement.classList.add(percentClass);
   return percentElement;
+}
+
+// Хелпер для вычисления атрибутов элемента процента
+function computePercentAttributes(percent) {
+  const attributes = {
+    textContent: 'не начато',
+    percentClass: 'percent-gray',
+  };
+
+  // 0% валидное если зафейлены все задачи в домашке
+  if (percent || percent === 0) {
+    attributes.textContent = `${percent}%`;
+
+    if (percent > 70) {
+      attributes.percentClass = 'percent-green';
+    } else if (percent > 40) {
+      attributes.percentClass = 'percent-yellow';
+    } else {
+      attributes.percentClass = 'percent-red';
+    }
+  }
+
+  return attributes;
 }

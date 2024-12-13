@@ -9,6 +9,7 @@ async function calculateHomeworkProgress(element) {
   const homeworkId = homeworkLink?.match(/[0-9]+/g);
   const apiLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks`;
 
+  // trainings - проверочные, на них процентов нет
   if (!homeworkId || homeworkLink.includes('trainings')) {
     return;
   }
