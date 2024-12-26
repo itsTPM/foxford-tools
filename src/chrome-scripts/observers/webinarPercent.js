@@ -1,4 +1,4 @@
-import { PercentElement, Observer } from '../modules';
+import { PercentElement, Observer } from '../classes';
 
 function calculateWebinarProgress(element) {
   // У элемента текст че-то типа "60 из 120 XP", достаем 60 и 120

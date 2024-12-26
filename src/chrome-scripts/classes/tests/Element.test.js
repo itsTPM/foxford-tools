@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import Element from '../Element';
+import { Element } from '../';
 
 describe('Element', () => {
   it('should create an element with the specified tag', () => {
@@ -29,4 +29,5 @@ describe('Element', () => {
   it('should return the created element', () => {
     const element = new Element({ tag: 'div' });
     expect(element).toBeInstanceOf(HTMLElement);
-  });});
+  });
+});
