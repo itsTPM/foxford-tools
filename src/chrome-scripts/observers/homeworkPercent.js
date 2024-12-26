@@ -1,4 +1,4 @@
-import { fetchWithCache, createPercentElement, createObserver } from '../modules';
+import { fetchWithCache, PercentElement, createObserver } from '../modules';
 
 async function calculateHomeworkProgress(element) {
   let tasksPercent = 0;
@@ -38,7 +38,11 @@ async function calculateHomeworkProgress(element) {
   }
 
   const homeworkPercent = Math.round((tasksPercent / tasksCount) * 100);
-  const percentElement = createPercentElement(homeworkPercent, element, 'after');
+  const percentElement = new PercentElement({
+    percent: homeworkPercent,
+    parent: element,
+    insertMethod: 'after',
+  });
   percentElement.classList.add('homeworkPercent');
 
   if (homeworkPercent === 100 && totalTasksCount === tasksCount) {
