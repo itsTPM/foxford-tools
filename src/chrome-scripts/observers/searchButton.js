@@ -1,15 +1,19 @@
-import { createElement, createObserver } from '../modules';
+import { Element, createObserver } from '../modules';
 import googleIcon from '@/chrome-scripts/assets/google-logo.svg?url';
 
 function addSearchButton(element) {
-  const searchElement = createElement('div', { className: 'searchButton' }, element, 'append');
-  const img = createElement(
-    'img',
-    {
-      src: googleIcon,
-    },
-    searchElement
-  );
+  const searchElement = new Element({
+    tag: 'div',
+    properties: { className: 'searchButton' },
+    parent: element,
+    insertMethod: 'append',
+  });
+
+  const img = new Element({
+    tag: 'img',
+    properties: { src: googleIcon },
+    parent: searchElement,
+  });
 
   const searchGoogle = async (e) => {
     e.preventDefault();

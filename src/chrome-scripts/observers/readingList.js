@@ -1,22 +1,25 @@
-import { createElement, getReadingList, fetchConspectJson, updateReadingList, createObserver } from '../modules';
+import { Element, getReadingList, fetchConspectJson, updateReadingList, createObserver } from '../modules';
 import bookmarkPlus from '../assets/bookmark-plus.svg?url';
 import bookmarkMinus from '../assets/bookmark-minus.svg?url';
 
 async function addReadingListButton(element) {
-  const readingListButton = createElement('div', { className: 'readingListButton' }, element.parentNode, 'prepend');
+  const readingListButton = new Element({
+    tag: 'button',
+    properties: { className: 'readingListButton' },
+    parent: element.parentNode,
+    insertMethod: 'prepend',
+  });
 
   let readingList = await getReadingList();
 
   const currentUrl = location.href;
   let isAdded = readingList.some((item) => item.url === currentUrl);
 
-  const img = createElement(
-    'img',
-    {
-      src: isAdded ? bookmarkMinus : bookmarkPlus,
-    },
-    readingListButton
-  );
+  const img = new Element({
+    tag: 'img',
+    properties: { src: isAdded ? bookmarkMinus : bookmarkPlus },
+    parent: readingListButton,
+  });
 
   const toggleList = async () => {
     isAdded = !isAdded;
