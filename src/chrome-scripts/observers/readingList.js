@@ -1,4 +1,5 @@
-import { Element, getReadingList, fetchConspectJson, updateReadingList, Observer } from '../modules';
+import { Observer } from '../classes';
+import { Element, getReadingList, fetchConspectJson, updateReadingList } from '../modules';
 import bookmarkPlus from '../assets/bookmark-plus.svg?url';
 import bookmarkMinus from '../assets/bookmark-minus.svg?url';
 

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import Observer from '../Observer';
+import { Observer } from '../';
 
 describe('Observer', () => {
   let callback;

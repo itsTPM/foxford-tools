@@ -1,4 +1,4 @@
-import Element from './Element';
+import { Element } from './';
 
 export default class PercentElement {
   constructor({ percent, parent, insertMethod }) {

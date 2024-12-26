@@ -1,4 +1,4 @@
-import debounce from './debounce';
+import { debounce } from '../modules/';
 
 export default class Observer {
   constructor({ targetElementSelector, createdElementSelector, delay = 1, urlPart, callback }) {

@@ -1,4 +1,4 @@
-import { Element, Observer } from '../modules';
+import { Element, Observer } from '../classes';
 import googleIcon from '@/chrome-scripts/assets/google-logo.svg?url';
 
 function addSearchButton(element) {
