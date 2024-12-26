@@ -1,4 +1,4 @@
-import { PercentElement, createObserver } from '../modules';
+import { PercentElement, Observer } from '../modules';
 
 function calculateWebinarProgress(element) {
   // У элемента текст че-то типа "60 из 120 XP", достаем 60 и 120
@@ -19,7 +19,12 @@ function calculateWebinarProgress(element) {
 }
 
 export default function createWebinarObserver() {
-  const observer = createObserver(['#joyrideLessonBtn', 1, 'courses', '.webinarPercent', calculateWebinarProgress]);
+  const observer = new Observer({
+    targetElementSelector: '#joyrideLessonBtn',
+    createdElementSelector: '.webinarPercent',
+    urlPart: 'courses',
+    callback: calculateWebinarProgress,
+  });
 
   return observer;
 }

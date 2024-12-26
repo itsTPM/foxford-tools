@@ -1,6 +1,6 @@
 import Element from './Element.js';
 import PercentElement from './PercentElement.js';
-import createObserver from './createObserver.js';
+import Observer from './Observer.js';
 import debounce from './debounce.js';
 import fetchConspectJson from './fetchConspectJson.js';
 import fetchWithCache from './fetchWithCache.js';
@@ -14,7 +14,7 @@ import updateReadingList from './updateReadingList.js';
 export {
   Element,
   PercentElement,
-  createObserver,
+  Observer,
   debounce,
   fetchConspectJson,
   fetchWithCache,

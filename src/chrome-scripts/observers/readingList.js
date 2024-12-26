@@ -1,4 +1,4 @@
-import { Element, getReadingList, fetchConspectJson, updateReadingList, createObserver } from '../modules';
+import { Element, getReadingList, fetchConspectJson, updateReadingList, Observer } from '../modules';
 import bookmarkPlus from '../assets/bookmark-plus.svg?url';
 import bookmarkMinus from '../assets/bookmark-minus.svg?url';
 
@@ -44,7 +44,12 @@ async function addReadingListButton(element) {
 }
 
 export default function createReadingListObserver() {
-  const observer = createObserver(['#wikiThemeContent', 1, 'conspects', '.readingListButton', addReadingListButton]);
+  const observer = new Observer({
+    targetElementSelector: '#wikiThemeContent',
+    createdElementSelector: '.readingListButton',
+    urlPart: 'conspects',
+    callback: addReadingListButton,
+  });
 
   return observer;
 }
