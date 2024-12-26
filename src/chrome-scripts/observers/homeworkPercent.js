@@ -1,4 +1,4 @@
-import { fetchWithCache, PercentElement, createObserver } from '../modules';
+import { fetchWithCache, PercentElement, Observer } from '../modules';
 
 async function calculateHomeworkProgress(element) {
   let tasksPercent = 0;
@@ -51,7 +51,12 @@ async function calculateHomeworkProgress(element) {
 }
 
 export default function createHomeworkObserver() {
-  const observer = createObserver(['#joyrideHomeworkBtn', 1, 'courses', '.homeworkPercent', calculateHomeworkProgress]);
+  const observer = new Observer({
+    targetElementSelector: '#joyrideHomeworkBtn',
+    createdElementSelector: '.homeworkPercent',
+    urlPart: 'courses',
+    callback: calculateHomeworkProgress,
+  });
 
   return observer;
 }

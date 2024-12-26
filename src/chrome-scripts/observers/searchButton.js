@@ -1,4 +1,4 @@
-import { Element, createObserver } from '../modules';
+import { Element, Observer } from '../modules';
 import googleIcon from '@/chrome-scripts/assets/google-logo.svg?url';
 
 function addSearchButton(element) {
@@ -31,7 +31,12 @@ function addSearchButton(element) {
 }
 
 export default function createSearchButtonObserver() {
-  const observer = createObserver(['div[class*="theory__Root"]', 1, 'courses', '.searchButton', addSearchButton]);
+  const observer = new Observer({
+    targetElementSelector: 'div[class*="theory__Root"]',
+    createdElementSelector: '.searchButton',
+    urlPart: 'courses',
+    callback: addSearchButton,
+  });
 
   return observer;
 }

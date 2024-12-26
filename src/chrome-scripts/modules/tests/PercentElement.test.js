@@ -1,6 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import PercentElement from '../PercentElement';
-import Element from '../Element';
 
 describe('PercentElement', () => {
   it('should create an element with "не начато" text and "percent-gray" class for NaN, undefined, or null percent', () => {

@@ -1,4 +1,4 @@
-import { Element, createObserver } from '../modules';
+import { Element, Observer } from '../modules';
 
 function calculateReadingTime(element) {
   const conspectContent = element.textContent;
@@ -21,7 +21,12 @@ function calculateReadingTime(element) {
 }
 
 export default function createReadingTimeObserver() {
-  const observer = createObserver(['#wikiThemeContent', 1, 'conspects', '.badgeWrapper', calculateReadingTime]);
+  const observer = new Observer({
+    targetElementSelector: '#wikiThemeContent',
+    createdElementSelector: '.badgeWrapper',
+    urlPart: 'conspects',
+    callback: calculateReadingTime,
+  });
 
   return observer;
 }
