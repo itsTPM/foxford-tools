@@ -1,54 +1,52 @@
-import { describe, it, expect, vi } from 'vitest';
-import debounce from '../debounce';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { debounce } from '../';
+
+const DELAY = 1000;
 
 describe('debounce', () => {
-  it('should delay the execution of the function', () => {
-    vi.useFakeTimers();
-    const func = vi.fn();
-    const debouncedFunc = debounce(func, 1000);
+  let func, debouncedFunc;
 
+  beforeEach(() => {
+    vi.useFakeTimers();
+
+    func = vi.fn();
+    debouncedFunc = debounce(func, DELAY);
+  });
+
+  it('should delay the execution of the function', () => {
     debouncedFunc();
     expect(func).not.toHaveBeenCalled();
 
-    vi.advanceTimersByTime(1000);
+    vi.advanceTimersByTime(DELAY - 1);
+    expect(func).not.toHaveBeenCalled();
+
+    vi.advanceTimersByTime(DELAY);
     expect(func).toHaveBeenCalled();
   });
 
   it('should only call the function once if called multiple times within the wait period', () => {
-    vi.useFakeTimers();
-    const func = vi.fn();
-    const debouncedFunc = debounce(func, 1000);
-
     debouncedFunc();
     debouncedFunc();
     debouncedFunc();
 
-    vi.advanceTimersByTime(1000);
+    vi.advanceTimersByTime(DELAY);
     expect(func).toHaveBeenCalledTimes(1);
   });
 
   it('should call the function with the correct arguments', () => {
-    vi.useFakeTimers();
-    const func = vi.fn();
-    const debouncedFunc = debounce(func, 1000);
-
     debouncedFunc('arg1', 'arg2');
-    vi.advanceTimersByTime(1000);
+    vi.advanceTimersByTime(DELAY);
     expect(func).toHaveBeenCalledWith('arg1', 'arg2');
   });
 
   it('should reset the timer if called again within the wait period', () => {
-    vi.useFakeTimers();
-    const func = vi.fn();
-    const debouncedFunc = debounce(func, 1000);
-
     debouncedFunc();
-    vi.advanceTimersByTime(500);
+    vi.advanceTimersByTime(DELAY - 1);
     debouncedFunc();
-    vi.advanceTimersByTime(500);
+    vi.advanceTimersByTime(DELAY - 1);
     expect(func).not.toHaveBeenCalled();
 
-    vi.advanceTimersByTime(500);
+    vi.advanceTimersByTime(DELAY - 1);
     expect(func).toHaveBeenCalled();
   });
 });
