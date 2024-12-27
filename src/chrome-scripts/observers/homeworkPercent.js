@@ -1,5 +1,4 @@
-import { Observer, PercentElement } from '../classes';
-import { fetchWithCache } from '../modules';
+import { Observer, PercentElement, Request } from '../classes';
 
 async function calculateHomeworkProgress(element) {
   let tasksPercent = 0;
@@ -8,16 +7,14 @@ async function calculateHomeworkProgress(element) {
   // следующие 3 строчки - выцепляем id домашки из href кнопки, потом добавляем его в ссылку на api
   const homeworkLink = element.parentNode.parentNode.parentNode.parentNode.parentNode.href; // это надо будет заменить
   const homeworkId = homeworkLink?.match(/[0-9]+/g);
-  const apiLink = `https://foxford.ru/api/lessons/${homeworkId}/tasks`;
 
   // trainings - проверочные, на них процентов нет
   if (!homeworkId || homeworkLink.includes('trainings')) {
     return;
   }
 
-  const tasksJson = await fetchWithCache(apiLink).catch((err) => {
-    throw err;
-  });
+  const request = new Request({ url: `lessons/${homeworkId}/tasks`, cacheCallback });
+  const tasksJson = await request.make();
 
   const statusValues = {
     solved: 1,
@@ -60,4 +57,8 @@ export default function createHomeworkObserver() {
   });
 
   return observer;
+}
+
+function cacheCallback(data) {
+  return data.every(({ status }) => status === 'solved' || status === 'partially' || status === 'failed');
 }
