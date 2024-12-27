@@ -76,6 +76,10 @@ export default class Observer {
   }
 
   #checkIsUrlPartIncluded(urlPart) {
+    if (!urlPart) {
+      return true;
+    }
+
     return location.href.includes(urlPart);
   }
 
