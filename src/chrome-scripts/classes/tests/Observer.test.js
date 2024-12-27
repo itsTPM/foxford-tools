@@ -12,6 +12,8 @@ describe('Observer', () => {
     callback = vi.fn();
     target = createTargetElement();
 
+    window.location.href = 'http://example.com/test';
+
     observer = new Observer({
       targetElementSelector: '#target',
       createdElementSelector: '#created',
@@ -52,7 +54,7 @@ describe('Observer', () => {
   });
 
   it('should not call callback when url does not contain urlPart', () => {
-    window.location.href = 'http://example.com';
+    window.location.href = 'http://example.com/';
 
     mutateElement(target);
 
