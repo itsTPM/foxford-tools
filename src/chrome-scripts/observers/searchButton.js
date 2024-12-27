@@ -1,4 +1,4 @@
-import { Element, Observer } from '../classes';
+import { Element, Observer, Request } from '../classes';
 import googleIcon from '@/chrome-scripts/assets/google-logo.svg?url';
 
 function addSearchButton(element) {
@@ -18,9 +18,9 @@ function addSearchButton(element) {
   const searchGoogle = async (e) => {
     e.preventDefault();
     const [courseId, lessonId] = location.href.match(/[0-9]+/g);
-    const apiLink = `https://foxford.ru/api/courses/${courseId}/lessons/${lessonId}`;
 
-    const lessonJson = await fetch(apiLink).then((response) => response.json());
+    const request = new Request({ url: `courses/${courseId}/lessons/${lessonId}` });
+    const lessonJson = await request.make();
 
     const searchQuery = lessonJson.title;
 

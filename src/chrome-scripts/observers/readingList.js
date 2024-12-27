@@ -1,5 +1,5 @@
-import { Observer, Element } from '../classes';
-import { getReadingList, fetchConspectJson, updateReadingList } from '../modules';
+import { Observer, Element, Request } from '../classes';
+import { getReadingList, updateReadingList } from '../modules';
 import bookmarkPlus from '../assets/bookmark-plus.svg?url';
 import bookmarkMinus from '../assets/bookmark-minus.svg?url';
 
@@ -26,7 +26,8 @@ async function addReadingListButton(element) {
     isAdded = !isAdded;
 
     const [lessonId, conspectId] = location.href.match(/[0-9]+/g);
-    const conspectJson = await fetchConspectJson(lessonId, conspectId);
+    const request = new Request({ url: `lessons/${lessonId}/conspects/${conspectId}` });
+    const conspectJson = await request.make();
 
     const {
       name: title,
