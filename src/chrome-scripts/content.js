@@ -1,7 +1,6 @@
 import './assets/content.css';
 import * as observers from './features';
-import { getSettings, injectCss, logger } from './modules';
-import fixYellowBlocksCss from './assets/fixYellowBlocks.css?inline';
+import { getSettings, logger } from './modules';
 
 // Получение настроек из localStorage и запуск MutationObserver, если пользователь включил соответствующий пункт в настройках
 const settings = {
@@ -11,7 +10,7 @@ const settings = {
   readingList: observers.readingList(),
   searchButton: observers.searchButton(),
   fixYellowBlocks: () => {
-    injectCss(fixYellowBlocksCss);
+    observers.fixYellowBlocks();
   },
 };
 
