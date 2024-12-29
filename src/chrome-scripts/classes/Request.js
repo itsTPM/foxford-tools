@@ -1,4 +1,4 @@
-import { logger } from '../modules';
+import { logger } from '../utils';
 
 const BASE_API_URL = 'https://foxford.ru/api/';
 

@@ -1,4 +1,4 @@
-import { Element, Observer } from '../classes';
+import { Element, Observer } from '../../classes';
 
 export default function createReadingTimeObserver() {
   const observer = new Observer({

@@ -1,4 +1,4 @@
-import { PercentElement, Observer } from '../classes';
+import { PercentElement, Observer } from '../../classes';
 
 export default function createWebinarObserver() {
   const observer = new Observer({

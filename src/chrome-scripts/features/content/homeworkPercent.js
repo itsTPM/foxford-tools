@@ -1,4 +1,4 @@
-import { Observer, PercentElement, Request } from '../classes';
+import { Observer, PercentElement, Request } from '../../classes';
 
 const IGNORED_STATUSES = ['started', 'not_started', 'hinted', 'in_queue', 'unavailable'];
 const SOLVED_STATUSES = ['solved', 'partially', 'failed'];

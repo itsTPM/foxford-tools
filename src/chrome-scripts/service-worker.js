@@ -1,4 +1,4 @@
-import { logger } from './modules';
+import { logger } from './utils';
 
 const urlTitleMap = {
   'daily-plan': 'План на сегодня',
