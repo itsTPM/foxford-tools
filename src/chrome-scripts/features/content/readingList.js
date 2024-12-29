@@ -1,6 +1,6 @@
-import { Element, Observer, Request } from '../classes';
-import bookmarkMinusIcon from '../assets/bookmark-minus.svg?url';
-import bookmarkPlusIcon from '../assets/bookmark-plus.svg?url';
+import { Element, Observer, Request } from '../../classes';
+import bookmarkMinusIcon from '../../assets/bookmark-minus.svg?url';
+import bookmarkPlusIcon from '../../assets/bookmark-plus.svg?url';
 
 export default function createReadingListObserver() {
   const observer = new Observer({
