@@ -10,7 +10,7 @@ export default function createReadingListObserver() {
     callback: observerCallback,
   });
 
-  return observer;
+  observer.observe();
 }
 
 async function observerCallback(element) {

@@ -3,12 +3,12 @@ import { PercentElement, Observer } from '../classes';
 export default function createWebinarObserver() {
   const observer = new Observer({
     targetElementSelector: '#joyrideLessonBtn',
-    createdElementSelector: '.webinarPercent',
+    createdElementSelector: '#webinarPercent',
     urlPart: 'courses',
     callback: observerCallback,
   });
 
-  return observer;
+  observer.observe();
 }
 
 function observerCallback(element) {

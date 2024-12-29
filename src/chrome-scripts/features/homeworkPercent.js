@@ -16,7 +16,7 @@ export default function createHomeworkObserver() {
     callback: observerCallback,
   });
 
-  return observer;
+  observer.observe();
 }
 
 async function observerCallback(element) {
