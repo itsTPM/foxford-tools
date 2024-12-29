@@ -1,40 +1,20 @@
 import './assets/content.css';
-import * as observers from './features';
-import { getSettings, logger } from './modules';
+import * as features from './features';
 
-// Получение настроек из localStorage и запуск MutationObserver, если пользователь включил соответствующий пункт в настройках
-const settings = {
-  readingTime: observers.readingTime(),
-  homeworkPercent: observers.homeworkPercent(),
-  webinarPercent: observers.webinarPercent(),
-  readingList: observers.readingList(),
-  searchButton: observers.searchButton(),
-  fixYellowBlocks: () => {
-    observers.fixYellowBlocks();
-  },
-};
+async function initFeatures() {
+  const settings = await getSettings(Object.keys(features));
 
-async function initializeSettings() {
-  try {
-    const result = await getSettings(Object.keys(settings));
-    for (const [setting, func] of Object.entries(settings)) {
-      if (!result[setting]) continue;
+  for (const [featureName, featureFunc] of Object.entries(features)) {
+    if (!settings[featureName]) continue;
 
-      // Check if "func" is a MutationObserver
-      if (func?.observe) {
-        func.observe(document.body, {
-          childList: true,
-          subtree: true,
-        });
-
-        logger.info(`MutationObserver started for ${setting}`);
-      } else {
-        func();
-      }
-    }
-  } catch (error) {
-    logger.error(error);
+    featureFunc();
   }
 }
 
-initializeSettings();
+async function getSettings(featureNames) {
+  const result = await chrome.storage.local.get(featureNames);
+
+  return result;
+}
+
+initFeatures();

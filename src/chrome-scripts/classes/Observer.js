@@ -1,4 +1,4 @@
-import { debounce } from '../modules/';
+import { debounce, logger } from '../modules/';
 
 export default class Observer {
   constructor({ targetElementSelector, createdElementSelector, delay = 1, urlPart, callback }) {
@@ -13,7 +13,16 @@ export default class Observer {
     this.#updateElements();
     this.observer = this.#createObserver();
 
-    return this.observer;
+    return this;
+  }
+
+  observe() {
+    this.observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    logger.info(`Starting Observer for ${this.createdElementSelector}`);
   }
 
   #createObserver() {

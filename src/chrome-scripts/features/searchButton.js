@@ -9,7 +9,7 @@ export default function createSearchButtonObserver() {
     callback: observerCallback,
   });
 
-  return observer;
+  observer.observe();
 }
 
 async function observerCallback(element) {

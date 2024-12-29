@@ -8,7 +8,7 @@ export default function createReadingTimeObserver() {
     callback: observerCallback,
   });
 
-  return observer;
+  observer.observe();
 }
 
 function observerCallback(element) {
