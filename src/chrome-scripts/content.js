@@ -1,5 +1,5 @@
 import './assets/content.css';
-import * as observers from './observers';
+import * as observers from './features';
 import { getSettings, injectCss, logger } from './modules';
 import fixYellowBlocksCss from './assets/fixYellowBlocks.css?inline';
 
