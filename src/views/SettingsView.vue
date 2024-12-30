@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { IconBook2, IconPercentage, IconWand, IconNotebook } from '@tabler/icons-vue';
 import SettingGroup from '@/components/Settings/SettingGroup.vue';
 import Setting from '@/components/Settings/Setting.vue';
@@ -14,12 +14,10 @@ const settingGroups = ref([
       {
         title: 'Успешность задач из ДЗ',
         id: 'homeworkPercent',
-        enabled: true,
       },
       {
         title: 'Успешность задач с вебинаров',
         id: 'webinarPercent',
-        enabled: true,
       },
     ],
   },
@@ -31,17 +29,14 @@ const settingGroups = ref([
       {
         title: 'Время чтения статьи',
         id: 'readingTime',
-        enabled: true,
       },
       {
         title: 'Возможность добавлять статьи в закладки',
         id: 'readingList',
-        enabled: true,
       },
       {
         title: 'Быстрый поиск теории в Google',
         id: 'searchButton',
-        enabled: true,
       },
     ],
   },
@@ -53,7 +48,6 @@ const settingGroups = ref([
       {
         title: 'Понятный заголовок страницы',
         id: 'dynamicTitle',
-        enabled: true,
       },
     ],
   },
@@ -65,7 +59,6 @@ const settingGroups = ref([
       {
         title: 'Заменить цвет желтых блоков на светло-серый',
         id: 'fixYellowBlocks',
-        enabled: true,
       },
     ],
   },
@@ -73,27 +66,23 @@ const settingGroups = ref([
 
 const selectedSettingGroup = ref(settingGroups.value[0]);
 
-const selectSettingGroup = (settingGroup) => {
+function selectSettingGroup(settingGroup) {
   selectedSettingGroup.value = settingGroup;
-};
+}
 
-onMounted(() => {
-  settingGroups.value.forEach((settingGroup) => {
-    settingGroup.settings.forEach((setting) => {
-      const settingValue = localStorage.getItem(setting.id);
-      if (settingValue) {
-        setting.enabled = settingValue === 'true';
-      } else {
-        localStorage.setItem(setting.id, true);
-        try {
-          chrome.storage.local.set({ [setting.id]: true });
-        } catch (e) {
-          console.error(e);
-        }
-      }
-    });
-  });
-});
+for (const settingGroup of settingGroups.value) {
+  for (const setting of settingGroup.settings) {
+    const settingValue = localStorage.getItem(setting.id);
+
+    if (settingValue) {
+      setting.enabled = settingValue === 'true';
+    } else {
+      localStorage.setItem(setting.id, true);
+      chrome.storage.local.set({ [setting.id]: true });
+      setting.enabled = true;
+    }
+  }
+}
 </script>
 
 <template>
@@ -115,7 +104,7 @@ onMounted(() => {
     </ul>
   </div>
 
-  <div class="relative flex h-fit w-full flex-col gap-2 rounded-md border dark:bg-black/25 p-2 leading-none">
+  <div class="relative flex h-fit w-full flex-col gap-2 rounded-md border p-2 leading-none dark:bg-black/25">
     <p class="text-[1rem]">Пройдите короткий опрос</p>
     <p class="text-balance text-[0.8rem] text-foreground/50">помогите улучшить расширение и сайт Фоксфорда</p>
     <Button as="a" variant="outline" size="sm" href="https://forms.gle/85KzFFxmn57JewqQ6" target="_blank">
