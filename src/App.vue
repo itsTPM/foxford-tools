@@ -10,21 +10,17 @@ import ExtensionInstalledDialog from '@/components/ExtensionInstalledDialog.vue'
 
 const updateData = ref(null);
 
-// Check is extension was just updated
-try {
-  chrome.storage.local.get(['updateData'], (result) => {
-    if (result) {
-      const { updateData: data } = result;
-      updateData.value = data;
+async function updateHandler() {
+  const storageUpdateData = await chrome.storage.local.get('updateData');
 
-      chrome.storage.local.remove(['updateData']);
-    }
-  });
-} catch (e) {
-  console.error(e);
+  if (!storageUpdateData.updateData) return;
+
+  await chrome.storage.local.remove('updateData');
+
+  return storageUpdateData.updateData;
 }
 
-onMounted(() => {
+onMounted(async () => {
   // Get customization settings from local storage
   const theme = localStorage.getItem('theme');
   const color = localStorage.getItem('color');
@@ -34,6 +30,8 @@ onMounted(() => {
   document.documentElement.classList.add(`${theme || 'light'}`);
   document.documentElement.classList.add(`theme-${color || 'red'}`);
   document.documentElement.style.setProperty('--radius', `${radius || 0}rem`);
+
+  updateData.value = await updateHandler();
 });
 </script>
 
