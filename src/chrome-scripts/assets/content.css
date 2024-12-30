@@ -1,19 +1,26 @@
 :root {
-  --text-color: #505050;
-  --border-color: #c0c0c0;
-  --background-color: #e7e7e7;
-  --hover-background-color: #d7d7d7;
+  --text-color: rgba(0, 0, 0, 0.625);
+  --border-color: rgba(0, 0, 0, 0.125);
+  --background-color: rgba(0, 0, 0, 0.075);
+  --hover-background-color: rgba(0, 0, 0, 0.175);
+
+  --border-radius: 4px;
+
+  --border: 1px solid var(--border-color);
 }
 
 /* Время чтения теории */
 .readingTime {
   font-weight: 600;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   float: right;
-  padding: 15px;
+  height: 3rem;
+  padding: 0 1rem;
   color: var(--text-color);
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
+  border: var(--border);
+  border-radius: var(--border-radius);
   background-color: var(--background-color);
 }
 
@@ -24,66 +31,67 @@
   float: right;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  margin-left: 10px;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.5rem;
+  margin-left: 0.625rem;
   cursor: pointer;
   transition: background-color 0.3s;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
+  border: var(--border);
+  border-radius: var(--border-radius);
   background-color: var(--background-color);
-}
 
-.readingListButton img {
-  width: 24px;
-  height: 24px;
-  filter: invert(41%) sepia(12%) saturate(11%) hue-rotate(6deg) brightness(94%) contrast(88%);
-}
+  &:hover {
+    background-color: var(--hover-background-color);
+  }
 
-.readingListButton:hover {
-  background-color: var(--hover-background-color);
+  img {
+    width: 100%;
+    height: 100%;
+    filter: invert(41%) sepia(12%) saturate(11%) hue-rotate(6deg) brightness(94%) contrast(88%);
+  }
 }
 
 /* Мелкий фикс, чтобы блоки времени чтения и списка не наезжали на текст */
 #wikiThemeContent {
-  margin-top: 15px;
+  margin-top: 1rem;
 }
 
 /* Проценты дз & вебинара */
 .percent {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   user-select: none;
-}
 
-.percent-gray {
-  color: #ccc;
-}
+  &.percent-gray {
+    color: #ccc;
+  }
 
-.percent-red {
-  color: #b34b4b;
-}
+  &.percent-red {
+    color: #b34b4b;
+  }
 
-.percent-yellow {
-  color: #c1bd0d;
-}
+  &.percent-yellow {
+    color: #c1bd0d;
+  }
 
-.percent-green {
-  color: rgb(127, 201, 46);
-}
+  &.percent-green {
+    color: rgb(127, 201, 46);
+  }
 
-.percent-legendary {
-  background: linear-gradient(90deg, rgb(245, 102, 83) 20%, rgba(254, 177, 57, 1) 100%);
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent;
-}
+  &.percent-legendary {
+    background: linear-gradient(90deg, rgb(245, 102, 83) 20%, rgba(254, 177, 57, 1) 100%);
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent;
 
-.percent-legendary::after {
-  margin-left: 5px;
-  content: '🔥';
+    &::after {
+      margin-left: 5px;
+      content: '🔥';
+    }
+  }
 }
 
 .webinarPercent {
@@ -91,24 +99,26 @@
 }
 
 .searchButton {
+  cursor: pointer;
   position: absolute;
   right: 3em;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
+  padding: 0.5rem;
   transition: background-color 0.3s;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border: var(--border);
+  border-radius: var(--border-radius);
   background-color: var(--background-color);
-}
 
-.searchButton img {
-  width: 28px;
-  height: 28px;
-}
+  &:hover {
+    background-color: var(--hover-background-color);
+  }
 
-.searchButton:hover {
-  background-color: var(--hover-background-color);
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
