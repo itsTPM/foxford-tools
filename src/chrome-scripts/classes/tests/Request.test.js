@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Request } from '../';
 import { logger } from '../../utils';
 
-vi.mock('../../modules', () => ({
+vi.mock('../../utils', () => ({
   logger: {
     error: vi.fn(),
   },
