@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import logger from '../logger';
+import { logger } from '..';
 
 describe('logger', () => {
   const prefix = '[Foxford Tools] ';
