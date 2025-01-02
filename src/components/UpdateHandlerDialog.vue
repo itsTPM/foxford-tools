@@ -1,37 +1,28 @@
-<script setup lang="ts">
-import { ref, watch } from 'vue';
+<script setup>
+import { ref, onMounted } from 'vue';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { useUpdateHandler } from '@/composables/useUpdateHandler';
 
-const open = ref(false);
+const { updateHandler } = useUpdateHandler();
 
-const props = defineProps({
-  updateData: Object,
-});
+const updateData = ref(null);
+const isOpen = ref(false);
 
-if (props.updateData !== null) {
-  open.value = true;
-  chrome.runtime.sendMessage('clearBadge');
-}
+onMounted(async () => {
+  updateData.value = await updateHandler();
 
-watch(
-  () => props.updateData,
-  (value) => {
-    if (value !== null) {
-      open.value = true;
-      chrome.runtime.sendMessage('clearBadge');
-    }
+  if (updateData.value) {
+    isOpen.value = true;
   }
-);
+});
 </script>
 
 <template>
-  <Dialog v-model:open="open" v-if="props.updateData">
+  <Dialog v-model:open="isOpen">
     <DialogContent @openAutoFocus.prevent>
       <DialogHeader>
         <DialogTitle>Расширение было обновлено</DialogTitle>
-        <p class="text-sm text-muted-foreground">
-          {{ updateData?.previousVersion }} -> {{ updateData?.currentVersion }}
-        </p>
+        <p class="text-sm text-muted-foreground">{{ updateData.previousVersion }} -> {{ updateData.currentVersion }}</p>
         <DialogDescription>
           Список новых функций и исправлений можно найти
           <a
