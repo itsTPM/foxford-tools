@@ -8,14 +8,11 @@ import Header from '@/components/Header/Header.vue';
 import Footer from '@/components/Footer/Footer.vue';
 import UpdateHandlerDialog from '@/components/UpdateHandlerDialog.vue';
 
-onMounted(() => {
-  // Get customization settings from local storage
-  const theme = localStorage.getItem('theme');
-  const radius = localStorage.getItem('radius');
+import { useCustomization } from '@/composables/useCustomization';
+const { loadSavedCustomizations } = useCustomization();
 
-  // Apply customization settings to root element
-  document.documentElement.classList.add(`${theme || 'light'}`);
-  document.documentElement.style.setProperty('--radius', `${radius || 0}rem`);
+onMounted(() => {
+  loadSavedCustomizations();
 });
 </script>
 
