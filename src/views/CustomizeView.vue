@@ -1,44 +1,25 @@
 <script setup>
-import { ref } from 'vue';
-import CustomizeSelector from '@/components/Customize/CustomizeSelector.vue';
-import { IconMoon, IconSun } from '@tabler/icons-vue';
+import { IconSunMoon } from '@tabler/icons-vue';
 
-const themeOptions = [
-  {
-    name: 'light',
-    displayName: 'Светлая',
-    icon: IconSun,
-  },
-  {
-    name: 'dark',
-    displayName: 'Темная',
-    icon: IconMoon,
-  },
-];
-const radiusOptions = ['0', '0.25', '0.5', '0.75', '1'];
-
-const radius = ref('0');
-const theme = ref('light');
-
-const setRadius = (r) => {
-  radius.value = r;
-  document.documentElement.style.setProperty('--radius', `${r}rem`);
-  localStorage.setItem('radius', radius.value);
-};
-
-const setTheme = (t) => {
-  theme.value = t;
-  document.documentElement.classList.remove(...themeOptions.map((theme) => `${theme.name}`));
-  document.documentElement.classList.add(`${t}`);
-  localStorage.setItem('theme', theme.value);
-};
+import { Slider } from '@/components/ui/slider';
+import { Button } from '@/components/ui/button/';
+import { useCustomization } from '@/composables/useCustomization';
+const { toggleTheme, setRadius, theme, radius } = useCustomization();
 </script>
 
 <template>
-  <CustomizeSelector
-    v-model="radius"
-    :options="radiusOptions"
-    title="Уровень закругления"
-    @optionSelected="setRadius" />
-  <CustomizeSelector v-model="theme" :options="themeOptions" title="Тема" @optionSelected="setTheme" />
+  <ul class="flex flex-col gap-6 [&_li]:flex [&_li]:flex-col [&_li]:gap-2">
+    <li>
+      <p>Уровень закругления</p>
+      <Slider :max="1" :step="0.25" v-model="radius" @update:modelValue="setRadius" />
+    </li>
+    <li>
+      <p>Тема</p>
+      <Button @click="toggleTheme" variant="outline" class="w-full gap-2">
+        <IconSunMoon class="w-5" />
+
+        Переключить тему на {{ theme === 'light' ? 'тёмную' : 'светлую' }}
+      </Button>
+    </li>
+  </ul>
 </template>
