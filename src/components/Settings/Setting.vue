@@ -13,16 +13,11 @@ const props = defineProps({
   },
 });
 
-const toggleSetting = (setting) => {
-  console.log(`${setting.title} now ${setting.enabled ? 'enabled' : 'disabled'} `);
+async function toggleSetting(setting) {
   localStorage.setItem(setting.id, setting.enabled);
-  try {
-    chrome.storage.local.set({ [setting.id]: setting.enabled });
-  } catch (e) {
-    console.error(e);
-  }
+  await chrome.storage.local.set({ [setting.id]: setting.enabled });
   needRefreshState.setNeedRefresh(true);
-};
+}
 </script>
 
 <template>

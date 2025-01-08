@@ -69,19 +69,23 @@ function selectSettingGroup(settingGroup) {
   selectedSettingGroup.value = settingGroup;
 }
 
-for (const settingGroup of settingGroups.value) {
-  for (const setting of settingGroup.settings) {
-    const settingValue = localStorage.getItem(setting.id);
+function initSettingGroups() {
+  for (const settingGroup of settingGroups.value) {
+    for (const setting of settingGroup.settings) {
+      const settingValue = localStorage.getItem(setting.id);
 
-    if (settingValue) {
-      setting.enabled = settingValue === 'true';
-    } else {
-      localStorage.setItem(setting.id, true);
-      chrome.storage.local.set({ [setting.id]: true });
-      setting.enabled = true;
+      if (settingValue) {
+        setting.enabled = settingValue === 'true';
+      } else {
+        localStorage.setItem(setting.id, true);
+        chrome.storage.local.set({ [setting.id]: true });
+        setting.enabled = true;
+      }
     }
   }
 }
+
+initSettingGroups();
 </script>
 
 <template>
