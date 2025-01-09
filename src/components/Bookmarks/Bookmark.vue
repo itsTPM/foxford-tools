@@ -1,6 +1,9 @@
 <script setup>
 import { IconX } from '@tabler/icons-vue';
 
+import { useBookmarks } from '@/composables/useBookmarks';
+const { removeBookmark } = useBookmarks();
+
 const props = defineProps({
   bookmark: {
     type: Object,
@@ -8,25 +11,15 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits(['bookmarkRemoved']);
-
-const openBookmark = (bookmark) => {
-  window.open(bookmark.url, '_blank');
-};
-
-const removeBookmark = (bookmark) => {
-  chrome.storage.sync.get(['readingList'], (result) => {
-    const readingList = result.readingList || [];
-    const newReadingList = readingList.filter((item) => item.url !== bookmark.url);
-    chrome.storage.sync.set({ readingList: newReadingList });
-  });
-};
+function openBookmark() {
+  window.open(props.bookmark.url, '_blank');
+}
 </script>
 
 <template>
   <div
     class="relative flex cursor-pointer justify-between rounded-md border p-3 transition hover:bg-muted"
-    @click="openBookmark(bookmark)">
+    @click="openBookmark">
     <div class="flex flex-col justify-center">
       <p class="text-base">{{ bookmark.title }}</p>
       <p class="text-sm text-muted-foreground">{{ bookmark.courseName }}</p>
@@ -38,10 +31,7 @@ const removeBookmark = (bookmark) => {
       <button
         class="text-muted-foreground transition hover:text-secondary-foreground focus:outline-none"
         aria-label="Удалить закладку"
-        @click.stop="
-          removeBookmark(bookmark);
-          $emit('bookmarkRemoved', bookmark);
-        ">
+        @click.stop="removeBookmark(bookmark)">
         <IconX class="h-5 w-5" aria-hidden="true" />
       </button>
     </div>

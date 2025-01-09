@@ -1,31 +1,25 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-import Bookmark from '@/components/Bookmarks/Bookmark.vue';
+import { onMounted, watch } from 'vue';
 import { IconMoodPuzzled } from '@tabler/icons-vue';
 
-const bookmarks = ref([]);
+import Bookmark from '@/components/Bookmarks/Bookmark.vue';
+import { useBookmarks } from '@/composables/useBookmarks';
 
-onMounted(() => {
-  const bookmarksList = new Promise((resolve) => {
-    chrome.storage.sync.get(['readingList'], (result) => {
-      resolve(result.readingList || []);
-    });
-  });
+const { bookmarks, loadBookmarksFromStorage, saveBookmarksToStorage } = useBookmarks();
 
-  bookmarksList.then((result) => {
-    bookmarks.value = result;
-  });
+onMounted(async () => {
+  await loadBookmarksFromStorage();
 });
 
-const onBookmarkRemoved = (bookmark) => {
-  bookmarks.value = bookmarks.value.filter((item) => item.url !== bookmark.url);
-};
+watch(bookmarks, () => {
+  saveBookmarksToStorage();
+});
 </script>
 
 <template>
-  <ul v-if="bookmarks.length">
+  <ul v-if="bookmarks.length" class="flex flex-col gap-2">
     <li v-for="bookmark in bookmarks">
-      <Bookmark :bookmark @bookmarkRemoved="onBookmarkRemoved" />
+      <Bookmark :bookmark />
     </li>
   </ul>
 
