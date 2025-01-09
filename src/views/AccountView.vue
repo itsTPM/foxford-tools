@@ -1,64 +1,35 @@
 <script setup>
-import { IconCoins, IconArrowBadgeUp } from '@tabler/icons-vue';
-import { Progress } from '@/components/ui/progress';
 import { onMounted, ref } from 'vue';
+import { IconCoins, IconArrowBadgeUp } from '@tabler/icons-vue';
+
+import { Progress } from '@/components/ui/progress';
 import loadingSpinner from '@/assets/loading-spinner.svg';
-
-const profileData = ref({
-  full_name: '',
-  avatar_url: '',
-  created_at: null,
-  bonus_amount: null,
-});
-
-const levelData = ref({
-  gained_xp: 0,
-  available_xp: 0,
-  total_xp: 0,
-});
+import { useAccount } from '@/composables/useAccount';
+const { profileData, levelData, loadSavedData, getAllData, setAllData } = useAccount();
 
 const isDataLoading = ref(true);
 const isDataError = ref(false);
 
+loadSavedData();
+
 onMounted(async () => {
-  if (localStorage.getItem('profileData')) {
-    profileData.value = JSON.parse(localStorage.getItem('profileData'));
-  }
-  if (localStorage.getItem('levelData')) {
-    levelData.value = JSON.parse(localStorage.getItem('levelData'));
-  }
-
-  await fetch('https://foxford.ru/api/user/me')
-    .then((response) => response.json())
-    .then((data) => {
-      profileData.value.full_name = data.full_name;
-      profileData.value.avatar_url = data.avatar_url;
-      profileData.value.created_at = data.created_at;
-      profileData.value.bonus_amount = data.bonus_amount;
-    })
-    .catch(() => (isDataError.value = true));
-  localStorage.setItem('profileData', JSON.stringify(profileData.value));
-
-  await fetch('https://foxford.ru/api/user/level')
-    .then((response) => response.json())
-    .then((data) => {
-      levelData.value.gained_xp = data.gained_xp;
-      levelData.value.available_xp = data.available_xp;
-      levelData.value.total_xp = data.total_xp;
-    })
-    .catch(() => (isDataError.value = true));
-  localStorage.setItem('levelData', JSON.stringify(levelData.value));
-
+  const data = await getAllData();
   isDataLoading.value = false;
+
+  if (data.profileData && data.levelData) {
+    setAllData(data);
+  } else {
+    isDataError.value = true;
+  }
 });
 </script>
 
 <template>
-  <template v-if="profileData.full_name && profileData.bonus_amount >= 0 && levelData.total_xp">
+  <template v-if="profileData && levelData">
     <div class="flex items-center gap-5 rounded-md border p-3">
       <img :src="profileData.avatar_url" alt="Аватар пользователя" class="h-16 w-16 rounded-lg object-contain" />
       <div class="flex flex-col">
-        <h1 class="text-lg font-medium">{{ profileData.full_name }}</h1>
+        <p class="text-lg font-medium">{{ profileData.full_name }}</p>
         <p class="text-muted-foreground">
           создан:
           {{ new Date(profileData.created_at).toLocaleDateString('ru-RU') }}
@@ -97,5 +68,5 @@ onMounted(async () => {
     </div>
   </template>
 
-  <template v-else> Что-то пошло не так.. </template>
+  <template v-else-if="isDataError"> Что-то пошло не так.. </template>
 </template>
