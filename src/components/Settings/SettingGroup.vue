@@ -14,7 +14,7 @@ const props = defineProps({
   },
 });
 
-const isSettingGroupSelected = computed(() => selectedSettingGroup === props.settingGroup);
+const isSettingGroupSelected = computed(() => selectedSettingGroup.value.id === props.settingGroup.id);
 </script>
 
 <template>
