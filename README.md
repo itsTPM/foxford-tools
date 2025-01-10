@@ -2,7 +2,7 @@
 
 # Foxford Tools
 
-*You can also open the [README in English](./README-en.md)*
+_You can also open the [README in English](./README-en.md)_
 
 ### Что это
 

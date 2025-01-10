@@ -11,7 +11,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <Label :class="cn('block text-sm tracking-tight text-foreground text-left', props.class)" v-bind="props">
+  <Label :class="cn('block text-left text-sm tracking-tight text-foreground', props.class)" v-bind="props">
     <slot />
   </Label>
 </template>
