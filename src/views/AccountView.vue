@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { IconCoins, IconArrowBadgeUp } from '@tabler/icons-vue';
 
 import { Progress } from '@/components/ui/progress';
-import loadingSpinner from '@/assets/loading-spinner.svg';
+import loadingSpinner from '@/assets/loading-spinner.svg?url';
 import { useAccount } from '@/composables/useAccount';
 const { profileData, levelData, loadSavedData, getAllData, setAllData } = useAccount();
 
@@ -25,7 +25,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <template v-if="profileData && levelData">
+  <template v-if="profileData && levelData && !isDataLoading && !isDataError">
     <div class="flex items-center gap-5 rounded-md border p-3">
       <img :src="profileData.avatar_url" alt="Аватар пользователя" class="h-16 w-16 rounded-lg object-contain" />
       <div class="flex flex-col">
@@ -61,9 +61,9 @@ onMounted(async () => {
     </div>
   </template>
 
-  <template v-else-if="isDataLoading">
+  <template v-else-if="isDataLoading && !isDataError">
     <div class="flex flex-col items-center justify-center gap-2">
-      <loadingSpinner class="aspect-square h-auto w-8 stroke-foreground"></loadingSpinner>
+      <img class="aspect-square h-auto w-12 stroke-foreground" :src="loadingSpinner" />
       <p>Загрузка данных..</p>
     </div>
   </template>
