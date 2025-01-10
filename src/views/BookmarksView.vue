@@ -18,7 +18,7 @@ watch(bookmarks, () => {
 
 <template>
   <ul v-if="bookmarks.length" class="flex flex-col gap-2">
-    <li v-for="bookmark in bookmarks">
+    <li v-for="bookmark in bookmarks" :key="bookmark.url">
       <Bookmark :bookmark />
     </li>
   </ul>
