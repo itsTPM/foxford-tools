@@ -5,9 +5,10 @@ import { IconCopy, IconCheck } from '@tabler/icons-vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCalendar } from '@/composables/useCalendar';
+
 const { calendarLink, getCalendarLink, setCalendarLink, loadSavedCalendarLink } = useCalendar();
 
-let isCopied = ref(false);
+const isCopied = ref(false);
 
 function copyToClipboard() {
   navigator.clipboard.writeText(calendarLink.value);

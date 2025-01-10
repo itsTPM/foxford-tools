@@ -4,6 +4,7 @@ import { IconSunMoon } from '@tabler/icons-vue';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button/';
 import { useCustomization } from '@/composables/useCustomization';
+
 const { toggleTheme, setRadius, theme, radius } = useCustomization();
 </script>
 
