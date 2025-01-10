@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import { IconBookmarks, IconBrush, IconSettings, IconCalendarShare, IconUserCircle } from '@tabler/icons-vue';
+
 import SettingsView from '../views/SettingsView.vue';
 
 const router = createRouter({
@@ -10,6 +12,7 @@ const router = createRouter({
       component: SettingsView,
       meta: {
         title: 'Настройки',
+        icon: IconSettings,
       },
     },
     {
@@ -18,6 +21,7 @@ const router = createRouter({
       component: () => import('../views/CustomizeView.vue'),
       meta: {
         title: 'Кастомизация',
+        icon: IconBrush,
       },
     },
     {
@@ -26,6 +30,7 @@ const router = createRouter({
       component: () => import('../views/BookmarksView.vue'),
       meta: {
         title: 'Закладки',
+        icon: IconBookmarks,
       },
     },
     {
@@ -34,6 +39,7 @@ const router = createRouter({
       component: () => import('../views/CalendarView.vue'),
       meta: {
         title: 'Календарь',
+        icon: IconCalendarShare,
       },
     },
     {
@@ -42,6 +48,7 @@ const router = createRouter({
       component: () => import('../views/AccountView.vue'),
       meta: {
         title: 'Аккаунт',
+        icon: IconUserCircle,
       },
     },
   ],
