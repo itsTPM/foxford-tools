@@ -1,6 +1,7 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import pluginVue from 'eslint-plugin-vue';
+import tailwind from 'eslint-plugin-tailwindcss';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -13,6 +14,7 @@ export default [
   { languageOptions: { globals: { ...globals.browser, ...globals.webextensions, global: 'writable' } } },
   pluginJs.configs.recommended,
   ...pluginVue.configs['flat/essential'],
+  ...tailwind.configs['flat/recommended'],
   {
     rules: {
       'vue/multi-word-component-names': 'off',
