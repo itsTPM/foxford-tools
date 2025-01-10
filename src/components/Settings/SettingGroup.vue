@@ -18,7 +18,7 @@ const isSettingGroupSelected = computed(() => selectedSettingGroup === props.set
 </script>
 
 <template>
-  <TooltipProvider :delayDuration="0" disableHoverableContent>
+  <TooltipProvider :delayDuration="0" disableHoverableContent ignoreNonKeyboardFocus disableClosingTrigger>
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
