@@ -1,12 +1,9 @@
 import { reactive, toRefs } from 'vue';
+import { proxyToObject } from '@/utils/proxyToObject';
 
 const state = reactive({
   bookmarks: [],
 });
-
-function proxyToObject(proxy) {
-  return JSON.parse(JSON.stringify(proxy));
-}
 
 export function useBookmarks() {
   async function loadBookmarksFromStorage() {
