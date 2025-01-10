@@ -63,7 +63,7 @@ onMounted(async () => {
 
   <template v-else-if="isDataLoading && !isDataError">
     <div class="flex flex-col items-center justify-center gap-2">
-      <img class="aspect-square h-auto w-12 stroke-foreground" :src="loadingSpinner" />
+      <img class="aspect-square h-auto w-12 dark:invert" :src="loadingSpinner" />
       <p>Загрузка данных..</p>
     </div>
   </template>
