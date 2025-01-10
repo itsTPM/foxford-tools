@@ -24,7 +24,7 @@ function openBookmark() {
       <p class="text-base">{{ bookmark.title }}</p>
       <p class="text-sm text-muted-foreground">{{ bookmark.courseName }}</p>
     </div>
-    <div class="flex flex-shrink-0 items-center justify-center">
+    <div class="flex shrink-0 items-center justify-center">
       <img :alt="bookmark.courseName" :src="bookmark.courseImage" class="w-14" />
     </div>
     <div class="absolute right-1 top-1">
@@ -32,7 +32,7 @@ function openBookmark() {
         class="text-muted-foreground transition hover:text-secondary-foreground focus:outline-none"
         aria-label="Удалить закладку"
         @click.stop="removeBookmark(bookmark)">
-        <IconX class="h-5 w-5" aria-hidden="true" />
+        <IconX class="size-5" aria-hidden="true" />
       </button>
     </div>
   </div>
