@@ -1,10 +1,9 @@
 <script setup>
-import { Switch } from '@/components/ui/switch/index.js';
-import { Label } from '@/components/ui/label/index.js';
+import { Switch } from '@/components/ui/switch/';
+import { Label } from '@/components/ui/label/';
+import { useSettings } from '@/composables/useSettings';
 
-import { useNeedRefreshStore } from '@/stores/needRefresh';
-
-const needRefreshState = useNeedRefreshStore();
+const { toggleSetting } = useSettings();
 
 const props = defineProps({
   setting: {
@@ -12,17 +11,11 @@ const props = defineProps({
     required: true,
   },
 });
-
-async function toggleSetting(setting) {
-  localStorage.setItem(setting.id, setting.enabled);
-  await chrome.storage.local.set({ [setting.id]: setting.enabled });
-  needRefreshState.setNeedRefresh(true);
-}
 </script>
 
 <template>
   <div class="flex items-center gap-3">
-    <Switch v-model:checked="setting.enabled" @update:checked="toggleSetting(setting)" :id="setting.id" />
+    <Switch v-model:checked="setting.value" @update:checked="toggleSetting(setting.id)" :id="setting.id" />
     <Label :for="setting.id">
       {{ setting.title }}
     </Label>

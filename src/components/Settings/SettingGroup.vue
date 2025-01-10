@@ -1,14 +1,13 @@
 <script setup>
 import { Button } from '@/components/ui/button/index.js';
+import { useSettings } from '@/composables/useSettings';
+
+const { selectedSettingGroup } = useSettings();
 
 const props = defineProps({
   settingGroup: {
     type: Object,
     required: true,
-  },
-  selectedSettingGroup: {
-    type: Object,
-    required: false,
   },
 });
 
