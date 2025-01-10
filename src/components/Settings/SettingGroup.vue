@@ -1,8 +1,11 @@
 <script setup>
+import { computed } from 'vue';
+
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button/index.js';
 import { useSettings } from '@/composables/useSettings';
 
-const { selectedSettingGroup } = useSettings();
+const { selectedSettingGroup, selectSettingGroup } = useSettings();
 
 const props = defineProps({
   settingGroup: {
@@ -11,22 +14,31 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits(['selectSettingGroup']);
+const isSettingGroupSelected = computed(() => selectedSettingGroup === props.settingGroup);
 </script>
 
 <template>
-  <Button
-    class="relative after:pointer-events-none after:absolute after:left-[calc(100%+1rem)] after:z-10 after:block after:w-fit after:-translate-x-full after:rounded-md after:border after:border-border after:bg-background/90 after:p-1 after:opacity-0 after:shadow-2xl after:backdrop-blur-xl after:transition-all after:duration-500 after:content-[attr(data-title)] after:hover:translate-x-0 after:hover:opacity-100"
-    size="icon"
-    variant="outline"
-    :class="{
-      'bg-active': selectedSettingGroup === settingGroup,
-    }"
-    @click="() => $emit('selectSettingGroup', settingGroup)"
-    :key="settingGroup.id"
-    :data-title="settingGroup.title"
-    :aria-label="settingGroup.title"
-    :aria-current="selectedSettingGroup === settingGroup ? 'page' : null">
-    <component :is="settingGroup.icon" stroke-width="1.5" class="w-6" aria-hidden="true" />
-  </Button>
+  <TooltipProvider delayDuration="0" disableHoverableContent>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          :class="{
+            'bg-active': isSettingGroupSelected,
+          }"
+          variant="outline"
+          size="icon"
+          @click="selectSettingGroup(settingGroup)"
+          :key="settingGroup.id"
+          :aria-label="settingGroup.title"
+          :aria-current="isSettingGroupSelected ? 'page' : null">
+          <component :is="settingGroup.icon" stroke-width="1.5" class="w-6" aria-hidden="true" />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent side="right">
+        <p>
+          {{ settingGroup.title }}
+        </p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
 </template>
