@@ -4,14 +4,22 @@ import pluginVue from 'eslint-plugin-vue';
 import tailwind from 'eslint-plugin-tailwindcss';
 
 /** @type {import('eslint').Linter.Config[]} */
-export default [
+export default config = [
   {
     files: ['**/*.{js,mjs,cjs,vue}'],
   },
   {
     ignores: ['dist/**', 'coverage/**'],
   },
-  { languageOptions: { globals: { ...globals.browser, ...globals.webextensions, global: 'writable' } } },
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.webextensions,
+        global: 'writable',
+      },
+    },
+  },
   pluginJs.configs.recommended,
   ...pluginVue.configs['flat/essential'],
   ...tailwind.configs['flat/recommended'],
