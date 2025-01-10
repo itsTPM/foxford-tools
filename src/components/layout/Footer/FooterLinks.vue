@@ -1,5 +1,6 @@
 <script setup>
 import { IconBrandGithub, IconWorld, IconBrandTelegram } from '@tabler/icons-vue';
+
 import { Button } from '@/components/ui/button';
 
 // Ссылки для отображения в подвале

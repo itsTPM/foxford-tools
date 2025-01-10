@@ -1,6 +1,7 @@
 <script setup>
 import { IconVersions } from '@tabler/icons-vue';
-import manifest from '../../../manifest.json';
+
+import manifest from '@/../manifest.json';
 
 const version = manifest.version;
 </script>
