@@ -27,7 +27,7 @@ onMounted(async () => {
 <template>
   <template v-if="profileData && levelData && !isDataLoading && !isDataError">
     <div class="flex items-center gap-5 rounded-md border p-3">
-      <img :src="profileData.avatar_url" alt="Аватар пользователя" class="h-16 w-16 rounded-lg object-contain" />
+      <img :src="profileData.avatar_url" alt="Аватар пользователя" class="size-16 rounded-lg object-contain" />
       <div class="flex flex-col">
         <p class="text-lg font-medium">{{ profileData.full_name }}</p>
         <p class="text-muted-foreground">
