@@ -12,7 +12,7 @@ function refreshPage() {
   });
 
   setIsRefreshNeeded(false);
-};
+}
 </script>
 
 <template>
