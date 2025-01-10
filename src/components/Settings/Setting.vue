@@ -5,7 +5,7 @@ import { useSettings } from '@/composables/useSettings';
 
 const { toggleSetting } = useSettings();
 
-const props = defineProps({
+defineProps({
   setting: {
     type: Object,
     required: true,
@@ -15,6 +15,7 @@ const props = defineProps({
 
 <template>
   <div class="flex items-center gap-3">
+    <!-- eslint-disable-next-line vue/no-mutating-props -->
     <Switch v-model:checked="setting.value" @update:checked="toggleSetting(setting.id)" :id="setting.id" />
     <Label :for="setting.id">
       {{ setting.title }}
