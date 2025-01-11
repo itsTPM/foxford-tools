@@ -2,8 +2,8 @@ import { reactive, toRefs } from 'vue';
 import { ofetch } from 'ofetch';
 
 const state = reactive({
-  profileData: { full_name: '', avatar_url: '', created_at: null, bonus_amount: null },
-  levelData: { gained_xp: 0, available_xp: 0, total_xp: 0 },
+  profileData: null,
+  levelData: null,
 });
 
 export function useAccount() {
