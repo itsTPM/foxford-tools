@@ -10,8 +10,8 @@
     "test:ui": "vitest --ui",
     "preview": "vite preview",
     "build": "vite build",
-    "build:chrome": "vite build --config vite.config.chrome.js",
-    "build:firefox": "vite build --config vite.config.firefox.js"
+    "build:chrome": "vite build -- --chrome",
+    "build:firefox": "vite build -- --firefox"
   },
   "dependencies": {
     "@tabler/icons-vue": "^3.5.0",
