@@ -53,11 +53,15 @@ function listenForTabActivation() {
 async function changeTabTitle({ tab, tabId, changeInfo }) {
   await new Promise((r) => setTimeout(r, 150)); // 🤩
 
-  if (checkIsShouldReturn({ tab, changeInfo })) return;
+  if (checkIsShouldReturn({ tab, changeInfo })) {
+    return;
+  }
 
   const title = getDynamicTitleByUrl(tab.url);
 
-  if (!title) return;
+  if (!title) {
+    return;
+  }
 
   chrome.scripting.executeScript({
     target: { tabId },
@@ -76,6 +80,8 @@ function checkIsShouldReturn({ tab, changeInfo }) {
 
 function getDynamicTitleByUrl(url) {
   for (const [urlPart, title] of Object.entries(urlTitleMap)) {
-    if (url.includes(urlPart)) return title;
+    if (url.includes(urlPart)) {
+      return title;
+    }
   }
 }

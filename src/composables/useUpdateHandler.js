@@ -2,7 +2,9 @@ export function useUpdateHandler() {
   async function updateHandler() {
     const storageUpdateData = await getUpdateDataFromStorage();
 
-    if (!storageUpdateData) return;
+    if (!storageUpdateData) {
+      return;
+    }
 
     await resetUpdateDataInStorage();
     await chrome.runtime.sendMessage('clearBadge');

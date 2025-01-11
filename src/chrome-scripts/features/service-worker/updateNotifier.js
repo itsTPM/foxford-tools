@@ -10,7 +10,9 @@ function listenForExtensionUpdate() {
     const currentVersion = getExtensionVersion();
     const reason = details.reason;
 
-    if (checkIsShouldReturn({ reason, previousVersion, currentVersion })) return;
+    if (checkIsShouldReturn({ reason, previousVersion, currentVersion })) {
+      return;
+    }
 
     const updateData = {
       previousVersion,
