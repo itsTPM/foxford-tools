@@ -5,7 +5,9 @@ async function initFeatures() {
   const settings = await getSettings(Object.keys(features));
 
   for (const [featureName, featureFunc] of Object.entries(features)) {
-    if (!settings[featureName]) continue;
+    if (!settings[featureName]) {
+      continue;
+    }
 
     featureFunc();
   }
