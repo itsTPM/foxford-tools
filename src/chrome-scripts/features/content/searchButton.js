@@ -52,9 +52,7 @@ function getLinkMeta() {
 
 async function getConspectData({ courseId, lessonId }) {
   const request = new Request({ url: `courses/${courseId}/lessons/${lessonId}` });
-  const data = await request.make();
-
-  return data;
+  return await request.make();
 }
 
 function getConspectTitle(data) {

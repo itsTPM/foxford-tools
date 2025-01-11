@@ -82,9 +82,7 @@ function getLessonAndConspectIds(conspectUrl) {
 
 async function getConspectData({ lessonId, conspectId }) {
   const request = new Request({ url: `lessons/${lessonId}/conspects/${conspectId}` });
-  const data = await request.make();
-
-  return data;
+  return await request.make();
 }
 
 function createReadingListItem({ conspectData, conspectUrl }) {
