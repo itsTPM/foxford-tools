@@ -8,9 +8,25 @@ import manifest from './manifest.json';
 import tailwind from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 
+let browserForBuild = 'chrome';
+const supportedBrowsers = ['chrome', 'firefox'];
+
+if (supportedBrowsers.includes(process.argv[3])) {
+  browserForBuild = process.argv[3];
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), svgLoader(), crx({ manifest })],
+  plugins: [
+    vue(),
+    svgLoader(),
+    crx({
+      manifest,
+      ...{
+        browser: process.env.BROWSER,
+      },
+    }),
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
