@@ -1,4 +1,4 @@
-@import url('./fonts/inter.css');
+@import url('./fonts/Inter/index.css');
 
 @tailwind base;
 @tailwind components;
@@ -71,7 +71,7 @@
   }
 
   body {
-    @apply w-[325px] bg-background p-4 text-foreground;
+    @apply w-[325px] p-4 text-foreground;
   }
 
   html {
