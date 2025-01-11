@@ -11,19 +11,17 @@ An unofficial extension that integrates into the Foxford online school website a
 Adds useful features to the site, including:
 
 - success rate for homework and webinar tasks
-- displaying the approximate reading time of an article in the "theory" tab
-- the ability to add articles from the "theory" tab to bookmarks, which are displayed in the extension itself, with the title of the article, subject and a beautiful icon
 - changing the page title from static "Foxford Online School" to more detailed ones to avoid confusion in the tabs (for example: "Calendar", "Home", "Plan for Today")
+- the ability to add articles from the "theory" tab to bookmarks, which are displayed in the extension itself, with the title of the article, subject and a beautiful icon
 - a button to search for theory on the topic of the lesson in Google
 - replacing yellow blocks in tasks with light gray ones
+- displaying the approximate reading time of an article in the "theory" tab
 
-  and not only...
+  and more...
 
 ### Install
 
-Installation can be done at [extension's website](https://fox.itstpm.rocks/). The extension is available for both Chromium-based browsers (Chrome, Edge, Yandex and the like) and for Firefox
-
-After installing the extension from the site, it will (well, at least should) update automatically
+The extension is available for installation in [Chrome Web Store](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)
 
 ### Bugs and your ideas
 
@@ -31,7 +29,7 @@ you can post them in [Issues](https://github.com/itsTPM/foxford-tools/issues)
 
 ### Build extension manual
 
-Steps to build the extension yourself (without using the installation from the website):
+Steps to build the extension yourself (without using the installation from the [Chrome Web Store](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)):
 
 1. Make sure you have installed:
    1. [NodeJS](https://nodejs.org/en/download/prebuilt-installer) latest LTS or Current version
