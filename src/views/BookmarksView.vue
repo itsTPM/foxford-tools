@@ -30,7 +30,7 @@ watch(bookmarks, () => {
         <p class="text-sm text-muted-foreground">закладок пока нет</p>
       </div>
       <div class="relative flex items-center text-muted">
-        <IconMoodPuzzled size="48" stroke-width="1.75" aria-hidden="true" />
+        <IconMoodPuzzled class="size-12" stroke-width="1.75" aria-hidden="true" />
       </div>
     </div>
   </div>

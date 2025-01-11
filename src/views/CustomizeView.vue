@@ -21,7 +21,7 @@ const { toggleTheme, setRadius, theme, radius } = useCustomization();
     <li>
       <p>Тема</p>
       <Button @click="toggleTheme" variant="outline" class="w-full gap-2">
-        <IconSunMoon class="w-5" />
+        <IconSunMoon class="size-5" />
 
         Переключить тему на {{ theme === 'light' ? 'тёмную' : 'светлую' }}
       </Button>
