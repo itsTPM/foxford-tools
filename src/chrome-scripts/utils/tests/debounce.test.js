@@ -63,4 +63,13 @@ describe('debounce', () => {
     vi.advanceTimersByTime(DELAY - 1);
     expect(func).toHaveBeenCalled();
   });
+
+  it('should call the function only with last set of arguments', () => {
+    debouncedFunc('arg1');
+    debouncedFunc('arg2');
+    debouncedFunc('arg3');
+
+    vi.advanceTimersByTime(DELAY);
+    expect(func).toHaveBeenCalledWith('arg3');
+  });
 });
