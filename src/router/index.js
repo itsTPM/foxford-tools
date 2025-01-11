@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import { IconBookmarks, IconBrush, IconSettings, IconCalendarShare, IconUserCircle } from '@tabler/icons-vue';
+import { IconBookmarks, IconBrush, IconSettings, IconUserCircle } from '@tabler/icons-vue';
 
 import SettingsView from '../views/SettingsView.vue';
 
@@ -31,15 +31,6 @@ const router = createRouter({
       meta: {
         title: 'Закладки',
         icon: IconBookmarks,
-      },
-    },
-    {
-      path: '/calendar',
-      name: 'calendar',
-      component: () => import('../views/CalendarView.vue'),
-      meta: {
-        title: 'Календарь',
-        icon: IconCalendarShare,
       },
     },
     {
