@@ -1,7 +1,7 @@
-import { reactive, toRefs } from 'vue';
+import { reactive, toRefs, ref } from 'vue';
 import { IconBook2, IconPercentage, IconWand, IconNotebook } from '@tabler/icons-vue';
 
-const settingGroups = [
+const settingGroups = ref([
   {
     title: 'Проценты',
     id: 'percentages',
@@ -58,17 +58,17 @@ const settingGroups = [
       },
     ],
   },
-];
+]);
 
 const state = reactive({
   settings: {},
   isRefreshNeeded: false,
-  selectedSettingGroup: settingGroups[0],
+  selectedSettingGroup: settingGroups.value[0],
 });
 
 export function useSettings() {
   async function loadSettings() {
-    for (const settingGroup of settingGroups) {
+    for (const settingGroup of settingGroups.value) {
       for (const setting of settingGroup.settings) {
         const storageValue = localStorage.getItem(setting.id);
 
@@ -86,12 +86,12 @@ export function useSettings() {
   async function toggleSetting(settingId) {
     const newValue = !state.settings[settingId];
     await setSetting(settingId, newValue);
+    setIsRefreshNeeded(true);
   }
 
   async function setSetting(settingId, newValue) {
     state.settings[settingId] = newValue;
     localStorage.setItem(settingId, newValue);
-    setIsRefreshNeeded(true);
     await chrome.storage.local.set({ [settingId]: newValue });
   }
 
