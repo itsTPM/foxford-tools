@@ -29,7 +29,6 @@ const isSettingGroupSelected = computed(() => selectedSettingGroup.value.id === 
           size="icon"
           @click="selectSettingGroup(settingGroup)"
           :key="settingGroup.id"
-          :aria-label="settingGroup.title"
           :aria-current="isSettingGroupSelected ? 'page' : null">
           <component :is="settingGroup.icon" stroke-width="1.5" class="w-6" aria-hidden="true" />
         </Button>
