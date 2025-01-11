@@ -71,7 +71,7 @@
   }
 
   body {
-    @apply w-[325px] p-4 text-foreground;
+    @apply w-[325px] p-4 text-foreground text-[100%];
   }
 
   html {
