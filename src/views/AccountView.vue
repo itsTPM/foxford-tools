@@ -43,7 +43,7 @@ onMounted(async () => {
         <p class="text-sm text-muted-foreground">у вас на счету</p>
       </div>
       <div class="flex items-center text-muted">
-        <IconCoins :size="48" strokeWidth="1.75" aria-hidden="true" />
+        <IconCoins class="size-12" strokeWidth="1.75" aria-hidden="true" />
       </div>
     </div>
 
@@ -54,7 +54,7 @@ onMounted(async () => {
           <p class="text-sm text-muted-foreground">до следующего уровня</p>
         </div>
         <div class="flex items-center text-muted">
-          <IconArrowBadgeUp :size="48" strokeWidth="1.75" aria-hidden="true" />
+          <IconArrowBadgeUp class="size-12" strokeWidth="1.75" aria-hidden="true" />
         </div>
       </div>
       <Progress :max="levelData.available_xp" v-model="levelData.gained_xp" class="h-1 rounded-t-none" />

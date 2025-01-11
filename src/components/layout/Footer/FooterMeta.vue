@@ -8,7 +8,7 @@ const version = manifest.version;
 
 <template>
   <div class="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-    <IconVersions stroke-width="1.5" class="w-6" aria-hidden="true"></IconVersions>
+    <IconVersions stroke-width="1.5" class="size-6" aria-hidden="true"></IconVersions>
     <div class="flex flex-col leading-3">
       <p>версия {{ version }}</p>
       <a
