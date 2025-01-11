@@ -6,9 +6,9 @@ export default function useUpdateNotifier() {
 
 function listenForExtensionUpdate() {
   chrome.runtime.onInstalled.addListener((details) => {
-    const previousVersion = details.previousVersion;
+    const { previousVersion } = details;
     const currentVersion = getExtensionVersion();
-    const reason = details.reason;
+    const { reason } = details;
 
     if (checkIsShouldReturn({ reason, previousVersion, currentVersion })) {
       return;

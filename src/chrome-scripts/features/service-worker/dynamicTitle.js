@@ -39,7 +39,7 @@ function listenForTabUpdate() {
 
 function listenForTabActivation() {
   chrome.tabs.onActivated.addListener(async (activeInfo) => {
-    const tabId = activeInfo.tabId;
+    const { tabId } = activeInfo;
     const tab = await chrome.tabs.get(tabId);
 
     changeTabTitle({
