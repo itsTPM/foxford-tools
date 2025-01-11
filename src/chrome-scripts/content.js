@@ -14,9 +14,6 @@ async function initFeatures() {
 }
 
 async function getSettings(featureNames) {
-  const result = await chrome.storage.local.get(featureNames);
-
-  return result;
+  return await chrome.storage.local.get(featureNames);
 }
-
 initFeatures();

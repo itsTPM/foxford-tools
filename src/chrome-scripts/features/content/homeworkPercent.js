@@ -53,9 +53,7 @@ function checkIsShouldReturn(homeworkId, homeworkLink) {
 
 async function getTasks(homeworkId) {
   const request = new Request({ url: `lessons/${homeworkId}/tasks`, cacheCallback });
-  const tasks = await request.make();
-
-  return tasks;
+  return await request.make();
 }
 
 function calculatePercent(tasks) {
