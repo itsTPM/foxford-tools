@@ -97,7 +97,7 @@ function createReadingListItem({ conspectData, conspectUrl }) {
 
 async function updateReadingList({ readingListItem, isAdded }) {
   const currentList = await getReadingList();
-  const url = readingListItem.url;
+  const { url } = readingListItem;
   const updatedList = isAdded ? [...currentList, readingListItem] : currentList.filter((item) => item.url !== url);
   await setReadingList(updatedList);
   return updatedList;
