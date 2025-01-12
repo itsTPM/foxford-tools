@@ -1,4 +1,5 @@
 import { fileURLToPath, URL } from 'node:url';
+import process from 'node:process';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import svgLoader from 'vite-svg-loader';
@@ -23,7 +24,7 @@ export default defineConfig({
     crx({
       manifest,
       ...{
-        browser: process.env.BROWSER,
+        browser: browserForBuild,
       },
     }),
   ],
