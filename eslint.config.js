@@ -4,7 +4,7 @@ import pluginVue from 'eslint-plugin-vue';
 import tailwind from 'eslint-plugin-tailwindcss';
 
 /** @type {import('eslint').Linter.Config[]} */
-export default config = [
+export default [
   {
     files: ['**/*.{js,mjs,cjs,vue}'],
   },
