@@ -4,10 +4,8 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import svgLoader from 'vite-svg-loader';
 import { crx } from '@crxjs/vite-plugin';
+import tailwindcss from '@tailwindcss/vite';
 import manifest from './manifest.json';
-
-import tailwind from 'tailwindcss';
-import autoprefixer from 'autoprefixer';
 
 let browserForBuild = 'chrome';
 const supportedBrowsers = ['chrome', 'firefox'];
@@ -27,6 +25,7 @@ export default defineConfig({
         browser: browserForBuild,
       },
     }),
+    tailwindcss(),
   ],
   resolve: {
     alias: {
@@ -37,11 +36,6 @@ export default defineConfig({
   server: {
     port: 1984,
     strictPort: true,
-  },
-  css: {
-    postcss: {
-      plugins: [tailwind(), autoprefixer()],
-    },
   },
   test: {
     environment: 'happy-dom',

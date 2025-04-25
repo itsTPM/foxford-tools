@@ -1,0 +1,152 @@
+@import url('@/assets/fonts/Inter/index.css') layer(base);
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@utility scrollbar-gutter {
+  scrollbar-gutter: stable both-edges;
+}
+
+@layer base {
+  :root {
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(0 0% 3.9%);
+
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(0 0% 3.9%);
+
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(0 0% 3.9%);
+
+    --primary: hsl(0 72.2% 50.6%);
+    --primary-foreground: hsl(0 85.7% 97.3%);
+
+    --secondary: hsl(0 0% 96.1%);
+    --secondary-foreground: hsl(0 0% 9%);
+
+    --muted: hsl(0 0% 90%);
+    --muted-foreground: hsl(0 0% 45.1%);
+
+    --accent: hsl(0 0% 96.1%);
+    --accent-foreground: hsl(0 0% 9%);
+
+    --destructive: hsl(0 84.2% 60.2%);
+    --destructive-foreground: hsl(0 0% 98%);
+
+    --border: hsl(0 0% 89.8%);
+    --input: hsl(0 0% 89.8%);
+    --ring: hsl(0 72.2% 50.6%);
+
+    --active: hsl(0 0% 95%);
+
+    --radius: 0;
+  }
+
+  .dark {
+    --background: hsl(0 0% 3.9%);
+    --foreground: hsl(0 0% 98%);
+
+    --card: hsl(0 0% 3.9%);
+    --card-foreground: hsl(0 0% 98%);
+
+    --popover: hsl(0 0% 3.9%);
+    --popover-foreground: hsl(0 0% 98%);
+
+    --secondary: hsl(0 0% 14.9%);
+    --secondary-foreground: hsl(0 0% 98%);
+
+    --muted: hsl(0 0% 14.9%);
+    --muted-foreground: hsl(0 0% 63.9%);
+
+    --accent: hsl(0 0% 14.9%);
+    --accent-foreground: hsl(0 0% 98%);
+
+    --destructive: hsl(0 62.8% 30.6%);
+    --destructive-foreground: hsl(0 0% 98%);
+
+    --border: hsl(0 0% 14.9%);
+    --input: hsl(0 0% 14.9%);
+
+    --active: hsl(0 0% 10%);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply text-foreground w-[325px] p-4 text-[100%];
+  }
+
+  html {
+    @apply scrollbar-gutter scheme-light;
+  }
+
+  html.dark {
+    @apply scheme-dark;
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-active: var(--active);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Scrollbar */
+*,
+*::after,
+*::before {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+::-webkit-scrollbar {
+  width: 1.2vw;
+}
+
+::-webkit-scrollbar-track {
+  background: #2b2b2b;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

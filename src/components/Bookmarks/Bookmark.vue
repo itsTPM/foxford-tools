@@ -28,7 +28,7 @@ function openBookmark() {
     </div>
     <div class="absolute right-1 top-1">
       <button
-        class="text-muted-foreground transition focus-within:ring-2 focus-within:ring-ring hover:text-secondary-foreground focus:outline-none"
+        class="text-muted-foreground transition focus-within:ring-2 focus-within:ring-ring hover:text-secondary-foreground focus:outline-hidden"
         aria-label="Удалить закладку"
         @click.stop="removeBookmark(bookmark)">
         <IconX class="size-5" aria-hidden="true" />
