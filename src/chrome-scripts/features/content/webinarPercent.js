@@ -1,4 +1,4 @@
-import { PercentElement, Observer } from '../../classes';
+import { PercentElement, Observer, Request } from '../../classes';
 
 export default function createWebinarObserver() {
   const observer = new Observer({
@@ -11,35 +11,46 @@ export default function createWebinarObserver() {
   observer.observe();
 }
 
-function observerCallback(element) {
-  const xpElement = getXpElement(element);
-  const xpElementText = getXpElementText(xpElement);
-  const extractedXp = extractXp(xpElementText);
-  const [gainedXp, maxXp] = parseXp(extractedXp);
-  const percent = calculatePercent(gainedXp, maxXp);
+async function observerCallback(element) {
+  const webinarLinkElement = getWebinarLinkElement();
+
+  if (!webinarLinkElement) {
+    return;
+  }
+
+  const webinarId = getWebinarId(webinarLinkElement);
+  const lessonTasksStats = await getLessonTasksStats(webinarId);
+  const percent = calculateTasksPercent(lessonTasksStats.classwork);
 
   createPercentElement(percent, element);
 }
 
-function getXpElement(element) {
-  return element.lastChild.lastChild.lastChild.lastChild.firstChild.lastChild;
+function getWebinarLinkElement() {
+  return document.querySelector('a:has(#joyrideLessonBtn)');
 }
 
-function getXpElementText(xpElement) {
-  return xpElement.textContent;
+function getWebinarId(webinarButton) {
+  const webinarLink = webinarButton.getAttribute('href');
+  const webinarId = webinarLink.match(/[0-9]+/g);
+
+  return webinarId;
 }
 
-function extractXp(xpElementText) {
-  return xpElementText.match(/[0-9]+/g);
+async function getLessonTasksStats(webinarId) {
+  const request = new Request({ url: `user/calendar/items/course_lessons/${webinarId}` });
+  return await request.make();
 }
 
-function parseXp(extractedXp) {
-  return extractedXp.map((xp) => parseInt(xp));
-}
+function calculateTasksPercent(tasksStats) {
+  const {
+    solved_tasks_count: successfulTasksCount,
+    partially_tasks_count: partiallyTasksCount,
+    failed_tasks_count: failedTasksCount,
+  } = tasksStats;
 
-function calculatePercent(gainedXp, maxXp) {
-  // null ставится чтобы использовался текст "не начато" заместо 0%, так как из-за подсчета по числам xp а не по api тут даже проваленная задача даст 10xp и 0% быть не может
-  return +Math.round((gainedXp / maxXp) * 100) || null;
+  const solvedTasksCount = successfulTasksCount + partiallyTasksCount + failedTasksCount;
+
+  return Math.round(((successfulTasksCount + partiallyTasksCount * 0.5) / solvedTasksCount) * 100);
 }
 
 function createPercentElement(percent, element) {
