@@ -69,8 +69,10 @@
     --active: hsl(0 0% 10%);
   }
 
-  * {
-    @apply border-border;
+  *,
+  *::after,
+  *::before {
+    @apply border-border select-none;
   }
 
   body {
@@ -125,28 +127,4 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-}
-
-/* Scrollbar */
-*,
-*::after,
-*::before {
-  -webkit-user-select: none;
-  -webkit-user-drag: none;
-}
-
-::-webkit-scrollbar {
-  width: 1.2vw;
-}
-
-::-webkit-scrollbar-track {
-  background: #2b2b2b;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #888;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }
