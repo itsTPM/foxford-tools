@@ -36,8 +36,14 @@ export default defineConfig({
   server: {
     port: 1984,
     strictPort: true,
+    cors: {
+      origin: [/chrome-extension:\/\//],
+    },
   },
   test: {
     environment: 'happy-dom',
+  },
+  legacy: {
+    skipWebSocketTokenCheck: true,
   },
 });
