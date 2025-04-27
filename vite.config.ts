@@ -21,9 +21,7 @@ export default defineConfig({
     svgLoader(),
     crx({
       manifest,
-      ...{
-        browser: browserForBuild,
-      },
+      browser: browserForBuild,
     }),
     tailwindcss(),
   ],
