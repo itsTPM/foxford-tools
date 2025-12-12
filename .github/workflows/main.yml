@@ -29,7 +29,7 @@ jobs:
       - name: Build for Chrome
         run: pnpm run build:chrome
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: chrome
           path: 'dist/'
@@ -38,7 +38,7 @@ jobs:
       - name: Build for Firefox
         run: pnpm run build:firefox
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: firefox
           path: 'dist/'
