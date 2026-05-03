@@ -1,7 +1,12 @@
 <script setup>
-import { cn } from '@/lib/utils';
-import { TooltipContent, TooltipPortal, useForwardPropsEmits } from 'radix-vue';
-import { computed } from 'vue';
+import { reactiveOmit } from "@vueuse/core";
+import {
+  TooltipArrow,
+  TooltipContent,
+  TooltipPortal,
+  useForwardPropsEmits,
+} from "reka-ui";
+import { cn } from "@/lib/utils";
 
 defineOptions({
   inheritAttrs: false,
@@ -13,7 +18,7 @@ const props = defineProps({
   asChild: { type: Boolean, required: false },
   as: { type: null, required: false },
   side: { type: null, required: false },
-  sideOffset: { type: Number, required: false, default: 4 },
+  sideOffset: { type: Number, required: false, default: 0 },
   align: { type: null, required: false },
   alignOffset: { type: Number, required: false },
   avoidCollisions: { type: Boolean, required: false },
@@ -22,31 +27,34 @@ const props = defineProps({
   arrowPadding: { type: Number, required: false },
   sticky: { type: String, required: false },
   hideWhenDetached: { type: Boolean, required: false },
+  positionStrategy: { type: String, required: false },
+  updatePositionStrategy: { type: String, required: false },
   class: { type: null, required: false },
 });
 
-const emits = defineEmits(['escapeKeyDown', 'pointerDownOutside']);
+const emits = defineEmits(["escapeKeyDown", "pointerDownOutside"]);
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-
-  return delegated;
-});
-
+const delegatedProps = reactiveOmit(props, "class");
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
   <TooltipPortal>
     <TooltipContent
+      data-slot="tooltip-content"
       v-bind="{ ...forwarded, ...$attrs }"
       :class="
         cn(
-          'z-50 overflow-hidden rounded-md border bg-popover/90 px-3 py-1.5 text-sm text-popover-foreground shadow-md backdrop-blur-xl animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
-          props.class
+          'data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 inline-flex items-center gap-1.5 rounded-none px-3 py-1.5 text-xs has-data-[slot=kbd]:pr-1.5 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-none bg-foreground text-background z-50 w-fit max-w-xs origin-(--reka-tooltip-content-transform-origin)',
+          props.class,
         )
-      ">
+      "
+    >
       <slot />
+
+      <TooltipArrow
+        class="size-2.5 rotate-45 rounded-none bg-foreground fill-foreground z-50 translate-y-[calc(-50%_-_2px)]"
+      />
     </TooltipContent>
   </TooltipPortal>
 </template>

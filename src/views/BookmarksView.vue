@@ -24,12 +24,12 @@ watch(bookmarks, () => {
   </ul>
 
   <div v-else>
-    <div class="flex justify-between rounded-md border bg-background p-3">
+    <div class="bg-background flex justify-between rounded-md border p-3">
       <div class="flex flex-col justify-center">
         <p class="text-base">А где?</p>
-        <p class="text-sm text-muted-foreground">закладок пока нет</p>
+        <p class="text-muted-foreground text-sm">закладок пока нет</p>
       </div>
-      <div class="relative flex items-center text-muted">
+      <div class="text-muted relative flex items-center">
         <IconMoodPuzzled class="size-12" stroke-width="1.75" aria-hidden="true" />
       </div>
     </div>

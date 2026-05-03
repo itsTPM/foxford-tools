@@ -22,7 +22,7 @@ function refreshPage() {
       <FooterLinks></FooterLinks>
     </div>
     <div
-      class="absolute left-0 top-0 h-[50px] w-full -translate-x-full opacity-0 transition-all duration-500"
+      class="absolute top-0 left-0 h-[50px] w-full -translate-x-full opacity-0 transition-all duration-500"
       :class="{
         'translate-x-0': isRefreshNeeded,
         'opacity-100': isRefreshNeeded,

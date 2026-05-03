@@ -13,7 +13,7 @@ const { toggleTheme, setRadius, theme, radius } = useCustomization();
     <li>
       <p>Уровень закругления</p>
       <Slider :max="1" :step="0.25" v-model="radius" @update:modelValue="setRadius" />
-      <div class="flex justify-between text-sm text-muted-foreground" aria-hidden="true">
+      <div class="text-muted-foreground flex justify-between text-sm" aria-hidden="true">
         <p>min</p>
         <p>max</p>
       </div>

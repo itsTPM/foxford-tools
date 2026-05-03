@@ -20,7 +20,7 @@ onBeforeMount(async () => {
       </li>
     </ul>
 
-    <ul class="flex flex-col justify-center gap-5 overflow-y-auto rounded-lg border bg-card px-2 py-4 transition-all">
+    <ul class="bg-card flex flex-col justify-center gap-5 overflow-y-auto rounded-lg border px-2 py-4 transition-all">
       <li v-for="setting in selectedSettingGroup.settings" :key="setting.id">
         <Setting :setting />
       </li>

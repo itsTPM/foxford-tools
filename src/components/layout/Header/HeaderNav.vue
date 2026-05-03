@@ -13,7 +13,7 @@ const routes = router.getRoutes();
       <li v-for="route in routes" :key="route.name">
         <Button
           :aria-label="route.meta.title"
-          :class="$route.name === route.name ? 'bg-active' : ''"
+          :class="$route.name === route.name ? 'bg-muted' : ''"
           size="icon"
           variant="outline"
           as-child>

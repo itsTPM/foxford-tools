@@ -40,9 +40,9 @@ onMounted(async () => {
     <div class="flex justify-between rounded-md border p-3">
       <div class="flex flex-col justify-center">
         <p class="text-base">{{ profileData.bonus_amount }} фоксиков</p>
-        <p class="text-sm text-muted-foreground">у вас на счету</p>
+        <p class="text-muted-foreground text-sm">у вас на счету</p>
       </div>
-      <div class="flex items-center text-muted">
+      <div class="text-muted flex items-center">
         <IconCoins class="size-12" strokeWidth="1.75" aria-hidden="true" />
       </div>
     </div>
@@ -51,9 +51,9 @@ onMounted(async () => {
       <div class="flex justify-between rounded-md rounded-b-none border p-3">
         <div class="flex flex-col justify-center">
           <p class="text-base">{{ levelData.gained_xp }} из {{ levelData.available_xp }} XP</p>
-          <p class="text-sm text-muted-foreground">до следующего уровня</p>
+          <p class="text-muted-foreground text-sm">до следующего уровня</p>
         </div>
-        <div class="flex items-center text-muted">
+        <div class="text-muted flex items-center">
           <IconArrowBadgeUp class="size-12" strokeWidth="1.75" aria-hidden="true" />
         </div>
       </div>

@@ -16,7 +16,7 @@ defineProps({
 <template>
   <div class="flex items-center gap-3">
     <!-- eslint-disable-next-line vue/no-mutating-props -->
-    <Switch v-model:checked="setting.value" @update:checked="toggleSetting(setting.id)" :id="setting.id" />
+    <Switch v-model="setting.value" @update:modelValue="toggleSetting(setting.id)" :id="setting.id" />
     <Label :for="setting.id">
       {{ setting.title }}
     </Label>
