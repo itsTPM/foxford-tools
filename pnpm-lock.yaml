@@ -57,9 +57,6 @@ importers:
       eslint:
         specifier: ^10.3.0
         version: 10.3.0(jiti@2.6.1)
-      eslint-plugin-tailwindcss:
-        specifier: ^3.18.3
-        version: 3.18.3(tailwindcss@4.2.4)
       eslint-plugin-vue:
         specifier: ^10.9.0
         version: 10.9.0(eslint@10.3.0(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@10.3.0(jiti@2.6.1)))
@@ -400,10 +397,6 @@ packages:
 
   '@oxc-project/types@0.127.0':
     resolution: {integrity: sha512-aIYXQBo4lCbO4z0R3FHeucQHpF46l2LbMdxRvqvuRuW2OxdnSkcng5B8+K12spgLDj93rtN3+J2Vac/TIO+ciQ==}
-
-  '@pkgr/core@0.2.9':
-    resolution: {integrity: sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA==}
-    engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
@@ -1200,12 +1193,6 @@ packages:
   escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
-
-  eslint-plugin-tailwindcss@3.18.3:
-    resolution: {integrity: sha512-lqjNX7mt1Ip2qR236hvhbZ9ff2TFLUWou+tBHz82SA1nWFzOZSoEOI+9UBZmuf2977r2MMp9/y3/broyz8AYig==}
-    engines: {node: '>=18.12.0'}
-    peerDependencies:
-      tailwindcss: ^3.4.0 || ^4.0.0
 
   eslint-plugin-vue@10.9.0:
     resolution: {integrity: sha512-EFNNzu4HqtTRb5DJINpyd+u3bDdzETWDMpCzG+UBHz1tpsnMDCeOcf61u4Wy/cbXnMymK+MT9bjH7KcG1fItSw==}
@@ -2346,18 +2333,9 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  synckit@0.11.12:
-    resolution: {integrity: sha512-Bh7QjT8/SuKUIfObSXNHNSK6WHo6J1tHCqJsuaFDP7gP0fkzSfTxI8y85JrppZ0h8l0maIgc2tfuZQ6/t3GtnQ==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-
   table@6.9.0:
     resolution: {integrity: sha512-9kY+CygyYM6j02t5YFHbNz2FN5QmYGv9zAjVp4lCDjlCw7amdckXlEt/bjMhUIfj4ThGRE4gCUH5+yGnNuPo5A==}
     engines: {node: '>=10.0.0'}
-
-  tailwind-api-utils@1.0.3:
-    resolution: {integrity: sha512-KpzUHkH1ug1sq4394SLJX38ZtpeTiqQ1RVyFTTSY2XuHsNSTWUkRo108KmyyrMWdDbQrLYkSHaNKj/a3bmA4sQ==}
-    peerDependencies:
-      tailwindcss: ^3.3.0 || ^4.0.0 || ^4.0.0-beta
 
   tailwind-merge@3.5.0:
     resolution: {integrity: sha512-I8K9wewnVDkL1NTGoqWmVEIlUcB9gFriAEkXkfCjX5ib8ezGxtR3xD7iZIxrfArjEsH7F1CHD4RFUtxefdqV/A==}
@@ -3098,8 +3076,6 @@ snapshots:
 
   '@oxc-project/types@0.127.0': {}
 
-  '@pkgr/core@0.2.9': {}
-
   '@polka/url@1.0.0-next.29':
     optional: true
 
@@ -3832,14 +3808,6 @@ snapshots:
   escape-html@1.0.3: {}
 
   escape-string-regexp@4.0.0: {}
-
-  eslint-plugin-tailwindcss@3.18.3(tailwindcss@4.2.4):
-    dependencies:
-      fast-glob: 3.3.3
-      postcss: 8.5.13
-      synckit: 0.11.12
-      tailwind-api-utils: 1.0.3(tailwindcss@4.2.4)
-      tailwindcss: 4.2.4
 
   eslint-plugin-vue@10.9.0(eslint@10.3.0(jiti@2.6.1))(vue-eslint-parser@10.4.0(eslint@10.3.0(jiti@2.6.1))):
     dependencies:
@@ -4992,10 +4960,6 @@ snapshots:
       picocolors: 1.1.1
       sax: 1.6.0
 
-  synckit@0.11.12:
-    dependencies:
-      '@pkgr/core': 0.2.9
-
   table@6.9.0:
     dependencies:
       ajv: 8.20.0
@@ -5003,13 +4967,6 @@ snapshots:
       slice-ansi: 4.0.0
       string-width: 4.2.3
       strip-ansi: 6.0.1
-
-  tailwind-api-utils@1.0.3(tailwindcss@4.2.4):
-    dependencies:
-      enhanced-resolve: 5.21.0
-      jiti: 2.6.1
-      local-pkg: 1.1.2
-      tailwindcss: 4.2.4
 
   tailwind-merge@3.5.0: {}
 
