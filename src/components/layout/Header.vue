@@ -11,7 +11,7 @@ const routes = router.getRoutes();
     <div class="flex items-center justify-center gap-4">
       <img alt="" class="h-16" src="@/assets/logo/round.png" />
       <div class="flex flex-col text-center">
-        <h1 class="text-2xl">Foxford Tools</h1>
+        <p class="text-2xl">Foxford Tools</p>
         <p class="text-xs">кастомизация сайта Фокса</p>
       </div>
     </div>
