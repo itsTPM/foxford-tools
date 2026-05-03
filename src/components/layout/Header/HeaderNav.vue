@@ -18,7 +18,7 @@ const routes = router.getRoutes();
           variant="outline"
           as-child>
           <RouterLink :to="{ name: route.name }">
-            <component :is="route.meta.icon" class="text-foreground w-6" stroke-width="1.5" aria-hidden="true" />
+            <component :is="route.meta.icon" class="text-foreground" stroke-width="1.5" aria-hidden="true" />
           </RouterLink>
         </Button>
       </li>
