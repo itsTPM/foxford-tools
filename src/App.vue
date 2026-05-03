@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router';
 
 import RouterTitle from '@/components/layout/RouterTitle.vue';
 import Header from '@/components/layout/Header/Header.vue';
-import Footer from '@/components/layout/Footer/Footer.vue';
+import Footer from '@/components/layout/Footer.vue';
 import UpdateHandlerDialog from '@/components/layout/UpdateHandlerDialog.vue';
 import { useCustomization } from '@/composables/useCustomization';
 
