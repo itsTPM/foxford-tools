@@ -21,7 +21,7 @@ onBeforeMount(async () => {
     </ul>
 
     <ul
-      class="bg-card border-border flex flex-col justify-center gap-5 overflow-y-auto rounded-lg border px-2 py-4 transition-all">
+      class="bg-card border-border flex flex-col justify-center gap-4 overflow-y-auto rounded-lg border px-2 py-4 transition-all">
       <li v-for="setting in selectedSettingGroup.settings" :key="setting.id">
         <Setting :setting />
       </li>

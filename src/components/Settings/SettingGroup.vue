@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from 'vue';
-
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button/index.js';
 import { useSettings } from '@/composables/useSettings';
@@ -30,7 +29,7 @@ const isSettingGroupSelected = computed(() => selectedSettingGroup.value.id === 
           @click="selectSettingGroup(settingGroup)"
           :key="settingGroup.id"
           :aria-current="isSettingGroupSelected ? 'page' : null">
-          <component :is="settingGroup.icon" stroke-width="1.5" class="w-6" aria-hidden="true" />
+          <component :is="settingGroup.icon" stroke-width="1.5" aria-hidden="true" />
         </Button>
       </TooltipTrigger>
       <TooltipContent side="right">
