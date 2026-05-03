@@ -7,7 +7,6 @@
     "lint": "eslint .",
     "dev": "vite",
     "test": "vitest",
-    "test:ui": "vitest --ui",
     "preview": "vite preview",
     "build": "vite build",
     "build:chrome": "vite build -- --chrome",
@@ -16,7 +15,6 @@
   "dependencies": {
     "@tabler/icons-vue": "^3.41.1",
     "@tailwindcss/vite": "^4.2.4",
-    "@vueuse/core": "^14.3.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "ofetch": "^1.5.1",
@@ -24,16 +22,12 @@
     "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7",
     "vue": "^3.5.33",
-    "vue-eslint-parser": "^10.4.0",
     "vue-router": "^5.0.6"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.4.0",
     "@eslint/js": "^10.0.1",
-    "@types/node": "^25.6.0",
     "@vitejs/plugin-vue": "^6.0.6",
-    "@vitest/coverage-v8": "4.1.5",
-    "@vitest/ui": "4.1.5",
     "eslint": "^10.3.0",
     "eslint-plugin-tailwindcss": "^3.18.3",
     "eslint-plugin-vue": "^10.9.0",
