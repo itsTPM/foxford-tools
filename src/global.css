@@ -1,7 +1,7 @@
 @import url('@/assets/fonts/Inter/index.css') layer(base);
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import "shadcn-vue/tailwind.css";
+@import 'shadcn-vue/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -126,7 +126,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans w-[325px] p-4 text-[100%];
+    @apply bg-background text-foreground w-[325px] p-4 font-sans text-[100%];
   }
 
   html {

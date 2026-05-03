@@ -1,5 +1,5 @@
 <script setup>
-import { TooltipRoot, useForwardPropsEmits } from "reka-ui";
+import { TooltipRoot, useForwardPropsEmits } from 'reka-ui';
 
 const props = defineProps({
   defaultOpen: { type: Boolean, required: false },
@@ -10,7 +10,7 @@ const props = defineProps({
   disabled: { type: Boolean, required: false },
   ignoreNonKeyboardFocus: { type: Boolean, required: false },
 });
-const emits = defineEmits(["update:open"]);
+const emits = defineEmits(['update:open']);
 
 const forwarded = useForwardPropsEmits(props, emits);
 </script>

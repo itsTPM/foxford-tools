@@ -1,7 +1,7 @@
 <script setup>
-import { reactiveOmit } from "@vueuse/core";
-import { DialogTitle, useForwardProps } from "reka-ui";
-import { cn } from "@/lib/utils";
+import { reactiveOmit } from '@vueuse/core';
+import { DialogTitle, useForwardProps } from 'reka-ui';
+import { cn } from '@/lib/utils';
 
 const props = defineProps({
   asChild: { type: Boolean, required: false },
@@ -9,7 +9,7 @@ const props = defineProps({
   class: { type: null, required: false },
 });
 
-const delegatedProps = reactiveOmit(props, "class");
+const delegatedProps = reactiveOmit(props, 'class');
 
 const forwardedProps = useForwardProps(delegatedProps);
 </script>
@@ -18,8 +18,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   <DialogTitle
     data-slot="dialog-title"
     v-bind="forwardedProps"
-    :class="cn('text-sm font-medium cn-font-heading', props.class)"
-  >
+    :class="cn('cn-font-heading text-sm font-medium', props.class)">
     <slot />
   </DialogTitle>
 </template>

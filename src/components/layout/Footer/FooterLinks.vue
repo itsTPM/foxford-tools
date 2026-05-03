@@ -27,7 +27,7 @@ const links = [
   <div class="flex gap-3">
     <Button size="icon" variant="outline" as-child v-for="link in links" :key="link.name">
       <a :href="link.url" :title="link.name" :aria-label="link.name" target="_blank">
-        <component :is="link.icon" class="w-6 text-foreground" stroke-width="1.5" aria-hidden="true" />
+        <component :is="link.icon" class="text-foreground w-6" stroke-width="1.5" aria-hidden="true" />
       </a>
     </Button>
   </div>

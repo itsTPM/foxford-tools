@@ -1,5 +1,5 @@
 <script setup>
-import { TooltipTrigger } from "reka-ui";
+import { TooltipTrigger } from 'reka-ui';
 
 const props = defineProps({
   reference: { type: null, required: false },
