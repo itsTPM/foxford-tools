@@ -24,7 +24,7 @@ watch(bookmarks, () => {
   </ul>
 
   <div v-else>
-    <div class="bg-background border-border flex justify-between rounded-md border p-3">
+    <div class="bg-background border-border flex justify-between border p-3">
       <div class="flex flex-col justify-center">
         <p class="text-base">А где?</p>
         <p class="text-muted-foreground text-sm">закладок пока нет</p>

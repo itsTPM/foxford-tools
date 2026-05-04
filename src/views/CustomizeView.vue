@@ -1,23 +1,14 @@
 <script setup>
 import { IconSunMoon } from '@tabler/icons-vue';
 
-import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button/';
 import { useCustomization } from '@/composables/useCustomization';
 
-const { toggleTheme, setRadius, theme, radius } = useCustomization();
+const { toggleTheme, theme } = useCustomization();
 </script>
 
 <template>
   <ul class="flex flex-col gap-6 [&_li]:flex [&_li]:flex-col [&_li]:gap-2">
-    <li>
-      <p>Уровень закругления</p>
-      <Slider :max="1" :step="0.25" v-model="radius" @update:modelValue="setRadius" />
-      <div class="text-muted-foreground flex justify-between text-sm" aria-hidden="true">
-        <p>min</p>
-        <p>max</p>
-      </div>
-    </li>
     <li>
       <p>Тема</p>
       <Button @click="toggleTheme" variant="outline" class="w-full gap-2">

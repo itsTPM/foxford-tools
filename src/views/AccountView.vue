@@ -26,8 +26,8 @@ onMounted(async () => {
 
 <template>
   <template v-if="profileData && levelData && !isDataError">
-    <div class="flex items-center gap-5 rounded-md border p-3">
-      <img :src="profileData.avatar_url" alt="Аватар пользователя" class="size-16 rounded-lg object-contain" />
+    <div class="flex items-center gap-5 border p-3">
+      <img :src="profileData.avatar_url" alt="Аватар пользователя" class="size-16 object-contain" />
       <div class="flex flex-col">
         <p class="text-lg font-medium">{{ profileData.full_name }}</p>
         <p class="text-muted-foreground">
@@ -37,7 +37,7 @@ onMounted(async () => {
       </div>
     </div>
 
-    <div class="flex justify-between rounded-md border p-3">
+    <div class="flex justify-between border p-3">
       <div class="flex flex-col justify-center">
         <p class="text-base">{{ profileData.bonus_amount }} фоксиков</p>
         <p class="text-muted-foreground text-sm">у вас на счету</p>
@@ -48,7 +48,7 @@ onMounted(async () => {
     </div>
 
     <div class="flex flex-col">
-      <div class="flex justify-between rounded-md rounded-b-none border p-3">
+      <div class="flex justify-between border p-3">
         <div class="flex flex-col justify-center">
           <p class="text-base">{{ levelData.gained_xp }} из {{ levelData.available_xp }} XP</p>
           <p class="text-muted-foreground text-sm">до следующего уровня</p>
@@ -57,7 +57,7 @@ onMounted(async () => {
           <IconArrowBadgeUp class="size-12" strokeWidth="1.75" aria-hidden="true" />
         </div>
       </div>
-      <Progress :max="levelData.available_xp" v-model="levelData.gained_xp" class="h-1 rounded-t-none" />
+      <Progress :max="levelData.available_xp" v-model="levelData.gained_xp" class="h-1" />
     </div>
   </template>
 
