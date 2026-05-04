@@ -23,23 +23,19 @@ function refreshPage() {
 </script>
 
 <template>
-  <footer class="relative h-15">
+  <footer class="relative h-15 overflow-hidden">
     <div v-if="!isRefreshNeeded" class="flex items-center justify-between">
-      <div class="text-muted-foreground flex items-center justify-center gap-1 text-sm">
-        <IconVersions stroke-width="1.5" class="size-6" aria-hidden="true" />
-
-        <div class="leading-3">
-          <p>версия {{ version }}</p>
-          <a
-            class="text-muted-foreground/50 hover:text-secondary-foreground/75 text-xs transition-colors"
-            href="https://github.com/itsTPM/foxford-tools/releases"
-            target="_blank">
-            что нового?
-          </a>
-        </div>
+      <div class="text-muted-foreground text-sm leading-4">
+        <p>версия {{ version }}</p>
+        <a
+          class="opacity-75 transition-opacity hover:opacity-100"
+          href="https://github.com/itsTPM/foxford-tools/releases"
+          target="_blank">
+          что нового?
+        </a>
       </div>
 
-      <ul class="flex gap-3">
+      <ul class="flex gap-2">
         <li v-for="link in links" :key="link.name">
           <Button size="icon" variant="outline" as-child>
             <a :href="link.url" :title="link.name" :aria-label="link.name" target="_blank">

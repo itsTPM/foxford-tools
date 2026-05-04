@@ -17,7 +17,7 @@ onMounted(() => {
 
 <template>
   <Header />
-  <main class="flex flex-col gap-3 pt-3 pb-6">
+  <main class="flex flex-col gap-3 py-3">
     <RouterTitle />
     <RouterView />
     <UpdateHandlerDialog />

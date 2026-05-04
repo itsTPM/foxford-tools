@@ -17,7 +17,7 @@ const routes = router.getRoutes();
     </div>
 
     <nav>
-      <ul class="flex justify-center gap-3" aria-label="Вкладки">
+      <ul class="flex justify-center gap-2" aria-label="Вкладки">
         <li v-for="route in routes" :key="route.name">
           <Button
             :aria-label="route.meta.title"
