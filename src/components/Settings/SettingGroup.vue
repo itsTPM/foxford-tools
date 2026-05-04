@@ -26,6 +26,7 @@ const isSettingGroupSelected = computed(() => selectedSettingGroup.value.id === 
           }"
           variant="outline"
           size="icon"
+          class="aspect-[0.8] h-auto border-none"
           @click="selectSettingGroup(settingGroup)"
           :key="settingGroup.id"
           :aria-current="isSettingGroupSelected ? 'page' : null">

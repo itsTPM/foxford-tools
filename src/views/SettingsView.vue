@@ -13,15 +13,14 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="flex gap-2">
-    <ul class="flex flex-col gap-2" aria-label="Вкладки настроек">
+  <div class="flex">
+    <ul aria-label="Вкладки настроек" class="border-border border border-r-0">
       <li v-for="settingGroup in settingGroups" :key="settingGroup.id">
         <SettingGroup :settingGroup />
       </li>
     </ul>
 
-    <ul
-      class="bg-card border-border flex flex-col justify-center gap-4 overflow-y-auto rounded-lg border px-2 py-4 transition-all">
+    <ul class="bg-card border-border flex flex-col justify-center gap-4 overflow-y-auto border p-4">
       <li v-for="setting in selectedSettingGroup.settings" :key="setting.id">
         <Setting :setting />
       </li>
