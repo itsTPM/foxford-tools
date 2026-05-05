@@ -23,7 +23,7 @@ const isSettingGroupSelected = computed(() => selectedSettingGroup.value.id === 
         <Button
           variant="outline"
           size="icon"
-          class="aspect-[0.8] h-auto border-none"
+          class="relative aspect-[0.8] h-auto border-none focus-visible:z-1"
           @click="selectSettingGroup(settingGroup)"
           :key="settingGroup.id"
           :aria-current="isSettingGroupSelected ? 'page' : null">

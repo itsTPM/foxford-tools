@@ -1,13 +1,5 @@
 <script setup>
-import {
-  IconBrandGithub,
-  IconWorld,
-  IconBrandTelegram,
-  IconVersions,
-  IconReload,
-  IconSun,
-  IconMoon,
-} from '@tabler/icons-vue';
+import { IconBrandGithub, IconWorld, IconBrandTelegram, IconReload, IconSun, IconMoon } from '@tabler/icons-vue';
 import { Button } from '@/components/ui/button/index.js';
 import { useSettings } from '@/composables/useSettings';
 import { useCustomization } from '@/composables/useCustomization';
@@ -33,10 +25,14 @@ function refreshPage() {
 </script>
 
 <template>
-  <footer class="relative h-15 overflow-hidden">
+  <footer class="relative h-15">
     <div v-if="!isRefreshNeeded" class="flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <Button size="icon" variant="outline" :aria-label="theme === 'light' ? 'Переключить на тёмную тему' : 'Переключить на светлую тему'" @click="toggleTheme">
+        <Button
+          size="icon"
+          variant="outline"
+          :aria-label="theme === 'light' ? 'Переключить на тёмную тему' : 'Переключить на светлую тему'"
+          @click="toggleTheme">
           <IconMoon v-if="theme === 'light'" stroke-width="1.5" aria-hidden="true" />
           <IconSun v-else stroke-width="1.5" aria-hidden="true" />
         </Button>

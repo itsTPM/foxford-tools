@@ -18,11 +18,17 @@ function handleRemoveBookmark() {
 
 <template>
   <div class="flex">
-    <Button class="h-auto w-auto border-r-0 p-2" variant="outline" @click="handleRemoveBookmark">
+    <Button
+      class="relative h-auto w-auto border-r-0 p-2 focus-visible:z-1"
+      variant="outline"
+      @click="handleRemoveBookmark">
       <IconTrash stroke-width="1.5" class="size-5" aria-label="Удалить" />
     </Button>
 
-    <Button variant="outline" class="h-auto flex-1 justify-between gap-2 px-2 py-1 whitespace-normal" as-child>
+    <Button
+      variant="outline"
+      class="relative h-auto flex-1 justify-between gap-2 px-2 py-1 whitespace-normal focus-visible:z-1"
+      as-child>
       <a :href="bookmark.url" target="_blank">
         <div>
           <p class="text-sm">{{ bookmark.title }}</p>
