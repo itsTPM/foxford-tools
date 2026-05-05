@@ -30,13 +30,6 @@ const creationDate = computed(() => {
   return new Date(profileData.value.created_at).toLocaleDateString('ru-RU');
 });
 
-const levelPercent = computed(() => {
-  if (!levelData.value) {
-    return;
-  }
-
-  return Math.floor((levelData.value.gained_xp / levelData.value.available_xp) * 100);
-});
 </script>
 
 <template>
@@ -76,7 +69,7 @@ const levelPercent = computed(() => {
         <IconArrowBadgeUp class="text-muted-foreground size-12" stroke-width="1.5" aria-hidden="true" />
       </div>
 
-      <Progress :max="100" v-model="levelPercent" class="h-0.5" />
+      <Progress :max="levelData.available_xp" :model-value="levelData.gained_xp" class="h-0.5" />
     </div>
   </template>
 </template>
