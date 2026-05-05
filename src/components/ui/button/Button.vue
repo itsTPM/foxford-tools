@@ -1,6 +1,6 @@
 <script setup>
+import { Primitive } from 'reka-ui';
 import { cn } from '@/lib/utils';
-import { Primitive } from 'radix-vue';
 import { buttonVariants } from '.';
 
 const props = defineProps({
@@ -14,10 +14,12 @@ const props = defineProps({
 
 <template>
   <Primitive
+    data-slot="button"
+    :data-variant="variant"
+    :data-size="size"
     :as="as"
     :as-child="asChild"
-    :class="cn(buttonVariants({ variant, size }), props.class)"
-  >
+    :class="cn(buttonVariants({ variant, size }), props.class)">
     <slot />
   </Primitive>
 </template>

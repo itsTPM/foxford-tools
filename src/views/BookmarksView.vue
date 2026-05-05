@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, watch } from 'vue';
-import { IconMoodPuzzled } from '@tabler/icons-vue';
 
 import Bookmark from '@/components/Bookmarks/Bookmark.vue';
 import { useBookmarks } from '@/composables/useBookmarks';
@@ -23,15 +22,8 @@ watch(bookmarks, () => {
     </li>
   </ul>
 
-  <div v-else>
-    <div class="flex justify-between rounded-md border bg-background p-3">
-      <div class="flex flex-col justify-center">
-        <p class="text-base">А где?</p>
-        <p class="text-sm text-muted-foreground">закладок пока нет</p>
-      </div>
-      <div class="relative flex items-center text-muted">
-        <IconMoodPuzzled class="size-12" stroke-width="1.75" aria-hidden="true" />
-      </div>
-    </div>
+  <div v-else class="py-3 text-center">
+    <p class="font-medium">Закладок пока нет</p>
+    <p class="text-muted-foreground text-sm">Попробуйте добавить что-нибудь на странице теории</p>
   </div>
 </template>

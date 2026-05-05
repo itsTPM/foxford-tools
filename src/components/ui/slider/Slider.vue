@@ -1,12 +1,11 @@
 <script setup>
+import { reactiveOmit } from '@vueuse/core';
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack, useForwardPropsEmits } from 'reka-ui';
 import { cn } from '@/lib/utils';
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack, useForwardPropsEmits } from 'radix-vue';
-import { computed } from 'vue';
 
 const props = defineProps({
-  name: { type: String, required: false },
   defaultValue: { type: Array, required: false },
-  modelValue: { type: Array, required: false },
+  modelValue: { type: [Array, null], required: false },
   disabled: { type: Boolean, required: false },
   orientation: { type: String, required: false },
   dir: { type: String, required: false },
@@ -15,37 +14,49 @@ const props = defineProps({
   max: { type: Number, required: false },
   step: { type: Number, required: false },
   minStepsBetweenThumbs: { type: Number, required: false },
+  thumbAlignment: { type: String, required: false },
   asChild: { type: Boolean, required: false },
   as: { type: null, required: false },
+  name: { type: String, required: false },
+  required: { type: Boolean, required: false },
   class: { type: null, required: false },
 });
 const emits = defineEmits(['update:modelValue', 'valueCommit']);
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-
-  return delegated;
-});
+const delegatedProps = reactiveOmit(props, 'class');
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
   <SliderRoot
+    v-slot="{ modelValue }"
+    data-slot="slider"
+    :data-vertical="props.orientation === 'vertical' ? '' : undefined"
     :class="
       cn(
-        'relative flex w-full touch-none select-none items-center data-[orientation=vertical]:h-full data-[orientation=vertical]:w-2 data-[orientation=vertical]:flex-col',
+        'relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col',
         props.class
       )
     "
     v-bind="forwarded">
     <SliderTrack
-      class="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary data-[orientation=vertical]:w-2">
-      <SliderRange class="absolute h-full bg-primary data-[orientation=vertical]:w-full" />
+      data-slot="slider-track"
+      :data-horizontal="props.orientation !== 'vertical' ? '' : undefined"
+      :data-vertical="props.orientation === 'vertical' ? '' : undefined"
+      class="bg-muted relative grow overflow-hidden rounded-none data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1">
+      <SliderRange
+        data-slot="slider-range"
+        :data-horizontal="props.orientation !== 'vertical' ? '' : undefined"
+        :data-vertical="props.orientation === 'vertical' ? '' : undefined"
+        class="bg-primary absolute select-none data-horizontal:h-full data-vertical:w-full" />
     </SliderTrack>
+
     <SliderThumb
       v-for="(_, key) in modelValue"
       :key="key"
-      class="block size-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" />
+      data-slot="slider-thumb"
+      :data-vertical="props.orientation === 'vertical' ? '' : undefined"
+      class="border-ring ring-ring/50 relative block size-3 shrink-0 rounded-none border bg-white transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-1 focus-visible:ring-1 focus-visible:outline-hidden active:ring-1 disabled:pointer-events-none disabled:opacity-50" />
   </SliderRoot>
 </template>

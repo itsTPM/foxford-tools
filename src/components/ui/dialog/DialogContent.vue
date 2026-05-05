@@ -1,16 +1,22 @@
 <script setup>
-import { computed } from 'vue';
-import { DialogClose, DialogContent, DialogOverlay, DialogPortal, useForwardPropsEmits } from 'radix-vue';
+import { reactiveOmit } from '@vueuse/core';
 import { IconX } from '@tabler/icons-vue';
+import { DialogClose, DialogContent, DialogPortal, useForwardPropsEmits } from 'reka-ui';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import DialogOverlay from './DialogOverlay.vue';
+
+defineOptions({
+  inheritAttrs: false,
+});
 
 const props = defineProps({
   forceMount: { type: Boolean, required: false },
-  trapFocus: { type: Boolean, required: false },
   disableOutsidePointerEvents: { type: Boolean, required: false },
   asChild: { type: Boolean, required: false },
   as: { type: null, required: false },
   class: { type: null, required: false },
+  showCloseButton: { type: Boolean, required: false, default: true },
 });
 const emits = defineEmits([
   'escapeKeyDown',
@@ -21,33 +27,30 @@ const emits = defineEmits([
   'closeAutoFocus',
 ]);
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-
-  return delegated;
-});
+const delegatedProps = reactiveOmit(props, 'class');
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
   <DialogPortal>
-    <DialogOverlay
-      class="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+    <DialogOverlay />
     <DialogContent
-      v-bind="forwarded"
+      data-slot="dialog-content"
+      v-bind="{ ...$attrs, ...forwarded }"
       :class="
         cn(
-          'fixed left-1/2 top-1/2 z-50 grid w-full max-w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border bg-background p-6 shadow-lg duration-200 focus:outline-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]',
+          'bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-none p-4 text-xs/relaxed ring-1 duration-100 outline-none sm:max-w-sm',
           props.class
         )
       ">
       <slot />
 
-      <DialogClose
-        class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-        <IconX class="size-4" />
-        <span class="sr-only">Close</span>
+      <DialogClose v-if="showCloseButton" data-slot="dialog-close" as-child>
+        <Button variant="ghost" class="absolute top-2 right-2" size="icon">
+          <IconX />
+          <span class="sr-only">Close</span>
+        </Button>
       </DialogClose>
     </DialogContent>
   </DialogPortal>

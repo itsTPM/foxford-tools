@@ -1,5 +1,5 @@
 <script setup>
-import { DialogRoot, useForwardPropsEmits } from 'radix-vue';
+import { DialogRoot, useForwardPropsEmits } from 'reka-ui';
 
 const props = defineProps({
   open: { type: Boolean, required: false },
@@ -12,7 +12,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <DialogRoot v-bind="forwarded">
-    <slot />
+  <DialogRoot v-slot="slotProps" data-slot="dialog" v-bind="forwarded">
+    <slot v-bind="slotProps" />
   </DialogRoot>
 </template>

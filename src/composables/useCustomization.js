@@ -2,20 +2,14 @@ import { reactive, toRefs } from 'vue';
 
 const state = reactive({
   theme: 'light',
-  radius: [0],
 });
 
 export function useCustomization() {
   function loadSavedCustomizations() {
     const savedTheme = localStorage.getItem('theme');
-    const savedRadius = localStorage.getItem('radius');
 
     if (savedTheme) {
       setTheme(savedTheme);
-    }
-
-    if (savedRadius) {
-      setRadius(savedRadius);
     }
   }
 
@@ -33,16 +27,9 @@ export function useCustomization() {
     localStorage.setItem('theme', newTheme);
   }
 
-  function setRadius(newRadius) {
-    state.radius = [+newRadius];
-    document.documentElement.style.setProperty('--radius', `${newRadius}rem`);
-    localStorage.setItem('radius', newRadius);
-  }
-
   return {
     ...toRefs(state),
     loadSavedCustomizations,
     toggleTheme,
-    setRadius,
   };
 }

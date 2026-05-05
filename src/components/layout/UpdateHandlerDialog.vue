@@ -22,12 +22,12 @@ onMounted(async () => {
     <DialogContent @openAutoFocus.prevent>
       <DialogHeader>
         <DialogTitle>Расширение было обновлено</DialogTitle>
-        <p class="text-sm text-muted-foreground">{{ updateData.previousVersion }} -> {{ updateData.currentVersion }}</p>
+        <p class="text-muted-foreground text-sm">{{ updateData.previousVersion }} -> {{ updateData.currentVersion }}</p>
         <DialogDescription>
           Список новых функций и исправлений можно найти
           <a
             href="https://github.com/itsTPM/foxford-tools/releases"
-            class="text-primary transition-colors hover:text-primary/75"
+            class="text-primary hover:text-primary/75 transition-colors"
             target="_blank">
             на GitHub
           </a>

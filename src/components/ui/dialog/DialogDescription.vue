@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue';
-import { DialogDescription, useForwardProps } from 'radix-vue';
+import { reactiveOmit } from '@vueuse/core';
+import { DialogDescription, useForwardProps } from 'reka-ui';
 import { cn } from '@/lib/utils';
 
 const props = defineProps({
@@ -9,17 +9,21 @@ const props = defineProps({
   class: { type: null, required: false },
 });
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-
-  return delegated;
-});
+const delegatedProps = reactiveOmit(props, 'class');
 
 const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
-  <DialogDescription v-bind="forwardedProps" :class="cn('text-sm text-muted-foreground', props.class)">
+  <DialogDescription
+    data-slot="dialog-description"
+    v-bind="forwardedProps"
+    :class="
+      cn(
+        'text-muted-foreground [&_a]:hover:text-foreground text-xs/relaxed [&_a]:underline [&_a]:underline-offset-3',
+        props.class
+      )
+    ">
     <slot />
   </DialogDescription>
 </template>

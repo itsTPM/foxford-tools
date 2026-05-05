@@ -1,7 +1,6 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import pluginVue from 'eslint-plugin-vue';
-import tailwind from 'eslint-plugin-tailwindcss';
 import { join } from 'path';
 
 /** @type {import('eslint').Linter.Config[]} */
@@ -23,7 +22,6 @@ export default [
   },
   pluginJs.configs.recommended,
   ...pluginVue.configs['flat/essential'],
-  ...tailwind.configs['flat/recommended'],
   {
     settings: {
       tailwindcss: {
