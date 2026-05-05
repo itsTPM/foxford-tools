@@ -29,14 +29,13 @@ const creationDate = computed(() => {
 
   return new Date(profileData.value.created_at).toLocaleDateString('ru-RU');
 });
-
 </script>
 
 <template>
   <p v-if="isDataError" class="text-center">Не удалось загрузить данные</p>
 
   <div v-else-if="isDataLoading" class="flex flex-col items-center justify-center gap-2">
-    <img class="aspect-square w-12 dark:invert" :src="loadingSpinner" />
+    <img class="aspect-square w-12 dark:invert" :src="loadingSpinner" alt="" />
     <p>Загрузка...</p>
   </div>
 
