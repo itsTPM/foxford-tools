@@ -1,5 +1,8 @@
 import { reactive, toRefs } from 'vue';
 import { ofetch } from 'ofetch';
+import { mockProfileData, mockLevelData } from '@/mocks';
+
+const isDev = import.meta.env.VITE_USE_MOCKS === 'true';
 
 const state = reactive({
   profileData: null,
@@ -8,6 +11,10 @@ const state = reactive({
 
 export function useAccount() {
   async function getAllData() {
+    if (isDev) {
+      return { profileData: mockProfileData, levelData: mockLevelData };
+    }
+
     const [profileData, levelData] = await Promise.all([
       getProfileData().catch(() => null),
       getLevelData().catch(() => null),
