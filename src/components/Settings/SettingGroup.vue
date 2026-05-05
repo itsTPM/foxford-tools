@@ -21,9 +21,6 @@ const isSettingGroupSelected = computed(() => selectedSettingGroup.value.id === 
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
-          :class="{
-            'bg-muted': isSettingGroupSelected,
-          }"
           variant="outline"
           size="icon"
           class="aspect-[0.8] h-auto border-none"

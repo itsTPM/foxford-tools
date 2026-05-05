@@ -19,12 +19,7 @@ const routes = router.getRoutes();
     <nav>
       <ul class="flex justify-center gap-2" aria-label="Вкладки">
         <li v-for="route in routes" :key="route.name">
-          <Button
-            :aria-label="route.meta.title"
-            :class="$route.name === route.name && 'bg-muted'"
-            size="icon"
-            variant="outline"
-            as-child>
+          <Button :aria-label="route.meta.title" size="icon" variant="outline" as-child>
             <RouterLink :to="{ name: route.name }">
               <component :is="route.meta.icon" stroke-width="1.5" aria-hidden="true" />
             </RouterLink>
