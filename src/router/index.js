@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import { IconBookmarks, IconBrush, IconSettings, IconUserCircle } from '@tabler/icons-vue';
+import { IconBookmarks, IconSettings, IconUserCircle } from '@tabler/icons-vue';
 
 import SettingsView from '../views/SettingsView.vue';
 
@@ -13,15 +13,6 @@ const router = createRouter({
       meta: {
         title: 'Настройки',
         icon: IconSettings,
-      },
-    },
-    {
-      path: '/themes',
-      name: 'themes',
-      component: () => import('../views/CustomizeView.vue'),
-      meta: {
-        title: 'Кастомизация',
-        icon: IconBrush,
       },
     },
     {
