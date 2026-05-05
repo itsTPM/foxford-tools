@@ -1,7 +1,6 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { IconCoins, IconArrowBadgeUp } from '@tabler/icons-vue';
-
 import { Progress } from '@/components/ui/progress';
 import loadingSpinner from '@/assets/loading-spinner.svg?url';
 import { useAccount } from '@/composables/useAccount';
@@ -22,51 +21,62 @@ onMounted(async () => {
     isDataError.value = true;
   }
 });
+
+const creationDate = computed(() => {
+  if (!profileData.value) {
+    return;
+  }
+
+  return new Date(profileData.value.created_at).toLocaleDateString('ru-RU');
+});
+
+const levelPercent = computed(() => {
+  if (!levelData.value) {
+    return;
+  }
+
+  return Math.floor((levelData.value.gained_xp / levelData.value.available_xp) * 100);
+});
 </script>
 
 <template>
-  <template v-if="profileData && levelData && !isDataError">
-    <div class="flex items-center gap-5 border p-3">
+  <p v-if="isDataError" class="text-center">Не удалось загрузить данные</p>
+
+  <div v-else-if="isDataLoading" class="flex flex-col items-center justify-center gap-2">
+    <img class="aspect-square w-12 dark:invert" :src="loadingSpinner" />
+    <p>Загрузка...</p>
+  </div>
+
+  <template v-else-if="profileData">
+    <div class="border-border flex items-center gap-4 border p-3">
       <img :src="profileData.avatar_url" alt="Аватар пользователя" class="size-16 object-contain" />
-      <div class="flex flex-col">
-        <p class="text-lg font-medium">{{ profileData.full_name }}</p>
-        <p class="text-muted-foreground">
-          создан:
-          {{ new Date(profileData.created_at).toLocaleDateString('ru-RU') }}
-        </p>
+
+      <div>
+        <p class="font-medium">{{ profileData.full_name }}</p>
+        <p class="text-muted-foreground text-sm">создан: {{ creationDate }}</p>
       </div>
     </div>
 
-    <div class="flex justify-between border p-3">
+    <div class="border-border flex justify-between gap-4 border p-3">
       <div class="flex flex-col justify-center">
-        <p class="text-base">{{ profileData.bonus_amount }} фоксиков</p>
+        <p>{{ profileData.bonus_amount }} фоксиков</p>
         <p class="text-muted-foreground text-sm">у вас на счету</p>
       </div>
-      <div class="text-muted flex items-center">
-        <IconCoins class="size-12" strokeWidth="1.75" aria-hidden="true" />
-      </div>
+
+      <IconCoins class="text-muted-foreground size-12" stroke-width="1.5" aria-hidden="true" />
     </div>
 
-    <div class="flex flex-col">
-      <div class="flex justify-between border p-3">
+    <div v-if="levelData">
+      <div class="border-border flex justify-between gap-4 border p-3">
         <div class="flex flex-col justify-center">
-          <p class="text-base">{{ levelData.gained_xp }} из {{ levelData.available_xp }} XP</p>
+          <p>{{ levelData.gained_xp }} из {{ levelData.available_xp }} XP</p>
           <p class="text-muted-foreground text-sm">до следующего уровня</p>
         </div>
-        <div class="text-muted flex items-center">
-          <IconArrowBadgeUp class="size-12" strokeWidth="1.75" aria-hidden="true" />
-        </div>
+
+        <IconArrowBadgeUp class="text-muted-foreground size-12" stroke-width="1.5" aria-hidden="true" />
       </div>
-      <Progress :max="levelData.available_xp" v-model="levelData.gained_xp" class="h-1" />
+
+      <Progress :max="100" v-model="levelPercent" class="h-0.5" />
     </div>
   </template>
-
-  <template v-else-if="isDataLoading && !isDataError">
-    <div class="flex flex-col items-center justify-center gap-2">
-      <img class="aspect-square h-auto w-12 dark:invert" :src="loadingSpinner" />
-      <p>Загрузка данных..</p>
-    </div>
-  </template>
-
-  <template v-else-if="isDataError"> Что-то пошло не так.. </template>
 </template>
