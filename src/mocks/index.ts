@@ -9,6 +9,7 @@ export const mockLevelData = {
   gained_xp: 340,
   available_xp: 500,
   total_xp: 2840,
+  level: 5,
 };
 
 export const mockBookmarks = [

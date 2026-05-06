@@ -1,10 +1,15 @@
-import { reactive, toRefs } from 'vue';
+import { ref, toRefs } from 'vue';
 import { ofetch } from 'ofetch';
 import { mockProfileData, mockLevelData } from '@/mocks';
 
+interface AccountState {
+  profileData: ProfileData | null;
+  levelData: LevelData | null;
+}
+
 const isDev = import.meta.env.VITE_USE_MOCKS === 'true';
 
-const state = reactive({
+const state = ref<AccountState>({
   profileData: null,
   levelData: null,
 });
@@ -15,21 +20,18 @@ export function useAccount() {
       return { profileData: mockProfileData, levelData: mockLevelData };
     }
 
-    const [profileData, levelData] = await Promise.all([
-      getProfileData().catch(() => null),
-      getLevelData().catch(() => null),
-    ]);
+    const [profileData, levelData] = await Promise.all([getProfileData(), getLevelData().catch(() => null)]);
 
     return { profileData, levelData };
   }
 
-  function setAllData(data) {
+  function setAllData(data: AccountState) {
     setProfileData(data.profileData);
     setLevelData(data.levelData);
   }
 
-  async function getProfileData() {
-    const data = await ofetch('https://foxford.ru/api/user/me');
+  async function getProfileData(): Promise<ProfileData> {
+    const data = await ofetch<GetProfileDataResponse>('https://foxford.ru/api/user/me');
 
     return {
       full_name: data.full_name,
@@ -39,23 +41,24 @@ export function useAccount() {
     };
   }
 
-  async function getLevelData() {
-    const data = await ofetch('https://foxford.ru/api/user/level');
+  async function getLevelData(): Promise<LevelData> {
+    const data = await ofetch<GetLevelDataReponse>('https://foxford.ru/api/user/level');
 
     return {
       gained_xp: data.gained_xp,
       available_xp: data.available_xp,
+      level: data.level,
       total_xp: data.total_xp,
     };
   }
 
-  function setProfileData(data) {
-    state.profileData = data;
+  function setProfileData(data: ProfileData | null) {
+    state.value.profileData = data;
     localStorage.setItem('profileData', JSON.stringify(data));
   }
 
-  function setLevelData(data) {
-    state.levelData = data;
+  function setLevelData(data: LevelData | null) {
+    state.value.levelData = data;
     localStorage.setItem('levelData', JSON.stringify(data));
   }
 
@@ -64,16 +67,16 @@ export function useAccount() {
     const savedLevelData = localStorage.getItem('levelData');
 
     if (savedProfileData) {
-      state.profileData = JSON.parse(savedProfileData);
+      state.value.profileData = JSON.parse(savedProfileData);
     }
 
     if (savedLevelData) {
-      state.levelData = JSON.parse(savedLevelData);
+      state.value.levelData = JSON.parse(savedLevelData);
     }
   }
 
   return {
-    ...toRefs(state),
+    ...toRefs(state.value),
     getAllData,
     setAllData,
     getProfileData,
