@@ -1,18 +1,8 @@
 <script setup>
-import { onMounted, watch } from 'vue';
-
 import Bookmark from '@/components/Bookmarks/Bookmark.vue';
 import { useBookmarks } from '@/composables/useBookmarks';
 
-const { bookmarks, loadBookmarksFromStorage, saveBookmarksToStorage } = useBookmarks();
-
-onMounted(async () => {
-  await loadBookmarksFromStorage();
-});
-
-watch(bookmarks, () => {
-  saveBookmarksToStorage();
-});
+const { bookmarks } = useBookmarks();
 </script>
 
 <template>
