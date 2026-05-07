@@ -1,5 +1,5 @@
 import { describe, it, beforeEach, vi, expect } from 'vitest';
-
+import { nextTick } from 'vue';
 import mockChromeAPI from './mockChromeAPI';
 
 const defaultSettings = {
@@ -13,37 +13,34 @@ const defaultSettings = {
 };
 
 describe('useSettings', () => {
-  let settings;
-
-  beforeEach(async () => {
+  beforeEach(() => {
     vi.resetModules();
-    global.chrome = mockChromeAPI();
-
-    const { useSettings } = await import('../useSettings');
-
-    settings = useSettings();
     localStorage.clear();
+    global.chrome = mockChromeAPI() as unknown as typeof chrome;
   });
 
   it('should set settings to true if localStorage is empty', async () => {
-    await settings.loadSettings();
+    const { useSettings } = await import('../useSettings');
+    const { settings } = useSettings();
+    await nextTick();
 
-    expect(settings.settings.value).toEqual(defaultSettings);
+    expect(settings.value).toEqual(defaultSettings);
 
     for (const setting in defaultSettings) {
       expect(localStorage.getItem(setting)).toBe('true');
     }
 
-    expect(chrome.storage.local.set).toHaveBeenCalledTimes(Object.keys(defaultSettings).length);
+    expect(chrome.storage.local.set).toHaveBeenCalledWith(defaultSettings);
   });
 
   it('should load settings from localStorage', async () => {
     localStorage.setItem('readingTime', 'false');
     localStorage.setItem('readingList', 'false');
 
-    await settings.loadSettings();
+    const { useSettings } = await import('../useSettings');
+    const { settings } = useSettings();
 
-    expect(settings.settings.value).toEqual({
+    expect(settings.value).toEqual({
       ...defaultSettings,
       readingTime: false,
       readingList: false,
@@ -51,12 +48,17 @@ describe('useSettings', () => {
   });
 
   it('should toggle setting', async () => {
-    await settings.loadSettings();
+    const { useSettings } = await import('../useSettings');
+    const { settings, toggleSetting } = useSettings();
+    await nextTick();
 
-    await settings.toggleSetting('readingTime');
+    toggleSetting('readingTime');
+    await nextTick();
 
-    expect(settings.settings.value.readingTime).toBe(false);
+    expect(settings.value.readingTime).toBe(false);
     expect(localStorage.getItem('readingTime')).toBe('false');
-    expect(chrome.storage.local.set).toHaveBeenCalledWith({ readingTime: false });
+    expect(chrome.storage.local.set).toHaveBeenLastCalledWith(
+      expect.objectContaining({ readingTime: false })
+    );
   });
 });

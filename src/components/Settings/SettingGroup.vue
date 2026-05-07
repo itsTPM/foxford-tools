@@ -4,7 +4,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { Button } from '@/components/ui/button/index.js';
 import { useSettings } from '@/composables/useSettings';
 
-const { selectedSettingGroup, selectSettingGroup } = useSettings();
+const { selectedSettingGroup } = useSettings();
 
 const props = defineProps({
   settingGroup: {
@@ -24,7 +24,7 @@ const isSettingGroupSelected = computed(() => selectedSettingGroup.value.id === 
           variant="outline"
           size="icon"
           class="relative aspect-[0.8] h-auto border-none focus-visible:z-1"
-          @click="selectSettingGroup(settingGroup)"
+          @click="selectedSettingGroup = settingGroup"
           :key="settingGroup.id"
           :aria-current="isSettingGroupSelected ? 'page' : null">
           <component :is="settingGroup.icon" stroke-width="1.5" aria-hidden="true" />

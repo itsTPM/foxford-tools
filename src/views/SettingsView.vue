@@ -1,15 +1,9 @@
 <script setup>
-import { onBeforeMount } from 'vue';
-
 import SettingGroup from '@/components/Settings/SettingGroup.vue';
 import Setting from '@/components/Settings/Setting.vue';
 import { useSettings } from '@/composables/useSettings';
 
-const { selectedSettingGroup, settingGroups, loadSettings } = useSettings();
-
-onBeforeMount(async () => {
-  await loadSettings();
-});
+const { selectedSettingGroup, settingGroups } = useSettings();
 </script>
 
 <template>

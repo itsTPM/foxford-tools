@@ -5,7 +5,7 @@ import { useSettings } from '@/composables/useSettings';
 import { useCustomization } from '@/composables/useCustomization';
 import manifest from '@/../manifest.json';
 
-const { isRefreshNeeded, setIsRefreshNeeded } = useSettings();
+const { isRefreshNeeded } = useSettings();
 const { toggleTheme, theme } = useCustomization();
 const { version } = manifest;
 
@@ -20,7 +20,7 @@ function refreshPage() {
     chrome.tabs.reload(tabs[0].id);
   });
 
-  setIsRefreshNeeded(false);
+  isRefreshNeeded.value = false;
 }
 </script>
 
