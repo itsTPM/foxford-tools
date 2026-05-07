@@ -6,14 +6,12 @@ import { ofetch } from 'ofetch';
 vi.mock('ofetch');
 
 describe('useAccount', () => {
-  let account: ReturnType<typeof useAccount>;
-
   beforeEach(() => {
-    account = useAccount();
     localStorage.clear();
   });
 
   it('should fetch and set profile data correctly', async () => {
+    const account = useAccount();
     vi.mocked(ofetch).mockResolvedValueOnce(mockProfileData);
 
     const profileData = await account.getProfileData();
@@ -21,13 +19,15 @@ describe('useAccount', () => {
   });
 
   it('should fetch and set level data correctly', async () => {
+    const account = useAccount();
     vi.mocked(ofetch).mockResolvedValueOnce(mockLevelData);
 
     const levelData = await account.getLevelData();
     expect(levelData).toEqual(mockLevelData);
   });
 
-  it('should set and get all data correctly', async () => {
+  it('should set and get all data correctly', () => {
+    const account = useAccount();
     account.setAllData({ profileData: mockProfileData, levelData: mockLevelData });
     expect(account.profileData.value).toEqual(mockProfileData);
     expect(account.levelData.value).toEqual(mockLevelData);
@@ -37,6 +37,7 @@ describe('useAccount', () => {
     localStorage.setItem('profileData', JSON.stringify(mockProfileData));
     localStorage.setItem('levelData', JSON.stringify(mockLevelData));
 
+    const account = useAccount();
     account.loadSavedData();
 
     expect(account.profileData.value).toEqual(mockProfileData);
@@ -44,6 +45,7 @@ describe('useAccount', () => {
   });
 
   it('should handle level data error correctly', async () => {
+    const account = useAccount();
     vi.mocked(ofetch).mockResolvedValueOnce(mockProfileData);
     vi.mocked(ofetch).mockRejectedValueOnce(new Error('Failed to fetch profile data'));
 

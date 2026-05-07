@@ -1,13 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { nextTick } from 'vue';
-import type { useCustomization } from '../useCustomization';
 
 describe('useCustomization', () => {
-  let customization: ReturnType<typeof useCustomization>;
-
-  beforeEach(async () => {
+  beforeEach(() => {
     vi.resetModules();
-
     localStorage.clear();
     document.documentElement.className = '';
   });
@@ -16,7 +12,7 @@ describe('useCustomization', () => {
     localStorage.setItem('theme', 'dark');
 
     const { useCustomization } = await import('../useCustomization');
-    customization = useCustomization();
+    const customization = useCustomization();
     await nextTick();
 
     expect(customization.theme.value).toBe('dark');
@@ -25,14 +21,14 @@ describe('useCustomization', () => {
 
   it('should default to light theme when localStorage is empty', async () => {
     const { useCustomization } = await import('../useCustomization');
-    customization = useCustomization();
+    const customization = useCustomization();
 
     expect(customization.theme.value).toBe('light');
   });
 
   it('should not apply any theme class to DOM on initial load without localStorage', async () => {
     const { useCustomization } = await import('../useCustomization');
-    customization = useCustomization();
+    useCustomization();
     await nextTick();
 
     expect(document.documentElement.classList.contains('light')).toBe(false);
@@ -41,7 +37,7 @@ describe('useCustomization', () => {
 
   it('should toggle theme between light and dark', async () => {
     const { useCustomization } = await import('../useCustomization');
-    customization = useCustomization();
+    const customization = useCustomization();
 
     customization.toggleTheme();
     await nextTick();
