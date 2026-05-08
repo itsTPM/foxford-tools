@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, vi, expect } from 'vitest';
 import { nextTick } from 'vue';
-import mockChromeAPI from './mockChromeAPI';
+import mockChromeAPI from './mockChromeApi';
 
 const defaultSettings = {
   homeworkPercent: true,
@@ -60,8 +60,6 @@ describe('useSettings', () => {
 
     expect(settings.value.readingTime).toBe(false);
     expect(localStorage.getItem('readingTime')).toBe('false');
-    expect(chromeMock.storage.local.set).toHaveBeenLastCalledWith(
-      expect.objectContaining({ readingTime: false })
-    );
+    expect(chromeMock.storage.local.set).toHaveBeenLastCalledWith(expect.objectContaining({ readingTime: false }));
   });
 });

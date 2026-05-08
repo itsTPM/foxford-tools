@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useUpdateHandler } from '../useUpdateHandler';
-import mockChromeAPI from './mockChromeAPI';
+import mockChromeAPI from './mockChromeApi';
 
 describe('useUpdateHandler', () => {
   let chromeMock: ReturnType<typeof mockChromeAPI>;

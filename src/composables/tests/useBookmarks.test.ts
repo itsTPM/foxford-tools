@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { nextTick } from 'vue';
 
 import { mockBookmarks } from '@/mocks';
-import mockChromeAPI from './mockChromeAPI';
+import mockChromeAPI from './mockChromeApi';
 
 describe('useBookmarks', () => {
   let chromeMock: ReturnType<typeof mockChromeAPI>;
