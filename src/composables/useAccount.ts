@@ -42,7 +42,7 @@ export function useAccount() {
   }
 
   async function getLevelData(): Promise<LevelData> {
-    const data = await ofetch<GetLevelDataReponse>('https://foxford.ru/api/user/level');
+    const data = await ofetch<GetLevelDataResponse>('https://foxford.ru/api/user/level');
 
     return {
       gained_xp: data.gained_xp,

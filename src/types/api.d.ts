@@ -16,6 +16,6 @@ interface GetProfileDataResponse extends ProfileData {
   [key: string]: unknown;
 }
 
-interface GetLevelDataReponse extends LevelData {
+interface GetLevelDataResponse extends LevelData {
   [key: string]: unknown;
 }
