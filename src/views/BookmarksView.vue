@@ -1,5 +1,5 @@
 <script setup>
-import Bookmark from '@/components/Bookmarks/Bookmark.vue';
+import BookmarkItem from '@/components/Bookmarks/BookmarkItem.vue';
 import { useBookmarks } from '@/composables/useBookmarks';
 
 const { bookmarks } = useBookmarks();
@@ -8,7 +8,7 @@ const { bookmarks } = useBookmarks();
 <template>
   <ul v-if="bookmarks.length" class="flex flex-col gap-2">
     <li v-for="bookmark in bookmarks" :key="bookmark.url">
-      <Bookmark :bookmark />
+      <BookmarkItem :bookmark />
     </li>
   </ul>
 

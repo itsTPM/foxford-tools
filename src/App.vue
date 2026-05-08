@@ -2,10 +2,10 @@
 import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
 
-import RouterTitle from '@/components/layout/RouterTitle.vue';
-import Header from '@/components/layout/Header.vue';
-import Footer from '@/components/layout/Footer.vue';
-import UpdateHandlerDialog from '@/components/layout/UpdateHandlerDialog.vue';
+import LayoutTitle from '@/components/layout/LayoutTitle.vue';
+import LayoutHeader from '@/components/layout/LayoutHeader.vue';
+import LayoutFooter from '@/components/layout/LayoutFooter.vue';
+import UpdateDialog from '@/components/layout/UpdateDialog.vue';
 import { useCustomization } from '@/composables/useCustomization';
 
 const { loadSavedCustomizations } = useCustomization();
@@ -16,11 +16,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <Header />
+  <LayoutHeader />
   <main class="flex flex-col gap-3 py-3">
-    <RouterTitle />
+    <LayoutTitle />
     <RouterView />
-    <UpdateHandlerDialog />
+    <UpdateDialog />
   </main>
-  <Footer />
+  <LayoutFooter />
 </template>

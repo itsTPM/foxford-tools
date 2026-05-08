@@ -1,6 +1,6 @@
 <script setup>
 import SettingGroup from '@/components/Settings/SettingGroup.vue';
-import Setting from '@/components/Settings/Setting.vue';
+import SettingItem from '@/components/Settings/SettingItem.vue';
 import { useSettings } from '@/composables/useSettings';
 
 const { selectedSettingGroup, settingGroups } = useSettings();
@@ -16,7 +16,7 @@ const { selectedSettingGroup, settingGroups } = useSettings();
 
     <ul class="flex flex-col justify-center gap-4 overflow-y-auto border border-border bg-card p-4">
       <li v-for="setting in selectedSettingGroup.settings" :key="setting.id">
-        <Setting :setting />
+        <SettingItem :setting />
       </li>
     </ul>
   </div>
