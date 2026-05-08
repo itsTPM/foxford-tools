@@ -1,6 +1,6 @@
 <script setup>
-import SettingGroup from '@/components/Settings/SettingGroup.vue';
-import SettingItem from '@/components/Settings/SettingItem.vue';
+import SettingGroup from '@/components/settings/SettingGroup.vue';
+import SettingItem from '@/components/settings/SettingItem.vue';
 import { useSettings } from '@/composables/useSettings';
 
 const { selectedSettingGroup, settingGroups } = useSettings();

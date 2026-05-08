@@ -1,5 +1,5 @@
 <script setup>
-import BookmarkItem from '@/components/Bookmarks/BookmarkItem.vue';
+import BookmarkItem from '@/components/bookmarks/BookmarkItem.vue';
 import { useBookmarks } from '@/composables/useBookmarks';
 
 const { bookmarks } = useBookmarks();
