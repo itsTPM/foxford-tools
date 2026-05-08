@@ -1,18 +1,8 @@
 import { ref, toRefs, watch } from 'vue';
-import type { Component } from 'vue';
 import { IconBook2, IconPercentage, IconWand, IconNotebook } from '@tabler/icons-vue';
+import type { SettingConfig, SettingGroup } from '@/types/settings';
 
-export interface SettingConfig {
-  title: string;
-  id: string;
-}
-
-export interface SettingGroup {
-  title: string;
-  id: string;
-  icon: Component;
-  settings: SettingConfig[];
-}
+export type { SettingConfig, SettingGroup };
 
 type Settings = Record<string, boolean>;
 
