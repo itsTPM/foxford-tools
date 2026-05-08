@@ -6,16 +6,13 @@ import { cn } from '@/lib/utils';
 
 interface Props extends SwitchRootProps {
   class?: HTMLAttributes['class'];
-  size?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  size: 'default',
-});
+const props = defineProps<Props>();
 
 const emits = defineEmits<SwitchRootEmits>();
 
-const delegatedProps = reactiveOmit(props, 'class', 'size');
+const delegatedProps = reactiveOmit(props, 'class');
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
@@ -24,7 +21,6 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
   <SwitchRoot
     v-slot="slotProps"
     data-slot="switch"
-    :data-size="size"
     v-bind="forwarded"
     :class="
       cn(
