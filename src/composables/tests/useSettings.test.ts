@@ -13,10 +13,13 @@ const defaultSettings = {
 };
 
 describe('useSettings', () => {
+  let chromeMock: ReturnType<typeof mockChromeAPI>;
+
   beforeEach(() => {
     vi.resetModules();
     localStorage.clear();
-    global.chrome = mockChromeAPI() as unknown as typeof chrome;
+    chromeMock = mockChromeAPI();
+    global.chrome = chromeMock as unknown as typeof chrome;
   });
 
   it('should set settings to true if localStorage is empty', async () => {
@@ -30,7 +33,7 @@ describe('useSettings', () => {
       expect(localStorage.getItem(setting)).toBe('true');
     }
 
-    expect(chrome.storage.local.set).toHaveBeenCalledWith(defaultSettings);
+    expect(chromeMock.storage.local.set).toHaveBeenCalledWith(defaultSettings);
   });
 
   it('should load settings from localStorage', async () => {
@@ -57,7 +60,7 @@ describe('useSettings', () => {
 
     expect(settings.value.readingTime).toBe(false);
     expect(localStorage.getItem('readingTime')).toBe('false');
-    expect(chrome.storage.local.set).toHaveBeenLastCalledWith(
+    expect(chromeMock.storage.local.set).toHaveBeenLastCalledWith(
       expect.objectContaining({ readingTime: false })
     );
   });
