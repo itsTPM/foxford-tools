@@ -46,17 +46,13 @@ const settingGroups: SettingGroup[] = [
     title: 'Другое',
     id: 'other',
     icon: IconWand,
-    settings: [
-      { title: 'Понятный заголовок страницы', id: 'dynamicTitle' },
-    ],
+    settings: [{ title: 'Понятный заголовок страницы', id: 'dynamicTitle' }],
   },
   {
     title: 'Домашка',
     id: 'homework',
     icon: IconNotebook,
-    settings: [
-      { title: 'Заменить цвет желтых блоков на светло-серый', id: 'fixYellowBlocks' },
-    ],
+    settings: [{ title: 'Заменить цвет желтых блоков на светло-серый', id: 'fixYellowBlocks' }],
   },
 ];
 

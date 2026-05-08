@@ -8,13 +8,13 @@ const { selectedSettingGroup, settingGroups } = useSettings();
 
 <template>
   <div class="flex">
-    <ul aria-label="Вкладки настроек" class="border-border border border-r-0">
+    <ul aria-label="Вкладки настроек" class="border border-r-0 border-border">
       <li v-for="settingGroup in settingGroups" :key="settingGroup.id">
         <SettingGroup :settingGroup />
       </li>
     </ul>
 
-    <ul class="bg-card border-border flex flex-col justify-center gap-4 overflow-y-auto border p-4">
+    <ul class="flex flex-col justify-center gap-4 overflow-y-auto border border-border bg-card p-4">
       <li v-for="setting in selectedSettingGroup.settings" :key="setting.id">
         <Setting :setting />
       </li>

@@ -33,7 +33,7 @@ function handleRemoveBookmark() {
       <a :href="bookmark.url" target="_blank">
         <div>
           <p class="text-sm">{{ bookmark.title }}</p>
-          <p class="text-muted-foreground font-normal">{{ bookmark.courseName }}</p>
+          <p class="font-normal text-muted-foreground">{{ bookmark.courseName }}</p>
         </div>
 
         <img alt="" :src="bookmark.courseImage" class="aspect-square w-16 object-contain" />

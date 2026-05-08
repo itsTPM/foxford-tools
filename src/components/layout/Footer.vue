@@ -36,7 +36,7 @@ function refreshPage() {
           <IconMoon v-if="theme === 'light'" stroke-width="1.5" aria-hidden="true" />
           <IconSun v-else stroke-width="1.5" aria-hidden="true" />
         </Button>
-        <div class="text-muted-foreground text-sm leading-4">
+        <div class="text-sm leading-4 text-muted-foreground">
           <p>версия {{ version }}</p>
           <a
             class="opacity-75 transition-opacity hover:opacity-100"
@@ -59,7 +59,7 @@ function refreshPage() {
     </div>
 
     <div
-      class="bg-background absolute inset-0 size-full -translate-x-full opacity-0 transition-[opacity,translate] duration-500"
+      class="absolute inset-0 size-full -translate-x-full bg-background opacity-0 transition-[opacity,translate] duration-500"
       :class="{
         'translate-x-0': isRefreshNeeded,
         'opacity-100': isRefreshNeeded,

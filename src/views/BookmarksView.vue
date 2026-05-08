@@ -14,6 +14,6 @@ const { bookmarks } = useBookmarks();
 
   <div v-else class="py-3 text-center">
     <p class="font-medium">Закладок пока нет</p>
-    <p class="text-muted-foreground text-sm">Попробуйте добавить что-нибудь на странице теории</p>
+    <p class="text-sm text-muted-foreground">Попробуйте добавить что-нибудь на странице теории</p>
   </div>
 </template>

@@ -2,8 +2,8 @@
   "lsp": {
     "tailwindcss-language-server": {
       "settings": {
-        "classFunctions": ["cva", "cx"],
-      },
-    },
-  },
+        "classFunctions": ["cva", "cx"]
+      }
+    }
+  }
 }

@@ -13,9 +13,7 @@ const props = defineProps({
   type: { type: String, required: false, default: 'button' },
 });
 
-const buttonType = computed(() =>
-  props.as === 'button' && !props.asChild ? props.type : undefined
-);
+const buttonType = computed(() => (props.as === 'button' && !props.asChild ? props.type : undefined));
 </script>
 
 <template>
