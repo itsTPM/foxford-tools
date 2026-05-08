@@ -1,0 +1,41 @@
+import { describe, it, expect, beforeEach } from 'vitest';
+import { useUpdateHandler } from '../useUpdateHandler';
+import mockChromeAPI from './mockChromeAPI';
+
+describe('useUpdateHandler', () => {
+  let chromeMock: ReturnType<typeof mockChromeAPI>;
+  const { getUpdateData, resetUpdateData } = useUpdateHandler();
+
+  beforeEach(() => {
+    chromeMock = mockChromeAPI();
+    global.chrome = chromeMock as unknown as typeof chrome;
+  });
+
+  describe('getUpdateData', () => {
+    it('should return updateData if present', async () => {
+      const mockData = { updateData: { previousVersion: '1.0', currentVersion: '1.1' } };
+      chromeMock.storage.local.get.mockResolvedValue(mockData);
+
+      const result = await getUpdateData();
+
+      expect(result).toEqual(mockData.updateData);
+    });
+
+    it('should return null if updateData is not present', async () => {
+      chromeMock.storage.local.get.mockResolvedValue({});
+
+      const result = await getUpdateData();
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('resetUpdateData', () => {
+    it('should remove updateData from storage and clear badge', async () => {
+      await resetUpdateData();
+
+      expect(chromeMock.storage.local.remove).toHaveBeenCalledWith('updateData');
+      expect(chromeMock.runtime.sendMessage).toHaveBeenCalledWith('clearBadge');
+    });
+  });
+});

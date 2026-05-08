@@ -3,15 +3,16 @@ import { ref, onMounted } from 'vue';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useUpdateHandler } from '@/composables/useUpdateHandler';
 
-const { updateHandler } = useUpdateHandler();
+const { getUpdateData, resetUpdateData } = useUpdateHandler();
 
 const updateData = ref(null);
 const isOpen = ref(false);
 
 onMounted(async () => {
-  updateData.value = await updateHandler();
+  updateData.value = await getUpdateData();
 
   if (updateData.value) {
+    await resetUpdateData();
     isOpen.value = true;
   }
 });
