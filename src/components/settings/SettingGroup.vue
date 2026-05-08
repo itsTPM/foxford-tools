@@ -1,17 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Button } from '@/components/ui/button/index.js';
-import { useSettings } from '@/composables/useSettings';
+import { Button } from '@/components/ui/button';
+import { useSettings, type SettingGroup } from '@/composables/useSettings';
 
 const { selectedSettingGroup } = useSettings();
 
-const props = defineProps({
-  settingGroup: {
-    type: Object,
-    required: true,
-  },
-});
+const props = defineProps<{ settingGroup: SettingGroup }>();
 
 const isSettingGroupSelected = computed(() => selectedSettingGroup.value.id === props.settingGroup.id);
 </script>

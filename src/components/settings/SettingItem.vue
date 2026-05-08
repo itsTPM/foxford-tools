@@ -1,16 +1,11 @@
-<script setup>
-import { Switch } from '@/components/ui/switch/';
-import { Label } from '@/components/ui/label/';
-import { useSettings } from '@/composables/useSettings';
+<script setup lang="ts">
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { useSettings, type SettingConfig } from '@/composables/useSettings';
 
 const { settings, toggleSetting } = useSettings();
 
-defineProps({
-  setting: {
-    type: Object,
-    required: true,
-  },
-});
+defineProps<{ setting: SettingConfig }>();
 </script>
 
 <template>

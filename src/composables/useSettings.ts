@@ -2,12 +2,12 @@ import { ref, toRefs, watch } from 'vue';
 import type { Component } from 'vue';
 import { IconBook2, IconPercentage, IconWand, IconNotebook } from '@tabler/icons-vue';
 
-interface SettingConfig {
+export interface SettingConfig {
   title: string;
   id: string;
 }
 
-interface SettingGroup {
+export interface SettingGroup {
   title: string;
   id: string;
   icon: Component;
