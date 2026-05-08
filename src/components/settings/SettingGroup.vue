@@ -1,8 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { IconBook2, IconPercentage, IconWand, IconNotebook, type Icon } from '@tabler/icons-vue';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
-import { useSettings, type SettingGroup } from '@/composables/useSettings';
+import { useSettings } from '@/composables/useSettings';
+
+const icons: Record<string, Icon> = {
+  percentages: IconPercentage,
+  theory: IconBook2,
+  other: IconWand,
+  homework: IconNotebook,
+};
 
 const { selectedSettingGroup } = useSettings();
 
@@ -22,7 +30,7 @@ const isSettingGroupSelected = computed(() => selectedSettingGroup.value.id === 
           @click="selectedSettingGroup = settingGroup"
           :key="settingGroup.id"
           :aria-current="isSettingGroupSelected ? 'page' : null">
-          <component :is="settingGroup.icon" stroke-width="1.5" aria-hidden="true" />
+          <component :is="icons[settingGroup.id]" stroke-width="1.5" aria-hidden="true" />
         </Button>
       </TooltipTrigger>
       <TooltipContent side="right">

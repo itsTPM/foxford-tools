@@ -1,8 +1,4 @@
 import { ref, toRefs, watch } from 'vue';
-import { IconBook2, IconPercentage, IconWand, IconNotebook } from '@tabler/icons-vue';
-import type { SettingConfig, SettingGroup } from '@/types/settings';
-
-export type { SettingConfig, SettingGroup };
 
 type Settings = Record<string, boolean>;
 
@@ -16,7 +12,6 @@ const settingGroups: SettingGroup[] = [
   {
     title: 'Проценты',
     id: 'percentages',
-    icon: IconPercentage,
     settings: [
       { title: 'Успешность задач из ДЗ', id: 'homeworkPercent' },
       { title: 'Успешность задач с вебинаров', id: 'webinarPercent' },
@@ -25,7 +20,6 @@ const settingGroups: SettingGroup[] = [
   {
     title: 'Теория',
     id: 'theory',
-    icon: IconBook2,
     settings: [
       { title: 'Время чтения статьи', id: 'readingTime' },
       { title: 'Возможность добавлять статьи в закладки', id: 'readingList' },
@@ -35,13 +29,11 @@ const settingGroups: SettingGroup[] = [
   {
     title: 'Другое',
     id: 'other',
-    icon: IconWand,
     settings: [{ title: 'Понятный заголовок страницы', id: 'dynamicTitle' }],
   },
   {
     title: 'Домашка',
     id: 'homework',
-    icon: IconNotebook,
     settings: [{ title: 'Заменить цвет желтых блоков на светло-серый', id: 'fixYellowBlocks' }],
   },
 ];
