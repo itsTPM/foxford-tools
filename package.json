@@ -16,6 +16,10 @@
     "build:chrome": "vue-tsc --noEmit && vite build -- --chrome",
     "build:firefox": "vue-tsc --noEmit && vite build -- --firefox"
   },
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=10"
+  },
   "dependencies": {
     "@tabler/icons-vue": "^3.41.1",
     "@tailwindcss/vite": "^4.2.4",
