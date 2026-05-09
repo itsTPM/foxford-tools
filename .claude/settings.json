@@ -7,8 +7,8 @@
           {
             "type": "command",
             "if": "Bash(git commit*)",
-            "command": "pnpm type-check && pnpm lint",
-            "statusMessage": "Running type-check and lint...",
+            "command": "STAGED=$(git diff --name-only --cached) && echo \"$STAGED\" | xargs -r pnpm exec prettier --write && echo \"$STAGED\" | xargs -r git add && pnpm type-check && pnpm lint",
+            "statusMessage": "Running prettier, type-check and lint...",
             "timeout": 60
           }
         ]
