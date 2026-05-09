@@ -67,11 +67,11 @@ export function useAccount() {
     const savedLevelData = localStorage.getItem('levelData');
 
     if (savedProfileData) {
-      state.value.profileData = JSON.parse(savedProfileData);
+      state.value.profileData = JSON.parse(savedProfileData) as ProfileData;
     }
 
     if (savedLevelData) {
-      state.value.levelData = JSON.parse(savedLevelData);
+      state.value.levelData = JSON.parse(savedLevelData) as LevelData;
     }
   }
 
