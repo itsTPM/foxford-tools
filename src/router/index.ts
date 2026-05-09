@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import { IconBookmarks, IconSettings, IconUserCircle } from '@tabler/icons-vue';
-
 import SettingsView from '../views/SettingsView.vue';
+import BookmarksView from '../views/BookmarksView.vue';
+import AccountView from '../views/AccountView.vue';
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -18,7 +19,7 @@ const router = createRouter({
     {
       path: '/bookmarks',
       name: 'bookmarks',
-      component: () => import('../views/BookmarksView.vue'),
+      component: BookmarksView,
       meta: {
         title: 'Закладки',
         icon: IconBookmarks,
@@ -27,7 +28,7 @@ const router = createRouter({
     {
       path: '/account',
       name: 'account',
-      component: () => import('../views/AccountView.vue'),
+      component: AccountView,
       meta: {
         title: 'Аккаунт',
         icon: IconUserCircle,
