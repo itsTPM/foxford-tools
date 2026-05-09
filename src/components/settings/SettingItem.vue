@@ -10,7 +10,7 @@ defineProps<{ setting: SettingConfig }>();
 
 <template>
   <div class="flex items-center gap-3">
-    <Switch :model-value="settings[setting.id]" @update:modelValue="toggleSetting(setting.id)" :id="setting.id" />
+    <Switch :id="setting.id" :model-value="settings[setting.id]" @update:model-value="toggleSetting(setting.id)" />
     <Label :for="setting.id">{{ setting.title }}</Label>
   </div>
 </template>

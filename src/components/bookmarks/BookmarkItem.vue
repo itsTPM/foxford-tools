@@ -17,8 +17,8 @@ function handleRemoveBookmark() {
     <Button
       class="relative h-auto w-auto border-r-0 p-2 focus-visible:z-1"
       variant="outline"
-      @click="handleRemoveBookmark"
-      aria-label="Удалить">
+      aria-label="Удалить"
+      @click="handleRemoveBookmark">
       <IconTrash stroke-width="1.5" class="size-5" aria-hidden="true" />
     </Button>
 

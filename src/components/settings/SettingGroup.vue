@@ -20,16 +20,16 @@ const isSettingGroupSelected = computed(() => selectedSettingGroup.value.id === 
 </script>
 
 <template>
-  <TooltipProvider :delayDuration="0" disableHoverableContent ignoreNonKeyboardFocus disableClosingTrigger>
+  <TooltipProvider :delay-duration="0" disable-hoverable-content ignore-non-keyboard-focus disable-closing-trigger>
     <Tooltip>
-      <TooltipTrigger asChild>
+      <TooltipTrigger as-child>
         <Button
+          :key="settingGroup.id"
           variant="outline"
           size="icon"
           class="relative aspect-[0.8] h-auto border-none focus-visible:z-1"
-          @click="selectedSettingGroup = settingGroup"
-          :key="settingGroup.id"
-          :aria-current="isSettingGroupSelected ? 'page' : null">
+          :aria-current="isSettingGroupSelected ? 'page' : null"
+          @click="selectedSettingGroup = settingGroup">
           <component :is="icons[settingGroup.id]" stroke-width="1.5" aria-hidden="true" />
         </Button>
       </TooltipTrigger>

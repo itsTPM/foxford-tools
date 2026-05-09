@@ -7,5 +7,7 @@ const title = computed(() => route.meta.title);
 </script>
 
 <template>
-  <h1 class="text-center font-medium" v-if="title">{{ title }}</h1>
+  <h1 v-if="title" class="text-center font-medium">
+    {{ title }}
+  </h1>
 </template>

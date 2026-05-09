@@ -19,8 +19,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Dialog v-model:open="isOpen" v-if="updateData">
-    <DialogContent @openAutoFocus.prevent>
+  <Dialog v-if="updateData" v-model:open="isOpen">
+    <DialogContent @open-auto-focus.prevent>
       <DialogHeader>
         <DialogTitle>Расширение было обновлено</DialogTitle>
         <p class="text-sm text-muted-foreground">{{ updateData.previousVersion }} -> {{ updateData.currentVersion }}</p>

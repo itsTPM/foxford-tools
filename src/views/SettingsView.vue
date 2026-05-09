@@ -10,7 +10,7 @@ const { selectedSettingGroup, settingGroups } = useSettings();
   <div class="flex">
     <ul aria-label="Вкладки настроек" class="border border-r-0 border-border">
       <li v-for="settingGroup in settingGroups" :key="settingGroup.id">
-        <SettingGroup :settingGroup />
+        <SettingGroup :setting-group />
       </li>
     </ul>
 

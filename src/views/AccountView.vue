@@ -44,7 +44,9 @@ const creationDate = computed(() => {
       <img :src="profileData.avatar_url" alt="Аватар пользователя" class="size-16 object-contain" />
 
       <div>
-        <p class="font-medium">{{ profileData.full_name }}</p>
+        <p class="font-medium">
+          {{ profileData.full_name }}
+        </p>
         <p class="text-sm text-muted-foreground">создан: {{ creationDate }}</p>
       </div>
     </div>

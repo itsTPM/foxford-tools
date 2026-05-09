@@ -81,7 +81,7 @@ function refreshPage() {
       }"
       :inert="!isRefreshNeeded">
       <p class="text-center text-xs leading-6">Настройки применятся после перезагрузки</p>
-      <Button variant="outline" @click="refreshPage" size="lg" class="w-full">
+      <Button variant="outline" size="lg" class="w-full" @click="refreshPage">
         <IconReload />
         Перезагрузить страницу
       </Button>
