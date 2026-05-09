@@ -6,6 +6,8 @@
     "preinstall": "npx only-allow pnpm",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "dev": "vite",
     "test": "vitest",
     "preview": "vite preview",
