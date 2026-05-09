@@ -1,13 +1,12 @@
 import { ref, toRefs } from 'vue';
 import { ofetch } from 'ofetch';
 import { mockProfileData, mockLevelData } from '@/mocks';
+import { isDev } from '@/lib/isDev';
 
 interface AccountState {
   profileData: ProfileData | null;
   levelData: LevelData | null;
 }
-
-const isDev = import.meta.env.VITE_USE_MOCKS === 'true';
 
 const state = ref<AccountState>({
   profileData: null,

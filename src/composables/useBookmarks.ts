@@ -1,7 +1,6 @@
 import { ref, toRaw, watch } from 'vue';
 import { mockBookmarks } from '@/mocks';
-
-const isDev = import.meta.env.VITE_USE_MOCKS === 'true';
+import { isDev } from '@/lib/isDev';
 
 const state = ref<Bookmark[]>([]);
 

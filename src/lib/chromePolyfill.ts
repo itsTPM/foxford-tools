@@ -1,0 +1,36 @@
+import { isDev } from './isDev';
+
+if (isDev) {
+  const makeStorageArea = (prefix: string) => ({
+    get<T>(key: string | string[]): Promise<T> {
+      const keys = typeof key === 'string' ? [key] : key;
+      const result: Record<string, unknown> = {};
+      for (const k of keys) {
+        const raw = localStorage.getItem(`${prefix}:${k}`);
+        if (raw !== null) result[k] = JSON.parse(raw) as unknown;
+      }
+      return Promise.resolve(result as T);
+    },
+    set(data: Record<string, unknown>): Promise<void> {
+      for (const [k, v] of Object.entries(data)) {
+        localStorage.setItem(`${prefix}:${k}`, JSON.stringify(v));
+      }
+      return Promise.resolve();
+    },
+    remove(key: string | string[]): Promise<void> {
+      const keys = typeof key === 'string' ? [key] : key;
+      for (const k of keys) localStorage.removeItem(`${prefix}:${k}`);
+      return Promise.resolve();
+    },
+  });
+
+  window.chrome = {
+    storage: {
+      local: makeStorageArea('chrome.local'),
+      sync: makeStorageArea('chrome.sync'),
+    },
+    runtime: {
+      sendMessage: () => Promise.resolve(),
+    },
+  } as unknown as typeof chrome;
+}
