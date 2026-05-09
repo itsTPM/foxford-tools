@@ -1,5 +1,13 @@
-<script setup>
-import { IconBrandGithub, IconWorld, IconBrandTelegram, IconReload, IconSun, IconMoon } from '@tabler/icons-vue';
+<script setup lang="ts">
+import {
+  IconBrandGithub,
+  IconWorld,
+  IconBrandTelegram,
+  IconReload,
+  IconSun,
+  IconMoon,
+  type Icon,
+} from '@tabler/icons-vue';
 import { Button } from '@/components/ui/button/index.js';
 import { useSettings } from '@/composables/useSettings';
 import { useCustomization } from '@/composables/useCustomization';
@@ -9,7 +17,7 @@ const { isRefreshNeeded } = useSettings();
 const { toggleTheme, theme } = useCustomization();
 const { version } = manifest;
 
-const links = [
+const links: { name: string; url: string; icon: Icon }[] = [
   { name: 'GitHub', url: 'https://github.com/itsTPM/foxford-tools', icon: IconBrandGithub },
   { name: 'Telegram', url: 'https://t.me/foxfordclips', icon: IconBrandTelegram },
   { name: 'Сайт', url: 'https://fox.lyosha.dev', icon: IconWorld },
@@ -17,7 +25,14 @@ const links = [
 
 function refreshPage() {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.tabs.reload(tabs[0].id);
+    const tabId = tabs[0].id;
+
+    if (tabId === undefined) {
+      console.error('Tab ID is undefined');
+      return;
+    }
+
+    chrome.tabs.reload();
   });
 
   isRefreshNeeded.value = false;
