@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button/index.js';
 import { useSettings } from '@/composables/useSettings';
 import { useCustomization } from '@/composables/useCustomization';
 import manifest from '@/../manifest.json';
+import { isExtension } from '@/lib/isExtension';
 
 const { isRefreshNeeded } = useSettings();
 const { toggleTheme, theme } = useCustomization();
@@ -24,7 +25,10 @@ const links: { name: string; url: string; icon: Icon }[] = [
 ];
 
 async function refreshPage() {
-  await chrome.tabs.reload();
+  if (isExtension) {
+    await chrome.tabs.reload();
+  }
+
   isRefreshNeeded.value = false;
 }
 </script>

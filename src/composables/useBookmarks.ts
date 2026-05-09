@@ -1,6 +1,6 @@
 import { ref, toRaw, watch } from 'vue';
 import { mockBookmarks } from '@/mocks';
-import { isDev } from '@/lib/isDev';
+import { isExtension } from '@/lib/isExtension';
 
 const state = ref<Bookmark[]>([]);
 
@@ -16,7 +16,7 @@ async function saveBookmarks() {
   await chrome.storage.sync.set({ readingList: toRaw(state.value) });
 }
 
-if (!isDev) {
+if (isExtension) {
   await loadBookmarks();
 
   watch(state, saveBookmarks, { deep: true });

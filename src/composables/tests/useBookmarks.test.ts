@@ -102,8 +102,8 @@ describe('useBookmarks', () => {
     expect(bookmarks.value).toEqual([bookmark]);
   });
 
-  it('should use mock bookmarks in dev mode without calling chrome API', async () => {
-    vi.stubEnv('VITE_USE_MOCKS', 'true');
+  it('should use mock bookmarks outside extension context without calling chrome API', async () => {
+    global.chrome = undefined as unknown as typeof chrome;
 
     const { useBookmarks } = await import('../useBookmarks');
     const { bookmarks } = useBookmarks();

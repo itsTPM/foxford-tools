@@ -1,6 +1,6 @@
-import { isDev } from './isDev';
+import { isExtension } from './isExtension';
 
-if (isDev) {
+if (!isExtension) {
   const makeStorageArea = (prefix: string) => ({
     get<T>(key: string | string[]): Promise<T> {
       const keys = typeof key === 'string' ? [key] : key;

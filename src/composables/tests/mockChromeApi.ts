@@ -14,6 +14,7 @@ export default function mockChromeAPI() {
       },
     },
     runtime: {
+      id: 'test-extension-id',
       sendMessage: vi.fn(),
     },
   };

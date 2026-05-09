@@ -7,6 +7,7 @@ describe('useAccount', () => {
   beforeEach(() => {
     vi.resetModules();
     localStorage.clear();
+    global.chrome = { runtime: { id: 'test-extension-id' } } as unknown as typeof chrome;
   });
 
   it('should fetch and set profile data correctly', async () => {

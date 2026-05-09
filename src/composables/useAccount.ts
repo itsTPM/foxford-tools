@@ -1,7 +1,7 @@
 import { ref, toRefs } from 'vue';
 import { ofetch } from 'ofetch';
 import { mockProfileData, mockLevelData } from '@/mocks';
-import { isDev } from '@/lib/isDev';
+import { isExtension } from '@/lib/isExtension';
 
 interface AccountState {
   profileData: ProfileData | null;
@@ -15,7 +15,7 @@ const state = ref<AccountState>({
 
 export function useAccount() {
   async function getAllData() {
-    if (isDev) {
+    if (!isExtension) {
       return { profileData: mockProfileData, levelData: mockLevelData };
     }
 
