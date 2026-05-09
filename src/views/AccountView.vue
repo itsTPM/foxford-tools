@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
 import { IconCoins, IconArrowBadgeUp } from '@tabler/icons-vue';
 import { Progress } from '@/components/ui/progress';
