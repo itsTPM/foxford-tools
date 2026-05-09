@@ -27,6 +27,8 @@ jobs:
         run: pnpm run lint
       - name: Check formatting
         run: pnpm run format:check
+      - name: Type-check
+        run: pnpm run type-check
       - name: Run tests
         run: pnpm run test
       - name: Build for Chrome

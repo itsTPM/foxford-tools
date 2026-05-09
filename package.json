@@ -12,9 +12,9 @@
     "dev": "vite",
     "test": "vitest",
     "preview": "vite preview",
-    "build": "vue-tsc --noEmit && vite build",
-    "build:chrome": "vue-tsc --noEmit && vite build -- --chrome",
-    "build:firefox": "vue-tsc --noEmit && vite build -- --firefox"
+    "build": "vite build",
+    "build:chrome": "vite build -- --chrome",
+    "build:firefox": "vite build -- --firefox"
   },
   "engines": {
     "node": ">=24",
