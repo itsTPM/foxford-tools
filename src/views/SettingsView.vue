@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import SettingGroup from '@/components/settings/SettingGroup.vue';
 import SettingItem from '@/components/settings/SettingItem.vue';
 import { useSettings } from '@/composables/useSettings';
