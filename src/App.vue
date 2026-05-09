@@ -1,18 +1,11 @@
-<script setup>
-import { onMounted } from 'vue';
+<script setup lang="ts">
 import { RouterView } from 'vue-router';
 
 import LayoutTitle from '@/components/layout/LayoutTitle.vue';
 import LayoutHeader from '@/components/layout/LayoutHeader.vue';
 import LayoutFooter from '@/components/layout/LayoutFooter.vue';
 import UpdateDialog from '@/components/layout/UpdateDialog.vue';
-import { useCustomization } from '@/composables/useCustomization';
-
-const { loadSavedCustomizations } = useCustomization();
-
-onMounted(() => {
-  loadSavedCustomizations();
-});
+import '@/composables/useCustomization';
 </script>
 
 <template>
