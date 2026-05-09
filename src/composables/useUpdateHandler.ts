@@ -1,4 +1,4 @@
-interface UpdateData {
+export interface UpdateData {
   previousVersion: string;
   currentVersion: string;
 }

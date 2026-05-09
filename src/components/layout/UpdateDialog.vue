@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { useUpdateHandler } from '@/composables/useUpdateHandler';
+import { useUpdateHandler, type UpdateData } from '@/composables/useUpdateHandler';
 
 const { getUpdateData, resetUpdateData } = useUpdateHandler();
 
-const updateData = ref(null);
+const updateData = ref<UpdateData | null>(null);
 const isOpen = ref(false);
 
 onMounted(async () => {
@@ -19,7 +19,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <Dialog v-model:open="isOpen">
+  <Dialog v-model:open="isOpen" v-if="updateData">
     <DialogContent @openAutoFocus.prevent>
       <DialogHeader>
         <DialogTitle>Расширение было обновлено</DialogTitle>
