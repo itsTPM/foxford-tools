@@ -1,15 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { IconTrash } from '@tabler/icons-vue';
 import { Button } from '../ui/button/';
 import { useBookmarks } from '@/composables/useBookmarks';
+
 const { removeBookmark } = useBookmarks();
 
-const props = defineProps({
-  bookmark: {
-    type: Object,
-    required: true,
-  },
-});
+const props = defineProps<{ bookmark: Bookmark }>();
 
 function handleRemoveBookmark() {
   removeBookmark(props.bookmark);

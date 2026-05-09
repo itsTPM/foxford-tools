@@ -1,13 +1,6 @@
 import { ref, toRaw, watch } from 'vue';
 import { mockBookmarks } from '@/mocks';
 
-interface Bookmark {
-  url: string;
-  title: string;
-  courseName?: string;
-  courseImage?: string;
-}
-
 const isDev = import.meta.env.VITE_USE_MOCKS === 'true';
 
 const state = ref<Bookmark[]>([]);
