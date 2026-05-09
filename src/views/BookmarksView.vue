@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import BookmarkItem from '@/components/bookmarks/BookmarkItem.vue';
 import { useBookmarks } from '@/composables/useBookmarks';
 
