@@ -48,16 +48,17 @@ function loadSettings() {
   for (const settingGroup of settingGroups) {
     for (const setting of settingGroup.settings) {
       const storageValue = localStorage.getItem(setting.id);
-      state.value.settings[setting.id] = storageValue !== null ? JSON.parse(storageValue) : true;
+      state.value.settings[setting.id] = storageValue !== null ? (JSON.parse(storageValue) as boolean) : true;
     }
   }
 }
 
-function saveSettings(settings: Settings) {
+async function saveSettings(settings: Settings) {
   for (const [id, value] of Object.entries(settings)) {
     localStorage.setItem(id, String(value));
   }
-  chrome.storage.local.set(settings);
+
+  await chrome.storage.local.set(settings);
 }
 
 watch(() => state.value.settings, saveSettings, { deep: true });
