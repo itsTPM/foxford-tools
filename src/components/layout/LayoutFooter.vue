@@ -23,18 +23,8 @@ const links: { name: string; url: string; icon: Icon }[] = [
   { name: 'Сайт', url: 'https://fox.lyosha.dev', icon: IconWorld },
 ];
 
-function refreshPage() {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const tabId = tabs[0].id;
-
-    if (tabId === undefined) {
-      console.error('Tab ID is undefined');
-      return;
-    }
-
-    chrome.tabs.reload();
-  });
-
+async function refreshPage() {
+  await chrome.tabs.reload();
   isRefreshNeeded.value = false;
 }
 </script>
