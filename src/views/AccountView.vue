@@ -4,19 +4,18 @@ import { IconCoins, IconArrowBadgeUp } from '@tabler/icons-vue';
 import { Progress } from '@/components/ui/progress';
 import loadingSpinner from '@/assets/loading-spinner.svg?url';
 import { useAccount } from '@/composables/useAccount';
-const { profileData, levelData, getAllData, setAllData } = useAccount();
+const { profileData, levelData, fetchData } = useAccount();
 
 const isDataLoading = ref(true);
 const isDataError = ref(false);
 
 onMounted(async () => {
-  const data = await getAllData();
-  isDataLoading.value = false;
-
-  if (data.profileData && data.levelData) {
-    setAllData(data);
-  } else {
+  try {
+    await fetchData();
+  } catch {
     isDataError.value = true;
+  } finally {
+    isDataLoading.value = false;
   }
 });
 

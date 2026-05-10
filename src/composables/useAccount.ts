@@ -14,22 +14,20 @@ const state = ref<AccountState>({
 });
 
 export function useAccount() {
-  async function getAllData() {
+  async function fetchData() {
     if (!isExtension) {
-      return { profileData: mockProfileData, levelData: mockLevelData };
+      state.value.profileData = mockProfileData;
+      state.value.levelData = mockLevelData;
+      return;
     }
 
-    const [profileData, levelData] = await Promise.all([getProfileData(), getLevelData().catch(() => null)]);
+    const [profileData, levelData] = await Promise.all([fetchProfileData(), fetchLevelData().catch(() => null)]);
 
-    return { profileData, levelData };
+    state.value.profileData = profileData;
+    state.value.levelData = levelData;
   }
 
-  function setAllData(data: AccountState) {
-    setProfileData(data.profileData);
-    setLevelData(data.levelData);
-  }
-
-  async function getProfileData(): Promise<ProfileData> {
+  async function fetchProfileData(): Promise<ProfileData> {
     const data = await ofetch<GetProfileDataResponse>('https://foxford.ru/api/user/me');
 
     return {
@@ -40,7 +38,7 @@ export function useAccount() {
     };
   }
 
-  async function getLevelData(): Promise<LevelData> {
+  async function fetchLevelData(): Promise<LevelData> {
     const data = await ofetch<GetLevelDataResponse>('https://foxford.ru/api/user/level');
 
     return {
@@ -51,21 +49,10 @@ export function useAccount() {
     };
   }
 
-  function setProfileData(data: ProfileData | null) {
-    state.value.profileData = data;
-  }
-
-  function setLevelData(data: LevelData | null) {
-    state.value.levelData = data;
-  }
-
   return {
     ...toRefs(state.value),
-    getAllData,
-    setAllData,
-    getProfileData,
-    getLevelData,
-    setProfileData,
-    setLevelData,
+    fetchData,
+    fetchProfileData,
+    fetchLevelData,
   };
 }

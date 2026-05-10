@@ -9,46 +9,48 @@ describe('useAccount', () => {
     global.chrome = { runtime: { id: 'test-extension-id' } } as unknown as typeof chrome;
   });
 
-  it('should fetch and set profile data correctly', async () => {
+  it('should fetch profile data correctly', async () => {
     const { useAccount } = await import('../useAccount');
     const { ofetch } = await import('ofetch');
     vi.mocked(ofetch).mockResolvedValueOnce(mockProfileData);
 
     const account = useAccount();
-    const profileData = await account.getProfileData();
+    const profileData = await account.fetchProfileData();
     expect(profileData).toEqual(mockProfileData);
   });
 
-  it('should fetch and set level data correctly', async () => {
+  it('should fetch level data correctly', async () => {
     const { useAccount } = await import('../useAccount');
     const { ofetch } = await import('ofetch');
     vi.mocked(ofetch).mockResolvedValueOnce(mockLevelData);
 
     const account = useAccount();
-    const levelData = await account.getLevelData();
+    const levelData = await account.fetchLevelData();
     expect(levelData).toEqual(mockLevelData);
   });
 
-  it('should set and get all data correctly', async () => {
+  it('should populate state after fetchData', async () => {
     const { useAccount } = await import('../useAccount');
+    const { ofetch } = await import('ofetch');
+    vi.mocked(ofetch).mockResolvedValueOnce(mockProfileData);
+    vi.mocked(ofetch).mockResolvedValueOnce(mockLevelData);
+
     const account = useAccount();
-    account.setAllData({ profileData: mockProfileData, levelData: mockLevelData });
+    await account.fetchData();
     expect(account.profileData.value).toEqual(mockProfileData);
     expect(account.levelData.value).toEqual(mockLevelData);
   });
 
-  it('should handle level data error correctly', async () => {
+  it('should set levelData to null when level fetch fails', async () => {
     const { useAccount } = await import('../useAccount');
     const { ofetch } = await import('ofetch');
     vi.mocked(ofetch).mockResolvedValueOnce(mockProfileData);
-    vi.mocked(ofetch).mockRejectedValueOnce(new Error('Failed to fetch profile data'));
+    vi.mocked(ofetch).mockRejectedValueOnce(new Error('Failed to fetch level data'));
 
     const account = useAccount();
-    const data = await account.getAllData();
+    await account.fetchData();
 
-    expect(data).toEqual({
-      profileData: mockProfileData,
-      levelData: null,
-    });
+    expect(account.profileData.value).toEqual(mockProfileData);
+    expect(account.levelData.value).toBeNull();
   });
 });
