@@ -17,9 +17,9 @@ async function saveBookmarks() {
 }
 
 if (isExtension) {
-  await loadBookmarks();
-
-  watch(state, saveBookmarks, { deep: true });
+  void loadBookmarks().then(() => {
+    watch(state, saveBookmarks, { deep: true });
+  });
 } else {
   state.value = mockBookmarks;
 }
