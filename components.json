@@ -1,8 +1,8 @@
 {
   "$schema": "https://shadcn-vue.com/schema.json",
   "style": "reka-lyra",
-  "font": "inter",
-  "typescript": false,
+  "font": "none",
+  "typescript": true,
   "tailwind": {
     "config": "",
     "css": "src/global.css",
