@@ -119,15 +119,15 @@
 }
 
 @layer base {
-  * {
-    @apply select-none;
+  html {
+    @apply scrollbar-stable-both;
   }
 
   body {
-    @apply bg-background text-foreground w-[350px] p-4 font-sans;
+    @apply min-h-112 w-87.5 bg-background p-4 font-sans text-foreground select-none;
   }
 
-  html {
-    @apply scrollbar-stable-both;
+  #app {
+    @apply flex min-h-100 flex-col;
   }
 }

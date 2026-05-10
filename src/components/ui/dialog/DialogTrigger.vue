@@ -1,10 +1,7 @@
-<script setup>
-import { DialogTrigger } from 'reka-ui';
+<script setup lang="ts">
+import { DialogTrigger, type DialogTriggerProps } from 'reka-ui';
 
-const props = defineProps({
-  asChild: { type: Boolean, required: false },
-  as: { type: null, required: false },
-});
+const props = defineProps<DialogTriggerProps>();
 </script>
 
 <template>

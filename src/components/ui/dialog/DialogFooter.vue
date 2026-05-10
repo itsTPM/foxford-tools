@@ -1,11 +1,16 @@
-<script setup>
+<script setup lang="ts">
+import { type HTMLAttributes } from 'vue';
 import { DialogClose } from 'reka-ui';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
-const props = defineProps({
-  class: { type: null, required: false },
-  showCloseButton: { type: Boolean, required: false, default: false },
+interface Props {
+  class?: HTMLAttributes['class'];
+  showCloseButton?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  showCloseButton: false,
 });
 </script>
 
