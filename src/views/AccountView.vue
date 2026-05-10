@@ -2,7 +2,7 @@
 import { onMounted, ref, computed } from 'vue';
 import { IconCoins, IconArrowBadgeUp } from '@tabler/icons-vue';
 import { Progress } from '@/components/ui/progress';
-import loadingSpinner from '@/assets/loading-spinner.svg?url';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useAccount } from '@/composables/useAccount';
 const { profileData, levelData, fetchData } = useAccount();
 
@@ -31,10 +31,34 @@ const creationDate = computed(() => {
 <template>
   <p v-if="isDataError" class="text-center">Не удалось загрузить данные</p>
 
-  <div v-else-if="isDataLoading" class="flex flex-col items-center justify-center gap-2">
-    <img class="aspect-square w-12 dark:invert" :src="loadingSpinner" alt="" />
-    <p>Загрузка...</p>
-  </div>
+  <template v-else-if="isDataLoading">
+    <div class="flex items-center gap-4 border border-border p-3">
+      <Skeleton class="size-16 shrink-0" />
+      <div class="flex flex-col gap-2">
+        <Skeleton class="h-4 w-32" />
+        <Skeleton class="h-3 w-24" />
+      </div>
+    </div>
+
+    <div class="flex justify-between gap-4 border border-border p-3">
+      <div class="flex flex-col justify-center gap-2">
+        <Skeleton class="h-4 w-28" />
+        <Skeleton class="h-3 w-20" />
+      </div>
+      <Skeleton class="size-12 shrink-0" />
+    </div>
+
+    <div>
+      <div class="flex justify-between gap-4 border border-border p-3">
+        <div class="flex flex-col justify-center gap-2">
+          <Skeleton class="h-4 w-36" />
+          <Skeleton class="h-3 w-32" />
+        </div>
+        <Skeleton class="size-12 shrink-0" />
+      </div>
+      <Skeleton class="h-0.5 w-full" />
+    </div>
+  </template>
 
   <template v-else-if="profileData">
     <div class="flex items-center gap-4 border border-border p-3">
