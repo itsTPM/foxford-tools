@@ -8,7 +8,7 @@ import {
   IconMoon,
   type Icon,
 } from '@tabler/icons-vue';
-import { Button } from '@/components/ui/button/index.js';
+import { Button } from '@/components/ui/button';
 import { useSettings } from '@/composables/useSettings';
 import { useCustomization } from '@/composables/useCustomization';
 import manifest from '@/../manifest.json';
