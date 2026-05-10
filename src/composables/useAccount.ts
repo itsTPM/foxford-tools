@@ -53,25 +53,10 @@ export function useAccount() {
 
   function setProfileData(data: ProfileData | null) {
     state.value.profileData = data;
-    localStorage.setItem('profileData', JSON.stringify(data));
   }
 
   function setLevelData(data: LevelData | null) {
     state.value.levelData = data;
-    localStorage.setItem('levelData', JSON.stringify(data));
-  }
-
-  function loadSavedData() {
-    const savedProfileData = localStorage.getItem('profileData');
-    const savedLevelData = localStorage.getItem('levelData');
-
-    if (savedProfileData) {
-      state.value.profileData = JSON.parse(savedProfileData) as ProfileData;
-    }
-
-    if (savedLevelData) {
-      state.value.levelData = JSON.parse(savedLevelData) as LevelData;
-    }
   }
 
   return {
@@ -82,6 +67,5 @@ export function useAccount() {
     getLevelData,
     setProfileData,
     setLevelData,
-    loadSavedData,
   };
 }

@@ -4,12 +4,10 @@ import { IconCoins, IconArrowBadgeUp } from '@tabler/icons-vue';
 import { Progress } from '@/components/ui/progress';
 import loadingSpinner from '@/assets/loading-spinner.svg?url';
 import { useAccount } from '@/composables/useAccount';
-const { profileData, levelData, loadSavedData, getAllData, setAllData } = useAccount();
+const { profileData, levelData, getAllData, setAllData } = useAccount();
 
 const isDataLoading = ref(true);
 const isDataError = ref(false);
-
-loadSavedData();
 
 onMounted(async () => {
   const data = await getAllData();

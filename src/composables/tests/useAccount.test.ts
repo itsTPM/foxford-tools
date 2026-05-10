@@ -6,7 +6,6 @@ vi.mock('ofetch');
 describe('useAccount', () => {
   beforeEach(() => {
     vi.resetModules();
-    localStorage.clear();
     global.chrome = { runtime: { id: 'test-extension-id' } } as unknown as typeof chrome;
   });
 
@@ -34,18 +33,6 @@ describe('useAccount', () => {
     const { useAccount } = await import('../useAccount');
     const account = useAccount();
     account.setAllData({ profileData: mockProfileData, levelData: mockLevelData });
-    expect(account.profileData.value).toEqual(mockProfileData);
-    expect(account.levelData.value).toEqual(mockLevelData);
-  });
-
-  it('should load saved data from localStorage', async () => {
-    localStorage.setItem('profileData', JSON.stringify(mockProfileData));
-    localStorage.setItem('levelData', JSON.stringify(mockLevelData));
-
-    const { useAccount } = await import('../useAccount');
-    const account = useAccount();
-    account.loadSavedData();
-
     expect(account.profileData.value).toEqual(mockProfileData);
     expect(account.levelData.value).toEqual(mockLevelData);
   });
