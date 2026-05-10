@@ -10,7 +10,7 @@ import '@/composables/useCustomization';
 
 <template>
   <LayoutHeader />
-  <main class="flex flex-col gap-3 py-3">
+  <main class="flex flex-1 flex-col gap-3 py-3">
     <LayoutTitle />
     <RouterView />
     <UpdateDialog />
