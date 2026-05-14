@@ -1,7 +1,7 @@
-import { Element, Observer } from '../../classes';
+import { createElement, createObserver } from '../../classes';
 
-export default function createReadingTimeObserver() {
-  const observer = new Observer({
+export function createReadingTimeObserver() {
+  const observer = createObserver({
     targetElementSelector: '#wikiThemeContent',
     createdElementSelector: '#readingTime',
     urlPart: 'conspects',
@@ -11,7 +11,7 @@ export default function createReadingTimeObserver() {
   observer.observe();
 }
 
-function observerCallback(element) {
+function observerCallback(element: Element) {
   const conspectText = getConspectText(element);
   const wordCount = calculateWordCount(conspectText);
   const readingTime = calculateReadingTime(wordCount);
@@ -23,21 +23,21 @@ function observerCallback(element) {
   });
 }
 
-function getConspectText(element) {
-  return element.textContent;
+function getConspectText(element: Element): string {
+  return element.textContent ?? '';
 }
 
-function calculateWordCount(text) {
+function calculateWordCount(text: string): number {
   return [...text.matchAll(/[^\s]+/g)].length;
 }
 
-function calculateReadingTime(wordCount) {
+function calculateReadingTime(wordCount: number): number {
   const WORDS_PER_MINUTE = 150;
 
   return Math.round(wordCount / WORDS_PER_MINUTE);
 }
 
-function calculateReadingTimeElementText(readingTime) {
+function calculateReadingTimeElementText(readingTime: number): string {
   if (readingTime > 0) {
     return `~${readingTime} мин. чтения`;
   }
@@ -45,15 +45,15 @@ function calculateReadingTimeElementText(readingTime) {
   return `меньше минуты чтения`;
 }
 
-function createReadingTimeElement({ textContent, element }) {
-  new Element({
+function createReadingTimeElement({ textContent, element }: { textContent: string; element: Element }) {
+  createElement({
     tag: 'div',
     properties: {
       textContent,
       className: 'readingTime',
       id: 'readingTime',
     },
-    parent: element.parentNode,
+    parent: element.parentElement,
     insertMethod: 'prepend',
   });
 }
