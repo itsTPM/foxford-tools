@@ -25,7 +25,7 @@ async function observerCallback(element: Element) {
   const homeworkLink = getHomeworkLink(element);
   if (!homeworkLink || homeworkLink.includes('trainings')) return;
 
-  const homeworkId = homeworkLink.match(/[0-9]+/g);
+  const homeworkId = homeworkLink.match(/lessons\/(\d+)/)?.[1];
   if (!homeworkId) return;
 
   const tasks = await getTasks(homeworkId);
@@ -44,8 +44,8 @@ function getHomeworkLink(element: Element): string | undefined {
   return element.closest<HTMLAnchorElement>('a[href]')?.href;
 }
 
-async function getTasks(homeworkId: RegExpMatchArray): Promise<Task[] | undefined> {
-  return makeRequest<Task[]>({ url: `lessons/${homeworkId.join(',')}/tasks`, cacheCallback });
+async function getTasks(homeworkId: string): Promise<Task[] | undefined> {
+  return makeRequest<Task[]>({ url: `lessons/${homeworkId}/tasks`, cacheCallback });
 }
 
 function cacheCallback(data: Task[]): boolean {
