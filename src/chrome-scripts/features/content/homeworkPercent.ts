@@ -29,10 +29,9 @@ async function observerCallback(element: Element) {
   if (!homeworkId) return;
 
   const tasks = await getTasks(homeworkId);
-  const result = calculatePercent(tasks);
-  if (!result) return;
+  if (!tasks) return;
 
-  const { percent, totalTasksCount, solvedTasksCount } = result;
+  const { percent, totalTasksCount, solvedTasksCount } = calculatePercent(tasks);
   const percentElement = setupHomeworkPercentElement(percent, element);
 
   if (checkIsShouldUseLegendary({ percent, totalTasksCount, solvedTasksCount })) {
@@ -52,11 +51,7 @@ function cacheCallback(data: Task[]) {
   return data.every(({ status }) => SOLVED_STATUSES.includes(status));
 }
 
-function calculatePercent(tasks: Task[] | undefined) {
-  if (!Array.isArray(tasks)) {
-    return;
-  }
-
+function calculatePercent(tasks: Task[]) {
   let totalTasksCount = 0;
   let solvedTasksCount = 0;
   let solvedTasksRate = 0;
