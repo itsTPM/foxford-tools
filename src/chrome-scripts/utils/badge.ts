@@ -1,4 +1,4 @@
-const badge = {
+export const badge = {
   set(text = '1') {
     const BG_COLOR = '#C63C51';
     const TEXT_COLOR = '#FFFFFF';
@@ -12,5 +12,3 @@ const badge = {
     chrome.action.setBadgeText({ text: '' });
   },
 };
-
-export default badge;
