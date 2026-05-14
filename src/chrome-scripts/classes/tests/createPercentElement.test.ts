@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { PercentElement } from '../';
+import { createPercentElement } from '../';
 
-describe('PercentElement', () => {
+describe('createPercentElement', () => {
   it('should create an element with "не начато" text and "percent-gray" class for NaN, undefined, or null percent', () => {
     const percents = [NaN, undefined, null];
 
     for (const percent of percents) {
-      const element = new PercentElement({ percent });
+      const element = createPercentElement({ percent, parent: document.createElement('div') });
       expect(element.textContent).toBe('не начато');
       expect(element.classList.contains('percent-gray')).toBe(true);
     }
@@ -16,7 +16,7 @@ describe('PercentElement', () => {
     const percents = [0, 1, 39, 40];
 
     for (const percent of percents) {
-      const element = new PercentElement({ percent });
+      const element = createPercentElement({ percent, parent: document.createElement('div') });
       expect(element.textContent).toBe(`${percent}%`);
       expect(element.classList.contains('percent-red')).toBe(true);
     }
@@ -26,7 +26,7 @@ describe('PercentElement', () => {
     const percents = [41, 69, 70];
 
     for (const percent of percents) {
-      const element = new PercentElement({ percent });
+      const element = createPercentElement({ percent, parent: document.createElement('div') });
       expect(element.textContent).toBe(`${percent}%`);
       expect(element.classList.contains('percent-yellow')).toBe(true);
     }
@@ -36,7 +36,7 @@ describe('PercentElement', () => {
     const percents = [71, 100];
 
     for (const percent of percents) {
-      const element = new PercentElement({ percent });
+      const element = createPercentElement({ percent, parent: document.createElement('div') });
       expect(element.textContent).toBe(`${percent}%`);
       expect(element.classList.contains('percent-green')).toBe(true);
     }

@@ -1,6 +1,6 @@
 import { createElement } from './createElement';
-import PercentElement from './PercentElement';
+import { createPercentElement } from './createPercentElement';
 import Observer from './Observer';
 import Request from './Request';
 
-export { createElement, PercentElement, Observer, Request };
+export { createElement, createPercentElement, Observer, Request };
