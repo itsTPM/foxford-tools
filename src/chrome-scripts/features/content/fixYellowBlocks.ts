@@ -1,15 +1,15 @@
-import { Element } from '../../classes';
+import { createElement } from '../../classes';
 import fixYellowBlocksCss from '../../assets/fixYellowBlocks.css?inline';
 
-export default function fixYellowBlocks() {
+export function fixYellowBlocks() {
   createStyleElement({
     content: fixYellowBlocksCss,
     parent: document.head,
   });
 }
 
-function createStyleElement({ content, parent }) {
-  const styleElement = new Element({
+function createStyleElement({ content, parent }: { content: string; parent: Element }) {
+  return createElement({
     tag: 'style',
     properties: {
       textContent: content,
@@ -17,6 +17,4 @@ function createStyleElement({ content, parent }) {
     parent,
     insertMethod: 'append',
   });
-
-  return styleElement;
 }
