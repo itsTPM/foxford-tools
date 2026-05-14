@@ -15,7 +15,7 @@ export function createHomeworkObserver() {
     targetElementSelector: '#joyrideHomeworkBtn',
     createdElementSelector: '#homeworkPercent',
     urlPart: 'courses',
-    callback: (element) => void observerCallback(element),
+    callback: observerCallback,
   });
 
   observer.observe();
@@ -49,7 +49,7 @@ function getHomeworkId(homeworkLink: string | undefined): RegExpMatchArray | nul
 
 function checkIsShouldReturn(
   homeworkId: RegExpMatchArray | null | undefined,
-  homeworkLink: string | undefined,
+  homeworkLink: string | undefined
 ): boolean {
   return !homeworkId || (homeworkLink?.includes('trainings') ?? false);
 }

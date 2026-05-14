@@ -5,7 +5,7 @@ interface ObserverOptions {
   createdElementSelector: string;
   delay?: number;
   urlPart?: string;
-  callback: (element: Element) => void;
+  callback: (element: Element) => void | Promise<void>;
 }
 
 export function createObserver({
