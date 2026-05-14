@@ -52,25 +52,16 @@ function cacheCallback(data: Task[]) {
 }
 
 function calculatePercent(tasks: Task[]) {
-  let totalTasksCount = 0;
-  let solvedTasksCount = 0;
-  let solvedTasksRate = 0;
-
-  for (const { status } of tasks) {
-    totalTasksCount++;
-
-    if (!IGNORED_STATUSES.includes(status)) {
-      solvedTasksRate += SOLVED_STATUSES_RATE[status as SolvedStatus];
-      solvedTasksCount++;
-    }
-  }
-
-  const percent = Math.round((solvedTasksRate / solvedTasksCount) * 100);
+  const solvedTasks = tasks.filter(({ status }) => !IGNORED_STATUSES.includes(status));
+  const solvedTasksRate = solvedTasks.reduce(
+    (sum, { status }) => sum + SOLVED_STATUSES_RATE[status as SolvedStatus],
+    0
+  );
 
   return {
-    percent,
-    totalTasksCount,
-    solvedTasksCount,
+    percent: Math.round((solvedTasksRate / solvedTasks.length) * 100),
+    totalTasksCount: tasks.length,
+    solvedTasksCount: solvedTasks.length,
   };
 }
 
