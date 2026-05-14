@@ -23,21 +23,21 @@ function observerCallback(element: Element) {
   });
 }
 
-function getConspectText(element: Element): string {
+function getConspectText(element: Element) {
   return element.textContent ?? '';
 }
 
-function calculateWordCount(text: string): number {
+function calculateWordCount(text: string) {
   return [...text.matchAll(/[^\s]+/g)].length;
 }
 
-function calculateReadingTime(wordCount: number): number {
+function calculateReadingTime(wordCount: number) {
   const WORDS_PER_MINUTE = 150;
 
   return Math.round(wordCount / WORDS_PER_MINUTE);
 }
 
-function calculateReadingTimeElementText(readingTime: number): string {
+function calculateReadingTimeElementText(readingTime: number) {
   if (readingTime > 0) {
     return `~${readingTime} мин. чтения`;
   }

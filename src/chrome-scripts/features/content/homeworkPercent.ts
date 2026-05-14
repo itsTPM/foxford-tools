@@ -40,15 +40,15 @@ async function observerCallback(element: Element) {
   }
 }
 
-function getHomeworkLink(element: Element): string | undefined {
+function getHomeworkLink(element: Element) {
   return element.closest<HTMLAnchorElement>('a[href]')?.href;
 }
 
-async function getTasks(homeworkId: string): Promise<Task[] | undefined> {
+async function getTasks(homeworkId: string) {
   return makeRequest<Task[]>({ url: `lessons/${homeworkId}/tasks`, cacheCallback });
 }
 
-function cacheCallback(data: Task[]): boolean {
+function cacheCallback(data: Task[]) {
   return data.every(({ status }) => SOLVED_STATUSES.includes(status));
 }
 
@@ -79,7 +79,7 @@ function calculatePercent(tasks: Task[] | undefined) {
   };
 }
 
-function setupHomeworkPercentElement(percent: number, parent: Element): HTMLElement {
+function setupHomeworkPercentElement(percent: number, parent: Element) {
   const percentElement = createPercentElement({
     percent,
     parent,
@@ -104,7 +104,7 @@ function checkIsShouldUseLegendary({
   percent: number;
   totalTasksCount: number;
   solvedTasksCount: number;
-}): boolean {
+}) {
   return percent === 100 && totalTasksCount === solvedTasksCount;
 }
 
