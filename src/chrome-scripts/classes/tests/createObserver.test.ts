@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { Observer } from '../';
+import { createObserver } from '../';
 
-describe('Observer', () => {
-  let callback;
-  let observer;
-  let target;
+describe('createObserver', () => {
+  let callback: ReturnType<typeof vi.fn>;
+  let observer: ReturnType<typeof createObserver>;
+  let target: HTMLElement;
 
   beforeEach(() => {
     vi.useFakeTimers();
@@ -14,7 +14,7 @@ describe('Observer', () => {
 
     window.location.href = 'http://example.com/test';
 
-    observer = new Observer({
+    observer = createObserver({
       targetElementSelector: '#target',
       createdElementSelector: '#created',
       delay: 100,
@@ -22,9 +22,7 @@ describe('Observer', () => {
       callback,
     });
 
-    observer.observe(target, {
-      childList: true,
-    });
+    observer.observe();
   });
 
   it('should call callback when mutation has occured', async () => {
@@ -82,6 +80,6 @@ function createCreatedElement() {
   return createdElement;
 }
 
-function mutateElement(element) {
+function mutateElement(element: HTMLElement) {
   element.innerHTML = 'test';
 }
