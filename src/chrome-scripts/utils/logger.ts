@@ -13,4 +13,3 @@ export const logger = {
     console.error(prefix + message);
   },
 };
-

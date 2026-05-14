@@ -20,28 +20,28 @@ interface GetLevelDataResponse extends LevelData {
   [key: string]: unknown;
 }
 
-type TaskStatus = 'started' | 'not_started' | 'hinted' | 'in_queue' | 'unavailable' | 'solved' | 'partially' | 'failed'
+type TaskStatus = 'started' | 'not_started' | 'hinted' | 'in_queue' | 'unavailable' | 'solved' | 'partially' | 'failed';
 
 interface Task {
-  status: TaskStatus
+  status: TaskStatus;
 }
 
 interface ClassworkStats {
-  solved_tasks_count: number
-  partially_tasks_count: number
-  failed_tasks_count: number
+  solved_tasks_count: number;
+  partially_tasks_count: number;
+  failed_tasks_count: number;
 }
 
 interface LessonTasksStats {
-  classwork: ClassworkStats
+  classwork: ClassworkStats;
 }
 
 interface ConspectData {
-  name: string
-  course: { id: number; name: string }
-  discipline: { color: string; image_url: string }
+  name: string;
+  course: { id: number; name: string };
+  discipline: { color: string; image_url: string };
 }
 
 interface LessonData {
-  title: string
+  title: string;
 }

@@ -1,9 +1,9 @@
 import { createElement } from './createElement';
 
 interface CreatePercentElementOptions {
-  percent?: number | null
-  parent: Element
-  insertMethod?: 'appendChild' | 'prepend' | 'append' | 'before' | 'after'
+  percent?: number | null;
+  parent: Element;
+  insertMethod?: 'appendChild' | 'prepend' | 'append' | 'before' | 'after';
 }
 
 export function createPercentElement({ percent, parent, insertMethod }: CreatePercentElementOptions): HTMLElement {

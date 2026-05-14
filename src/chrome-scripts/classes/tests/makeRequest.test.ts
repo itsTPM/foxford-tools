@@ -24,7 +24,7 @@ describe('makeRequest', () => {
       json: vi.fn().mockResolvedValueOnce({ data: 'test' }),
     });
 
-    const data = await makeRequest({ url: 'test' });
+    const data: unknown = await makeRequest({ url: 'test' });
 
     expect(fetchMock).toHaveBeenCalledWith(`${BASE_API_URL}test`, { method: 'GET' });
     expect(data).toEqual({ data: 'test' });
@@ -33,7 +33,7 @@ describe('makeRequest', () => {
   it('should log an error if fetch fails', async () => {
     fetchMock.mockRejectedValueOnce(new Error('Fetch error'));
 
-    const data = await makeRequest({ url: 'test' });
+    const data: unknown = await makeRequest({ url: 'test' });
 
     expect(logger.error).toHaveBeenCalledWith('Failed to fetch or parse data: Error: Fetch error');
     expect(data).toBeUndefined();
@@ -43,7 +43,7 @@ describe('makeRequest', () => {
     localStorage.setItem(`${BASE_API_URL}test`, JSON.stringify({ data: 'cached' }));
 
     const cacheCallback = vi.fn().mockReturnValue(true);
-    const data = await makeRequest({ url: 'test', cacheCallback });
+    const data: unknown = await makeRequest({ url: 'test', cacheCallback });
 
     expect(data).toEqual({ data: 'cached' });
     expect(fetchMock).not.toHaveBeenCalled();
@@ -55,7 +55,7 @@ describe('makeRequest', () => {
     });
 
     const cacheCallback = vi.fn().mockReturnValue(true);
-    const data = await makeRequest({ url: 'test', cacheCallback });
+    const data: unknown = await makeRequest({ url: 'test', cacheCallback });
 
     expect(data).toEqual({ data: 'fetched' });
     expect(localStorage.getItem(`${BASE_API_URL}test`)).toBe(JSON.stringify({ data: 'fetched' }));
@@ -67,7 +67,7 @@ describe('makeRequest', () => {
     });
 
     const cacheCallback = vi.fn().mockReturnValue(false);
-    const data = await makeRequest({ url: 'test', cacheCallback });
+    const data: unknown = await makeRequest({ url: 'test', cacheCallback });
 
     expect(data).toEqual({ data: 'fetched' });
     expect(localStorage.getItem(`${BASE_API_URL}test`)).toBeNull();

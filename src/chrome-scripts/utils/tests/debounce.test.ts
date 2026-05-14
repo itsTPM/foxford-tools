@@ -17,7 +17,7 @@ describe('debounce', () => {
     quickDebouncedFunc = debounce(func, SHORT_DELAY);
   });
 
-  it('should work correctly with minimal delays', async () => {
+  it('should work correctly with minimal delays', () => {
     quickDebouncedFunc();
     quickDebouncedFunc();
     quickDebouncedFunc();

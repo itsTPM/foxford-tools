@@ -1,11 +1,16 @@
 interface CreateElementOptions {
-  tag: string
-  properties?: Partial<HTMLElement>
-  parent?: Element | null
-  insertMethod?: 'appendChild' | 'prepend' | 'append' | 'before' | 'after'
+  tag: string;
+  properties?: Partial<HTMLElement>;
+  parent?: Element | null;
+  insertMethod?: 'appendChild' | 'prepend' | 'append' | 'before' | 'after';
 }
 
-export function createElement({ tag, properties, parent, insertMethod = 'appendChild' }: CreateElementOptions): HTMLElement {
+export function createElement({
+  tag,
+  properties,
+  parent,
+  insertMethod = 'appendChild',
+}: CreateElementOptions): HTMLElement {
   const element = document.createElement(tag);
 
   Object.assign(element, { ...properties });

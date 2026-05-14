@@ -3,12 +3,16 @@ import { logger } from '../utils';
 const BASE_API_URL = 'https://foxford.ru/api/';
 
 interface MakeRequestOptions<T> {
-  url: string
-  method?: string
-  cacheCallback?: (data: T) => boolean
+  url: string;
+  method?: string;
+  cacheCallback?: (data: T) => boolean;
 }
 
-export async function makeRequest<T>({ url, method = 'GET', cacheCallback }: MakeRequestOptions<T>): Promise<T | undefined> {
+export async function makeRequest<T>({
+  url,
+  method = 'GET',
+  cacheCallback,
+}: MakeRequestOptions<T>): Promise<T | undefined> {
   const fullUrl = BASE_API_URL + url;
 
   if (cacheCallback) {
@@ -26,9 +30,9 @@ export async function makeRequest<T>({ url, method = 'GET', cacheCallback }: Mak
 async function send<T>(url: string, method: string): Promise<T | undefined> {
   try {
     const response = await fetch(url, { method });
-    return response.json();
+    return response.json() as T;
   } catch (error) {
-    logger.error(`Failed to fetch or parse data: ${error}`);
+    logger.error(`Failed to fetch or parse data: ${String(error)}`);
     return;
   }
 }

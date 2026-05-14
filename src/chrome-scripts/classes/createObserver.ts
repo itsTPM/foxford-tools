@@ -1,14 +1,20 @@
 import { debounce, logger } from '../utils';
 
 interface ObserverOptions {
-  targetElementSelector: string
-  createdElementSelector: string
-  delay?: number
-  urlPart?: string
-  callback: (element: Element) => void
+  targetElementSelector: string;
+  createdElementSelector: string;
+  delay?: number;
+  urlPart?: string;
+  callback: (element: Element) => void;
 }
 
-export function createObserver({ targetElementSelector, createdElementSelector, delay = 1, urlPart, callback }: ObserverOptions): { observe(): void } {
+export function createObserver({
+  targetElementSelector,
+  createdElementSelector,
+  delay = 1,
+  urlPart,
+  callback,
+}: ObserverOptions): { observe(): void } {
   let isElementCreated = false;
   let targetElement: Element | null = null;
   let createdElement: Element | null = null;
@@ -37,12 +43,7 @@ export function createObserver({ targetElementSelector, createdElementSelector, 
   }
 
   function checkIsObserverActive() {
-    return (
-      !isElementCreated &&
-      !!targetElement &&
-      !createdElement &&
-      checkIsUrlPartIncluded()
-    );
+    return !isElementCreated && !!targetElement && !createdElement && checkIsUrlPartIncluded();
   }
 
   const mutationObserver = new MutationObserver(() => {
