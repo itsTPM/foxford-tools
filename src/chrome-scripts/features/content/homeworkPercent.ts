@@ -23,11 +23,12 @@ export function createHomeworkObserver() {
 
 async function observerCallback(element: Element) {
   const homeworkLink = getHomeworkLink(element);
-  const homeworkId = getHomeworkId(homeworkLink);
+  if (!homeworkLink || homeworkLink.includes('trainings')) return;
 
-  if (checkIsShouldReturn(homeworkId, homeworkLink)) return;
+  const homeworkId = homeworkLink.match(/[0-9]+/g);
+  if (!homeworkId) return;
 
-  const tasks = await getTasks(homeworkId!);
+  const tasks = await getTasks(homeworkId);
   const result = calculatePercent(tasks);
   if (!result) return;
 
@@ -41,17 +42,6 @@ async function observerCallback(element: Element) {
 
 function getHomeworkLink(element: Element): string | undefined {
   return element.closest<HTMLAnchorElement>('a[href]')?.href;
-}
-
-function getHomeworkId(homeworkLink: string | undefined): RegExpMatchArray | null | undefined {
-  return homeworkLink?.match(/[0-9]+/g);
-}
-
-function checkIsShouldReturn(
-  homeworkId: RegExpMatchArray | null | undefined,
-  homeworkLink: string | undefined
-): boolean {
-  return !homeworkId || (homeworkLink?.includes('trainings') ?? false);
 }
 
 async function getTasks(homeworkId: RegExpMatchArray): Promise<Task[] | undefined> {
