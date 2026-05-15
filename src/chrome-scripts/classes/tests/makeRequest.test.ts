@@ -11,10 +11,10 @@ vi.mock('../../utils', () => ({
 const BASE_API_URL = 'https://foxford.ru/api/';
 
 describe('makeRequest', () => {
-  let fetchMock: ReturnType<typeof vi.fn>;
+  let fetchMock: ReturnType<typeof vi.fn<typeof fetch>>;
 
   beforeEach(() => {
-    fetchMock = vi.fn();
+    fetchMock = vi.fn<typeof fetch>();
     global.fetch = fetchMock;
     localStorage.clear();
   });

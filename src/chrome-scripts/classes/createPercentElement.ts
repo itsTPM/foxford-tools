@@ -6,7 +6,7 @@ interface CreatePercentElementOptions {
   insertMethod?: 'appendChild' | 'prepend' | 'append' | 'before' | 'after';
 }
 
-export function createPercentElement({ percent, parent, insertMethod }: CreatePercentElementOptions): HTMLElement {
+export function createPercentElement({ percent, parent, insertMethod }: CreatePercentElementOptions) {
   const { textContent, percentClass } = computeProperties(percent);
 
   const element = createElement({
@@ -22,7 +22,7 @@ export function createPercentElement({ percent, parent, insertMethod }: CreatePe
 }
 
 function computeProperties(percent?: number | null) {
-  if (!Number.isFinite(percent)) {
+  if (typeof percent !== 'number' || !Number.isFinite(percent)) {
     return { textContent: 'не начато', percentClass: 'percent-gray' };
   }
 

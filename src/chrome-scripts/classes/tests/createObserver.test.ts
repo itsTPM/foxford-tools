@@ -2,14 +2,14 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createObserver } from '../';
 
 describe('createObserver', () => {
-  let callback: ReturnType<typeof vi.fn>;
+  let callback: ReturnType<typeof vi.fn<(element: Element) => void>>;
   let observer: ReturnType<typeof createObserver>;
   let target: HTMLElement;
 
   beforeEach(() => {
     vi.useFakeTimers();
 
-    callback = vi.fn();
+    callback = vi.fn<(element: Element) => void>();
     target = createTargetElement();
 
     window.location.href = 'http://example.com/test';
