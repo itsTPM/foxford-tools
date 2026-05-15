@@ -33,10 +33,10 @@ describe('webinarPercent', () => {
       expect(calculatePercent(stats)).toBe(67);
     });
 
-    it('should return NaN when there are no tasks (division by zero)', () => {
+    it('should return null when there are no tasks', () => {
       const stats = makeStats({ solved: 0, partially: 0, failed: 0 });
 
-      expect(calculatePercent(stats)).toBeNaN();
+      expect(calculatePercent(stats)).toBeNull();
     });
   });
 });

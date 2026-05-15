@@ -43,22 +43,18 @@ describe('homeworkPercent', () => {
       expect(result.percent).toBe(67);
     });
 
-    it('should return NaN percent for an empty array (division by zero)', () => {
+    it('should return null percent for an empty array', () => {
       const result = calculatePercent([]);
 
-      expect(result.percent).toBeNaN();
-      expect(result.totalTasksCount).toBe(0);
-      expect(result.solvedTasksCount).toBe(0);
+      expect(result).toEqual({ percent: null, totalTasksCount: 0, solvedTasksCount: 0 });
     });
 
-    it('should return NaN percent when all tasks are ignored', () => {
+    it('should return null percent when all tasks are ignored', () => {
       const tasks = makeTasks(['not_started', 'started']);
 
       const result = calculatePercent(tasks);
 
-      expect(result.percent).toBeNaN();
-      expect(result.totalTasksCount).toBe(2);
-      expect(result.solvedTasksCount).toBe(0);
+      expect(result).toEqual({ percent: null, totalTasksCount: 2, solvedTasksCount: 0 });
     });
   });
 
@@ -87,6 +83,10 @@ describe('homeworkPercent', () => {
 
     it('should return false when percent is below 100', () => {
       expect(checkIsShouldUseLegendary({ percent: 99, totalTasksCount: 5, solvedTasksCount: 5 })).toBe(false);
+    });
+
+    it('should return false when percent is null (no work to assess)', () => {
+      expect(checkIsShouldUseLegendary({ percent: null, totalTasksCount: 3, solvedTasksCount: 0 })).toBe(false);
     });
   });
 });

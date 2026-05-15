@@ -66,13 +66,13 @@ export function calculatePercent(tasks: Task[]) {
   );
 
   return {
-    percent: Math.round((solvedTasksRate / solvedTasks.length) * 100),
+    percent: solvedTasks.length === 0 ? null : Math.round((solvedTasksRate / solvedTasks.length) * 100),
     totalTasksCount: tasks.length,
     solvedTasksCount: solvedTasks.length,
   };
 }
 
-function setupHomeworkPercentElement(percent: number, parent: Element) {
+function setupHomeworkPercentElement(percent: number | null, parent: Element) {
   const percentElement = createPercentElement({
     percent,
     parent,
@@ -94,7 +94,7 @@ export function checkIsShouldUseLegendary({
   totalTasksCount,
   solvedTasksCount,
 }: {
-  percent: number;
+  percent: number | null;
   totalTasksCount: number;
   solvedTasksCount: number;
 }) {

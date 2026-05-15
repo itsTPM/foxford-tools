@@ -48,11 +48,12 @@ export function calculatePercent(tasksStats: ClassworkStats) {
   } = tasksStats;
 
   const solvedTasksCount = successfulTasksCount + partiallyTasksCount + failedTasksCount;
+  if (solvedTasksCount === 0) return null;
 
   return Math.round(((successfulTasksCount + partiallyTasksCount * 0.5) / solvedTasksCount) * 100);
 }
 
-function setupWebinarPercentElement(percent: number, element: Element) {
+function setupWebinarPercentElement(percent: number | null, element: Element) {
   const parent = element.lastChild?.lastChild?.lastChild?.lastChild;
   if (!(parent instanceof Element)) {
     logger.error('Unable to find suitable parent for webinar percent element');
