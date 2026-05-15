@@ -20,7 +20,7 @@
   "content_scripts": [
     {
       "matches": ["https://foxford.ru/*"],
-      "js": ["src/chrome-scripts/content.js"]
+      "js": ["src/chrome-scripts/content.ts"]
     }
   ],
   "background": {
