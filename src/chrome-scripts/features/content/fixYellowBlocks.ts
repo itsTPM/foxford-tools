@@ -1,4 +1,4 @@
-import { createElement } from '../../classes';
+import { createElement } from '../../dom';
 import fixYellowBlocksCss from '../../assets/css/fixYellowBlocks.css?inline';
 
 export function fixYellowBlocks() {

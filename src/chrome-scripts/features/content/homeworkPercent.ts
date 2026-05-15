@@ -1,4 +1,5 @@
-import { createObserver, createPercentElement, makeRequest } from '../../classes';
+import { createObserver, createPercentElement } from '../../dom';
+import { makeRequest } from '../../utils';
 
 type SolvedStatus = 'solved' | 'partially' | 'failed';
 

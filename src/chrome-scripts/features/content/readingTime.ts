@@ -1,4 +1,4 @@
-import { createElement, createObserver } from '../../classes';
+import { createElement, createObserver } from '../../dom';
 
 export function readingTime() {
   const observer = createObserver({

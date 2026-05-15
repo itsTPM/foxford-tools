@@ -1,4 +1,5 @@
-import { createElement, createObserver, makeRequest } from '../../classes';
+import { createElement, createObserver } from '../../dom';
+import { makeRequest } from '../../utils';
 import googleIcon from '@/chrome-scripts/assets/icons/google-logo.svg?url';
 
 export function searchButton() {

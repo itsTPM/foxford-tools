@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { makeRequest } from '../';
-import { logger } from '../../utils';
+import { makeRequest } from '../makeRequest';
+import { logger } from '../logger';
 
-vi.mock('../../utils', () => ({
+vi.mock('../logger', () => ({
   logger: {
     error: vi.fn(),
   },

@@ -1,4 +1,5 @@
-import { createElement, createObserver, makeRequest } from '../../classes';
+import { createElement, createObserver } from '../../dom';
+import { makeRequest } from '../../utils';
 import bookmarkMinusIcon from '../../assets/icons/bookmark-minus.svg?url';
 import bookmarkPlusIcon from '../../assets/icons/bookmark-plus.svg?url';
 
