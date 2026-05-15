@@ -13,10 +13,10 @@ export function webinarPercent() {
 }
 
 async function observerCallback(element: Element) {
-  const webinarLinkElement = element.closest<HTMLAnchorElement>('a');
-  if (!webinarLinkElement) return;
+  const webinarLink = getWebinarLink(element);
+  if (!webinarLink) return;
 
-  const webinarId = webinarLinkElement.href.match(/lessons\/(\d+)/)?.[1];
+  const webinarId = webinarLink.match(/lessons\/(\d+)/)?.[1];
   if (!webinarId) {
     logger.error('Webinar ID is undefined');
     return;
@@ -28,15 +28,19 @@ async function observerCallback(element: Element) {
     return;
   }
 
-  const percent = calculateTasksPercent(lessonTasksStats.classwork);
+  const percent = calculatePercent(lessonTasksStats.classwork);
   setupWebinarPercentElement(percent, element);
+}
+
+function getWebinarLink(element: Element) {
+  return element.closest<HTMLAnchorElement>('a[href]')?.href;
 }
 
 async function getLessonTasksStats(webinarId: string) {
   return makeRequest<LessonTasksStats>({ url: `user/calendar/items/course_lessons/${webinarId}` });
 }
 
-function calculateTasksPercent(tasksStats: ClassworkStats) {
+function calculatePercent(tasksStats: ClassworkStats) {
   const {
     solved_tasks_count: successfulTasksCount,
     partially_tasks_count: partiallyTasksCount,
@@ -61,6 +65,12 @@ function setupWebinarPercentElement(percent: number, element: Element) {
     insertMethod: 'before',
   });
 
+  setPercentElementAttributes(percentElement);
+
+  return percentElement;
+}
+
+function setPercentElementAttributes(percentElement: HTMLElement) {
   percentElement.id = 'webinarPercent';
   percentElement.classList.add('webinarPercent');
 }
