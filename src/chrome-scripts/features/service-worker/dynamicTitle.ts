@@ -1,4 +1,4 @@
-const urlTitleMap = {
+const urlTitleMap: Record<string, string> = {
   'daily-plan': 'План на сегодня',
   'interactive-training': 'Интерактивные задачи',
   'digital-portfolio': 'Цифровое портфолио',
@@ -26,59 +26,45 @@ const urlTitleMap = {
   groups: 'Вебинарка',
 };
 
-export default function useDynamicTitle() {
-  listenForTabUpdate();
-  listenForTabActivation();
-}
+export function dynamicTitle() {
+  chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    void changeTabTitle({ tab, tabId, changeInfo });
+  });
 
-function listenForTabUpdate() {
-  chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-    changeTabTitle({ tab, tabId, changeInfo });
+  chrome.tabs.onActivated.addListener(({ tabId }) => {
+    void (async () => {
+      const tab = await chrome.tabs.get(tabId);
+      await changeTabTitle({ tab, tabId, changeInfo: { status: 'complete' } });
+    })();
   });
 }
 
-function listenForTabActivation() {
-  chrome.tabs.onActivated.addListener(async (activeInfo) => {
-    const { tabId } = activeInfo;
-    const tab = await chrome.tabs.get(tabId);
-
-    changeTabTitle({
-      tab,
-      tabId,
-      changeInfo: { status: 'complete' },
-    });
-  });
-}
-
-async function changeTabTitle({ tab, tabId, changeInfo }) {
+async function changeTabTitle({
+  tab,
+  tabId,
+  changeInfo,
+}: {
+  tab: chrome.tabs.Tab;
+  tabId: number;
+  changeInfo: chrome.tabs.OnUpdatedInfo;
+}) {
   await new Promise((r) => setTimeout(r, 150)); // 🤩
 
-  if (checkIsShouldReturn({ tab, changeInfo })) {
-    return;
-  }
+  if (!tab.url?.includes('foxford.ru') || changeInfo.status !== 'complete') return;
 
   const title = getDynamicTitleByUrl(tab.url);
+  if (!title) return;
 
-  if (!title) {
-    return;
-  }
-
-  chrome.scripting.executeScript({
+  void chrome.scripting.executeScript({
     target: { tabId },
-    func: (title) => {
-      document.title = title;
+    func: (newTitle: string) => {
+      document.title = newTitle;
     },
     args: [title],
   });
 }
 
-function checkIsShouldReturn({ tab, changeInfo }) {
-  const falsyCases = [!tab.url?.includes('foxford.ru'), changeInfo.status !== 'complete'];
-
-  return falsyCases.some(Boolean);
-}
-
-function getDynamicTitleByUrl(url) {
+function getDynamicTitleByUrl(url: string) {
   for (const [urlPart, title] of Object.entries(urlTitleMap)) {
     if (url.includes(urlPart)) {
       return title;

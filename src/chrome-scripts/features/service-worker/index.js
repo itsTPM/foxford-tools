@@ -1,2 +1,2 @@
-export { default as dynamicTitle } from './dynamicTitle.js';
+export { dynamicTitle } from './dynamicTitle';
 export { updateNotifier } from './updateNotifier';
