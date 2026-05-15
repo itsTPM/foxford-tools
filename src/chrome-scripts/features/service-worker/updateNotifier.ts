@@ -1,4 +1,4 @@
-import { badge } from '../../utils';
+import { badge, logger } from '../../utils';
 
 export function updateNotifier() {
   chrome.runtime.onInstalled.addListener((details) => {
@@ -6,6 +6,7 @@ export function updateNotifier() {
     const currentVersion = chrome.runtime.getManifest().version;
 
     if (reason === 'install' || previousVersion === currentVersion || !previousVersion) {
+      logger.info('Skipping update notifier');
       return;
     }
 

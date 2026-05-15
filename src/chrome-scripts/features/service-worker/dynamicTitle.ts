@@ -1,3 +1,5 @@
+import { logger } from '@/chrome-scripts/utils';
+
 const urlTitleMap: Record<string, string> = {
   'daily-plan': 'План на сегодня',
   'interactive-training': 'Интерактивные задачи',
@@ -53,7 +55,10 @@ async function changeTabTitle({
   if (!tab.url?.includes('foxford.ru') || changeInfo.status !== 'complete') return;
 
   const title = getDynamicTitleByUrl(tab.url);
-  if (!title) return;
+  if (!title) {
+    logger.warn(`No suitable title for url ${tab.url}`);
+    return;
+  }
 
   void chrome.scripting.executeScript({
     target: { tabId },
