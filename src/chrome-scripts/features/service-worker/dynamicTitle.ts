@@ -69,7 +69,7 @@ async function changeTabTitle({
   });
 }
 
-function getDynamicTitleByUrl(url: string) {
+export function getDynamicTitleByUrl(url: string) {
   for (const [urlPart, title] of Object.entries(urlTitleMap)) {
     if (url.includes(urlPart)) {
       return title;
