@@ -47,7 +47,7 @@ describe('createObserver', () => {
   it('should not call callback when no mutation has occured', async () => {
     createDefaultObserver(callback).observe();
 
-    await vi.advanceTimersByTimeAsync(DELAY * 2);
+    await vi.advanceTimersByTimeAsync(DELAY);
 
     expect(callback).not.toHaveBeenCalled();
   });
@@ -57,7 +57,7 @@ describe('createObserver', () => {
     createDefaultObserver(callback).observe();
 
     mutateElement(target);
-    await vi.advanceTimersByTimeAsync(DELAY * 2);
+    await vi.advanceTimersByTimeAsync(DELAY);
 
     expect(callback).not.toHaveBeenCalled();
   });
@@ -67,7 +67,7 @@ describe('createObserver', () => {
     createDefaultObserver(callback).observe();
 
     mutateElement(target);
-    await vi.advanceTimersByTimeAsync(DELAY * 2);
+    await vi.advanceTimersByTimeAsync(DELAY);
 
     expect(callback).not.toHaveBeenCalled();
   });
