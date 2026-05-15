@@ -5,14 +5,14 @@ const DELAY = 1000;
 const SHORT_DELAY = 1;
 
 describe('debounce', () => {
-  let func: ReturnType<typeof vi.fn>;
+  let func: ReturnType<typeof vi.fn<(...args: unknown[]) => unknown>>;
   let debouncedFunc: ReturnType<typeof debounce>;
   let quickDebouncedFunc: ReturnType<typeof debounce>;
 
   beforeEach(() => {
     vi.useFakeTimers();
 
-    func = vi.fn();
+    func = vi.fn<(...args: unknown[]) => unknown>();
     debouncedFunc = debounce(func, DELAY);
     quickDebouncedFunc = debounce(func, SHORT_DELAY);
   });

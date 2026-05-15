@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { makeRequest } from '../makeRequest';
 import { logger } from '../logger';
 
@@ -15,14 +15,16 @@ describe('makeRequest', () => {
 
   beforeEach(() => {
     fetchMock = vi.fn<typeof fetch>();
-    global.fetch = fetchMock;
+    vi.stubGlobal('fetch', fetchMock);
     localStorage.clear();
   });
 
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
   it('should call fetch with correct URL and method', async () => {
-    fetchMock.mockResolvedValueOnce({
-      json: vi.fn().mockResolvedValueOnce({ data: 'test' }),
-    });
+    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ data: 'test' })));
 
     const data: unknown = await makeRequest({ url: 'test' });
 
@@ -50,9 +52,7 @@ describe('makeRequest', () => {
   });
 
   it('should fetch and cache data if not cached', async () => {
-    fetchMock.mockResolvedValueOnce({
-      json: vi.fn().mockResolvedValueOnce({ data: 'fetched' }),
-    });
+    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ data: 'fetched' })));
 
     const cacheCallback = vi.fn().mockReturnValue(true);
     const data: unknown = await makeRequest({ url: 'test', cacheCallback });
@@ -62,9 +62,7 @@ describe('makeRequest', () => {
   });
 
   it('should not cache data if cacheCallback returns false', async () => {
-    fetchMock.mockResolvedValueOnce({
-      json: vi.fn().mockResolvedValueOnce({ data: 'fetched' }),
-    });
+    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ data: 'fetched' })));
 
     const cacheCallback = vi.fn().mockReturnValue(false);
     const data: unknown = await makeRequest({ url: 'test', cacheCallback });
@@ -74,9 +72,7 @@ describe('makeRequest', () => {
   });
 
   it('should pass custom method to fetch', async () => {
-    fetchMock.mockResolvedValueOnce({
-      json: vi.fn().mockResolvedValueOnce({ data: 'test' }),
-    });
+    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ data: 'test' })));
 
     await makeRequest({ url: 'test', method: 'POST' });
 

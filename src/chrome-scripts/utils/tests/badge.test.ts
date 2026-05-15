@@ -1,15 +1,19 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { badge } from '..';
 
 describe('badge', () => {
   beforeEach(() => {
-    global.chrome = {
+    vi.stubGlobal('chrome', {
       action: {
         setBadgeBackgroundColor: vi.fn(),
         setBadgeTextColor: vi.fn(),
         setBadgeText: vi.fn(),
       },
-    };
+    });
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('should set the badge with default text', () => {
