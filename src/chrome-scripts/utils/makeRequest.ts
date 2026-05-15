@@ -1,3 +1,4 @@
+import { FetchError, ofetch } from 'ofetch';
 import { logger } from './logger';
 
 const BASE_API_URL = 'https://foxford.ru/api/';
@@ -8,11 +9,7 @@ interface MakeRequestOptions<T> {
   cacheCallback?: (data: T) => boolean;
 }
 
-export async function makeRequest<T>({
-  url,
-  method = 'GET',
-  cacheCallback,
-}: MakeRequestOptions<T>): Promise<T | undefined> {
+export async function makeRequest<T>({ url, method = 'GET', cacheCallback }: MakeRequestOptions<T>) {
   const fullUrl = BASE_API_URL + url;
 
   if (cacheCallback) {
@@ -27,17 +24,14 @@ export async function makeRequest<T>({
   return send<T>(fullUrl, method);
 }
 
-async function send<T>(url: string, method: string): Promise<T | undefined> {
-  try {
-    const response = await fetch(url, { method });
-    return response.json() as T;
-  } catch (error) {
-    logger.error(`Failed to fetch or parse data: ${String(error)}`);
-    return;
-  }
+async function send<T>(url: string, method: string) {
+  return await ofetch<T>(url, { method }).catch((err: FetchError) => {
+    logger.error(err.message);
+    return undefined;
+  });
 }
 
-function getCachedData<T>(url: string): T | null {
+function getCachedData<T>(url: string) {
   const cachedData = localStorage.getItem(url);
   if (cachedData === null) return null;
   return JSON.parse(cachedData) as T;

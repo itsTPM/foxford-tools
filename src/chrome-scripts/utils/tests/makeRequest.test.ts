@@ -1,7 +1,9 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { ofetch, FetchError } from 'ofetch';
 import { makeRequest } from '../makeRequest';
 import { logger } from '../logger';
 
+vi.mock('ofetch');
 vi.mock('../logger', () => ({
   logger: {
     error: vi.fn(),
@@ -11,79 +13,73 @@ vi.mock('../logger', () => ({
 const BASE_API_URL = 'https://foxford.ru/api/';
 
 describe('makeRequest', () => {
-  let fetchMock: ReturnType<typeof vi.fn<typeof fetch>>;
-
   beforeEach(() => {
-    fetchMock = vi.fn<typeof fetch>();
-    vi.stubGlobal('fetch', fetchMock);
+    vi.mocked(ofetch).mockReset();
     localStorage.clear();
   });
 
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
+  it('should call ofetch with correct URL and method', async () => {
+    vi.mocked(ofetch).mockResolvedValueOnce({ data: 'test' });
 
-  it('should call fetch with correct URL and method', async () => {
-    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ data: 'test' })));
+    const data = await makeRequest({ url: 'test' });
 
-    const data: unknown = await makeRequest({ url: 'test' });
-
-    expect(fetchMock).toHaveBeenCalledWith(`${BASE_API_URL}test`, { method: 'GET' });
+    expect(ofetch).toHaveBeenCalledWith(`${BASE_API_URL}test`, { method: 'GET' });
     expect(data).toEqual({ data: 'test' });
   });
 
   it('should log an error if fetch fails', async () => {
-    fetchMock.mockRejectedValueOnce(new Error('Fetch error'));
+    const fetchError = new FetchError('Fetch error');
+    vi.mocked(ofetch).mockRejectedValueOnce(fetchError);
 
-    const data: unknown = await makeRequest({ url: 'test' });
+    const data = await makeRequest({ url: 'test' });
 
-    expect(logger.error).toHaveBeenCalledWith('Failed to fetch or parse data: Error: Fetch error');
+    expect(logger.error).toHaveBeenCalledWith(fetchError.message);
     expect(data).toBeUndefined();
   });
 
   it('should use cache if cacheCallback is provided and data is cached', async () => {
     localStorage.setItem(`${BASE_API_URL}test`, JSON.stringify({ data: 'cached' }));
 
-    const cacheCallback = vi.fn().mockReturnValue(true);
-    const data: unknown = await makeRequest({ url: 'test', cacheCallback });
+    const cacheCallback = vi.fn<(data: unknown) => boolean>().mockReturnValue(true);
+    const data = await makeRequest({ url: 'test', cacheCallback });
 
     expect(data).toEqual({ data: 'cached' });
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(ofetch).not.toHaveBeenCalled();
   });
 
   it('should fetch and cache data if not cached', async () => {
-    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ data: 'fetched' })));
+    vi.mocked(ofetch).mockResolvedValueOnce({ data: 'fetched' });
 
-    const cacheCallback = vi.fn().mockReturnValue(true);
-    const data: unknown = await makeRequest({ url: 'test', cacheCallback });
+    const cacheCallback = vi.fn<(data: unknown) => boolean>().mockReturnValue(true);
+    const data = await makeRequest({ url: 'test', cacheCallback });
 
     expect(data).toEqual({ data: 'fetched' });
     expect(localStorage.getItem(`${BASE_API_URL}test`)).toBe(JSON.stringify({ data: 'fetched' }));
   });
 
   it('should not cache data if cacheCallback returns false', async () => {
-    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ data: 'fetched' })));
+    vi.mocked(ofetch).mockResolvedValueOnce({ data: 'fetched' });
 
-    const cacheCallback = vi.fn().mockReturnValue(false);
-    const data: unknown = await makeRequest({ url: 'test', cacheCallback });
+    const cacheCallback = vi.fn<(data: unknown) => boolean>().mockReturnValue(false);
+    const data = await makeRequest({ url: 'test', cacheCallback });
 
     expect(data).toEqual({ data: 'fetched' });
     expect(localStorage.getItem(`${BASE_API_URL}test`)).toBeNull();
   });
 
-  it('should pass custom method to fetch', async () => {
-    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ data: 'test' })));
+  it('should pass custom method to ofetch', async () => {
+    vi.mocked(ofetch).mockResolvedValueOnce({ data: 'test' });
 
     await makeRequest({ url: 'test', method: 'POST' });
 
-    expect(fetchMock).toHaveBeenCalledWith(`${BASE_API_URL}test`, { method: 'POST' });
+    expect(ofetch).toHaveBeenCalledWith(`${BASE_API_URL}test`, { method: 'POST' });
   });
 
   it('should not cache data if fetch fails when cacheCallback is provided', async () => {
-    fetchMock.mockRejectedValueOnce(new Error('Fetch error'));
+    vi.mocked(ofetch).mockRejectedValueOnce(new FetchError('Fetch error'));
 
-    const cacheCallback = vi.fn().mockReturnValue(true);
-    const data: unknown = await makeRequest({ url: 'test', cacheCallback });
+    const cacheCallback = vi.fn<(data: unknown) => boolean>().mockReturnValue(true);
+    const data = await makeRequest({ url: 'test', cacheCallback });
 
     expect(data).toBeUndefined();
     expect(cacheCallback).not.toHaveBeenCalled();
