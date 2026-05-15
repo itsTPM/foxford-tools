@@ -26,6 +26,36 @@ describe('createElement', () => {
     expect(parent.firstChild).toBe(element);
   });
 
+  it('should append the element to the parent when insertMethod is "append"', () => {
+    const parent = document.createElement('div');
+    parent.appendChild(document.createElement('i'));
+    const element = createElement({ tag: 'span', parent, insertMethod: 'append' });
+    expect(parent.lastChild).toBe(element);
+  });
+
+  it('should insert the element before the parent when insertMethod is "before"', () => {
+    const grandparent = document.createElement('div');
+    const parent = document.createElement('div');
+    grandparent.appendChild(parent);
+    const element = createElement({ tag: 'span', parent, insertMethod: 'before' });
+    expect(grandparent.firstChild).toBe(element);
+    expect(element.nextSibling).toBe(parent);
+  });
+
+  it('should insert the element after the parent when insertMethod is "after"', () => {
+    const grandparent = document.createElement('div');
+    const parent = document.createElement('div');
+    grandparent.appendChild(parent);
+    const element = createElement({ tag: 'span', parent, insertMethod: 'after' });
+    expect(grandparent.lastChild).toBe(element);
+    expect(element.previousSibling).toBe(parent);
+  });
+
+  it('should not throw and not attach the element when parent is null', () => {
+    const element = createElement({ tag: 'div', parent: null });
+    expect(element.parentNode).toBeNull();
+  });
+
   it('should return the created element', () => {
     const element = createElement({ tag: 'div' });
     expect(element).toBeInstanceOf(HTMLElement);
