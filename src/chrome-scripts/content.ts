@@ -1,4 +1,4 @@
-import './assets/content.css';
+import './assets/css/content.css';
 import * as features from './features/content';
 
 async function initFeatures() {

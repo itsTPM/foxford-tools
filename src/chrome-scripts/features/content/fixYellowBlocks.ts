@@ -1,5 +1,5 @@
 import { createElement } from '../../classes';
-import fixYellowBlocksCss from '../../assets/fixYellowBlocks.css?inline';
+import fixYellowBlocksCss from '../../assets/css/fixYellowBlocks.css?inline';
 
 export function fixYellowBlocks() {
   createStyleElement({

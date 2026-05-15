@@ -1,5 +1,5 @@
 import { createElement, createObserver, makeRequest } from '../../classes';
-import googleIcon from '@/chrome-scripts/assets/google-logo.svg?url';
+import googleIcon from '@/chrome-scripts/assets/icons/google-logo.svg?url';
 
 export function searchButton() {
   const observer = createObserver({
