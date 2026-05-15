@@ -40,7 +40,7 @@ async function getLessonTasksStats(webinarId: string) {
   return makeRequest<LessonTasksStats>({ url: `user/calendar/items/course_lessons/${webinarId}` });
 }
 
-function calculatePercent(tasksStats: ClassworkStats) {
+export function calculatePercent(tasksStats: ClassworkStats) {
   const {
     solved_tasks_count: successfulTasksCount,
     partially_tasks_count: partiallyTasksCount,
