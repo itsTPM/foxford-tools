@@ -54,11 +54,11 @@ async function getTasks(homeworkId: string) {
   return makeRequest<Task[]>({ url: `lessons/${homeworkId}/tasks`, cacheCallback });
 }
 
-function cacheCallback(data: Task[]) {
+export function cacheCallback(data: Task[]) {
   return data.every(({ status }) => SOLVED_STATUSES.includes(status));
 }
 
-function calculatePercent(tasks: Task[]) {
+export function calculatePercent(tasks: Task[]) {
   const solvedTasks = tasks.filter(({ status }) => !IGNORED_STATUSES.includes(status));
   const solvedTasksRate = solvedTasks.reduce(
     (sum, { status }) => sum + SOLVED_STATUSES_RATE[status as SolvedStatus],
@@ -89,7 +89,7 @@ function setPercentElementAttributes(percentElement: HTMLElement) {
   percentElement.classList.add('homeworkPercent');
 }
 
-function checkIsShouldUseLegendary({
+export function checkIsShouldUseLegendary({
   percent,
   totalTasksCount,
   solvedTasksCount,
