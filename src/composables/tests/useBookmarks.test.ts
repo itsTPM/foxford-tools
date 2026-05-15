@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { nextTick } from 'vue';
 
 import { mockBookmarks } from '@/mocks';
@@ -11,7 +11,11 @@ describe('useBookmarks', () => {
     vi.resetModules();
     vi.unstubAllEnvs();
     chromeMock = mockChromeAPI();
-    global.chrome = chromeMock as unknown as typeof chrome;
+    vi.stubGlobal('chrome', chromeMock);
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('should load bookmarks from storage', async () => {
@@ -103,7 +107,7 @@ describe('useBookmarks', () => {
   });
 
   it('should use mock bookmarks outside extension context without calling chrome API', async () => {
-    global.chrome = undefined as unknown as typeof chrome;
+    vi.stubGlobal('chrome', undefined);
 
     const { useBookmarks } = await import('../useBookmarks');
     const { bookmarks } = useBookmarks();
