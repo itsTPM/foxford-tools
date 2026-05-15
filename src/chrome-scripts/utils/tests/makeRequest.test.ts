@@ -72,4 +72,25 @@ describe('makeRequest', () => {
     expect(data).toEqual({ data: 'fetched' });
     expect(localStorage.getItem(`${BASE_API_URL}test`)).toBeNull();
   });
+
+  it('should pass custom method to fetch', async () => {
+    fetchMock.mockResolvedValueOnce({
+      json: vi.fn().mockResolvedValueOnce({ data: 'test' }),
+    });
+
+    await makeRequest({ url: 'test', method: 'POST' });
+
+    expect(fetchMock).toHaveBeenCalledWith(`${BASE_API_URL}test`, { method: 'POST' });
+  });
+
+  it('should not cache data if fetch fails when cacheCallback is provided', async () => {
+    fetchMock.mockRejectedValueOnce(new Error('Fetch error'));
+
+    const cacheCallback = vi.fn().mockReturnValue(true);
+    const data: unknown = await makeRequest({ url: 'test', cacheCallback });
+
+    expect(data).toBeUndefined();
+    expect(cacheCallback).not.toHaveBeenCalled();
+    expect(localStorage.getItem(`${BASE_API_URL}test`)).toBeNull();
+  });
 });
