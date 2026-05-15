@@ -1,6 +1,6 @@
 import { createElement, createObserver } from '../../classes';
 
-export function createReadingTimeObserver() {
+export function readingTime() {
   const observer = createObserver({
     targetElementSelector: '#wikiThemeContent',
     createdElementSelector: '#readingTime',

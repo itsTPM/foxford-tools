@@ -1,6 +1,6 @@
 import { createObserver, createPercentElement, makeRequest } from '../../classes';
 
-export function createWebinarObserver() {
+export function webinarPercent() {
   const observer = createObserver({
     targetElementSelector: '#joyrideLessonBtn',
     createdElementSelector: '#webinarPercent',

@@ -10,7 +10,7 @@ const SOLVED_STATUSES_RATE: Record<SolvedStatus, number> = {
   failed: 0,
 };
 
-export function createHomeworkObserver() {
+export function homeworkPercent() {
   const observer = createObserver({
     targetElementSelector: '#joyrideHomeworkBtn',
     createdElementSelector: '#homeworkPercent',

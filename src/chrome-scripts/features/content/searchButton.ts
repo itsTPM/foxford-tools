@@ -1,7 +1,7 @@
 import { createElement, createObserver, makeRequest } from '../../classes';
 import googleIcon from '@/chrome-scripts/assets/google-logo.svg?url';
 
-export function createSearchButtonObserver() {
+export function searchButton() {
   const observer = createObserver({
     targetElementSelector: 'div[class*="theory__Root"]',
     createdElementSelector: '#searchButton',

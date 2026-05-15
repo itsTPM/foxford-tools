@@ -2,7 +2,7 @@ import { createElement, createObserver, makeRequest } from '../../classes';
 import bookmarkMinusIcon from '../../assets/bookmark-minus.svg?url';
 import bookmarkPlusIcon from '../../assets/bookmark-plus.svg?url';
 
-export function createReadingListObserver() {
+export function readingList() {
   const observer = createObserver({
     targetElementSelector: '#wikiThemeContent',
     createdElementSelector: '#readingListButton',
