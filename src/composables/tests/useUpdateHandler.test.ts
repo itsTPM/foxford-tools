@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { useUpdateHandler } from '../useUpdateHandler';
 import mockChromeAPI from './mockChromeApi';
 
@@ -8,7 +8,11 @@ describe('useUpdateHandler', () => {
 
   beforeEach(() => {
     chromeMock = mockChromeAPI();
-    global.chrome = chromeMock as unknown as typeof chrome;
+    vi.stubGlobal('chrome', chromeMock);
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   describe('getUpdateData', () => {

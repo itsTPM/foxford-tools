@@ -20,12 +20,12 @@
   "content_scripts": [
     {
       "matches": ["https://foxford.ru/*"],
-      "js": ["src/chrome-scripts/content.js"]
+      "js": ["src/chrome-scripts/content.ts"]
     }
   ],
   "background": {
-    "service_worker": "src/chrome-scripts/service-worker.js",
-    "scripts": ["src/chrome-scripts/service-worker.js"]
+    "service_worker": "src/chrome-scripts/service-worker.ts",
+    "scripts": ["src/chrome-scripts/service-worker.ts"]
   },
   "host_permissions": ["https://foxford.ru/*"],
   "externally_connectable": {

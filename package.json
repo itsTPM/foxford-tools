@@ -5,7 +5,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "postinstall": "simple-git-hooks",
-    "type-check": "vue-tsc --noEmit",
+    "type-check": "vue-tsc --build",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

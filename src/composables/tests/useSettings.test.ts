@@ -1,4 +1,4 @@
-import { describe, it, beforeEach, vi, expect } from 'vitest';
+import { describe, it, beforeEach, afterEach, vi, expect } from 'vitest';
 import { nextTick } from 'vue';
 import mockChromeAPI from './mockChromeApi';
 
@@ -19,7 +19,11 @@ describe('useSettings', () => {
     vi.resetModules();
     localStorage.clear();
     chromeMock = mockChromeAPI();
-    global.chrome = chromeMock as unknown as typeof chrome;
+    vi.stubGlobal('chrome', chromeMock);
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('should set settings to true if localStorage is empty', async () => {

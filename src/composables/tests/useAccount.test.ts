@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { mockProfileData, mockLevelData } from '@/mocks';
 
 vi.mock('ofetch');
@@ -6,7 +6,11 @@ vi.mock('ofetch');
 describe('useAccount', () => {
   beforeEach(() => {
     vi.resetModules();
-    global.chrome = { runtime: { id: 'test-extension-id' } } as unknown as typeof chrome;
+    vi.stubGlobal('chrome', { runtime: { id: 'test-extension-id' } });
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('should fetch profile data correctly', async () => {
