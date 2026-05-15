@@ -1,5 +1,5 @@
 import { createElement, createObserver } from '../../dom';
-import { makeRequest } from '../../utils';
+import { logger, makeRequest } from '../../utils';
 import bookmarkMinusIcon from '../../assets/icons/bookmark-minus.svg?url';
 import bookmarkPlusIcon from '../../assets/icons/bookmark-plus.svg?url';
 
@@ -32,12 +32,18 @@ async function observerCallback(element: Element) {
 
   async function toggleItemInList() {
     const ids = getLessonAndConspectIds(conspectUrl);
-    if (!ids) return;
+    if (!ids) {
+      alert('Не удалось получить данные о конспекте :(');
+      return;
+    }
 
     const conspectData = await makeRequest<ConspectData>({
       url: `lessons/${ids.lessonId}/conspects/${ids.conspectId}`,
     });
-    if (!conspectData) return;
+    if (!conspectData) {
+      alert('Не удалось получить данные о конспекте :(');
+      return;
+    }
 
     const readingListItem = buildReadingListItem(conspectData, conspectUrl);
     isAdded = !isAdded;
@@ -57,7 +63,10 @@ function getIconSrc(isAdded: boolean) {
 
 function getLessonAndConspectIds(conspectUrl: string) {
   const match = conspectUrl.match(/lessons\/(\d+)\/conspects\/(\d+)/);
-  if (!match) return;
+  if (!match) {
+    logger.error('Lesson and conspect ids match is null');
+    return;
+  }
 
   return { lessonId: match[1], conspectId: match[2] };
 }

@@ -1,5 +1,5 @@
 import { createObserver, createPercentElement } from '../../dom';
-import { makeRequest } from '../../utils';
+import { logger, makeRequest } from '../../utils';
 
 export function webinarPercent() {
   const observer = createObserver({
@@ -17,10 +17,16 @@ async function observerCallback(element: Element) {
   if (!webinarLinkElement) return;
 
   const webinarId = webinarLinkElement.href.match(/lessons\/(\d+)/)?.[1];
-  if (!webinarId) return;
+  if (!webinarId) {
+    logger.error('Webinar ID is undefined');
+    return;
+  }
 
   const lessonTasksStats = await getLessonTasksStats(webinarId);
-  if (!lessonTasksStats) return;
+  if (!lessonTasksStats) {
+    logger.error('Lesson tasks stats are undefined');
+    return;
+  }
 
   const percent = calculateTasksPercent(lessonTasksStats.classwork);
   setupWebinarPercentElement(percent, element);
@@ -44,7 +50,10 @@ function calculateTasksPercent(tasksStats: ClassworkStats) {
 
 function setupWebinarPercentElement(percent: number, element: Element) {
   const parent = element.lastChild?.lastChild?.lastChild?.lastChild;
-  if (!(parent instanceof Element)) return;
+  if (!(parent instanceof Element)) {
+    logger.error('Unable to find suitable parent for webinar percent element');
+    return;
+  }
 
   const percentElement = createPercentElement({
     percent,

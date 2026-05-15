@@ -1,5 +1,5 @@
 import { createObserver, createPercentElement } from '../../dom';
-import { makeRequest } from '../../utils';
+import { logger, makeRequest } from '../../utils';
 
 type SolvedStatus = 'solved' | 'partially' | 'failed';
 
@@ -27,10 +27,16 @@ async function observerCallback(element: Element) {
   if (!homeworkLink || homeworkLink.includes('trainings')) return;
 
   const homeworkId = homeworkLink.match(/lessons\/(\d+)/)?.[1];
-  if (!homeworkId) return;
+  if (!homeworkId) {
+    logger.error('Homework ID is undefined');
+    return;
+  }
 
   const tasks = await getTasks(homeworkId);
-  if (!tasks) return;
+  if (!tasks) {
+    logger.error('Tasks are undefined');
+    return;
+  }
 
   const { percent, totalTasksCount, solvedTasksCount } = calculatePercent(tasks);
   const percentElement = setupHomeworkPercentElement(percent, element);

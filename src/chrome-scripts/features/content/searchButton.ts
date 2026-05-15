@@ -1,5 +1,5 @@
 import { createElement, createObserver } from '../../dom';
-import { makeRequest } from '../../utils';
+import { logger, makeRequest } from '../../utils';
 import googleIcon from '@/chrome-scripts/assets/icons/google-logo.svg?url';
 
 export function searchButton() {
@@ -43,19 +43,28 @@ async function searchButtonElementOnClick(e: Event) {
   e.preventDefault();
 
   const meta = getLinkMeta();
-  if (!meta) return;
+  if (!meta) {
+    alert('Не удалось получить данные о конспекте :(');
+    return;
+  }
 
   const conspectData = await makeRequest<LessonData>({
     url: `courses/${meta.courseId}/lessons/${meta.lessonId}`,
   });
-  if (!conspectData) return;
+  if (!conspectData) {
+    alert('Не удалось получить данные о конспекте :(');
+    return;
+  }
 
   openGoogleSearch(conspectData.title);
 }
 
 function getLinkMeta() {
   const match = location.href.match(/courses\/(\d+)\/lessons\/(\d+)/);
-  if (!match) return;
+  if (!match) {
+    logger.error('Lesson and course ids match is null');
+    return;
+  }
 
   return { courseId: match[1], lessonId: match[2] };
 }
