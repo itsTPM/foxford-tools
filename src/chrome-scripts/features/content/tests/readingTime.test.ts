@@ -1,9 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  calculateWordCount,
-  calculateReadingTime,
-  calculateReadingTimeElementText,
-} from '../readingTime';
+import { calculateWordCount, calculateReadingTime, calculateReadingTimeElementText } from '../readingTime';
 
 describe('readingTime', () => {
   describe('calculateWordCount', () => {
