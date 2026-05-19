@@ -11,12 +11,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { useSettings } from '@/composables/useSettings';
 import { useCustomization } from '@/composables/useCustomization';
-import manifest from '@/../manifest.json';
 import { isExtension } from '@/lib/isExtension';
 
 const { isRefreshNeeded } = useSettings();
 const { toggleTheme, theme } = useCustomization();
-const { version } = manifest;
+const version = chrome.runtime.getManifest().version;
 
 const links: { name: string; url: string; icon: Icon }[] = [
   { name: 'GitHub', url: 'https://github.com/itsTPM/foxford-tools', icon: IconBrandGithub },

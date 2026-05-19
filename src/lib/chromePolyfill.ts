@@ -30,6 +30,7 @@ if (!isExtension) {
       sync: makeStorageArea('chrome.sync'),
     },
     runtime: {
+      getManifest: () => ({ version: '0.0.0' }),
       sendMessage: () => Promise.resolve(),
     },
   } as unknown as typeof chrome;
