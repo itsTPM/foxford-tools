@@ -1,4 +1,4 @@
-<img width="60" align="right" src="https://fox.itstpm.rocks/logo.svg">
+<img width="96" src="src/assets/logo.svg">
 
 # Foxford Tools
 

@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { Button } from '@/components/ui/button';
+import Logo from '@/assets/logo.svg';
 
 const router = useRouter();
 const routes = router.getRoutes();
 </script>
 
 <template>
-  <header class="flex flex-col gap-3">
+  <header class="flex flex-col gap-4">
     <div class="flex items-center justify-center gap-4">
-      <img alt="" class="h-16" src="@/assets/logo/round.png" />
+      <Logo class="h-9" aria-hidden="true" />
       <div class="flex flex-col text-center">
         <p class="text-2xl">Foxford Tools</p>
         <p class="text-xs">кастомизация сайта Фокса</p>

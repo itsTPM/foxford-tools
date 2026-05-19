@@ -14,7 +14,8 @@
     "preview": "vite preview",
     "build": "vite build",
     "build:chrome": "vite build -- --chrome",
-    "build:firefox": "vite build -- --firefox"
+    "build:firefox": "vite build -- --firefox",
+    "generate-icons": "bash scripts/generate-icons.sh"
   },
   "engines": {
     "node": ">=24",
