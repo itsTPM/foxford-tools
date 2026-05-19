@@ -13,20 +13,6 @@ export default defineConfig({
     permissions: ['storage', 'activeTab', 'scripting'],
     host_permissions: ['https://foxford.ru/*'],
     externally_connectable: { matches: ['https://foxford.ru/*'] },
-    action: {
-      default_icon: {
-        '16': 'icons/icon16.png',
-        '32': 'icons/icon32.png',
-        '48': 'icons/icon48.png',
-        '128': 'icons/icon128.png',
-      },
-    },
-    icons: {
-      '16': 'icons/icon16.png',
-      '32': 'icons/icon32.png',
-      '48': 'icons/icon48.png',
-      '128': 'icons/icon128.png',
-    },
   },
   vite: () => ({
     plugins: [svgLoader(), tailwindcss()],
