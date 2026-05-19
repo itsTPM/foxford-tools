@@ -1,37 +1,38 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { browser } from 'wxt/browser';
 import { badge } from '..';
+
+vi.mock('wxt/browser', () => ({
+  browser: {
+    action: {
+      setBadgeBackgroundColor: vi.fn(),
+      setBadgeTextColor: vi.fn(),
+      setBadgeText: vi.fn(),
+    },
+  },
+}));
 
 describe('badge', () => {
   beforeEach(() => {
-    vi.stubGlobal('chrome', {
-      action: {
-        setBadgeBackgroundColor: vi.fn(),
-        setBadgeTextColor: vi.fn(),
-        setBadgeText: vi.fn(),
-      },
-    });
-  });
-
-  afterEach(() => {
-    vi.unstubAllGlobals();
+    vi.clearAllMocks();
   });
 
   it('should set the badge with default text', () => {
     badge.set();
-    expect(chrome.action.setBadgeBackgroundColor).toHaveBeenCalledWith({ color: '#C63C51' });
-    expect(chrome.action.setBadgeTextColor).toHaveBeenCalledWith({ color: '#FFFFFF' });
-    expect(chrome.action.setBadgeText).toHaveBeenCalledWith({ text: '1' });
+    expect(browser.action.setBadgeBackgroundColor).toHaveBeenCalledWith({ color: '#C63C51' });
+    expect(browser.action.setBadgeTextColor).toHaveBeenCalledWith({ color: '#FFFFFF' });
+    expect(browser.action.setBadgeText).toHaveBeenCalledWith({ text: '1' });
   });
 
   it('should set the badge with specified text', () => {
     badge.set('test');
-    expect(chrome.action.setBadgeBackgroundColor).toHaveBeenCalledWith({ color: '#C63C51' });
-    expect(chrome.action.setBadgeTextColor).toHaveBeenCalledWith({ color: '#FFFFFF' });
-    expect(chrome.action.setBadgeText).toHaveBeenCalledWith({ text: 'test' });
+    expect(browser.action.setBadgeBackgroundColor).toHaveBeenCalledWith({ color: '#C63C51' });
+    expect(browser.action.setBadgeTextColor).toHaveBeenCalledWith({ color: '#FFFFFF' });
+    expect(browser.action.setBadgeText).toHaveBeenCalledWith({ text: 'test' });
   });
 
   it('should clear the badge text', () => {
     badge.clear();
-    expect(chrome.action.setBadgeText).toHaveBeenCalledWith({ text: '' });
+    expect(browser.action.setBadgeText).toHaveBeenCalledWith({ text: '' });
   });
 });

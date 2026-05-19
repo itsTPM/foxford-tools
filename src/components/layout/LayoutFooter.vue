@@ -8,6 +8,7 @@ import {
   IconMoon,
   type Icon,
 } from '@tabler/icons-vue';
+import { browser } from 'wxt/browser';
 import { Button } from '@/components/ui/button';
 import { useSettings } from '@/composables/useSettings';
 import { useCustomization } from '@/composables/useCustomization';
@@ -15,7 +16,7 @@ import { isExtension } from '@/lib/isExtension';
 
 const { isRefreshNeeded } = useSettings();
 const { toggleTheme, theme } = useCustomization();
-const version = chrome.runtime.getManifest().version;
+const version = browser.runtime.getManifest().version;
 
 const links: { name: string; url: string; icon: Icon }[] = [
   { name: 'GitHub', url: 'https://github.com/itsTPM/foxford-tools', icon: IconBrandGithub },
@@ -25,7 +26,7 @@ const links: { name: string; url: string; icon: Icon }[] = [
 
 async function refreshPage() {
   if (isExtension) {
-    await chrome.tabs.reload();
+    await browser.tabs.reload();
   }
 
   isRefreshNeeded.value = false;

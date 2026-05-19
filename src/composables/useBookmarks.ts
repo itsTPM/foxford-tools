@@ -1,11 +1,12 @@
 import { ref, toRaw, watch } from 'vue';
+import { browser } from 'wxt/browser';
 import { mockBookmarks } from '@/mocks';
 import { isExtension } from '@/lib/isExtension';
 
 const state = ref<Bookmark[]>([]);
 
 async function loadBookmarks() {
-  const storageState = await chrome.storage.sync.get<{ readingList?: Bookmark[] }>('readingList');
+  const storageState = await browser.storage.sync.get<{ readingList?: Bookmark[] }>('readingList');
 
   if (storageState.readingList?.length) {
     state.value = storageState.readingList;
@@ -13,7 +14,7 @@ async function loadBookmarks() {
 }
 
 async function saveBookmarks() {
-  await chrome.storage.sync.set({ readingList: toRaw(state.value) });
+  await browser.storage.sync.set({ readingList: toRaw(state.value) });
 }
 
 if (isExtension) {

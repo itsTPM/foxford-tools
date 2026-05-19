@@ -1,15 +1,16 @@
+import { browser, type Browser } from 'wxt/browser';
 import { badge, logger } from '../../utils';
 
 export function updateNotifier() {
-  chrome.runtime.onInstalled.addListener(({ previousVersion, reason }) => {
-    const currentVersion = chrome.runtime.getManifest().version;
+  browser.runtime.onInstalled.addListener(({ previousVersion, reason }) => {
+    const currentVersion = browser.runtime.getManifest().version;
 
     if (!shouldNotifyUpdate({ reason, previousVersion, currentVersion })) {
       logger.info('Skipping update notifier');
       return;
     }
 
-    void chrome.storage.local.set({ updateData: { previousVersion, currentVersion } });
+    void browser.storage.local.set({ updateData: { previousVersion, currentVersion } });
     badge.set();
   });
 }
@@ -19,7 +20,7 @@ export function shouldNotifyUpdate({
   previousVersion,
   currentVersion,
 }: {
-  reason: chrome.runtime.InstalledDetails['reason'];
+  reason: Browser.runtime.InstalledDetails['reason'];
   previousVersion: string | undefined;
   currentVersion: string;
 }) {

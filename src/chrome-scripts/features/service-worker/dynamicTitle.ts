@@ -1,3 +1,4 @@
+import { browser, type Browser } from 'wxt/browser';
 import { logger } from '@/chrome-scripts/utils';
 
 const urlTitleMap: Record<string, string> = {
@@ -29,13 +30,13 @@ const urlTitleMap: Record<string, string> = {
 };
 
 export function dynamicTitle() {
-  chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     void changeTabTitle({ tab, tabId, changeInfo });
   });
 
-  chrome.tabs.onActivated.addListener(({ tabId }) => {
+  browser.tabs.onActivated.addListener(({ tabId }) => {
     void (async () => {
-      const tab = await chrome.tabs.get(tabId);
+      const tab = await browser.tabs.get(tabId);
       await changeTabTitle({ tab, tabId, changeInfo: { status: 'complete' } });
     })();
   });
@@ -46,9 +47,9 @@ async function changeTabTitle({
   tabId,
   changeInfo,
 }: {
-  tab: chrome.tabs.Tab;
+  tab: Browser.tabs.Tab;
   tabId: number;
-  changeInfo: chrome.tabs.OnUpdatedInfo;
+  changeInfo: Browser.tabs.OnUpdatedInfo;
 }) {
   await new Promise((r) => setTimeout(r, 150)); // 🤩
 
@@ -60,7 +61,7 @@ async function changeTabTitle({
     return;
   }
 
-  void chrome.scripting.executeScript({
+  void browser.scripting.executeScript({
     target: { tabId },
     func: (newTitle: string) => {
       document.title = newTitle;

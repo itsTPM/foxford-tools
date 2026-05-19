@@ -2,16 +2,27 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { nextTick } from 'vue';
 
 import { mockBookmarks } from '@/mocks';
-import mockChromeAPI from './mockChromeApi';
 
 describe('useBookmarks', () => {
-  let chromeMock: ReturnType<typeof mockChromeAPI>;
+  let storageSyncGet: ReturnType<typeof vi.fn>;
+  let storageSyncSet: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     vi.resetModules();
     vi.unstubAllEnvs();
-    chromeMock = mockChromeAPI();
-    vi.stubGlobal('chrome', chromeMock);
+    storageSyncGet = vi.fn();
+    storageSyncSet = vi.fn();
+    vi.stubGlobal('chrome', { runtime: { id: 'test-extension-id' } });
+    vi.doMock('wxt/browser', () => ({
+      browser: {
+        storage: {
+          sync: {
+            get: storageSyncGet,
+            set: storageSyncSet,
+          },
+        },
+      },
+    }));
   });
 
   afterEach(() => {
@@ -20,7 +31,7 @@ describe('useBookmarks', () => {
 
   it('should load bookmarks from storage', async () => {
     const stored = [{ url: 'https://example.com', title: 'Test' }];
-    chromeMock.storage.sync.get.mockResolvedValue({ readingList: stored });
+    storageSyncGet.mockResolvedValue({ readingList: stored });
 
     const { useBookmarks } = await import('../useBookmarks');
     const { bookmarks } = useBookmarks();
@@ -29,7 +40,7 @@ describe('useBookmarks', () => {
   });
 
   it('should keep empty state if storage has no bookmarks', async () => {
-    chromeMock.storage.sync.get.mockResolvedValue({});
+    storageSyncGet.mockResolvedValue({});
 
     const { useBookmarks } = await import('../useBookmarks');
     const { bookmarks } = useBookmarks();
@@ -38,7 +49,7 @@ describe('useBookmarks', () => {
   });
 
   it('should keep empty state if storage has empty readingList', async () => {
-    chromeMock.storage.sync.get.mockResolvedValue({ readingList: [] });
+    storageSyncGet.mockResolvedValue({ readingList: [] });
 
     const { useBookmarks } = await import('../useBookmarks');
     const { bookmarks } = useBookmarks();
@@ -47,8 +58,8 @@ describe('useBookmarks', () => {
   });
 
   it('should save bookmarks to storage when state changes', async () => {
-    chromeMock.storage.sync.get.mockResolvedValue({});
-    chromeMock.storage.sync.set.mockResolvedValue(undefined);
+    storageSyncGet.mockResolvedValue({});
+    storageSyncSet.mockResolvedValue(undefined);
 
     const { useBookmarks } = await import('../useBookmarks');
     const { bookmarks } = useBookmarks();
@@ -59,15 +70,15 @@ describe('useBookmarks', () => {
     await nextTick();
 
     expect(bookmarks.value).toEqual([newBookmark]);
-    expect(chromeMock.storage.sync.set).toHaveBeenCalledWith({
+    expect(storageSyncSet).toHaveBeenCalledWith({
       readingList: [newBookmark],
     });
   });
 
   it('should save bookmarks when a bookmark property changes', async () => {
     const bookmark = { url: 'https://example.com', title: 'Original' };
-    chromeMock.storage.sync.get.mockResolvedValue({ readingList: [bookmark] });
-    chromeMock.storage.sync.set.mockResolvedValue(undefined);
+    storageSyncGet.mockResolvedValue({ readingList: [bookmark] });
+    storageSyncSet.mockResolvedValue(undefined);
 
     const { useBookmarks } = await import('../useBookmarks');
     const { bookmarks } = useBookmarks();
@@ -76,7 +87,7 @@ describe('useBookmarks', () => {
 
     await nextTick();
 
-    expect(chromeMock.storage.sync.set).toHaveBeenCalledWith({
+    expect(storageSyncSet).toHaveBeenCalledWith({
       readingList: [{ url: 'https://example.com', title: 'Updated' }],
     });
   });
@@ -84,7 +95,7 @@ describe('useBookmarks', () => {
   it('should remove bookmark by url', async () => {
     const bookmark1 = { url: 'https://example.com/1', title: 'One' };
     const bookmark2 = { url: 'https://example.com/2', title: 'Two' };
-    chromeMock.storage.sync.get.mockResolvedValue({ readingList: [bookmark1, bookmark2] });
+    storageSyncGet.mockResolvedValue({ readingList: [bookmark1, bookmark2] });
 
     const { useBookmarks } = await import('../useBookmarks');
     const { bookmarks, removeBookmark } = useBookmarks();
@@ -96,7 +107,7 @@ describe('useBookmarks', () => {
 
   it('should not change state when removing non-existent bookmark', async () => {
     const bookmark = { url: 'https://example.com', title: 'Test' };
-    chromeMock.storage.sync.get.mockResolvedValue({ readingList: [bookmark] });
+    storageSyncGet.mockResolvedValue({ readingList: [bookmark] });
 
     const { useBookmarks } = await import('../useBookmarks');
     const { bookmarks, removeBookmark } = useBookmarks();
@@ -106,13 +117,13 @@ describe('useBookmarks', () => {
     expect(bookmarks.value).toEqual([bookmark]);
   });
 
-  it('should use mock bookmarks outside extension context without calling chrome API', async () => {
+  it('should use mock bookmarks outside extension context without calling browser API', async () => {
     vi.stubGlobal('chrome', undefined);
 
     const { useBookmarks } = await import('../useBookmarks');
     const { bookmarks } = useBookmarks();
 
     expect(bookmarks.value).toEqual(mockBookmarks);
-    expect(chromeMock.storage.sync.get).not.toHaveBeenCalled();
+    expect(storageSyncGet).not.toHaveBeenCalled();
   });
 });

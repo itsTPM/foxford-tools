@@ -24,7 +24,7 @@ if (!isExtension) {
     },
   });
 
-  window.chrome = {
+  (globalThis as Record<string, unknown>).chrome = {
     storage: {
       local: makeStorageArea('chrome.local'),
       sync: makeStorageArea('chrome.sync'),
@@ -33,5 +33,5 @@ if (!isExtension) {
       getManifest: () => ({ version: '0.0.0' }),
       sendMessage: () => Promise.resolve(),
     },
-  } as unknown as typeof chrome;
+  };
 }

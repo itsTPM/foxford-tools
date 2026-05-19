@@ -1,6 +1,5 @@
 import { describe, it, beforeEach, afterEach, vi, expect } from 'vitest';
 import { nextTick } from 'vue';
-import mockChromeAPI from './mockChromeApi';
 
 const defaultSettings = {
   homeworkPercent: true,
@@ -13,13 +12,21 @@ const defaultSettings = {
 };
 
 describe('useSettings', () => {
-  let chromeMock: ReturnType<typeof mockChromeAPI>;
+  let storageLocalSet: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     vi.resetModules();
     localStorage.clear();
-    chromeMock = mockChromeAPI();
-    vi.stubGlobal('chrome', chromeMock);
+    storageLocalSet = vi.fn();
+    vi.doMock('wxt/browser', () => ({
+      browser: {
+        storage: {
+          local: {
+            set: storageLocalSet,
+          },
+        },
+      },
+    }));
   });
 
   afterEach(() => {
@@ -37,7 +44,7 @@ describe('useSettings', () => {
       expect(localStorage.getItem(setting)).toBe('true');
     }
 
-    expect(chromeMock.storage.local.set).toHaveBeenCalledWith(defaultSettings);
+    expect(storageLocalSet).toHaveBeenCalledWith(defaultSettings);
   });
 
   it('should load settings from localStorage', async () => {
@@ -64,6 +71,6 @@ describe('useSettings', () => {
 
     expect(settings.value.readingTime).toBe(false);
     expect(localStorage.getItem('readingTime')).toBe('false');
-    expect(chromeMock.storage.local.set).toHaveBeenLastCalledWith(expect.objectContaining({ readingTime: false }));
+    expect(storageLocalSet).toHaveBeenLastCalledWith(expect.objectContaining({ readingTime: false }));
   });
 });

@@ -1,3 +1,4 @@
+import { browser } from 'wxt/browser';
 import { createElement, createObserver } from '../../dom';
 import { logger, makeRequest } from '../../utils';
 import bookmarkMinusIcon from '../../assets/icons/bookmark-minus.svg?url';
@@ -53,7 +54,7 @@ async function observerCallback(element: Element) {
 }
 
 async function getReadingList() {
-  const storage = await chrome.storage.sync.get(['readingList']);
+  const storage = await browser.storage.sync.get(['readingList']);
   return (storage.readingList as Bookmark[] | undefined) ?? [];
 }
 
@@ -85,5 +86,5 @@ async function updateReadingList(item: Bookmark, isAdded: boolean) {
   const currentList = await getReadingList();
   const updatedList = isAdded ? [...currentList, item] : currentList.filter(({ url }) => url !== item.url);
 
-  await chrome.storage.sync.set({ readingList: updatedList });
+  await browser.storage.sync.set({ readingList: updatedList });
 }

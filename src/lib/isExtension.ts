@@ -1,1 +1,1 @@
-export const isExtension = typeof chrome !== 'undefined' && !!chrome?.runtime?.id;
+export const isExtension = !!(globalThis as { chrome?: { runtime?: { id?: string } } }).chrome?.runtime?.id;
