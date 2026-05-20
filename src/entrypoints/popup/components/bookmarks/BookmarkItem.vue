@@ -32,7 +32,10 @@ function handleRemoveBookmark() {
           <p class="font-normal text-muted-foreground">{{ bookmark.courseName }}</p>
         </div>
 
-        <img alt="" :src="bookmark.courseImage" class="aspect-square w-16 object-contain" />
+        <div
+          aria-hidden="true"
+          class="h-16 w-16 shrink-0 bg-contain bg-center bg-no-repeat"
+          :style="{ background: `url(${bookmark.courseImage})` }" />
       </a>
     </Button>
   </div>
