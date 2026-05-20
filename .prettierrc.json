@@ -10,6 +10,6 @@
   "htmlWhitespaceSensitivity": "css",
   "bracketSameLine": true,
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindStylesheet": "./src/global.css",
+  "tailwindStylesheet": "./src/entrypoints/popup/style.css",
   "tailwindFunctions": ["cva", "cn"]
 }
