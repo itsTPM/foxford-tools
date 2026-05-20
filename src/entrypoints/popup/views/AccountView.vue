@@ -13,20 +13,22 @@ const isDataError = ref(false);
 onMounted(async () => {
   try {
     await fetchData();
+    isDataLoading.value = false;
   } catch {
     isDataError.value = true;
-  } finally {
-    isDataLoading.value = false;
   }
 });
 </script>
 
 <template>
-  <p v-if="isDataError" class="text-center">Не удалось загрузить данные</p>
-
-  <template v-else>
+  <div class="relative flex flex-col gap-3">
     <AccountProfileCard :loading="isDataLoading" :data="profileData" />
     <AccountBonusCard :loading="isDataLoading" :bonus-amount="profileData?.bonus_amount ?? null" />
     <AccountLevelCard :loading="isDataLoading" :data="levelData" />
-  </template>
+    <p
+      v-if="isDataError"
+      class="absolute inset-0 flex items-center justify-center bg-background text-center font-medium">
+      Не удалось загрузить данные :(
+    </p>
+  </div>
 </template>
