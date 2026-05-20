@@ -35,7 +35,7 @@ function handleRemoveBookmark() {
         <div
           aria-hidden="true"
           class="h-16 w-16 shrink-0 bg-contain bg-center bg-no-repeat"
-          :style="{ background: `url(${bookmark.courseImage})` }" />
+          :style="{ backgroundImage: `url(${bookmark.courseImage})` }" />
       </a>
     </Button>
   </div>
