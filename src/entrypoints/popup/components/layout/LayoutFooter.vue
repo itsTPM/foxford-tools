@@ -9,9 +9,9 @@ import {
   type Icon,
 } from '@tabler/icons-vue';
 import { browser } from 'wxt/browser';
-import { Button } from '@/entrypoints/popup/components/ui/button';
-import { useSettings } from '@/entrypoints/popup/composables/useSettings';
-import { useCustomization } from '@/entrypoints/popup/composables/useCustomization';
+import { Button } from '@popup/components/ui/button';
+import { useSettings } from '@popup/composables/useSettings';
+import { useCustomization } from '@popup/composables/useCustomization';
 
 const { isRefreshNeeded } = useSettings();
 const { toggleTheme, theme } = useCustomization();

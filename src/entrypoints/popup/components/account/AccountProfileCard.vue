@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Skeleton } from '@/entrypoints/popup/components/ui/skeleton';
+import { Skeleton } from '@popup/components/ui/skeleton';
 
 const props = defineProps<{
   loading: boolean;

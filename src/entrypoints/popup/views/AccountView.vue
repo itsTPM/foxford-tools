@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useAccount } from '@/entrypoints/popup/composables/useAccount';
-import AccountProfileCard from '@/entrypoints/popup/components/account/AccountProfileCard.vue';
-import AccountBonusCard from '@/entrypoints/popup/components/account/AccountBonusCard.vue';
-import AccountLevelCard from '@/entrypoints/popup/components/account/AccountLevelCard.vue';
+import { useAccount } from '@popup/composables/useAccount';
+import AccountProfileCard from '@popup/components/account/AccountProfileCard.vue';
+import AccountBonusCard from '@popup/components/account/AccountBonusCard.vue';
+import AccountLevelCard from '@popup/components/account/AccountLevelCard.vue';
 
 const { profileData, levelData, fetchData } = useAccount();
 

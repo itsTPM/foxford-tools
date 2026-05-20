@@ -13,11 +13,11 @@
   "iconLibrary": "tabler",
   "rtl": false,
   "aliases": {
-    "components": "@/entrypoints/popup/components",
-    "utils": "@/entrypoints/popup/lib/utils",
-    "ui": "@/entrypoints/popup/components/ui",
-    "lib": "@/entrypoints/popup/lib",
-    "composables": "@/entrypoints/popup/composables"
+    "components": "@popup/components",
+    "utils": "@popup/lib/utils",
+    "ui": "@popup/components/ui",
+    "lib": "@popup/lib",
+    "composables": "@popup/composables"
   },
   "menuColor": "default",
   "menuAccent": "subtle",

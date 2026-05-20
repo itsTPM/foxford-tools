@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { nextTick } from 'vue';
 import { fakeBrowser } from 'wxt/testing/fake-browser';
 
-import { mockBookmarks } from '@/entrypoints/popup/mocks';
+import { mockBookmarks } from '@popup/mocks';
 
 describe('useBookmarks', () => {
   beforeEach(() => {

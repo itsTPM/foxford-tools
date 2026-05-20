@@ -2,7 +2,7 @@
 import { type HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { DialogDescription, useForwardProps, type DialogDescriptionProps } from 'reka-ui';
-import { cn } from '@/entrypoints/popup/lib/utils';
+import { cn } from '@popup/lib/utils';
 
 interface Props extends DialogDescriptionProps {
   class?: HTMLAttributes['class'];

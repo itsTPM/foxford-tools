@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, type HTMLAttributes } from 'vue';
 import { Primitive, type PrimitiveProps } from 'reka-ui';
-import { cn } from '@/entrypoints/popup/lib/utils';
+import { cn } from '@popup/lib/utils';
 import { buttonVariants, type ButtonVariants } from '.';
 
 interface Props extends PrimitiveProps {

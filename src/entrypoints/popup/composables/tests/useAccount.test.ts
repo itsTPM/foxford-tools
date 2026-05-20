@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { mockProfileData, mockLevelData } from '@/entrypoints/popup/mocks';
+import { mockProfileData, mockLevelData } from '@popup/mocks';
 
 vi.mock('ofetch');
 

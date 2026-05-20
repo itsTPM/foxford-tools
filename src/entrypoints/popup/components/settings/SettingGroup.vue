@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { IconBook2, IconPercentage, IconWand, IconNotebook, type Icon } from '@tabler/icons-vue';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/entrypoints/popup/components/ui/tooltip';
-import { Button } from '@/entrypoints/popup/components/ui/button';
-import { useSettings } from '@/entrypoints/popup/composables/useSettings';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@popup/components/ui/tooltip';
+import { Button } from '@popup/components/ui/button';
+import { useSettings } from '@popup/composables/useSettings';
 
 const icons: Record<string, Icon> = {
   percentages: IconPercentage,

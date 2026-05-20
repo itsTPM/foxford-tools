@@ -10,8 +10,8 @@ import {
   type DialogContentProps,
   type DialogContentEmits,
 } from 'reka-ui';
-import { cn } from '@/entrypoints/popup/lib/utils';
-import { Button } from '@/entrypoints/popup/components/ui/button';
+import { cn } from '@popup/lib/utils';
+import { Button } from '@popup/components/ui/button';
 import DialogOverlay from './DialogOverlay.vue';
 
 defineOptions({

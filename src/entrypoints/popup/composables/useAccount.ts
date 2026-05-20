@@ -1,6 +1,6 @@
 import { ref, toRefs } from 'vue';
 import { ofetch } from 'ofetch';
-import { mockProfileData, mockLevelData } from '@/entrypoints/popup/mocks';
+import { mockProfileData, mockLevelData } from '@popup/mocks';
 
 interface AccountState {
   profileData: ProfileData | null;

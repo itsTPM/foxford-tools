@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IconTrash } from '@tabler/icons-vue';
 import { Button } from '../ui/button/';
-import { useBookmarks } from '@/entrypoints/popup/composables/useBookmarks';
+import { useBookmarks } from '@popup/composables/useBookmarks';
 
 const { removeBookmark } = useBookmarks();
 

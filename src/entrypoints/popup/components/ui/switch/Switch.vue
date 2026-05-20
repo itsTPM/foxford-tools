@@ -2,7 +2,7 @@
 import { type HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { SwitchRoot, SwitchThumb, useForwardPropsEmits, type SwitchRootProps, type SwitchRootEmits } from 'reka-ui';
-import { cn } from '@/entrypoints/popup/lib/utils';
+import { cn } from '@popup/lib/utils';
 
 interface Props extends SwitchRootProps {
   class?: HTMLAttributes['class'];

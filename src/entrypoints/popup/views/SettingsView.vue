@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import SettingGroup from '@/entrypoints/popup/components/settings/SettingGroup.vue';
-import SettingItem from '@/entrypoints/popup/components/settings/SettingItem.vue';
-import { useSettings } from '@/entrypoints/popup/composables/useSettings';
+import SettingGroup from '@popup/components/settings/SettingGroup.vue';
+import SettingItem from '@popup/components/settings/SettingItem.vue';
+import { useSettings } from '@popup/composables/useSettings';
 
 const { selectedSettingGroup, settingGroups } = useSettings();
 </script>

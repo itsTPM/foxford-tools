@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { Button } from '@/entrypoints/popup/components/ui/button';
+import { Button } from '@popup/components/ui/button';
 import Logo from '@/assets/logo.svg';
 
 const router = useRouter();

@@ -12,7 +12,7 @@ import {
   type DialogContentEmits,
   type PointerDownOutsideEvent,
 } from 'reka-ui';
-import { cn } from '@/entrypoints/popup/lib/utils';
+import { cn } from '@popup/lib/utils';
 
 defineOptions({
   inheritAttrs: false,

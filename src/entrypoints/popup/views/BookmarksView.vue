@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import BookmarkItem from '@/entrypoints/popup/components/bookmarks/BookmarkItem.vue';
-import { useBookmarks } from '@/entrypoints/popup/composables/useBookmarks';
+import BookmarkItem from '@popup/components/bookmarks/BookmarkItem.vue';
+import { useBookmarks } from '@popup/composables/useBookmarks';
 
 const { bookmarks } = useBookmarks();
 </script>

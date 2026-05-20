@@ -6,6 +6,11 @@ export default defineConfig({
   srcDir: 'src',
   modules: ['@wxt-dev/module-vue'],
   imports: false,
+  alias: {
+    '@popup': 'src/entrypoints/popup',
+    '@content': 'src/entrypoints/content',
+    '@background': 'src/entrypoints/background',
+  },
   manifest: {
     name: 'Foxford Tools',
     description: 'Расширение для того самого сайта Фокса',

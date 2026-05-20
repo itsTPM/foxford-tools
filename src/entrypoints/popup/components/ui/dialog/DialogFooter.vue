@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { type HTMLAttributes } from 'vue';
 import { DialogClose } from 'reka-ui';
-import { cn } from '@/entrypoints/popup/lib/utils';
-import { Button } from '@/entrypoints/popup/components/ui/button';
+import { cn } from '@popup/lib/utils';
+import { Button } from '@popup/components/ui/button';
 
 interface Props {
   class?: HTMLAttributes['class'];

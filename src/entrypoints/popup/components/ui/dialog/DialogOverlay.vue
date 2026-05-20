@@ -2,7 +2,7 @@
 import { type HTMLAttributes } from 'vue';
 import { reactiveOmit } from '@vueuse/core';
 import { DialogOverlay, type DialogOverlayProps } from 'reka-ui';
-import { cn } from '@/entrypoints/popup/lib/utils';
+import { cn } from '@popup/lib/utils';
 
 interface Props extends DialogOverlayProps {
   class?: HTMLAttributes['class'];

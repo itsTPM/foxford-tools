@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/entrypoints/popup/components/ui/dialog';
-import { useUpdateHandler, type UpdateData } from '@/entrypoints/popup/composables/useUpdateHandler';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@popup/components/ui/dialog';
+import { useUpdateHandler, type UpdateData } from '@popup/composables/useUpdateHandler';
 
 const { getUpdateData, resetUpdateData } = useUpdateHandler();
 

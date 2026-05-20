@@ -1,6 +1,6 @@
 import { ref, toRaw, watch } from 'vue';
 import { browser } from 'wxt/browser';
-import { mockBookmarks } from '@/entrypoints/popup/mocks';
+import { mockBookmarks } from '@popup/mocks';
 
 const state = ref<Bookmark[]>([]);
 

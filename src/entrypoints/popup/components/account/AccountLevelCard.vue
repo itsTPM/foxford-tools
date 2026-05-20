@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IconArrowBadgeUp } from '@tabler/icons-vue';
-import { Progress } from '@/entrypoints/popup/components/ui/progress';
-import { Skeleton } from '@/entrypoints/popup/components/ui/skeleton';
+import { Progress } from '@popup/components/ui/progress';
+import { Skeleton } from '@popup/components/ui/skeleton';
 
 defineProps<{
   loading: boolean;
