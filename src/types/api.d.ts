@@ -20,20 +20,17 @@ interface GetLevelDataResponse extends LevelData {
   [key: string]: unknown;
 }
 
-type TaskStatus = 'started' | 'not_started' | 'hinted' | 'in_queue' | 'unavailable' | 'solved' | 'partially' | 'failed';
-
-interface Task {
-  status: TaskStatus;
-}
-
-interface ClassworkStats {
+interface LessonTasksStats {
   solved_tasks_count: number;
   partially_tasks_count: number;
   failed_tasks_count: number;
+  tasks_count: number;
 }
 
-interface LessonTasksStats {
-  classwork: ClassworkStats;
+interface LessonStatsResponse {
+  visiting_state: string;
+  classwork: LessonTasksStats;
+  homework: LessonTasksStats;
 }
 
 interface ConspectData {

@@ -1,5 +1,5 @@
 import { createObserver, createPercentElement } from '@/utils/dom';
-import { logger, makeRequest } from '@/utils';
+import { calculatePercent, isFullyAssessed, logger, makeRequest } from '@/utils';
 
 export function webinarPercent() {
   const observer = createObserver({
@@ -16,19 +16,19 @@ async function observerCallback(element: Element) {
   const webinarLink = getWebinarLink(element);
   if (!webinarLink) return;
 
-  const webinarId = webinarLink.match(/lessons\/(\d+)/)?.[1];
-  if (!webinarId) {
-    logger.error('Webinar ID is undefined');
+  const lessonId = webinarLink.match(/lessons\/(\d+)/)?.[1];
+  if (!lessonId) {
+    logger.error('Lesson ID is undefined');
     return;
   }
 
-  const lessonTasksStats = await getLessonTasksStats(webinarId);
-  if (!lessonTasksStats) {
-    logger.error('Lesson tasks stats are undefined');
+  const stats = await getLessonStats(lessonId);
+  if (!stats) {
+    logger.error('Lesson stats are undefined');
     return;
   }
 
-  const percent = calculatePercent(lessonTasksStats.classwork);
+  const { percent } = calculatePercent(stats.classwork);
   setupWebinarPercentElement(percent, element);
 }
 
@@ -36,21 +36,15 @@ function getWebinarLink(element: Element) {
   return element.closest<HTMLAnchorElement>('a[href]')?.href;
 }
 
-async function getLessonTasksStats(webinarId: string) {
-  return makeRequest<LessonTasksStats>({ url: `user/calendar/items/course_lessons/${webinarId}` });
+async function getLessonStats(lessonId: string) {
+  return makeRequest<LessonStatsResponse>({
+    url: `user/calendar/items/course_lessons/${lessonId}`,
+    cacheCallback,
+  });
 }
 
-export function calculatePercent(tasksStats: ClassworkStats) {
-  const {
-    solved_tasks_count: successfulTasksCount,
-    partially_tasks_count: partiallyTasksCount,
-    failed_tasks_count: failedTasksCount,
-  } = tasksStats;
-
-  const solvedTasksCount = successfulTasksCount + partiallyTasksCount + failedTasksCount;
-  if (solvedTasksCount === 0) return null;
-
-  return Math.round(((successfulTasksCount + partiallyTasksCount * 0.5) / solvedTasksCount) * 100);
+export function cacheCallback(data: LessonStatsResponse) {
+  return isFullyAssessed(data.classwork) && isFullyAssessed(data.homework);
 }
 
 function setupWebinarPercentElement(percent: number | null, element: Element) {
