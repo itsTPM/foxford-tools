@@ -4,7 +4,7 @@ import googleIcon from './icons/google-logo.svg?url';
 
 export function searchButton() {
   const observer = createObserver({
-    targetElementSelector: 'div[class*="theory__Root"]',
+    targetElementSelector: '#WebinarCourseTheoryBlock',
     createdElementSelector: '#searchButton',
     urlPart: 'courses',
     callback: observerCallback,
@@ -14,11 +14,17 @@ export function searchButton() {
 }
 
 function observerCallback(element: Element) {
-  const searchButtonElement = createSearchButtonElement(element);
+  const target = element.children[0]?.children[0];
+  if (!target) {
+    logger.error('Unable to find suitable parent element for theory search button');
+    return;
+  }
+
+  const searchButtonElement = createSearchButtonElement(target);
   searchButtonElement.addEventListener('click', (e) => void searchButtonElementOnClick(e));
 }
 
-function createSearchButtonElement(element: Element) {
+function createSearchButtonElement(parent: Element) {
   const searchButtonElement = createElement({
     tag: 'button',
     properties: {
@@ -26,7 +32,7 @@ function createSearchButtonElement(element: Element) {
       id: 'searchButton',
       ariaLabel: 'Искать теорию по теме в Google',
     },
-    parent: element,
+    parent,
     insertMethod: 'append',
   });
 
