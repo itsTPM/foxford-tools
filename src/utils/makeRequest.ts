@@ -27,7 +27,8 @@ export async function makeRequest<T>({ url, method = 'GET', cacheCallback }: Mak
 }
 
 async function send<T>(url: string, method: string) {
-  const inflight = inflightRequests.get(url) as Promise<T | undefined> | undefined;
+  const key = `${method}:${url}`;
+  const inflight = inflightRequests.get(key) as Promise<T | undefined> | undefined;
   if (inflight) return inflight;
 
   const request = ofetch<T>(url, { method })
@@ -35,9 +36,9 @@ async function send<T>(url: string, method: string) {
       logger.error(err.message);
       return undefined;
     })
-    .finally(() => inflightRequests.delete(url));
+    .finally(() => inflightRequests.delete(key));
 
-  inflightRequests.set(url, request);
+  inflightRequests.set(key, request);
   return request;
 }
 
