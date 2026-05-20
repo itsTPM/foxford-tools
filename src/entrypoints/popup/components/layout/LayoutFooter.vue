@@ -31,7 +31,7 @@ async function refreshPage() {
 
 <template>
   <footer class="relative h-15">
-    <div v-if="!isRefreshNeeded" class="flex items-center justify-between">
+    <div v-if="!isRefreshNeeded" class="flex h-full items-center justify-between">
       <div class="flex items-center gap-2">
         <Button
           size="icon"
