@@ -29,7 +29,7 @@ const creationDate = computed(() => {
     <template v-else-if="data">
       <img :src="data.avatar_url" alt="Аватар пользователя" class="size-16 object-contain" />
       <div>
-        <p class="font-medium">{{ data.full_name }}</p>
+        <p class="text-lg font-medium">{{ data.full_name }}</p>
         <p class="text-sm text-muted-foreground">создан: {{ creationDate }}</p>
       </div>
     </template>
