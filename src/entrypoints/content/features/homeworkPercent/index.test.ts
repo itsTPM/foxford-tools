@@ -33,19 +33,19 @@ describe('homeworkPercent', () => {
 
   describe('checkIsShouldUseLegendary', () => {
     it('should return true when percent is 100 and total === solved', () => {
-      expect(checkIsShouldUseLegendary({ percent: 100, totalTasksCount: 5, solvedTasksCount: 5 })).toBe(true);
+      expect(checkIsShouldUseLegendary({ percent: 100, totalTasksCount: 5, assessedTasksCount: 5 })).toBe(true);
     });
 
     it('should return false when percent is 100 but some tasks remain unassessed', () => {
-      expect(checkIsShouldUseLegendary({ percent: 100, totalTasksCount: 7, solvedTasksCount: 5 })).toBe(false);
+      expect(checkIsShouldUseLegendary({ percent: 100, totalTasksCount: 7, assessedTasksCount: 5 })).toBe(false);
     });
 
     it('should return false when percent is below 100', () => {
-      expect(checkIsShouldUseLegendary({ percent: 99, totalTasksCount: 5, solvedTasksCount: 5 })).toBe(false);
+      expect(checkIsShouldUseLegendary({ percent: 99, totalTasksCount: 5, assessedTasksCount: 5 })).toBe(false);
     });
 
     it('should return false when percent is null (no work to assess)', () => {
-      expect(checkIsShouldUseLegendary({ percent: null, totalTasksCount: 3, solvedTasksCount: 0 })).toBe(false);
+      expect(checkIsShouldUseLegendary({ percent: null, totalTasksCount: 3, assessedTasksCount: 0 })).toBe(false);
     });
   });
 });

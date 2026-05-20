@@ -6,7 +6,7 @@ describe('calculatePercent', () => {
     expect(calculatePercent(makeStats({ solved: 4, partially: 0, failed: 0, total: 4 }))).toEqual({
       percent: 100,
       totalTasksCount: 4,
-      solvedTasksCount: 4,
+      assessedTasksCount: 4,
     });
   });
 
@@ -14,7 +14,7 @@ describe('calculatePercent', () => {
     expect(calculatePercent(makeStats({ solved: 0, partially: 0, failed: 3, total: 3 }))).toEqual({
       percent: 0,
       totalTasksCount: 3,
-      solvedTasksCount: 3,
+      assessedTasksCount: 3,
     });
   });
 
@@ -22,7 +22,7 @@ describe('calculatePercent', () => {
     expect(calculatePercent(makeStats({ solved: 1, partially: 2, failed: 1, total: 4 }))).toEqual({
       percent: 50,
       totalTasksCount: 4,
-      solvedTasksCount: 4,
+      assessedTasksCount: 4,
     });
   });
 
@@ -30,7 +30,7 @@ describe('calculatePercent', () => {
     expect(calculatePercent(makeStats({ solved: 0, partially: 4, failed: 0, total: 4 }))).toEqual({
       percent: 50,
       totalTasksCount: 4,
-      solvedTasksCount: 4,
+      assessedTasksCount: 4,
     });
   });
 
@@ -42,15 +42,15 @@ describe('calculatePercent', () => {
     expect(calculatePercent(makeStats({ solved: 0, partially: 0, failed: 0, total: 0 }))).toEqual({
       percent: null,
       totalTasksCount: 0,
-      solvedTasksCount: 0,
+      assessedTasksCount: 0,
     });
   });
 
-  it('should expose totalTasksCount distinct from solvedTasksCount when some tasks are unassessed', () => {
+  it('should expose totalTasksCount distinct from assessedTasksCount when some tasks are unassessed', () => {
     expect(calculatePercent(makeStats({ solved: 2, partially: 0, failed: 0, total: 5 }))).toEqual({
       percent: 100,
       totalTasksCount: 5,
-      solvedTasksCount: 2,
+      assessedTasksCount: 2,
     });
   });
 });

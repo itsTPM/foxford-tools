@@ -72,8 +72,8 @@ function setPercentElementAttributes(percentElement: HTMLElement) {
   percentElement.classList.add('homeworkPercent');
 }
 
-export function checkIsShouldUseLegendary({ percent, totalTasksCount, solvedTasksCount }: PercentResult) {
-  return percent === 100 && totalTasksCount === solvedTasksCount;
+export function checkIsShouldUseLegendary({ percent, totalTasksCount, assessedTasksCount }: PercentResult) {
+  return percent === 100 && totalTasksCount === assessedTasksCount;
 }
 
 function useLegendary(element: HTMLElement) {
