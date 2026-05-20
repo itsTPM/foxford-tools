@@ -26,7 +26,7 @@ export default defineConfig([
     extends: [...tseslint.configs.recommendedTypeChecked],
     languageOptions: {
       parserOptions: {
-        projectService: { allowDefaultProject: ['eslint.config.ts'] },
+        projectService: true,
         extraFileExtensions: ['.vue'],
         parser: tseslint.parser,
       },
