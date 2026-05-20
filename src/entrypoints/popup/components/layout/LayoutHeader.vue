@@ -21,7 +21,7 @@ const routes = router.getRoutes();
       <ul class="flex justify-center gap-2" aria-label="Вкладки">
         <li v-for="route in routes" :key="route.name">
           <Button :aria-label="route.meta.title" size="icon" variant="outline" as-child>
-            <RouterLink :to="{ name: route.name }">
+            <RouterLink :to="{ name: route.name }" draggable="false">
               <component :is="route.meta.icon" stroke-width="1.5" aria-hidden="true" />
             </RouterLink>
           </Button>
