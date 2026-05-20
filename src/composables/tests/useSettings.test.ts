@@ -1,5 +1,6 @@
-import { describe, it, beforeEach, afterEach, vi, expect } from 'vitest';
+import { describe, it, beforeEach, vi, expect } from 'vitest';
 import { nextTick } from 'vue';
+import { fakeBrowser } from 'wxt/testing/fake-browser';
 
 const defaultSettings = {
   homeworkPercent: true,
@@ -12,25 +13,10 @@ const defaultSettings = {
 };
 
 describe('useSettings', () => {
-  let storageLocalSet: ReturnType<typeof vi.fn>;
-
   beforeEach(() => {
     vi.resetModules();
+    fakeBrowser.reset();
     localStorage.clear();
-    storageLocalSet = vi.fn();
-    vi.doMock('wxt/browser', () => ({
-      browser: {
-        storage: {
-          local: {
-            set: storageLocalSet,
-          },
-        },
-      },
-    }));
-  });
-
-  afterEach(() => {
-    vi.unstubAllGlobals();
   });
 
   it('should set settings to true if localStorage is empty', async () => {
@@ -44,7 +30,7 @@ describe('useSettings', () => {
       expect(localStorage.getItem(setting)).toBe('true');
     }
 
-    expect(storageLocalSet).toHaveBeenCalledWith(defaultSettings);
+    expect(await fakeBrowser.storage.local.get()).toEqual(defaultSettings);
   });
 
   it('should load settings from localStorage', async () => {
@@ -71,6 +57,6 @@ describe('useSettings', () => {
 
     expect(settings.value.readingTime).toBe(false);
     expect(localStorage.getItem('readingTime')).toBe('false');
-    expect(storageLocalSet).toHaveBeenLastCalledWith(expect.objectContaining({ readingTime: false }));
+    expect(await fakeBrowser.storage.local.get('readingTime')).toEqual({ readingTime: false });
   });
 });

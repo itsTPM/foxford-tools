@@ -1,14 +1,9 @@
-import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
-import { fileURLToPath, URL } from 'node:url';
-import svgLoader from 'vite-svg-loader';
 import { defineConfig } from 'vitest/config';
+import { WxtVitest } from 'wxt/testing/vitest-plugin';
 
 export default defineConfig({
-  plugins: [vue(), svgLoader(), tailwindcss()],
-  resolve: {
-    alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
-  },
+  plugins: [vue(), WxtVitest()],
   test: {
     environment: 'happy-dom',
   },
