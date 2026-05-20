@@ -52,15 +52,18 @@ jobs:
         run: pnpm install
       - name: Zip extensions
         run: pnpm run zip && pnpm run zip:firefox
+      - name: Collect artifacts
+        run: |
+          mkdir -p artifacts/chrome artifacts/firefox
+          cp .output/*-chrome.zip artifacts/chrome/
+          cp .output/*-firefox.zip .output/*-sources.zip artifacts/firefox/
       - name: Upload Chrome artifact
         uses: actions/upload-artifact@v7
         with:
           name: chrome
-          path: '.output/*-chrome.zip'
+          path: artifacts/chrome/
       - name: Upload Firefox artifacts
         uses: actions/upload-artifact@v7
         with:
           name: firefox
-          path: |
-            .output/*-firefox.zip
-            .output/*-sources.zip
+          path: artifacts/firefox/
