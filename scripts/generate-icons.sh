@@ -13,10 +13,10 @@ mkdir -p "$OUT"
 
 for size in "${SIZES[@]}"; do
   rsvg-convert -w "$size" "$SVG" | \
-    magick - -background transparent -gravity center -extent "${size}x${size}" PNG32:"${OUT}/icon-${size}.png"
-  echo "  ✓ ${OUT}/icon-${size}.png"
+    magick - -background transparent -gravity center -extent "${size}x${size}" PNG32:"${OUT}/${size}.png"
+  echo "  ✓ ${OUT}/${size}.png"
 done
 
-magick "${OUT}/icon-32.png" public/favicon.ico
+magick "${OUT}/32.png" public/favicon.ico
 echo "  ✓ public/favicon.ico"
 echo "Done!"
