@@ -14,16 +14,16 @@ export function homeworkPercent() {
 }
 
 async function observerCallback(element: Element) {
-  const homeworkLink = getHomeworkLink(element);
+  const homeworkLink = element.closest<HTMLAnchorElement>('a[href]')?.href;
   if (!homeworkLink || homeworkLink.includes('trainings')) return;
 
-  const lessonId = homeworkLink.match(/lessons\/(\d+)/)?.[1];
-  if (!lessonId) {
-    logger.error('Lesson ID is undefined');
+  const groupId = getGroupId(element);
+  if (!groupId) {
+    logger.error('Group ID is undefined');
     return;
   }
 
-  const stats = await getLessonStats(lessonId);
+  const stats = await getStats(groupId);
   if (!stats) {
     logger.error('Lesson stats are undefined');
     return;
@@ -37,13 +37,16 @@ async function observerCallback(element: Element) {
   }
 }
 
-function getHomeworkLink(element: Element) {
-  return element.closest<HTMLAnchorElement>('a[href]')?.href;
+function getGroupId(element: Element) {
+  return element
+    .closest('a[href]')
+    ?.parentElement?.querySelector<HTMLAnchorElement>('a[href*="/groups/"]')
+    ?.href.match(/groups\/(\d+)/)?.[1];
 }
 
-async function getLessonStats(lessonId: string) {
+async function getStats(groupId: string) {
   return makeRequest<LessonStatsResponse>({
-    url: `user/calendar/items/course_lessons/${lessonId}`,
+    url: `user/calendar/items/course_lessons/${groupId}`,
     cacheCallback,
   });
 }
