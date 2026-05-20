@@ -85,4 +85,14 @@ describe('makeRequest', () => {
     expect(cacheCallback).not.toHaveBeenCalled();
     expect(localStorage.getItem(`${BASE_API_URL}test`)).toBeNull();
   });
+
+  it('should deduplicate concurrent requests to the same URL', async () => {
+    vi.mocked(ofetch).mockResolvedValueOnce({ data: 'test' });
+
+    const [a, b] = await Promise.all([makeRequest({ url: 'test' }), makeRequest({ url: 'test' })]);
+
+    expect(ofetch).toHaveBeenCalledTimes(1);
+    expect(a).toEqual({ data: 'test' });
+    expect(b).toEqual({ data: 'test' });
+  });
 });
