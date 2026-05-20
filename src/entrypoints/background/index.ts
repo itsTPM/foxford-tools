@@ -5,11 +5,7 @@ import { dynamicTitle } from './features/dynamicTitle';
 import { updateNotifier } from './features/updateNotifier';
 
 export default defineBackground(() => {
-  void (async () => {
-    const { dynamicTitle: enabled } = await browser.storage.local.get(['dynamicTitle']);
-    if (!enabled) return;
-    dynamicTitle();
-  })();
+  dynamicTitle();
 
   browser.runtime.onMessage.addListener((message) => {
     if (message === 'clearBadge') {

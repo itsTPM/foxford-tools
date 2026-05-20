@@ -55,6 +55,9 @@ async function changeTabTitle({
 
   if (!tab.url?.includes('foxford.ru') || changeInfo.status !== 'complete') return;
 
+  const { dynamicTitle: enabled } = await browser.storage.local.get(['dynamicTitle']);
+  if (!enabled) return;
+
   const title = getDynamicTitleByUrl(tab.url);
   if (!title) {
     logger.warn(`No suitable title for url ${tab.url}`);
