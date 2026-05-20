@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "dev": "wxt dev",
+    "dev": "wxt",
     "dev:firefox": "wxt -b firefox",
     "test": "vitest",
     "build": "wxt build",
