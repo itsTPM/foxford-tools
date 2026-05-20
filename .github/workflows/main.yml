@@ -50,19 +50,17 @@ jobs:
           version: 10
       - name: Install dependencies
         run: pnpm install
-      - name: Build for Chrome
-        run: pnpm run build:chrome
+      - name: Zip for Chrome
+        run: pnpm run zip
       - name: Upload build artifact
         uses: actions/upload-artifact@v7
         with:
           name: chrome
-          path: 'dist/'
-      - name: Clean up
-        run: rm -rf dist
-      - name: Build for Firefox
-        run: pnpm run build:firefox
+          path: '.output/*-chrome.zip'
+      - name: Zip for Firefox
+        run: pnpm run zip:firefox
       - name: Upload build artifact
         uses: actions/upload-artifact@v7
         with:
           name: firefox
-          path: 'dist/'
+          path: '.output/*-firefox*.zip'
