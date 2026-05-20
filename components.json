@@ -5,7 +5,7 @@
   "typescript": true,
   "tailwind": {
     "config": "",
-    "css": "src/global.css",
+    "css": "src/entrypoints/popup/style.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
@@ -13,11 +13,11 @@
   "iconLibrary": "tabler",
   "rtl": false,
   "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "composables": "@/composables"
+    "components": "@/entrypoints/popup/components",
+    "utils": "@/entrypoints/popup/lib/utils",
+    "ui": "@/entrypoints/popup/components/ui",
+    "lib": "@/entrypoints/popup/lib",
+    "composables": "@/entrypoints/popup/composables"
   },
   "menuColor": "default",
   "menuAccent": "subtle",
