@@ -6,11 +6,11 @@ vi.mock('ofetch');
 describe('useAccount', () => {
   beforeEach(() => {
     vi.resetModules();
-    vi.stubGlobal('chrome', { runtime: { id: 'test-extension-id' } });
+    vi.stubEnv('DEV', false);
   });
 
   afterEach(() => {
-    vi.unstubAllGlobals();
+    vi.unstubAllEnvs();
   });
 
   it('should fetch profile data correctly', async () => {

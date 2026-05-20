@@ -8,10 +8,12 @@ describe('useBookmarks', () => {
   beforeEach(() => {
     vi.resetModules();
     fakeBrowser.reset();
+    vi.stubEnv('DEV', false);
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
+    vi.unstubAllEnvs();
   });
 
   it('should load bookmarks from storage', async () => {
@@ -94,18 +96,14 @@ describe('useBookmarks', () => {
     expect(bookmarks.value).toEqual([bookmark]);
   });
 
-  it('should use mock bookmarks outside extension context without touching storage', async () => {
-    vi.stubGlobal('chrome', undefined);
+  it('should use mock bookmarks in dev mode without touching storage', async () => {
+    vi.stubEnv('DEV', true);
     const setSpy = vi.spyOn(fakeBrowser.storage.sync, 'set');
 
-    try {
-      const { useBookmarks } = await import('../useBookmarks');
-      const { bookmarks } = useBookmarks();
+    const { useBookmarks } = await import('../useBookmarks');
+    const { bookmarks } = useBookmarks();
 
-      expect(bookmarks.value).toEqual(mockBookmarks);
-      expect(setSpy).not.toHaveBeenCalled();
-    } finally {
-      vi.stubGlobal('chrome', fakeBrowser);
-    }
+    expect(bookmarks.value).toEqual(mockBookmarks);
+    expect(setSpy).not.toHaveBeenCalled();
   });
 });

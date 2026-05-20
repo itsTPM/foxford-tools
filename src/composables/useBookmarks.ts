@@ -1,7 +1,6 @@
 import { ref, toRaw, watch } from 'vue';
 import { browser } from 'wxt/browser';
 import { mockBookmarks } from '@/mocks';
-import { isExtension } from '@/lib/isExtension';
 
 const state = ref<Bookmark[]>([]);
 
@@ -17,12 +16,12 @@ async function saveBookmarks() {
   await browser.storage.sync.set({ readingList: toRaw(state.value) });
 }
 
-if (isExtension) {
+if (import.meta.env.DEV) {
+  state.value = mockBookmarks;
+} else {
   void loadBookmarks().then(() => {
     watch(state, saveBookmarks, { deep: true });
   });
-} else {
-  state.value = mockBookmarks;
 }
 
 export function useBookmarks() {

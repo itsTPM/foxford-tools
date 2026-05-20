@@ -12,7 +12,6 @@ import { browser } from 'wxt/browser';
 import { Button } from '@/components/ui/button';
 import { useSettings } from '@/composables/useSettings';
 import { useCustomization } from '@/composables/useCustomization';
-import { isExtension } from '@/lib/isExtension';
 
 const { isRefreshNeeded } = useSettings();
 const { toggleTheme, theme } = useCustomization();
@@ -25,10 +24,7 @@ const links: { name: string; url: string; icon: Icon }[] = [
 ];
 
 async function refreshPage() {
-  if (isExtension) {
-    await browser.tabs.reload();
-  }
-
+  await browser.tabs.reload();
   isRefreshNeeded.value = false;
 }
 </script>
