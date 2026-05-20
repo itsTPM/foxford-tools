@@ -53,16 +53,25 @@ jobs:
       - name: Zip extensions
         run: pnpm run zip && pnpm run zip:firefox
       - name: Collect artifacts
-        run: mkdir -p artifacts && cp .output/*.zip artifacts/
+        run: |
+          echo "CHROME_ZIP=$(ls .output/*-chrome.zip)" >> $GITHUB_ENV
+          echo "FIREFOX_ZIP=$(ls .output/*-firefox.zip)" >> $GITHUB_ENV
+          echo "SOURCES_ZIP=$(ls .output/*-sources.zip)" >> $GITHUB_ENV
       - name: Upload Chrome artifact
         uses: actions/upload-artifact@v7
         with:
           name: chrome
-          path: artifacts/*-chrome.zip
-      - name: Upload Firefox artifacts
+          path: ${{ env.CHROME_ZIP }}
+          archive: false
+      - name: Upload Firefox artifact
         uses: actions/upload-artifact@v7
         with:
           name: firefox
-          path: |
-            artifacts/*-firefox.zip
-            artifacts/*-sources.zip
+          path: ${{ env.FIREFOX_ZIP }}
+          archive: false
+      - name: Upload Firefox sources artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: firefox-sources
+          path: ${{ env.SOURCES_ZIP }}
+          archive: false
