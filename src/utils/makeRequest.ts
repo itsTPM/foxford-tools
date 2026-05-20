@@ -3,6 +3,8 @@ import { logger } from './logger';
 
 const BASE_API_URL = 'https://foxford.ru/api/';
 
+const inflightRequests = new Map<string, Promise<unknown>>();
+
 interface MakeRequestOptions<T> {
   url: string;
   method?: string;
@@ -25,10 +27,19 @@ export async function makeRequest<T>({ url, method = 'GET', cacheCallback }: Mak
 }
 
 async function send<T>(url: string, method: string) {
-  return await ofetch<T>(url, { method }).catch((err: FetchError) => {
-    logger.error(err.message);
-    return undefined;
-  });
+  const key = `${method}:${url}`;
+  const inflight = inflightRequests.get(key) as Promise<T | undefined> | undefined;
+  if (inflight) return inflight;
+
+  const request = ofetch<T>(url, { method })
+    .catch((err: FetchError) => {
+      logger.error(err.message);
+      return undefined;
+    })
+    .finally(() => inflightRequests.delete(key));
+
+  inflightRequests.set(key, request);
+  return request;
 }
 
 function getCachedData<T>(url: string) {

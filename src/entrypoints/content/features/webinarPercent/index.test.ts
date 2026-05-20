@@ -1,58 +1,48 @@
 import { describe, it, expect } from 'vitest';
-import { calculatePercent } from '.';
+import { cacheCallback } from '.';
 
 describe('webinarPercent', () => {
-  describe('calculatePercent', () => {
-    it('should return 100% when only solved tasks are present', () => {
-      const stats = makeStats({ solved: 4, partially: 0, failed: 0 });
+  describe('cacheCallback', () => {
+    it('should return true when both classwork and homework are fully assessed', () => {
+      const response = makeResponse({
+        classwork: { solved: 2, partially: 1, failed: 0, total: 3 },
+        homework: { solved: 1, partially: 0, failed: 0, total: 1 },
+      });
 
-      expect(calculatePercent(stats)).toBe(100);
+      expect(cacheCallback(response)).toBe(true);
     });
 
-    it('should return 0% when only failed tasks are present', () => {
-      const stats = makeStats({ solved: 0, partially: 0, failed: 3 });
+    it('should return false when classwork still has unassessed tasks', () => {
+      const response = makeResponse({
+        classwork: { solved: 0, partially: 0, failed: 0, total: 3 },
+        homework: { solved: 1, partially: 0, failed: 0, total: 1 },
+      });
 
-      expect(calculatePercent(stats)).toBe(0);
-    });
-
-    it('should weight partially as 0.5 in the rate', () => {
-      const stats = makeStats({ solved: 1, partially: 2, failed: 1 });
-
-      expect(calculatePercent(stats)).toBe(50);
-    });
-
-    it('should treat purely partially as 50%', () => {
-      const stats = makeStats({ solved: 0, partially: 4, failed: 0 });
-
-      expect(calculatePercent(stats)).toBe(50);
-    });
-
-    it('should round the percent to the nearest integer', () => {
-      const stats = makeStats({ solved: 2, partially: 0, failed: 1 });
-
-      expect(calculatePercent(stats)).toBe(67);
-    });
-
-    it('should return null when there are no tasks', () => {
-      const stats = makeStats({ solved: 0, partially: 0, failed: 0 });
-
-      expect(calculatePercent(stats)).toBeNull();
+      expect(cacheCallback(response)).toBe(false);
     });
   });
 });
 
-function makeStats({
-  solved,
-  partially,
-  failed,
-}: {
+interface Counts {
   solved: number;
   partially: number;
   failed: number;
-}): ClassworkStats {
+  total: number;
+}
+
+function makeResponse({ classwork, homework }: { classwork: Counts; homework: Counts }): LessonStatsResponse {
+  return {
+    visiting_state: 'visited',
+    classwork: toStats(classwork),
+    homework: toStats(homework),
+  };
+}
+
+function toStats({ solved, partially, failed, total }: Counts): LessonTasksStats {
   return {
     solved_tasks_count: solved,
     partially_tasks_count: partially,
     failed_tasks_count: failed,
+    tasks_count: total,
   };
 }

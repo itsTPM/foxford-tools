@@ -1,15 +1,6 @@
 import { createObserver, createPercentElement } from '@/utils/dom';
-import { logger, makeRequest } from '@/utils';
-
-type SolvedStatus = 'solved' | 'partially' | 'failed';
-
-const IGNORED_STATUSES: readonly TaskStatus[] = ['started', 'not_started', 'hinted', 'in_queue', 'unavailable'];
-const SOLVED_STATUSES: readonly TaskStatus[] = ['solved', 'partially', 'failed'];
-const SOLVED_STATUSES_RATE: Record<SolvedStatus, number> = {
-  solved: 1,
-  partially: 0.5,
-  failed: 0,
-};
+import { calculatePercent, isFullyAssessed, logger, makeRequest } from '@/utils';
+import type { PercentResult } from '@/utils/calculatePercent';
 
 export function homeworkPercent() {
   const observer = createObserver({
@@ -23,53 +14,45 @@ export function homeworkPercent() {
 }
 
 async function observerCallback(element: Element) {
-  const homeworkLink = getHomeworkLink(element);
+  const homeworkLink = element.closest<HTMLAnchorElement>('a[href]')?.href;
   if (!homeworkLink || homeworkLink.includes('trainings')) return;
 
-  const homeworkId = homeworkLink.match(/lessons\/(\d+)/)?.[1];
-  if (!homeworkId) {
-    logger.error('Homework ID is undefined');
+  const groupId = getGroupId(element);
+  if (!groupId) {
+    logger.error('Group ID is undefined');
     return;
   }
 
-  const tasks = await getTasks(homeworkId);
-  if (!tasks) {
-    logger.error('Tasks are undefined');
+  const stats = await getStats(groupId);
+  if (!stats) {
+    logger.error('Lesson stats are undefined');
     return;
   }
 
-  const { percent, totalTasksCount, solvedTasksCount } = calculatePercent(tasks);
-  const percentElement = setupHomeworkPercentElement(percent, element);
+  const result = calculatePercent(stats.homework);
+  const percentElement = setupHomeworkPercentElement(result.percent, element);
 
-  if (checkIsShouldUseLegendary({ percent, totalTasksCount, solvedTasksCount })) {
+  if (checkIsShouldUseLegendary(result)) {
     useLegendary(percentElement);
   }
 }
 
-function getHomeworkLink(element: Element) {
-  return element.closest<HTMLAnchorElement>('a[href]')?.href;
+function getGroupId(element: Element) {
+  return element
+    .closest('a[href]')
+    ?.parentElement?.querySelector<HTMLAnchorElement>('a[href*="/groups/"]')
+    ?.href.match(/groups\/(\d+)/)?.[1];
 }
 
-async function getTasks(homeworkId: string) {
-  return makeRequest<Task[]>({ url: `lessons/${homeworkId}/tasks`, cacheCallback });
+async function getStats(groupId: string) {
+  return makeRequest<LessonStatsResponse>({
+    url: `user/calendar/items/course_lessons/${groupId}`,
+    cacheCallback,
+  });
 }
 
-export function cacheCallback(data: Task[]) {
-  return data.every(({ status }) => SOLVED_STATUSES.includes(status));
-}
-
-export function calculatePercent(tasks: Task[]) {
-  const solvedTasks = tasks.filter(({ status }) => !IGNORED_STATUSES.includes(status));
-  const solvedTasksRate = solvedTasks.reduce(
-    (sum, { status }) => sum + SOLVED_STATUSES_RATE[status as SolvedStatus],
-    0
-  );
-
-  return {
-    percent: solvedTasks.length === 0 ? null : Math.round((solvedTasksRate / solvedTasks.length) * 100),
-    totalTasksCount: tasks.length,
-    solvedTasksCount: solvedTasks.length,
-  };
+export function cacheCallback(data: LessonStatsResponse) {
+  return isFullyAssessed(data.classwork) && isFullyAssessed(data.homework);
 }
 
 function setupHomeworkPercentElement(percent: number | null, parent: Element) {
@@ -89,16 +72,8 @@ function setPercentElementAttributes(percentElement: HTMLElement) {
   percentElement.classList.add('homeworkPercent');
 }
 
-export function checkIsShouldUseLegendary({
-  percent,
-  totalTasksCount,
-  solvedTasksCount,
-}: {
-  percent: number | null;
-  totalTasksCount: number;
-  solvedTasksCount: number;
-}) {
-  return percent === 100 && totalTasksCount === solvedTasksCount;
+export function checkIsShouldUseLegendary({ percent, totalTasksCount, assessedTasksCount }: PercentResult) {
+  return percent === 100 && totalTasksCount === assessedTasksCount;
 }
 
 function useLegendary(element: HTMLElement) {

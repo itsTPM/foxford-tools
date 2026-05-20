@@ -1,5 +1,5 @@
 import { createObserver, createPercentElement } from '@/utils/dom';
-import { logger, makeRequest } from '@/utils';
+import { calculatePercent, isFullyAssessed, logger, makeRequest } from '@/utils';
 
 export function webinarPercent() {
   const observer = createObserver({
@@ -13,44 +13,38 @@ export function webinarPercent() {
 }
 
 async function observerCallback(element: Element) {
-  const webinarLink = getWebinarLink(element);
-  if (!webinarLink) return;
-
-  const webinarId = webinarLink.match(/lessons\/(\d+)/)?.[1];
-  if (!webinarId) {
-    logger.error('Webinar ID is undefined');
+  const groupId = getGroupId(element);
+  if (!groupId) {
+    logger.error('Group ID is undefined');
     return;
   }
 
-  const lessonTasksStats = await getLessonTasksStats(webinarId);
-  if (!lessonTasksStats) {
-    logger.error('Lesson tasks stats are undefined');
+  const stats = await getStats(groupId);
+  if (!stats) {
+    logger.error('Lesson stats are undefined');
     return;
   }
 
-  const percent = calculatePercent(lessonTasksStats.classwork);
+  const { percent } = calculatePercent(stats.classwork);
   setupWebinarPercentElement(percent, element);
 }
 
-function getWebinarLink(element: Element) {
-  return element.closest<HTMLAnchorElement>('a[href]')?.href;
+function getGroupId(element: Element) {
+  return element
+    .closest('a[href]')
+    ?.parentElement?.querySelector<HTMLAnchorElement>('a[href*="/groups/"]')
+    ?.href.match(/groups\/(\d+)/)?.[1];
 }
 
-async function getLessonTasksStats(webinarId: string) {
-  return makeRequest<LessonTasksStats>({ url: `user/calendar/items/course_lessons/${webinarId}` });
+async function getStats(groupId: string) {
+  return makeRequest<LessonStatsResponse>({
+    url: `user/calendar/items/course_lessons/${groupId}`,
+    cacheCallback,
+  });
 }
 
-export function calculatePercent(tasksStats: ClassworkStats) {
-  const {
-    solved_tasks_count: successfulTasksCount,
-    partially_tasks_count: partiallyTasksCount,
-    failed_tasks_count: failedTasksCount,
-  } = tasksStats;
-
-  const solvedTasksCount = successfulTasksCount + partiallyTasksCount + failedTasksCount;
-  if (solvedTasksCount === 0) return null;
-
-  return Math.round(((successfulTasksCount + partiallyTasksCount * 0.5) / solvedTasksCount) * 100);
+export function cacheCallback(data: LessonStatsResponse) {
+  return isFullyAssessed(data.classwork) && isFullyAssessed(data.homework);
 }
 
 function setupWebinarPercentElement(percent: number | null, element: Element) {
