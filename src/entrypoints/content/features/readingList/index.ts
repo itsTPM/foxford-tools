@@ -32,23 +32,27 @@ async function observerCallback(element: Element) {
   button.addEventListener('click', () => void toggleItemInList());
 
   async function toggleItemInList() {
-    const ids = getLessonAndConspectIds(conspectUrl);
-    if (!ids) {
-      alert('Не удалось получить данные о конспекте :(');
-      return;
-    }
+    if (isAdded) {
+      isAdded = false;
+      await removeFromReadingList(conspectUrl);
+    } else {
+      const ids = getLessonAndConspectIds(conspectUrl);
+      if (!ids) {
+        alert('Не удалось получить данные о конспекте :(');
+        return;
+      }
 
-    const conspectData = await makeRequest<ConspectData>({
-      url: `lessons/${ids.lessonId}/conspects/${ids.conspectId}`,
-    });
-    if (!conspectData) {
-      alert('Не удалось получить данные о конспекте :(');
-      return;
-    }
+      const conspectData = await makeRequest<ConspectData>({
+        url: `lessons/${ids.lessonId}/conspects/${ids.conspectId}`,
+      });
+      if (!conspectData) {
+        alert('Не удалось получить данные о конспекте :(');
+        return;
+      }
 
-    const readingListItem = buildReadingListItem(conspectData, conspectUrl);
-    isAdded = !isAdded;
-    await updateReadingList(readingListItem, isAdded);
+      isAdded = true;
+      await addToReadingList(buildReadingListItem(conspectData, conspectUrl));
+    }
     icon.src = getIconSrc(isAdded);
   }
 }
@@ -82,9 +86,12 @@ function buildReadingListItem(conspectData: ConspectData, conspectUrl: string): 
   return { url: conspectUrl, title, courseId, courseName, courseColor, courseImage };
 }
 
-async function updateReadingList(item: Bookmark, isAdded: boolean) {
+async function addToReadingList(item: Bookmark) {
   const currentList = await getReadingList();
-  const updatedList = isAdded ? [...currentList, item] : currentList.filter(({ url }) => url !== item.url);
+  await browser.storage.sync.set({ readingList: [...currentList, item] });
+}
 
-  await browser.storage.sync.set({ readingList: updatedList });
+async function removeFromReadingList(url: string) {
+  const currentList = await getReadingList();
+  await browser.storage.sync.set({ readingList: currentList.filter((item) => item.url !== url) });
 }
