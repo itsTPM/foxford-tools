@@ -13,7 +13,6 @@
     "dev:firefox": "wxt -b firefox",
     "test": "vitest",
     "build": "wxt build",
-    "build:chrome": "wxt build -b chrome",
     "build:firefox": "wxt build -b firefox",
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",

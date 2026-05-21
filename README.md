@@ -2,40 +2,53 @@
 
 # Foxford Tools
 
-_You can also open the [README in English](./README-en.md)_
+_You can also open [the README in English](./README-en.md)_
 
-### Что это
+[![Доступно в Chrome Web Store](https://developer.chrome.com/static/docs/webstore/branding/image/UV4C4ybeBTsZt43U4xis.png)](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)
 
-Неофициальный плагин, который интегрируется на сайт онлайн-школы Фоксфорд и расширяет функционал для учеников
+## О проекте
+
+Неофициальное расширение для браузера, которое интегрируется на сайт онлайн-школы Фоксфорд и расширяет функционал для учеников.
 
 Добавляет полезные фичи на сайт, среди которых:
 
-- процент успешности выполнения домашнего задания и заданий на вебинарах
-- смена заголовка страницы со статичного "Онлайн-школа Фоксфорд" на более подробные, чтобы не путаться во вкладках (например: "Календарь", "Домашка", "План на сегодня")
-- возможность добавлять статьи из вкладки "теория" в закладки, которые отображаются в самом расширении, с названием статьи, предметом и красивой иконкой
+- отображение процента успешности выполнения домашнего задания и заданий на вебинарах
+- установка понятных заголовков страницы на разных вкладках (например: "Домашка", "Вебинар", "Успеваемость")
+- возможность добавлять статьи из теории под уроком в закладки
 - кнопка для поиска теории по теме урока в Google
-- замена желтых блоков в задачах на светло-серые
-- отображение примерного времени чтения статьи во вкладке "теория"
+- замена цвета фона полей ввода и выпадающих списков в задачах на нейтральный
+- отображение примерного времени чтения теории
 
-  и не только..
+и не только...
 
-### Установка
+## Установка
 
-Расширение доступно для установки в [Chrome Web Store](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)
+Браузеры на основе Chromium (Google Chrome, Microsoft Edge, Opera и другие) -- [Chrome Web Store](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)
 
-### Баги, идеи и недоработки
+<!--Firefox - [Mozilla Addons]()-->
 
-полностью приветствуются в [Issues](https://github.com/itsTPM/foxford-tools/issues)
+## Локальная разработка
 
-### Сборка расширения вручную
+Для разработки требуются:
 
-Шаги для сборки расширения своими силами (не используя установку с [Chrome Web Store](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)):
+- [Node.js 24](https://nodejs.org/en/download) с `corepack`
+- bash
 
-1. Убедитесь, что установлены:
-   1. [NodeJS](https://nodejs.org/en/download/prebuilt-installer) последней LTS или Current версии
-   2. [pnpm](https://pnpm.io) 9 или выше
-2. Выполните `git clone https://github.com/itsTPM/foxford-tools.git` в терминале, чтобы клонировать репозиторий
-3. Убедитесь, что вы находитесь в нужной ветке (скорее всего, это будет ветка **main**)
-4. Выполните `pnpm install` для установки или обновления зависимостей проекта
-5. Выполните `pnpm dev` для запуска локального HMR-сервера разработки
-6. Выполните `pnpm build:chrome` или `pnpm build:firefox` для сборки расширения под соответствующий бразуер. В папке **dist** будет находиться билд расширения, который можно загрузить в браузер используя режим разработчика, или сбилдить в .crx используя [extension-install-backend](https://github.com/itsTPM/extension-install-backend) + [extension-install-frontend](https://github.com/itsTPM/extension-install-frontend)
+### Подготовка
+
+- `pnpm install` - установка зависимостей, генерация типов и хуков
+- `pnpm generate-icons` - генерация .png иконок из svg
+- `pnpm subset-fonts` - сабсет шрифтов до базовых кириллических и латинских символов
+
+### Разработка
+
+- `pnpm dev` - запуск dev-сервера и открытие браузера (Chrome)
+- `pnpm dev:firefox` - запуск dev-сервера и открытие браузера (Firefox)
+- `pnpm test` - запуск тестов
+
+### Сборка
+
+- `pnpm build` - билд в .output (Chrome)
+- `pnpm build:firefox` - билд в .output (Firefox)
+- `pnpm zip` - архив билда в .output (Chrome)
+- `pnpm zip:firefox` - архив билда и исходников в .output (Firefox)

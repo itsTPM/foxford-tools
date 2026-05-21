@@ -4,38 +4,51 @@
 
 _[README на русском](./README.md)_
 
-### About this project
+[![Available in the Chrome Web Store](https://developer.chrome.com/static/docs/webstore/branding/image/UV4C4ybeBTsZt43U4xis.png)](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)
 
-An unofficial extension that integrates into the Foxford online school website and extends functionality for students
+## About the Project
+
+An unofficial browser extension that integrates into the Foxford online school website and expands functionality for students.
 
 Adds useful features to the site, including:
 
-- success rate for homework and webinar tasks
-- changing the page title from static "Foxford Online School" to more detailed ones to avoid confusion in the tabs (for example: "Calendar", "Home", "Plan for Today")
-- the ability to add articles from the "theory" tab to bookmarks, which are displayed in the extension itself, with the title of the article, subject and a beautiful icon
-- a button to search for theory on the topic of the lesson in Google
-- replacing yellow blocks in tasks with light gray ones
-- displaying the approximate reading time of an article in the "theory" tab
+- Displaying the success percentage for homework and webinar assignments
+- Setting clear page titles on different tabs (e.g., "Homework," "Webinar," "Grades")
+- Ability to bookmark theory articles under lessons
+- A button to search Google for theory related to the lesson topic
+- Changing the background color of input fields and dropdown lists in tasks to a neutral tone
+- Displaying estimated reading time for theory
 
-  and more...
+and more...
 
-### Install
+## Installation
 
-The extension is available for installation in [Chrome Web Store](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)
+Chromium-based browsers (Google Chrome, Microsoft Edge, Opera, and others) -- [Chrome Web Store](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)
 
-### Bugs and your ideas
+<!--Firefox - [Mozilla Addons]()-->
 
-you can post them in [Issues](https://github.com/itsTPM/foxford-tools/issues)
+## Local Development
 
-### Build extension manual
+Development requires:
 
-Steps to build the extension yourself (without using the installation from the [Chrome Web Store](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)):
+- [Node.js 24](https://nodejs.org/en/download) with `corepack`
+- bash
 
-1. Make sure you have installed:
-   1. [NodeJS](https://nodejs.org/en/download/prebuilt-installer) latest LTS or Current version
-   2. [pnpm](https://pnpm.io) 9 or higher
-2. Run `git clone https://github.com/itsTPM/foxford-tools.git` in the terminal to clone the repository
-3. Make sure you are in the correct branch (most likely it will be the **main** branch)
-4. Run `pnpm install` to install or update the project dependencies
-5. Run `pnpm dev` to start the local HMR development server
-6. Run `pnpm build:chrome` or `pnpm build:firefox` to build the extension for the corresponding browser. The **dist** folder will contain a build of the extension, which can be loaded into the browser using developer mode, or built into .crx using [extension-install-backend](https://github.com/itsTPM/extension-install-backend) + [extension-install-frontend](https://github.com/itsTPM/extension-install-frontend).
+### Setup
+
+- `pnpm install` - install dependencies, generate types and hooks
+- `pnpm generate-icons` - generate .png icons from svg
+- `pnpm subset-fonts` - subset fonts to basic Cyrillic and Latin characters
+
+### Development
+
+- `pnpm dev` - start dev server and open browser (Chrome)
+- `pnpm dev:firefox` - start dev server and open browser (Firefox)
+- `pnpm test` - run tests
+
+### Build
+
+- `pnpm build` - build to .output (Chrome)
+- `pnpm build:firefox` - build to .output (Firefox)
+- `pnpm zip` - archive build in .output (Chrome)
+- `pnpm zip:firefox` - archive build and source code in .output (Firefox)
