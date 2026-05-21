@@ -50,16 +50,22 @@ export function cacheCallback(data: LessonStatsResponse) {
 }
 
 function setupWebinarPercentElement(percent: number | null, element: Element) {
-  const parent = element.lastChild?.lastChild?.lastChild?.lastChild;
+  const descriptionContainer = element.lastChild?.lastChild?.lastChild?.lastChild;
+  if (!(descriptionContainer instanceof Element)) {
+    logger.error('Unable to find description container for webinar percent element');
+    return;
+  }
+
+  const parent = descriptionContainer.firstElementChild;
   if (!(parent instanceof Element)) {
-    logger.error('Unable to find suitable parent for webinar percent element');
+    logger.error('Unable to find inner flex container for webinar percent element');
     return;
   }
 
   const percentElement = createPercentElement({
     percent,
     parent,
-    insertMethod: 'before',
+    insertMethod: 'prepend',
   });
 
   setPercentElementAttributes(percentElement);
@@ -69,5 +75,4 @@ function setupWebinarPercentElement(percent: number | null, element: Element) {
 
 function setPercentElementAttributes(percentElement: HTMLElement) {
   percentElement.id = 'webinarPercent';
-  percentElement.classList.add('webinarPercent');
 }

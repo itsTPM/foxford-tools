@@ -34,7 +34,7 @@ async function observerCallback(element: Element) {
   const result = calculatePercent(stats.homework);
   const percentElement = setupHomeworkPercentElement(result.percent, element);
 
-  if (checkIsShouldUseLegendary(result)) {
+  if (percentElement && checkIsShouldUseLegendary(result)) {
     useLegendary(percentElement);
   }
 }
@@ -57,11 +57,17 @@ export function cacheCallback(data: LessonStatsResponse) {
   return isFullyAssessed(data.classwork) && isFullyAssessed(data.homework);
 }
 
-function setupHomeworkPercentElement(percent: number | null, parent: Element) {
+function setupHomeworkPercentElement(percent: number | null, titleElement: Element) {
+  const tasksProgress = titleElement.nextElementSibling;
+  if (!(tasksProgress instanceof Element)) {
+    logger.error('Unable to find tasks-progress for homework percent element');
+    return;
+  }
+
   const percentElement = createPercentElement({
     percent,
-    parent,
-    insertMethod: 'after',
+    parent: tasksProgress,
+    insertMethod: 'prepend',
   });
 
   setPercentElementAttributes(percentElement);
