@@ -26,7 +26,7 @@ const urlTitleMap: Record<string, string> = {
   dashboard: 'Программы обучения',
   courses: 'Курс',
   tasks: 'Домашка',
-  groups: 'Вебинарка',
+  groups: 'Вебинар',
 };
 
 export function dynamicTitle() {

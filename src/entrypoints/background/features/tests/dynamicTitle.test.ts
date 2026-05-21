@@ -20,7 +20,7 @@ describe('dynamicTitle', () => {
     it('should return generic title when only the catch-all key matches', () => {
       expect(getDynamicTitleByUrl('https://foxford.ru/dashboard')).toBe('Программы обучения');
       expect(getDynamicTitleByUrl('https://foxford.ru/courses/12345')).toBe('Курс');
-      expect(getDynamicTitleByUrl('https://foxford.ru/groups/42')).toBe('Вебинарка');
+      expect(getDynamicTitleByUrl('https://foxford.ru/groups/42')).toBe('Вебинар');
     });
 
     it('should return the specific title for "interactive-training" rather than falling through to "tasks"', () => {
