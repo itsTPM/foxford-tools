@@ -25,6 +25,8 @@ async function observerCallback(element: Element) {
     return;
   }
 
+  if (stats.classwork.tasks_count === 0) return;
+
   const { percent } = calculatePercent(stats.classwork);
   setupWebinarPercentElement(percent, element);
 }

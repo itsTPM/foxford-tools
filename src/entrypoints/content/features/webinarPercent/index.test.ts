@@ -20,6 +20,33 @@ describe('webinarPercent', () => {
 
       expect(cacheCallback(response)).toBe(false);
     });
+
+    it('should return true when lesson has no homework (classwork-only)', () => {
+      const response = makeResponse({
+        classwork: { solved: 3, partially: 0, failed: 1, total: 4 },
+        homework: { solved: 0, partially: 0, failed: 0, total: 0 },
+      });
+
+      expect(cacheCallback(response)).toBe(true);
+    });
+
+    it('should return false when lesson has no classwork but homework is not assessed', () => {
+      const response = makeResponse({
+        classwork: { solved: 0, partially: 0, failed: 0, total: 0 },
+        homework: { solved: 0, partially: 0, failed: 0, total: 5 },
+      });
+
+      expect(cacheCallback(response)).toBe(false);
+    });
+
+    it('should return true when lesson has no classwork and homework is fully assessed', () => {
+      const response = makeResponse({
+        classwork: { solved: 0, partially: 0, failed: 0, total: 0 },
+        homework: { solved: 5, partially: 0, failed: 0, total: 5 },
+      });
+
+      expect(cacheCallback(response)).toBe(true);
+    });
   });
 });
 

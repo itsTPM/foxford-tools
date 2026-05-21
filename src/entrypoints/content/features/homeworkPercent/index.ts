@@ -29,6 +29,8 @@ async function observerCallback(element: Element) {
     return;
   }
 
+  if (stats.homework.tasks_count === 0) return;
+
   const result = calculatePercent(stats.homework);
   const percentElement = setupHomeworkPercentElement(result.percent, element);
 
