@@ -1,4 +1,4 @@
-import { ref, toRefs, watch } from 'vue';
+import { ref, toRaw, toRefs, watch } from 'vue';
 import { browser } from 'wxt/browser';
 
 type Settings = Record<string, boolean>;
@@ -59,7 +59,7 @@ async function saveSettings(settings: Settings) {
     localStorage.setItem(id, String(value));
   }
 
-  await browser.storage.local.set(settings);
+  await browser.storage.local.set(toRaw(settings));
 }
 
 watch(() => state.value.settings, saveSettings, { deep: true });
