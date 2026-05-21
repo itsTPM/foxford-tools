@@ -18,6 +18,12 @@ export default defineConfig({
     homepage_url: 'https://fox.lyosha.dev/',
     permissions: ['storage', 'scripting'],
     host_permissions: ['https://foxford.ru/*'],
+    browser_specific_settings: {
+      gecko: {
+        id: 'foxford-tools@lyosha.dev',
+        data_collection_permissions: { required: ['none'] },
+      },
+    },
   },
   vite: () => ({
     plugins: [svgLoader(), tailwindcss()],
