@@ -97,7 +97,7 @@
 .searchButton {
   cursor: pointer;
   position: absolute;
-  right: 3em;
+  right: 1.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
