@@ -8,6 +8,10 @@ interface State {
   theme: Theme;
 }
 
+function getSystemTheme(): Theme {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
 const state = ref<State>({
   theme: 'light',
 });
@@ -15,9 +19,7 @@ const state = ref<State>({
 function loadCustomization() {
   const theme = localStorage.getItem('theme') as Theme | null;
 
-  if (theme) {
-    state.value.theme = theme;
-  }
+  state.value.theme = theme ?? getSystemTheme();
 }
 
 function saveCustomization() {
@@ -25,12 +27,10 @@ function saveCustomization() {
 }
 
 function applyCustomization() {
-  const newTheme = state.value.theme;
-  const oldTheme = newTheme === 'light' ? 'dark' : 'light';
-
-  document.documentElement.classList.remove(oldTheme);
-  document.documentElement.classList.add(newTheme);
+  document.documentElement.classList.toggle('dark', state.value.theme === 'dark');
 }
+
+loadCustomization();
 
 watch(
   state,
@@ -38,10 +38,8 @@ watch(
     applyCustomization();
     saveCustomization();
   },
-  { deep: true }
+  { deep: true, immediate: true }
 );
-
-loadCustomization();
 
 export function useCustomization() {
   function toggleTheme() {
