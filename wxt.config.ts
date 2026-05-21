@@ -14,7 +14,7 @@ export default defineConfig({
   },
   manifest: {
     name: 'Foxford Tools',
-    description: 'Расширение для того самого сайта Фокса',
+    description: 'Добавляет полезные фичи для учеников Фоксфорда',
     homepage_url: 'https://fox.lyosha.dev/',
     permissions: ['storage', 'scripting'],
     host_permissions: ['https://foxford.ru/*'],
