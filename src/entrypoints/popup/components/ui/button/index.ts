@@ -9,7 +9,6 @@ export const buttonVariants = cva(
     'cursor-pointer text-xs font-medium outline-none select-none',
     'group/button transition-[colors,translate]',
     '[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-4',
-    'active:not-aria-[haspopup]:translate-y-px',
     'disabled:pointer-events-none disabled:opacity-50',
     'focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring',
     'aria-invalid:border-destructive aria-invalid:ring-2 aria-invalid:ring-destructive/20',
