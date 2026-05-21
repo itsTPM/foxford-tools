@@ -3,6 +3,7 @@ import svgLoader from 'vite-svg-loader';
 import { defineConfig } from 'wxt';
 
 export default defineConfig({
+  manifestVersion: 3,
   srcDir: 'src',
   modules: ['@wxt-dev/module-vue'],
   imports: false,
