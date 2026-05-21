@@ -42,13 +42,29 @@ async function send<T>(url: string, method: string) {
   return request;
 }
 
+const CACHE_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+
+interface CacheEntry<T> {
+  d: T;
+  t: number;
+}
+
+function toCacheKey(url: string) {
+  return 'ft:' + url.replace('https://foxford.ru/', '');
+}
+
 function getCachedData<T>(url: string) {
-  const cachedData = localStorage.getItem(url);
-  if (cachedData === null) return null;
-  return JSON.parse(cachedData) as T;
+  const raw = localStorage.getItem(toCacheKey(url));
+  if (raw === null) return null;
+  const entry = JSON.parse(raw) as CacheEntry<T>;
+  if (Date.now() - entry.t > CACHE_TTL_MS) {
+    localStorage.removeItem(toCacheKey(url));
+    return null;
+  }
+  return entry.d;
 }
 
 function setCachedData<T>(url: string, data: T, cacheCallback: (data: T) => boolean) {
   if (!cacheCallback(data)) return;
-  localStorage.setItem(url, JSON.stringify(data));
+  localStorage.setItem(toCacheKey(url), JSON.stringify({ d: data, t: Date.now() } satisfies CacheEntry<T>));
 }

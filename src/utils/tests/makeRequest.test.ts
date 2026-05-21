@@ -11,6 +11,7 @@ vi.mock('../logger', () => ({
 }));
 
 const BASE_API_URL = 'https://foxford.ru/api/';
+const CACHE_KEY = 'ft:api/test';
 
 describe('makeRequest', () => {
   beforeEach(() => {
@@ -38,7 +39,7 @@ describe('makeRequest', () => {
   });
 
   it('should use cache if cacheCallback is provided and data is cached', async () => {
-    localStorage.setItem(`${BASE_API_URL}test`, JSON.stringify({ data: 'cached' }));
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ d: { data: 'cached' }, t: Date.now() }));
 
     const cacheCallback = vi.fn<(data: unknown) => boolean>().mockReturnValue(true);
     const data = await makeRequest({ url: 'test', cacheCallback });
@@ -47,14 +48,27 @@ describe('makeRequest', () => {
     expect(ofetch).not.toHaveBeenCalled();
   });
 
-  it('should fetch and cache data if not cached', async () => {
+  it('should not use cache if entry is expired', async () => {
     vi.mocked(ofetch).mockResolvedValueOnce({ data: 'fetched' });
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ d: { data: 'cached' }, t: 0 }));
 
     const cacheCallback = vi.fn<(data: unknown) => boolean>().mockReturnValue(true);
     const data = await makeRequest({ url: 'test', cacheCallback });
 
     expect(data).toEqual({ data: 'fetched' });
-    expect(localStorage.getItem(`${BASE_API_URL}test`)).toBe(JSON.stringify({ data: 'fetched' }));
+    expect(ofetch).toHaveBeenCalledTimes(1);
+  });
+
+  it('should fetch and cache data if not cached', async () => {
+    vi.mocked(ofetch).mockResolvedValue({ data: 'fetched' });
+
+    const cacheCallback = vi.fn<(data: unknown) => boolean>().mockReturnValue(true);
+    const first = await makeRequest({ url: 'test', cacheCallback });
+    const second = await makeRequest({ url: 'test', cacheCallback });
+
+    expect(first).toEqual({ data: 'fetched' });
+    expect(second).toEqual({ data: 'fetched' });
+    expect(ofetch).toHaveBeenCalledTimes(1);
   });
 
   it('should not cache data if cacheCallback returns false', async () => {
@@ -64,7 +78,7 @@ describe('makeRequest', () => {
     const data = await makeRequest({ url: 'test', cacheCallback });
 
     expect(data).toEqual({ data: 'fetched' });
-    expect(localStorage.getItem(`${BASE_API_URL}test`)).toBeNull();
+    expect(localStorage.getItem(CACHE_KEY)).toBeNull();
   });
 
   it('should pass custom method to ofetch', async () => {
@@ -83,7 +97,7 @@ describe('makeRequest', () => {
 
     expect(data).toBeUndefined();
     expect(cacheCallback).not.toHaveBeenCalled();
-    expect(localStorage.getItem(`${BASE_API_URL}test`)).toBeNull();
+    expect(localStorage.getItem(CACHE_KEY)).toBeNull();
   });
 
   it('should deduplicate concurrent requests to the same URL', async () => {
