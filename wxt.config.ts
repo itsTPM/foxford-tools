@@ -16,9 +16,8 @@ export default defineConfig({
     name: 'Foxford Tools',
     description: 'Расширение для того самого сайта Фокса',
     homepage_url: 'https://fox.lyosha.dev/',
-    permissions: ['storage', 'activeTab', 'scripting'],
+    permissions: ['storage', 'scripting'],
     host_permissions: ['https://foxford.ru/*'],
-    externally_connectable: { matches: ['https://foxford.ru/*'] },
   },
   vite: () => ({
     plugins: [svgLoader(), tailwindcss()],
