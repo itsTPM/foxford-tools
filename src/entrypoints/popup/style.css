@@ -116,11 +116,11 @@
 
 @layer base {
   html {
-    @apply scrollbar-gutter-both;
+    @apply scrollbar-thin scrollbar-gutter-both;
   }
 
   body {
-    @apply min-h-112 w-87.5 bg-background p-4 font-sans text-base! text-foreground select-none;
+    @apply min-h-100 w-80 bg-background px-2 py-4 font-sans text-base! text-foreground select-none;
   }
 
   #app {

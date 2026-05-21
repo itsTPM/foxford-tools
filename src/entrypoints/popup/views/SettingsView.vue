@@ -14,7 +14,7 @@ const { selectedSettingGroup, settingGroups } = useSettings();
       </li>
     </ul>
 
-    <ul class="flex flex-col justify-center gap-4 overflow-y-auto border border-border bg-card p-4">
+    <ul class="flex grow flex-col justify-center gap-4 overflow-y-auto border border-border bg-card p-4">
       <li v-for="setting in selectedSettingGroup.settings" :key="setting.id">
         <SettingItem :setting />
       </li>
