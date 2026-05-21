@@ -19,8 +19,6 @@ jobs:
           node-version-file: .nvmrc
       - name: Install pnpm
         uses: pnpm/action-setup@v6
-        with:
-          version: 10
       - name: Install dependencies
         run: pnpm install
       - name: Run lint
@@ -46,8 +44,6 @@ jobs:
           node-version-file: .nvmrc
       - name: Install pnpm
         uses: pnpm/action-setup@v6
-        with:
-          version: 10
       - name: Install dependencies
         run: pnpm install
       - name: Zip extensions
