@@ -4,7 +4,12 @@
 
 _[README на русском](./README.md)_
 
-[![Available in the Chrome Web Store](https://developer.chrome.com/static/docs/webstore/branding/image/UV4C4ybeBTsZt43U4xis.png)](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)
+<a href="https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm">  
+  <img src=".github/assets/google.png" alt="Available in the Chrome Web Store" height="58">
+</a>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/foxford-tools/">
+  <img src=".github/assets/mozilla.png" alt="Available in the Firefox Add-ons" height="58">
+</a>
 
 ## About the Project
 
@@ -25,7 +30,7 @@ and more...
 
 Chromium-based browsers (Google Chrome, Microsoft Edge, Opera, and others) -- [Chrome Web Store](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)
 
-<!--Firefox - [Mozilla Addons]()-->
+Mozilla Firefox - [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/foxford-tools/)
 
 ## Local Development
 

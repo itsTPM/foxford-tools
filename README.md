@@ -4,7 +4,12 @@
 
 _You can also open [the README in English](./README-en.md)_
 
-[![Доступно в Chrome Web Store](https://developer.chrome.com/static/docs/webstore/branding/image/UV4C4ybeBTsZt43U4xis.png)](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)
+<a href="https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm">  
+  <img src=".github/assets/google.png" alt="Доступно в Chrome Web Store" height="58">
+</a>
+<a href="https://addons.mozilla.org/ru/firefox/addon/foxford-tools/">
+  <img src=".github/assets/mozilla.png" alt="Доступно в Firefox Add-ons" height="58">
+</a>
 
 ## О проекте
 
@@ -25,7 +30,7 @@ _You can also open [the README in English](./README-en.md)_
 
 Браузеры на основе Chromium (Google Chrome, Microsoft Edge, Opera и другие) -- [Chrome Web Store](https://chromewebstore.google.com/detail/foxford-tools/mmhgkmkmoepfpcakdkajpendcnjichhm)
 
-<!--Firefox - [Mozilla Addons]()-->
+Mozilla Firefox - [Firefox Add-ons](https://addons.mozilla.org/ru/firefox/addon/foxford-tools/)
 
 ## Локальная разработка
 
